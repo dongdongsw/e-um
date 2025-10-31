@@ -14,11 +14,13 @@
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-</head>
+   
+    
+
 
 <body>
   <jsp:include page="header.jsp"></jsp:include>
-  <jsp:include page="home.jsp"></jsp:include>
+  <jsp:include page="${main_jsp}"></jsp:include>
   <jsp:include page="footer.jsp"></jsp:include>
 </body>
 
@@ -31,4 +33,5 @@
   <script src="assets/js/tabs.js"></script>
   <script src="assets/js/popup.js"></script>
   <script src="assets/js/custom.js"></script>
+  
 </html>
