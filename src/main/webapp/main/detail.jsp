@@ -309,6 +309,7 @@
 </head>
 <body>
   <div style="background-color:#fff; height:180px;"></div>
+  <div class="header-text" style="height: 100px;"></div>
 
   <section class="dt-container hero" id="main-section">
     <div class="hero-left">
