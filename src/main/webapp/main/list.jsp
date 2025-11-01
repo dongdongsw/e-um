@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,13 +46,13 @@
     margin-bottom: 8px;
   }
 
-  .sidebar ul li a {
+  .sidebar ul li {
     text-decoration: none;
     color: #333;
     font-size: 13px;
   }
 
-  .sidebar ul li a:hover {
+  .sidebar ul li:hover {
     color: #7453fc;
   }
 
@@ -64,7 +65,7 @@
 .temporary__storage {
 /*delete this*/
   width: 220px;
-  height: 270px;
+  height: 290px;
   border-radius: 15px;
   display: flex;
   justify-content: center;
@@ -73,12 +74,12 @@
 
 .list-card {
   width: 200px;
-  height: 250px;
+  height: 270px;
   position: relative;
   color: #black;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   cursor: pointer;
   transition: all .2s ease;
 }
@@ -117,7 +118,7 @@
 
 .image__overlay {
   width: 100%;
-  height: 180px;
+  height: 160px;
 }
 
 .list-card:hover {
@@ -174,17 +175,14 @@
   background-color: rgb(220, 220, 220);
   padding: 2px 8px;
   border-radius: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .stream__title:hover, .event:hover {
   color: #9f7cd3;
 }
-
-.categories__btn:hover {
-  background-color: rgb(79, 79, 79);
-}
-
-
 </style>
 </head>
 <body>
@@ -218,34 +216,10 @@
     <!-- 오른쪽 메인 -->
     <div class="main">
       <div class="row">
-		  <div class="col-md-3">
-		   <div class="temporary__storage">
-			  <div class="list-card">
-			    <div class="image">
-			      <img src="./assets/images/플랫폼개발.webp" width="200" height="160" style="border-radius: 15px;">
-			    </div>
-			    <div class="image__overlay"></div>
-			    <div class="content">
-			      <div class="avatar"></div>
-			      <div class="content__text">
-			        <span class="stream__title">맞춤 개발로 완벽한 플랫폼을 만들어드립니다</span>
-			        <div class="content__body">
-			          <span class="streamer__name">ibai</span>
-			          <span class="event">League of Legends</span>
-			        </div>
-			        <span class="categories">
-			          <a class="categories__btn" href="#">Español</a>
-			          <a class="categories__btn" href="#">KOI</a>
-			          <a class="categories__btn" href="#">LOL</a>
-			        </span>
-			      </div>
-			    </div>
-			</div>
-		  </div>
-      </div>
-      <div class="col-md-3">
+       <c:forEach begin="0" end="11">
+         <div class="col-md-3">
 		   <div class="temporary__storage" style="border:none">
-			  <div class="list-card">
+			  <div class="list-card" onclick="location.href='../main/detail.eum'">
 			    <div class="image">
 			      <img src="./assets/images/플랫폼개발.webp" width="200" height="160" style="border-radius: 15px;">
 			    </div>
@@ -255,69 +229,19 @@
 			      <div class="content__text">
 			        <span class="stream__title">맞춤 개발로 완벽한 플랫폼을 만들어드립니다</span>
 			        <div class="content__body">
-			          <span class="streamer__name">ibai</span>
-			          <span class="event">League of Legends</span>
+			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ 4.9 (23)</span>
+			          <span class="streamer__name" id="price" style="font-size: 12px">10,000원</span>
+			          <span class="streamer__name" id="seller" style="font-size: 10px">김민식</span>
 			        </div>
 			        <span class="categories">
-			          <a class="categories__btn" href="#">Español</a>
-			          <a class="categories__btn" href="#">KOI</a>
-			          <a class="categories__btn" href="#">LOL</a>
+			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">카테고리</div>
 			        </span>
 			      </div>
 			    </div>
 			</div>
 		  </div>
-      </div>
-      <div class="col-md-3">
-		   <div class="temporary__storage">
-			  <div class="list-card">
-			    <div class="image">
-			      <img src="./assets/images/플랫폼개발.webp" width="200" height="160" style="border-radius: 15px;">
-			    </div>
-			    <div class="image__overlay"></div>
-			    <div class="content">
-			      <div class="avatar"></div>
-			      <div class="content__text">
-			        <span class="stream__title">맞춤 개발로 완벽한 플랫폼을 만들어드립니다</span>
-			        <div class="content__body">
-			          <span class="streamer__name">ibai</span>
-			          <span class="event">League of Legends</span>
-			        </div>
-			        <span class="categories">
-			          <a class="categories__btn" href="#">Español</a>
-			          <a class="categories__btn" href="#">KOI</a>
-			          <a class="categories__btn" href="#">LOL</a>
-			        </span>
-			      </div>
-			    </div>
-			</div>
-		  </div>
-      </div>
-      <div class="col-md-3">
-		   <div class="temporary__storage">
-			  <div class="list-card">
-			    <div class="image">
-			      <img src="./assets/images/플랫폼개발.webp" width="200" height="160" style="border-radius: 15px;">
-			    </div>
-			    <div class="image__overlay"></div>
-			    <div class="content">
-			      <div class="avatar"></div>
-			      <div class="content__text">
-			        <span class="stream__title">맞춤 개발로 완벽한 플랫폼을 만들어드립니다</span>
-			        <div class="content__body">
-			          <span class="streamer__name">ibai</span>
-			          <span class="event">League of Legends</span>
-			        </div>
-			        <span class="categories">
-			          <a class="categories__btn" href="#">Español</a>
-			          <a class="categories__btn" href="#">KOI</a>
-			          <a class="categories__btn" href="#">LOL</a>
-			        </span>
-			      </div>
-			    </div>
-			</div>
-		  </div>
-      </div>
+        </div>
+      </c:forEach>
     </div>
   </div>
  </div>
