@@ -129,7 +129,7 @@
     .banner {height: 100%}
 
     .plans{margin-top:16px}
-    .plan-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:0; overflow:hidden}
+    .plan-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:0;}
 
     .tabs{display:flex; border-bottom:1px solid var(--line); background:#fafafa}
     .tabs label{flex:1; text-align:center; padding:14px 10px; cursor:pointer; font-weight:700}
@@ -155,9 +155,9 @@
     .kv small{color:var(--muted)}
 
     .cta{display:flex; gap:10px; margin-top:14px}
-    .btn-ghost{flex:1; border:1px solid var(--line); background:var(--card); padding:12px; border-radius:12px; font-weight:700}
-    .btn-primary{flex:1; background:#7453fc; color:#fff; padding:12px; border-radius:12px; font-weight:900; border:1px solid #00000020}
-
+    .btn-ghost{flex:1; border:1px solid var(--line); #7553fcde; padding:12px; border-radius:12px; font-weight:700}
+    .btn-pri{flex:1; background:#7453fc; color:#fff; padding:12px; border-radius:12px; font-weight:900; border:1px solid #00000020}
+	.btn-pri:hover{background:#7453fcde}
     /* 섹션 탭 네비게이션 (하단) */
     .section-tabs{margin-top:28px; display:flex; gap:12px; border-bottom:1px solid var(--line)}
     .section-tabs a{padding:12px 2px; color:var(--muted); font-weight:700}
@@ -220,7 +220,7 @@
 	/* 현재 선택 텍스트 */
 	.dropdown-el .current{
 	  display:block;
-	  overflow:hidden;
+	  /* overflow:hidden; */
 	  text-overflow:ellipsis;
 	  font-size: 17px;
 	}
@@ -301,9 +301,15 @@
 	  border-radius: .5em;
 	  box-shadow: 0 8px 24px rgba(0,0,0,.14);
 	  max-height: 15em;
-	  overflow: auto;
+	  /* verflow: auto; */
 	  display: none;            /* 기본 숨김 */
 	}
+	#skicky{
+  		position: sticky;
+		top: 100px;          /* 화면 상단에서 20px 떨어진 위치에 고정 */
+		align-self: start;  /* 부모가 flex/grid일 때 위에서부터 배치 */
+		z-index: 2;         /* 필요한 경우 헤더/카드 위로 */
+}
     
   </style>
 </head>
@@ -418,7 +424,7 @@
       </div>
     </div>
 
-    <div class="hero-right">
+    <div class="hero-right" id="skicky">
       <div class="plans">
           <span class="dropdown-el" id="sortDropdown">
 		  <span class="current">벽걸이 기본 (90,000원)</span>
@@ -438,7 +444,7 @@
 			</span>
             <div class="cta">
               <button class="btn-ghost">전문가에게 문의하기</button>
-              <button class="btn-primary">구매하기</button>
+              <button class="btn-pri">구매하기</button>
             </div>
           </div>
         </div>
