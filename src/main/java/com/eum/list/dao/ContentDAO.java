@@ -1,4 +1,4 @@
-package com.eum.dao;
+package com.eum.list.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
-import com.eum.vo.ContentVO;
+import com.eum.list.vo.ContentVO;
 
 public class ContentDAO {
 	private static SqlSessionFactory ssf;

@@ -1,4 +1,4 @@
-package com.eum.vo;
+package com.eum.list.vo;
 /*
     B_ID          NOT NULL VARCHAR2(30)  
 	U_S_ID                 NUMBER        

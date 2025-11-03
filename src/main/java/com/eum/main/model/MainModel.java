@@ -1,4 +1,4 @@
-package com.eum.model;
+package com.eum.main.model;
 
 import java.net.http.HttpRequest;
 
