@@ -6,7 +6,7 @@
   <properties resource="db.properties"/>
 
    <typeAliases>
-     <typeAlias type="com.eum.vo.ContentVO" alias="ContentVO"/>
+     <typeAlias type="com.eum.list.vo.ContentVO" alias="ContentVO"/>
    </typeAliases>
   <environments default="develpoment">
     <environment id="develpoment">
