@@ -3,8 +3,9 @@
 <mapper namespace="com.eum.list.mapper.content-mapper">
   <select id="contentListData" resultType="ContentVO" parameterType="map">
     SELECT b_id, b_thumbnail, b_title, b_type
-  	FROM board
-  	ORDER BY b_id DESC
+	FROM board
+	ORDER BY b_id DESC
+	FETCH FIRST 12 ROWS ONLY
   </select>
   
   <!-- <select id="contentTotalPage"></select> -->

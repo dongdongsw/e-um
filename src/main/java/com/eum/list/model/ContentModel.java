@@ -27,7 +27,7 @@ public class ContentModel {
         // b_id가 null이면 jsp에서 사용할 때도 null일 수 있으니 확인
         request.setAttribute("b_id", null);
 
-        request.setAttribute("main_jsp", "../main/list.jsp");
+        request.setAttribute("main_jsp", "../main/list/list.jsp");
         return "../main/main.jsp";
     }
 }

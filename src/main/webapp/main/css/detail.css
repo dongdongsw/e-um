@@ -104,13 +104,17 @@
     .review-top{display:flex; align-items:center; gap:10px; margin-bottom:6px}
     .avatar{width:40px; height:40px; border-radius:50%; background:#e5e7eb}
     .review-img{width:70px; height:70px; background:#e5e7eb; border-radius:15%; margin: 10px 1px 10px 0; display: inline-block;}
-    .name {
+    .seller-name {
 		  font-weight: 800;
 		  display: flex;
 		  align-items: center; /* 세로 가운데 */
 		  justify-content: center; /* 가로 가운데 (필요 시) */
 		  height: 40px; /* 높이 지정 시 중앙 기준이 명확해짐 */
 		}
+	.name {	
+		  font-weight: 800;
+		  display: flex;
+	}
     .stars-sm{display:inline-flex; gap:2px; transform:translateY(1px)}
     .star-sm{width:14px; height:14px; fill:var(--accent)}
 
@@ -250,3 +254,135 @@
 	  display: flex;
       align-items: center; /* 세로 가운데 */
 	}
+	
+.seller-profile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.seller-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+.seller-name {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+
+.seller-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.seller-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+  object-fit: cover;
+}
+
+.seller-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.seller-status {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.seller-subinfo {
+  font-size: 13px;
+  color: #999;
+}
+
+.seller-detail {
+  padding-top: 30px;
+}
+/* 컨테이너: 그리드로 균등 배치 */
+.seller-stats{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(160px,1fr)); /* 필요시 갯수 조정 */
+  gap:16px;
+  max-width:300px;
+  margin:16px 0;
+}
+
+/* 카드 */
+.stat{
+  background:#f8f9fb;           /* 아주 연한 회색 배경 */
+  border:1px solid #eee;         /* 연한 테두리 */
+  border-radius:16px;            /* 둥근 모서리 */
+  padding:10px 9px;
+  text-align:center;             /* 가운데 정렬 */
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+
+/* 라벨(윗줄) */
+.stat-label{
+  display:block;
+  font-size:12px;
+  line-height:1;
+  color:#8a8a8a;                 /* 옅은 회색 텍스트 */
+  margin-bottom:10px;
+}
+
+/* 값(아랫줄) */
+.stat-value{
+  font-size:12px;
+  font-weight:800;               /* 굵게 */
+  color:#111;                    /* 진회색/거의 검정 */
+}
+
+/* 모바일 대응 */
+@media (max-width: 640px){
+  .seller-stats{
+    grid-template-columns: 1fr 1fr; /* 2열 */
+  }
+}
+@media (max-width: 420px){
+  .seller-stats{
+    grid-template-columns: 1fr;     /* 1열 */
+  }
+}
+.like-button { display:inline-flex; align-items:center; gap:6px; cursor:pointer; }
+.heart { width:22px; height:22px; }
+.heart path { fill:#ccc; transition:fill .25s ease; }              /* 기본 회색 */
+.like-button.liked .heart path { fill:#ef4444; }                    /* 좋아요 시 빨강 */
+
+.re-review {
+   margin: 10px 0 0 10px;
+   padding: 15px 15px 15px 15px;
+   background-color: #f5f5f5;
+   border-radius: 15px;
+}
+.quick {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  font-size: 14px;
+}
+
+.quick svg {
+  width: 20px;
+  height: 20px;
+}

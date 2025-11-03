@@ -20,6 +20,6 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="com/eum/mapper/content-mapper.xml"/>
+    <mapper resource="com/eum/list/mapper/content-mapper.xml"/>
   </mappers>
 </configuration>
