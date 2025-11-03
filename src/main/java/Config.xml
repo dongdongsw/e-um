@@ -6,7 +6,7 @@
   <properties resource="db.properties"/>
 
    <typeAliases>
-   
+     <typeAlias type="com.eum.vo.ContentVO" alias="ContentVO"/>
    </typeAliases>
   <environments default="develpoment">
     <environment id="develpoment">
@@ -20,5 +20,6 @@
     </environment>
   </environments>
   <mappers>
+    <mapper resource="com/eum/mapper/content-mapper.xml"/>
   </mappers>
 </configuration>
