@@ -70,6 +70,26 @@
     if (checked && current) current.textContent = checked.textContent.trim();
   });
 </script>
+<style type="text/css">
+.re-review {
+   margin: 10px 0 0 0;
+   padding: 15px 15px 15px 15px;
+   background-color: #f5f5f5;
+   border-radius: 15px;
+}
+.quick {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  font-size: 14px;
+}
+
+.quick svg {
+  width: 20px;
+  height: 20px;
+}
+</style>
 </head>
 <body>
   <div class="header-text" style="height: 200px;"></div>
@@ -77,7 +97,7 @@
   <section class="dt-container hero" id="main-section">
     <div class="hero-left">
       <div class="title-row">
-        <span class="prime-badge">prime</span>
+        <button class="prime-badge">찜하기</button>
         <h1 class="title">모든 종류의 보도자료, 기사 작성 및 송출해 드립니다.</h1> <!-- 컨텐츠 제목 -->
       </div>
 
@@ -97,20 +117,26 @@
           </svg>
           <span>1,477</span> <!-- 좋아요 수 -->
         </div>
+        <div class="quick">
+  <svg class="view" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 5C7 5 2.7 8.1 1 12c1.7 3.9 6 7 11 7s9.3-3.1 11-7c-1.7-3.9-6-7-11-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" fill="#6b7280"/>
+  </svg>
+  <span>23,512</span>
+</div>
       </div>
 
       <div class="contact-bar">
-        <span class="chip">PRESSINSIDE · 언제나 가능</span>
-        <span class="chip" style="background:#e5e7eb; color:#111">평균 응답 10분</span>
+        <div style="display: flex;">
+           <div class="avatar" style="margin-right: 10px;"></div> <!-- 셀러 프로필 -->
+           <div class="name"><p>김민식</p></div> <!-- 셀러 이름 -->
+        </div>
         <a class="btn-outline" href="#">문의하기</a>
       </div>
 
       <div class="prime-card">
-        <h4 style="color:black;">이 서비스는 꼼꼼한 상위 2% 전문가가 제공해요</h4>
         <ul class="prime-list">
-          <li><span class="tick">✔</span> 포트폴리오와 고객 후기로 검증된 퀄리티</li>
-          <li><span class="tick">✔</span> 경력·이력 인증 심사를 통과한 서비스</li>
-          <li><span class="tick">✔</span> 다양한 고객의 요청에 맞춘 전문성</li>
+          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 경력 : 100년</li>
+          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 서비스 지역 : 서울</li>
         </ul>
       </div>
     </div>
@@ -174,6 +200,20 @@
                 </c:forEach>
 				<!-- 리뷰 내용 -->
                 <p style="margin:0; color:var(--muted)">빠르고 정확하기도 한데다가 원고도 너무 좋네요…</p>
+                
+                <div class="re-review">
+                 <div class="review">
+                  <div style="display: flex;">
+                    <div class="avatar" style="margin-right: 10px;"></div> <!-- 셀러 프로필 -->
+                      <div class="name">김민식</div> <!--  -->
+                      <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 답글 날짜 -->
+                        25.11.03 16:18
+                      </div>
+                    </div>
+                  </div> 	
+					<!-- 대댓글 내용 -->
+                	<p style="margin:0; color:var(--muted)">좋은 리뷰 감사합니다~!!!</p>
+                </div>
               </div>
             </c:forEach>
           </aside>
