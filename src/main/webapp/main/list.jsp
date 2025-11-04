@@ -274,7 +274,7 @@ window.addEventListener('DOMContentLoaded', function () {
 			          <span class="streamer__name" id="seller" style="font-size: 10px">김민식</span>
 			        </div>
 			        <span class="categories">
-			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">카테고리</div>
+			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">s</div>
 			        </span>
 			      </div>
 			    </div>
@@ -282,18 +282,20 @@ window.addEventListener('DOMContentLoaded', function () {
 		  </div>
         </div>
       </c:forEach>
-     <div id="app" class="container">  
+       <div id="app" class="container">  
   <ul class="page">
     <c:if test="${startPage > 1}">
       <li class="page__btn active">
         <a class="material-icons" href="../main/list.eum?page=${startPage - 1}&type=${type}">&lt;</a>
       </li>
     </c:if>
+
     <c:forEach var="i" begin="${startPage}" end="${endPage}">
       <li class="page__numbers ${i == curpage ? 'active' : ''}">
         <a href="../main/list.eum?page=${i}&type=${type}">${i}</a>
       </li>
     </c:forEach>
+
     <c:if test="${endPage < totalpage}">
       <li class="page__btn active">
         <a class="material-icons" href="../main/list.eum?page=${endPage + 1}&type=${type}">&gt;</a>
@@ -301,6 +303,7 @@ window.addEventListener('DOMContentLoaded', function () {
     </c:if>
   </ul>
 </div>
+
 
       
     </div>

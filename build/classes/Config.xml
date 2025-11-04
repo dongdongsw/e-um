@@ -8,8 +8,8 @@
    <typeAliases>
      <typeAlias type="com.eum.list.vo.ContentVO" alias="ContentVO"/>
    </typeAliases>
-  <environments default="develpoment">
-    <environment id="develpoment">
+  <environments default="development">
+    <environment id="development">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="${driver}"/>
