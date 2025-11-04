@@ -5,6 +5,84 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+/* ===============================
+   LIBERTY NFT - Category Buttons
+================================= */
+.category-section {
+  width: 100%;
+background: #ffffff;  
+border-bottom: 1px solid #e6e6f8;
+  padding: 40px 0 50px 0;  /* ✅ 위 공간 확장 */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* ✅ 위로 여유 공간 확보 */
+  overflow: visible; /* ✅ hover 시 위쪽 짤림 방지 */
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+}
+
+.category-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 32px;
+  overflow-x: auto;
+  max-width: 100%;
+  padding: 10px 40px; /* ✅ 좌우 여백 추가 */
+  box-sizing: border-box;
+}
+
+
+
+/* 버튼 스타일 */
+.brutalist-button.button-1 {
+  width: 160px;
+  height: 160px;
+  background: #ffffff;
+  border: 2px solid #b3aaff;
+  border-radius: 18px;
+  box-shadow: 5px 5px 0 #00000022;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* hover 시 효과 */
+.brutalist-button.button-1:hover {
+  background: #6c63ff;
+  color: #fff;
+  border-color: #4c43e2;
+  transform: translate(-5px, -5px);
+  box-shadow: 8px 8px 0 #00000033;
+}
+
+/* 클릭 시 */
+.brutalist-button.button-1:active {
+  transform: translate(0, 0);
+  box-shadow: 3px 3px 0 #00000033;
+}
+
+/* 아이콘 */
+.category-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.brutalist-button.button-1:hover .category-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+</style>
 </head>
 <body>
   <div class="main-banner" style="background-color: #fff">
@@ -69,6 +147,7 @@
           </div>
         </div>
       </div>
+      
       <div class="row">
         <div class="col-lg-12">
           <div class="categories">
@@ -77,6 +156,39 @@
                 <div class="section-heading">
                 </div>
               </div>
+              <section class="category-section">
+  <div class="category-container">
+    <button class="brutalist-button button-1">
+      <img src="../main/images/color-pallete.png" alt="디자인" class="category-icon">
+      <span>디자인</span>
+    </button>
+
+    <button class="brutalist-button button-1">
+      <img src="../main/images/video-camera.png" alt="영상" class="category-icon">
+      <span>영상</span>
+    </button>
+
+    <button class="brutalist-button button-1">
+      <img src="../main/images/headphones.png" alt="음악" class="category-icon">
+      <span>음악</span>
+    </button>
+
+    <button class="brutalist-button button-1">
+      <img src="../main/images/graduation.png" alt="교육" class="category-icon">
+      <span>교육</span>
+    </button>
+
+    <button class="brutalist-button button-1">
+      <img src="../main/images/robot.png" alt="AI/테크" class="category-icon">
+      <span>AI / 테크</span>
+    </button>
+
+    <button class="brutalist-button button-1">
+      <img src="../main/images/puzzle.png" alt="기타" class="category-icon">
+      <span>기타</span>
+    </button>
+  </div>
+</section>
               <div class="col-lg-2 col-sm-5">
                 <div class="item">
                   <div class="icon">
