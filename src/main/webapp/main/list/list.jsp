@@ -56,6 +56,61 @@ window.addEventListener('DOMContentLoaded', function () {
 </head>
 <body>
   <div class="header-text" style="height: 100px;"></div>
+	<div class="radio-inputs">
+  <div class="category">
+
+    <label>
+      <input class="radio-input" type="radio" name="engine">
+      <span class="radio-tile">
+        <span class="radio-icon">
+          <img src="../images/exercise.svg" alt="exercise">
+        </span>
+        <span class="radio-label">EXERCISE</span>
+      </span>
+    </label>
+
+    <label>
+      <input checked class="radio-input" type="radio" name="engine">
+      <span class="radio-tile">
+        <span class="radio-icon">
+          <img src="../images/business.svg" alt="business">
+        </span>
+        <span class="radio-label">BUSINESS</span>
+      </span>
+    </label>
+
+    <label>
+      <input class="radio-input" type="radio" name="engine">
+      <span class="radio-tile">
+        <span class="radio-icon">
+          <img src="../images/hobby.svg" alt="hobby">
+        </span>
+        <span class="radio-label">HOBBY</span>
+      </span>
+    </label>
+
+    <label>
+      <input class="radio-input" type="radio" name="engine">
+      <span class="radio-tile">
+        <span class="radio-icon">
+          <img src="../images/life.svg" alt="life">
+        </span>
+        <span class="radio-label">LIFE</span>
+      </span>
+    </label>
+
+    <label>
+      <input class="radio-input" type="radio" name="engine">
+      <span class="radio-tile">
+        <span class="radio-icon">
+          <img src="../images/etc.svg" alt="etc">
+        </span>
+        <span class="radio-label">ETC</span>
+      </span>
+    </label>
+
+  </div>
+</div>
 
   <div class="list-container">
     <!-- 사이드바 -->
