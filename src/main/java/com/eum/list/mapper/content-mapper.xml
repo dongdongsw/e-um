@@ -7,6 +7,9 @@
 	ORDER BY b_id DESC
 	FETCH FIRST 12 ROWS ONLY
   </select>
-  
+   <select id="contentTotalPage" resultType="int" parameterType="string">
+    SELECT CEIL(COUNT(*)/12.0) FROM board
+    WHERE b_type=#{_parameter} OR #{_parameter}='전체'
+ </select>
   <!-- <select id="contentTotalPage"></select> -->
 </mapper>

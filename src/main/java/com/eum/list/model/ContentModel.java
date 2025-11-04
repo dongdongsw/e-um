@@ -9,6 +9,7 @@ import com.eum.list.vo.ContentVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
 import java.util.*;
 
 @Controller
@@ -23,7 +24,7 @@ public class ContentModel {
         // params.put(...); // 조건 추가
         // List<ContentVO> list = ContentDAO.contentListData(params);
         
-        request.setAttribute("list", list);
+         
         // b_id가 null이면 jsp에서 사용할 때도 null일 수 있으니 확인
         request.setAttribute("b_id", null);
 

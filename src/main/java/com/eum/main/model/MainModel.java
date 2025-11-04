@@ -1,7 +1,9 @@
 package com.eum.main.model;
 
 import java.net.http.HttpRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.eum.list.dao.ContentDAO;
 import com.eum.list.vo.ContentVO;
@@ -22,21 +24,43 @@ public class MainModel {
 	
 	@RequestMapping("main/list.eum")
 	public String main_list(HttpServletRequest request, HttpServletResponse response) {
-        // 전체 리스트를 받는 경우 파라미터 없이 호출
-        List<ContentVO> list = ContentDAO.contentListData(null);
-        
-        // 만약 Map 등으로 필터링 조건을 넘기는 경우
-        // Map<String, Object> params = new HashMap<>();
-        // params.put(...); // 조건 추가
-        // List<ContentVO> list = ContentDAO.contentListData(params);
-        
-        request.setAttribute("list", list);
-        // b_id가 null이면 jsp에서 사용할 때도 null일 수 있으니 확인
+		String type=request.getParameter("type");
+		String page=request.getParameter("page");
+		
+		if(page==null)
+			page="1";
+		if(type==null)
+			type="전체";
+		
+		int curpage=Integer.parseInt(page);
+		Map map=new HashMap();
+		int rowSize=12;
+		int start=(curpage-1)*rowSize;
+		
+		map.put("start", start);
+		map.put("type", type);
+		
+		List<ContentVO> list=ContentDAO.contentListData(map);
+		int totalpage=ContentDAO.contentTotalPage(type);
+		
+		final int BLOCK = 10;
+		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+		int endPage=startPage+BLOCK-1;
+		if(endPage>totalpage)
+			endPage=totalpage;
+		
+		request.setAttribute("list", list);
+		request.setAttribute("curpage", curpage);
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("startPage", startPage);
+        request.setAttribute("endPage", endPage);
+        request.setAttribute("type", type);
         request.setAttribute("b_id", null);
-
-        request.setAttribute("main_jsp", "../main/list/list.jsp");
-        return "../main/main.jsp";
-    }
+		
+		
+		request.setAttribute("main_jsp", "../main/list.jsp");
+		return "../main/main.jsp";
+}
 	
 	@RequestMapping("main/detail.eum")
 	public String main_detail(HttpServletRequest request, HttpServletResponse response) {

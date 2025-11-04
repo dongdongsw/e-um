@@ -282,17 +282,26 @@ window.addEventListener('DOMContentLoaded', function () {
 		  </div>
         </div>
       </c:forEach>
-      <div id="app" class="container">  
+     <div id="app" class="container">  
   <ul class="page">
-    <li class="page__btn active"><span class="material-icons">&lt;</span></li>
-    <li class="page__numbers">1</li>
-    <li class="page__numbers active">2</li>
-    <li class="page__numbers">3</li>
-    <li class="page__numbers">4</li>
-    <li class="page__numbers">5</li>
-    <li class="page__btn active"><span class="material-icons">&gt;</span></li>
+    <c:if test="${startPage > 1}">
+      <li class="page__btn active">
+        <a class="material-icons" href="../main/list.eum?page=${startPage - 1}&type=${type}">&lt;</a>
+      </li>
+    </c:if>
+    <c:forEach var="i" begin="${startPage}" end="${endPage}">
+      <li class="page__numbers ${i == curpage ? 'active' : ''}">
+        <a href="../main/list.eum?page=${i}&type=${type}">${i}</a>
+      </li>
+    </c:forEach>
+    <c:if test="${endPage < totalpage}">
+      <li class="page__btn active">
+        <a class="material-icons" href="../main/list.eum?page=${endPage + 1}&type=${type}">&gt;</a>
+      </li>
+    </c:if>
   </ul>
 </div>
+
       
     </div>
   </div>

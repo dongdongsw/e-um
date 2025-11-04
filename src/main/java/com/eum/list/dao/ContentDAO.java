@@ -29,4 +29,18 @@ public class ContentDAO {
 	    session.close();
 	    return list;
 	}
+	public static int contentTotalPage(String type)
+	{
+		int total=0;
+		try
+		{
+			SqlSession session=ssf.openSession();
+			total=session.selectOne("contentTotalPage",type);
+			session.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return total;
+	}
 }
