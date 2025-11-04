@@ -123,24 +123,23 @@
 
       <div class="contact-bar">
         <div style="display: flex;">
-           <div class="avatar" style="margin-right: 10px;"></div> <!-- 셀러 프로필 -->
-           <div class="name"><p>${vo.u_s_com }</p></div> <!-- 셀러 이름 -->
-        </div>
+		  <img src="${vo.u_s_profileimg_url }" class="avatar" style="margin-right: 10px;" alt="seller profile"> <!-- 셀러 프로필 -->
+		  <div class="name"><p>${vo.u_s_com}</p></div> <!-- 셀러 이름 -->
+		</div>
         <a class="btn-outline" href="#">문의하기</a>
       </div>
 
       <div class="prime-card">
         <ul class="prime-list">
-          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 경력 : 100년</li>
-          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 서비스 지역 : 서울</li>
+          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 경력 : ${vo.u_s_carrer }</li>
+          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 서비스 지역 : ${vo.u_s_zone }</li>
         </ul>
       </div>
     </div>
 
     <div class="hero-right">
       <div class="banner"> <!--컨텐츠 메인 이미지 -->
-        보도자료·기사 작성 / 송출
-        <small>당일 신속 송출, 빠른 문의 응답</small>
+        <img src="${vo.b_thumbnail }" class="main-img">
       </div>
     </div>
   </section>
@@ -156,9 +155,11 @@
 		<!-- 컨텐츠 상세 내용 -->
         <div id="tabs-1">
    		  <br>
-   		  <p style="font-weight: 600">작업 방식 : 비대면</p> <!-- ONLINE => 비대면 / OFFLINE => 대면 -->
+   		  <p style="font-weight: 600">작업 방식 : ${vo.b_prod_on_off }</p> <!-- ONLINE => 비대면 / OFFLINE => 대면 -->
    		  <br>
-          <p style="font-size: 14px">[진행 과정] 취미반: 한국무용 기본을 배운 후 여러 작품을 배울 수 있습니다 우리나라의 전통춤과 그 전통춤의 기본을 기반으로 제가 만들어주는 창작 작품을 재밌게 배워보실 수 있습니다 전공반: 예고입시로 예고때도 한국무용을 전공하고 대학에서도 무용을 전공한 젊은 제가 그 누구보다 입시가 어떻게 흘러가고 있는지 가장 잘 알고 있습니다  전공반은 기본과 개인 작품 수업과 창작,전통 둘 다 필수로 배울 수 있도록 하고있습니다  [진행 과정]  한국무용의 기본 디딤 팔사위 등을 배운 후 국립기본 순서를 배웁니다  [추천 대상] 바른자세를 원하고 움직이고 싶으신 성인분들께 취미로 추천드립니다! 원하시면 취미반도 콩쿨을 나갈 수 있습니다 무대에 올라가 자신의 끼를 모든 사람들에게 보여줄 수 있는 좋은 추억입니다  [고수 정보]  예고,무용과 졸업 수상경력 및 티칭 경력 다수 필라테스 자격증 취득  전공생은 아무래도 제가 입시생들을 가르쳐봤고 원하는 학교에도 보냈었기에 저한테 오시면 책임감 있게 해드리기에 추천 드립니다  [상품정보] 1시간 35000 개인레슨이다 보니 홀비는 별도 이시며 제가 회원님들 계신곳 근처로 가 홀을 잡고 회원님 거주지 근처에서 레슨을 진행해 드리고 있습니다^^  [기타] 풀치마,버선,코슈즈, 입춤 부채 등등</p>
+          <p style="white-space: pre-line;">
+			    ${vo.b_content}
+			</p>
           <br><br>
           <c:forEach begin="0" end="7">
             <img style="width:100%" src="./assets/images/플랫폼개발.webp">
@@ -172,10 +173,10 @@
 			  <!-- 셀러 프로필 -->
 			  <div style="display: flex; align-items: center; margin-bottom: 20px; background-color:#f9f9ff; border-radius:10px; padding:15px;">
 			    <div class="avatar" style="width:60px; height:60px; border-radius:50%; background-color:#e0d8ff; margin-right:15px; overflow:hidden;">
-			      <img src="seller-profile.jpg" alt="셀러 프로필" style="width:100%; height:100%; object-fit:cover;">
+			      <img src="${vo.u_s_profileimg_url }" alt="셀러 프로필" style="width:100%; height:100%; object-fit:cover;">
 			    </div>
 			    <div>
-			      <div class="name" style="font-weight:700; font-size:16px; color:#333;">김민석</div>
+			      <div class="name" style="font-weight:700; font-size:16px; color:#333;">${vo.u_s_com}</div>
 			      <div style="font-size:12px; font-weight:600; color:#8e4dff;">사업자 인증 완료</div>
 			      <div style="font-size:11px; color:#666;">연락 가능 시간 : 언제나 가능 | 평균 응답 시간 : 1시간 이내</div>
 			    </div>
@@ -185,11 +186,11 @@
 			  <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; background:#fff; border:1px solid #eee; border-radius:10px; padding:20px;">
 			    <div class="stat-box" style="flex:1; min-width:200px;">
 			      <div class="stat-label" style="font-size:12px; color:#888;">서비스 지역</div>
-			      <div class="stat-value" style="font-weight:600;">서울특별시 강남구</div>
+			      <div class="stat-value" style="font-weight:600;">${vo.u_s_zone }</div>
 			    </div>
 			    <div class="stat-box" style="flex:1; min-width:200px;">
 			      <div class="stat-label" style="font-size:12px; color:#888;">셀러 경력</div>
-			      <div class="stat-value" style="font-weight:600;">3년</div>
+			      <div class="stat-value" style="font-weight:600;">${vo.u_s_carrer }년</div>
 			    </div>
 			    <div class="stat-box" style="flex:1; min-width:200px;">
 			      <div class="stat-label" style="font-size:12px; color:#888;">소속 회사</div>

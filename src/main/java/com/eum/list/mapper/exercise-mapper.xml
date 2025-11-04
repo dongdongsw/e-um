@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.list.mapper.exercise-mapper">
-
+	<!-- 컨텐츠 목록 -->
 	<select id="exerciseListData" resultType="ContentVO" parameterType="hashmap">
 	   SELECT *
 			FROM (
 			    SELECT inner_data.*, ROWNUM AS num
 			    FROM (
 			        SELECT 
-			            b.b_id,
-			            b.u_s_id,
-			            b.b_thumbnail,
-			            b.b_title,
-			            b.b_type,
-			            MIN(b_o.b_op_price) AS b_op_price_min,
-			            u_s.u_s_com,
+			            b.b_id, b.u_s_id, b.b_thumbnail, b.b_title, b.b_type,
+			            MIN(b_o.b_op_price) AS b_op_price_min, u_s.u_s_com,
 			            COUNT(r.b_id) AS r_count
 			        FROM board b
 			        LEFT JOIN users_seller u_s ON b.u_s_id = u_s.u_s_id
@@ -27,23 +22,23 @@
 			)
 			WHERE num BETWEEN #{start} AND #{end}
 	</select>
+	
+	<!-- 컨텐츠 목록 페이지 개수 -->
 	<select id="exerciseTotalPage" resultType="int">
 	    SELECT CEIL(COUNT(*)/10.0) FROM board
 	</select>
+	
+	<!-- 디테일 판매자 정보 및 컨텐츠 정보 -->
 	<select id="exerciseDetailData" resultType="ContentVO" parameterType="string">
-		SELECT 
-		    b.b_id, b.u_s_id, b.b_thumbnail, b.b_title, b.b_view_count,
-		    b.b_type,  MIN(b_o.b_op_price) AS b_op_price_min, 
-		    u_s.u_s_com, COUNT(r.b_id) AS r_count 
-		FROM board b 
-		LEFT JOIN users_seller u_s ON b.u_s_id = u_s.u_s_id 
-		LEFT JOIN board_option b_o ON b.b_id = b_o.b_id 
-		LEFT JOIN review r ON b.b_id = r.b_id 
-		WHERE b.b_id = #{b_id}
-		GROUP BY 
-		    b.b_id, b.u_s_id, b.b_thumbnail, 
-		    b.b_title, b.b_type, u_s.u_s_com ,b.b_view_count
-
+		 SELECT b.b_id, b.u_s_id, b.b_thumbnail, b.b_title, b.b_view_count, b.b_prod_on_off,
+      		TO_CHAR(b.b_content) AS b_content, b.b_type, u_s.u_s_carrer, u_s.u_s_profileimg_url,
+      		u_s.u_s_com, u_s.u_s_zone, 
+      		(SELECT COUNT(r.b_id) 
+      		FROM review r 
+      		WHERE r.b_id = b.b_id) AS r_count
+      	 FROM board b
+  		 LEFT JOIN users_seller u_s ON b.u_s_id = u_s.u_s_id
+  		 WHERE b.b_id = #{b_id}
 	</select>
 
 </mapper>
