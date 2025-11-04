@@ -32,5 +32,13 @@ private static SqlSessionFactory ssf;
 		return total;
 		
 	}
-	
+	public static ContentVO exerciseDetailData(String b_id) {
+		
+		SqlSession session = ssf.openSession();
+		ContentVO vo = session.selectOne("exerciseDetailData",b_id);
+		session.close();
+		
+		return vo;
+		
+	}
 }

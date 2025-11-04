@@ -26,10 +26,24 @@
 			    ) inner_data
 			)
 			WHERE num BETWEEN #{start} AND #{end}
-</select>
-<select id="exerciseTotalPage" resultType="int">
-    SELECT CEIL(COUNT(*)/10.0) FROM board
-  </select>
+	</select>
+	<select id="exerciseTotalPage" resultType="int">
+	    SELECT CEIL(COUNT(*)/10.0) FROM board
+	</select>
+	<select id="exerciseDetailData" resultType="ContentVO" parameterType="string">
+		SELECT 
+		    b.b_id, b.u_s_id, b.b_thumbnail, b.b_title, b.b_view_count,
+		    b.b_type,  MIN(b_o.b_op_price) AS b_op_price_min, 
+		    u_s.u_s_com, COUNT(r.b_id) AS r_count 
+		FROM board b 
+		LEFT JOIN users_seller u_s ON b.u_s_id = u_s.u_s_id 
+		LEFT JOIN board_option b_o ON b.b_id = b_o.b_id 
+		LEFT JOIN review r ON b.b_id = r.b_id 
+		WHERE b.b_id = #{b_id}
+		GROUP BY 
+		    b.b_id, b.u_s_id, b.b_thumbnail, 
+		    b.b_title, b.b_type, u_s.u_s_com ,b.b_view_count
 
+	</select>
 
 </mapper>

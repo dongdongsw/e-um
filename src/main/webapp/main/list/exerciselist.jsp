@@ -327,11 +327,15 @@ window.addEventListener('DOMContentLoaded', function () {
        <!-- end 검색바 -->
        <div class="header-text" style="height: 10px;"></div>
        <c:forEach var="vo" items="${list }">
+         
+       
          <div class="col-md-3">
+         <a href="../main/exercisedetail.eum?b_id=${vo.b_id }&page=${curpage }">
 		   <div class="temporary__storage" style="border:none">
 			  <div class="list-card">
 			    <div class="image">
-			      <img src="${vo.b_thumbnail }" width="200" height="160" style="border-radius: 15px;">
+			     	 <img src="${vo.b_thumbnail }" width="200" height="160" style="border-radius: 15px;">
+			     	
 			    </div>
 			    <div class="image__overlay"></div>
 			    <div class="content">
@@ -350,7 +354,9 @@ window.addEventListener('DOMContentLoaded', function () {
 			    </div>
 			</div>
 		  </div>
+		  </a>
         </div>
+        
       </c:forEach>
       <div id="app" class="container">  
   <ul class="page">

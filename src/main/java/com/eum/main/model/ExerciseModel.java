@@ -60,14 +60,22 @@ public class ExerciseModel {
 	@RequestMapping("main/exercisedetail.eum")
 	public String admin_detail(HttpServletRequest request, HttpServletResponse response) {
 		
-		request.setAttribute("main_jsp", "../list/exerciselist.jsp");
+		String b_id = request.getParameter("b_id");
+		String page = request.getParameter("page");
+		
+		
+		ContentVO vo = ExerciseDAO.exerciseDetailData(b_id);
+		
+		request.setAttribute("page",page);
+		request.setAttribute("vo",vo);
+		request.setAttribute("main_jsp", "../main/list/exercisedetail.jsp");
 		return "../main/main.jsp";
 	}
 	
 	@RequestMapping("main/exercisedetail_before.eum")
 	public String admin_detail_before(HttpServletRequest request, HttpServletResponse response) {
 		
-		return "redirect:../exercise/detail.eum";
+		return "redirect:../main/exercisedetail.eum";
 	}
 	
 }
