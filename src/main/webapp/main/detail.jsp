@@ -76,6 +76,13 @@
     document.querySelectorAll('.like-button').forEach(btn=>{
       btn.addEventListener('click', toggleLike);
     });
+    
+    $(".count").on("click", function() {
+    	  $("#tabs").tabs("option", "active", 2); // 0=상세, 1=셀러, 2=리뷰
+    	  $("html, body").animate({
+    	    scrollTop: $("#tabs").offset().top - 100 // 살짝 위로 위치 조정
+    	  }, 400);
+    });
   });
 </script>
 </head>
@@ -85,7 +92,7 @@
   <section class="dt-container hero" id="main-section">
     <div class="hero-left">
       <div class="title-row">
-        <button class="prime-badge">찜하기</button>
+        <button class="prime-badge">즐겨찾기</button>
         <h1 class="title">모든 종류의 보도자료, 기사 작성 및 송출해 드립니다.</h1> <!-- 컨텐츠 제목 -->
       </div>
 
@@ -159,35 +166,38 @@
         </div>
 		<!-- 셀러 정보 -->
         <div id="tabs-2">
-           <div style="height: 30px;"></div>
-			<div style="display: flex;">
-					
-					<div style="margin-right: 10px; width: 55px; height: 55px"></div>
-                    <div class="avatar" style="margin-right: 10px; width: 55px; height: 55px"></div> <!-- 리뷰 프로필 -->
-                    <div>
-                     
-                      <div class="name">김민석</div> <!-- 리뷰 작성자 -->
-                      <div style="font-size: 11px; font-weight: 600; color:#333333">사업자 인증 완료</div>
-                      <div style="font-size: 11px; font-weight: 600; color:#999999">연락 가능 시간 : 언제나 가능 | 평균 응답 시간 : 1시간 이내</div>
-                    </div>
-                  </div>
-                  <div style="display: flex;">
-                     <div style="margin-right: 10px; width: 55px; height: 55px"></div>
-                     <div class="seller-stats">
-						  <div class="stat">
-						    <span class="stat-label">서비스 지역</span>
-						    <div class="stat-value">서울특별시 강남구</div>
-						  </div>
-						  <div class="stat">
-						    <span class="stat-label">셀러 경력</span>
-						    <div class="stat-value">3년</div>
-						  </div>
-						  <div class="stat">
-						    <span class="stat-label">소속 회사</span>
-						    <div class="stat-value">EUM Studio</div>
-						  </div>
-						</div>
-				  </div>
+           <div id="tabs-2" style="max-width:700px; margin:auto; font-family:'Noto Sans KR', sans-serif;">
+			  <div style="height: 30px;"></div>
+			
+			  <!-- 셀러 프로필 -->
+			  <div style="display: flex; align-items: center; margin-bottom: 20px; background-color:#f9f9ff; border-radius:10px; padding:15px;">
+			    <div class="avatar" style="width:60px; height:60px; border-radius:50%; background-color:#e0d8ff; margin-right:15px; overflow:hidden;">
+			      <img src="seller-profile.jpg" alt="셀러 프로필" style="width:100%; height:100%; object-fit:cover;">
+			    </div>
+			    <div>
+			      <div class="name" style="font-weight:700; font-size:16px; color:#333;">김민석</div>
+			      <div style="font-size:12px; font-weight:600; color:#8e4dff;">사업자 인증 완료</div>
+			      <div style="font-size:11px; color:#666;">연락 가능 시간 : 언제나 가능 | 평균 응답 시간 : 1시간 이내</div>
+			    </div>
+			  </div>
+			
+			  <!-- 셀러 정보 -->
+			  <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; background:#fff; border:1px solid #eee; border-radius:10px; padding:20px;">
+			    <div class="stat-box" style="flex:1; min-width:200px;">
+			      <div class="stat-label" style="font-size:12px; color:#888;">서비스 지역</div>
+			      <div class="stat-value" style="font-weight:600;">서울특별시 강남구</div>
+			    </div>
+			    <div class="stat-box" style="flex:1; min-width:200px;">
+			      <div class="stat-label" style="font-size:12px; color:#888;">셀러 경력</div>
+			      <div class="stat-value" style="font-weight:600;">3년</div>
+			    </div>
+			    <div class="stat-box" style="flex:1; min-width:200px;">
+			      <div class="stat-label" style="font-size:12px; color:#888;">소속 회사</div>
+			      <div class="stat-value" style="font-weight:600;">EUM Studio</div>
+			    </div>
+			  </div>
+			</div>
+
         </div>
 		<!-- 리뷰 -->
         <div id="tabs-3">
