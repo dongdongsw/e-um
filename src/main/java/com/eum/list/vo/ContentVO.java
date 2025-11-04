@@ -15,7 +15,8 @@ package com.eum.list.vo;
  */
 import java.util.*;
 
-import lombok.Data;
+import lombok.Data; 
+
 @Data
 public class ContentVO {
 	private int u_s_id, b_view_count, review_count;

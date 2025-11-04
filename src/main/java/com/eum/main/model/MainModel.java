@@ -52,7 +52,7 @@ public class MainModel {
         request.setAttribute("startPage", startPage);
         request.setAttribute("endPage", endPage);
 
-        request.setAttribute("main_jsp", "../main/list/list.jsp");
+        request.setAttribute("main_jsp", "../main/list.jsp");
         return "../main/main.jsp";
     }
 

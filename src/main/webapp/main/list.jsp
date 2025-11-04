@@ -55,7 +55,6 @@ window.addEventListener('DOMContentLoaded', function () {
 </script>
 </head>
 <body>
-  <div style="background-color:#fff; height:180px;"></div>
   <div class="header-text" style="height: 100px;"></div>
 
   <div class="list-container">
@@ -256,25 +255,41 @@ window.addEventListener('DOMContentLoaded', function () {
     <!-- 오른쪽 메인 -->
     <div class="main">
       <div class="row">
-       <c:forEach begin="0" end="11">
+      <!-- start 검색바 -->
+      <form class="search">
+      <button>
+          <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
+              <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+      </button>
+      <input class="search_input" placeholder="어떤 서비스가 필요하세요?" required="" type="text">
+      <button class="reset" type="reset">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+      </button>
+       </form>
+       <!-- end 검색바 -->
+       <div class="header-text" style="height: 10px;"></div>
+       <c:forEach var="vo" items="${list }">
          <div class="col-md-3">
 		   <div class="temporary__storage" style="border:none">
 			  <div class="list-card" onclick="location.href='../main/detail.eum'">
 			    <div class="image">
-			      <img src="./assets/images/플랫폼개발.webp" width="200" height="160" style="border-radius: 15px;">
+			      <img src="${vo.b_thumbnail }" width="200" height="160" style="border-radius: 15px;">
 			    </div>
 			    <div class="image__overlay"></div>
 			    <div class="content">
 			      <div class="avatar"></div>
 			      <div class="content__text">
-			        <span class="stream__title">맞춤 개발로 완벽한 플랫폼을 만들어드립니다</span>
+			        <span class="stream__title">${vo.b_title}</span>
 			        <div class="content__body">
 			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ 4.9 (23)</span>
 			          <span class="streamer__name" id="price" style="font-size: 12px">10,000원</span>
 			          <span class="streamer__name" id="seller" style="font-size: 10px">김민식</span>
 			        </div>
 			        <span class="categories">
-			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">s</div>
+			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">{vo.b_filter}</div>
 			        </span>
 			      </div>
 			    </div>
@@ -282,7 +297,7 @@ window.addEventListener('DOMContentLoaded', function () {
 		  </div>
         </div>
       </c:forEach>
-       <div id="app" class="container">  
+     <div id="app" class="container">  
   <ul class="page">
     <c:if test="${startPage > 1}">
       <li class="page__btn active">
@@ -303,7 +318,6 @@ window.addEventListener('DOMContentLoaded', function () {
     </c:if>
   </ul>
 </div>
-
 
       
     </div>
