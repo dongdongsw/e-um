@@ -1,4 +1,4 @@
-package com.eum.list.model;
+package com.eum.main.model;
 
 import com.sist.controller.Controller;
 

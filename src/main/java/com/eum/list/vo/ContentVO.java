@@ -18,7 +18,8 @@ import java.util.*;
 import lombok.Data;
 @Data
 public class ContentVO {
-	private int u_s_id, b_view_count, review_count;
-	private String b_id, b_type, b_filter, b_title, b_content, b_thumbnail, b_prod_on_off, b_status;
+	private int u_s_id, b_view_count, r_count, b_op_price_min;
+	private String b_id, b_type, b_filter, b_title, b_content, b_thumbnail, b_prod_on_off, 
+		b_status, u_s_com;
 	private Date b_createdAt, b_updatedAt;
 }

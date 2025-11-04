@@ -162,12 +162,13 @@ border-bottom: 1px solid #e6e6f8;
       <img src="../main/images/color-pallete.png" alt="디자인" class="category-icon">
       <span>디자인</span>
     </button>
-
-    <button class="brutalist-button button-1">
-      <img src="../main/images/video-camera.png" alt="영상" class="category-icon">
-      <span>영상</span>
-    </button>
-
+	
+	<a href="../main/exerciselist.eum">
+    	<button class="brutalist-button button-1">
+      	<img src="../main/images/video-camera.png" alt="운동건강" class="category-icon">
+      	<span>운동</span>
+    	</button>
+	</a>
     <button class="brutalist-button button-1">
       <img src="../main/images/headphones.png" alt="음악" class="category-icon">
       <span>음악</span>

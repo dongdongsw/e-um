@@ -8,8 +8,8 @@
    <typeAliases>
      <typeAlias type="com.eum.list.vo.ContentVO" alias="ContentVO"/>
    </typeAliases>
-  <environments default="develpoment">
-    <environment id="develpoment">
+  <environments default="development">
+    <environment id="development">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="${driver}"/>
@@ -21,5 +21,7 @@
   </environments>
   <mappers>
     <mapper resource="com/eum/list/mapper/content-mapper.xml"/>
+    <mapper resource="com/eum/list/mapper/exercise-mapper.xml"/>
+    
   </mappers>
 </configuration>
