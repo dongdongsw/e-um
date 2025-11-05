@@ -168,10 +168,12 @@ border-bottom: 1px solid #e6e6f8;
       <span>영상</span>
     </button>
 
-    <button class="brutalist-button button-1">
-      <img src="../main/images/headphones.png" alt="음악" class="category-icon">
-      <span>음악</span>
-    </button>
+    <a href="../main/hobbylist.eum">
+      <button class="brutalist-button button-1">
+        <img src="../main/images/headphones.png" alt="음악" class="category-icon">
+        <span>취미/자기개발</span>
+      </button>
+    </a>
 
     <button class="brutalist-button button-1">
       <img src="../main/images/graduation.png" alt="교육" class="category-icon">
