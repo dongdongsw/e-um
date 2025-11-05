@@ -4,15 +4,55 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.eum.list.mapper.content-mapper">
- <select id="contentListData" resultType="ContentVO" parameterType="map">
-    SELECT b_id, b_thumbnail, b_title, b_type, b_filter
-    FROM board
-    ORDER BY b_id DESC
-    OFFSET (#{start} - 1) ROWS FETCH NEXT 12 ROWS ONLY
+<select id="contentListData" resultType="ContentVO" parameterType="map">
+   SELECT b_id, b_thumbnail, b_title, b_filter, b_op_price_min, r_count, u_s_com, num
+		  FROM (SELECT b_id, b_thumbnail, b_title, b_filter, b_op_price_min, r_count, u_s_com, ROWNUM AS num
+	  	  FROM (SELECT b.b_id, b.b_thumbnail, b.b_title, b.b_filter,
+	          (SELECT MIN(op.b_op_price)
+	             FROM board_option op
+	            WHERE op.b_id = b.b_id) AS b_op_price_min,
+	          (SELECT COUNT(*)
+	             FROM review re
+	            WHERE re.b_id = b.b_id) AS r_count,
+	          (SELECT sel.u_s_com
+	             FROM users_seller sel
+	            WHERE sel.u_s_id = b.u_s_id) AS u_s_com
+	          <!-- (SELECT re.b_review_score
+	          	FROM  review re
+	          	WHERE re.b_id = b.b_id
+	           AND ROW NUM =1) AS b_review_score -->
+	      FROM board b
+	      WHERE b.b_type = '외주'
+	  )
+	)
+	WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  
+   <select id="contentDetailData" resultType="ContentVO" parameterType="string">
+    SELECT 
+      u.u_s_id,
+      u.u_s_carrer,
+      u.u_s_zone,
+      b.b_thumbnail,
+      b.b_title,
+      b.b_view_count,
+      <!-- b.b_review_score, -->
+      b.b_content,
+      b.b_prod_on_off,
+      b.b_createdat AS b_createdAt,
+      b.b_updatedat AS b_updatedAt,
+      r.r_image_url,
+      re.b_review_score
+    FROM board b
+    LEFT JOIN users_seller u ON b.u_s_id = u.u_s_id
+    LEFT JOIN review_image r ON b.b_id = r.b_id
+    <!-- LEFT JOIN review re ON b.b_id = re.b_id -->
+    WHERE b.b_id = #{b_id}
   </select>
 
   <select id="contentTotalPage" resultType="int">
     SELECT CEIL(COUNT(*) / 12.0)
     FROM board
+    WHERE b_type='외주'
   </select>
 </mapper>

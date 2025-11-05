@@ -27,10 +27,11 @@ public class MainModel {
         // 1페이지 = 1~12, 2페이지 = 13~24
         int rowSize = 12;
         int start = (curpage - 1) * rowSize + 1;
-
+        int end = curpage*rowSize;
         // 파라미터 맵 생성
         Map<String, Object> map = new HashMap<>();
         map.put("start", start);
+        map.put("end", end);
 
         // 데이터 목록 조회
         List<ContentVO> list = ContentDAO.contentListData(map);
