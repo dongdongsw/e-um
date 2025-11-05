@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
 import com.eum.list.vo.ContentVO;
+import com.eum.list.vo.ReviewVO;
+import com.eum.list.vo.Review_ImageVO;
 
 public class ExerciseDAO {
 
@@ -40,5 +42,35 @@ private static SqlSessionFactory ssf;
 		
 		return vo;
 		
+	}
+	
+	/*
+		 <select id="exerciseReviewImageDetailData" resultType="Review_ImageVO" parameterType="string">
+			SELECT r.b_review_id, r_i.r_image_url
+			FROM review r
+			LEFT JOIN review_image r_i ON r.b_review_id = r_i.b_review_id
+			WHERE r.b_review_id = #{b_review_id}
+		</select>
+	 */
+	public static List<ReviewVO> exerciseReviewDetailData(Map map) {
+		
+		List<ReviewVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("exerciseReviewDetailData",map);
+			for(ReviewVO vo : list) {
+
+				List<Review_ImageVO> imglist = session.selectList("exerciseReviewImageDetailData",vo.getB_review_id());
+				vo.setImageList(imglist);
+			}
+			
+			
+			session.close();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return list;
 	}
 }

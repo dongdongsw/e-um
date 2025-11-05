@@ -104,7 +104,7 @@
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
         </div>
-        <span class="rating">4.9</span> <!-- 컨텐츠 평점 -->
+        <span class="rating">${vo1.b_review_score }</span> <!-- 컨텐츠 평점 -->
         <span class="count">${vo.r_count }</span> <!-- 리뷰 수 -->
 		<div class="like-button">
 		  <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
@@ -192,10 +192,6 @@
 			      <div class="stat-label" style="font-size:12px; color:#888;">셀러 경력</div>
 			      <div class="stat-value" style="font-weight:600;">${vo.u_s_carrer }년</div>
 			    </div>
-			    <div class="stat-box" style="flex:1; min-width:200px;">
-			      <div class="stat-label" style="font-size:12px; color:#888;">소속 회사</div>
-			      <div class="stat-value" style="font-weight:600;">EUM Studio</div>
-			    </div>
 			  </div>
 			</div>
 
@@ -203,11 +199,11 @@
 		<!-- 리뷰 -->
         <div id="tabs-3">
           <aside class="side-sticky">
-            <c:forEach begin="0" end="5">
+            <c:forEach var="vo1" items="${list}">
               <div class="re-card" id="reviews">
                 <div class="review">
                   <div style="display: flex;">
-                    <div class="avatar" style="margin-right: 10px;"></div> <!-- 리뷰 프로필 -->
+                    <div class="avatar" style="margin-right: 10px; background-image: url('${vo1.u_profileimg_url}'"></div> <!-- 리뷰 프로필 -->
                     <div>
                       <div class="stars-sm" aria-hidden="true">
                         <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
@@ -216,27 +212,40 @@
                         <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
                         <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
                       </div>
-                      <div class="name">양**</div> <!-- 리뷰 작성자 -->
+                      <div class="name">${vo1.u_nickname }</div> <!-- 리뷰 작성자 -->
                     </div>
                     <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 리뷰 날짜 -->
-                      25.11.01 14:56
+                      ${vo1.b_review_createdat }
                     </div>
                   </div>
                 </div>
 
-                <c:forEach begin="0" end="2"> <!-- 리뷰 이미지 -->
-                  <div class="review-img"></div>
-                </c:forEach>
+                <!-- 리뷰 이미지 출력 -->
+			    <c:if test="${not empty vo1.imageList}">
+				  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+				    <c:forEach var="img" items="${vo1.imageList}">
+				      <c:if test="${not empty img.r_image_url}">
+				        <div class="review-img" 
+				             style="width: 100px; height: 100px; overflow: hidden; border-radius: 5px;">
+				          <img src="${img.r_image_url}" 
+				               alt="리뷰 이미지" 
+				               style="width: 100%; height: 100%; object-fit: cover;">
+				        </div>
+				      </c:if>
+				    </c:forEach>
+				  </div>
+				</c:if>
+
 				<!-- 리뷰 내용 -->
-                <p style="margin:0; color:var(--muted)">빠르고 정확하기도 한데다가 원고도 너무 좋네요…</p>
+                <p style="margin:0; color:var(--muted)">${vo1.b_review_content }</p>
                 
                 <div class="re-review">
                  <div class="review">
                   <div style="display: flex;">
                     <div class="avatar" style="margin-right: 10px;"></div> <!-- 셀러 프로필 -->
-                      <div class="seller-name">김민식</div> <!--  -->
+                      <div class="seller-name">dd</div> <!--  -->
                       <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 답글 날짜 -->
-                        25.11.03 16:18
+                        2023-01-91
                       </div>
                     </div>
                   </div> 	

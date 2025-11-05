@@ -10,7 +10,7 @@
 			        SELECT 
 			            b.b_id, b.u_s_id, b.b_thumbnail, b.b_title, b.b_type,
 			            MIN(b_o.b_op_price) AS b_op_price_min, u_s.u_s_com,
-			            COUNT(r.b_id) AS r_count
+			            COUNT(DISTINCT r.b_review_id) AS r_count
 			        FROM board b
 			        LEFT JOIN users_seller u_s ON b.u_s_id = u_s.u_s_id
 			        LEFT JOIN board_option b_o ON b.b_id = b_o.b_id
@@ -41,4 +41,21 @@
   		 WHERE b.b_id = #{b_id}
 	</select>
 
+	<!-- 리뷰 출력 -->
+	<select id="exerciseReviewDetailData" resultType="ReviewVO" parameterType="hashmap">
+		SELECT r.b_id, r.b_review_id, r.b_review_createdat, r.b_review_content, 
+				r.b_review_score, u.u_nickname, u.u_profileimg_url
+		FROM review r
+		LEFT JOIN users u ON r.u_id =  u.u_id
+		WHERE r.b_id = #{b_id}
+		ORDER BY r.b_review_createdat DESC
+	</select>
+	
+	<!-- 리뷰 이미지 출력 -->
+	<select id="exerciseReviewImageDetailData" resultType="Review_ImageVO" parameterType="string">
+		SELECT b_review_id, r_image_url
+	    FROM review_image
+	    WHERE b_review_id = #{b_review_id}
+	</select>
+	
 </mapper>

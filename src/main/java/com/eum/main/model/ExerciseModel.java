@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.eum.list.dao.ExerciseDAO;
 import com.eum.list.vo.ContentVO;
+import com.eum.list.vo.ReviewVO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
@@ -65,9 +66,12 @@ public class ExerciseModel {
 		
 		
 		ContentVO vo = ExerciseDAO.exerciseDetailData(b_id);
-		
+		Map map = new HashMap();
+		map.put("b_id", b_id);
+		List<ReviewVO> list = ExerciseDAO.exerciseReviewDetailData(map);
 		request.setAttribute("page",page);
 		request.setAttribute("vo",vo);
+		request.setAttribute("list",list);
 		request.setAttribute("main_jsp", "../main/list/exercisedetail.jsp");
 		return "../main/main.jsp";
 	}
