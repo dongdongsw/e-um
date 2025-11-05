@@ -273,8 +273,9 @@ window.addEventListener('DOMContentLoaded', function () {
        <div class="header-text" style="height: 10px;"></div>
        <c:forEach var="vo" items="${list}">
          <div class="col-md-3">
+           <a href="../main/hobbydetail.eum?b_id=${vo.b_id}&page=${curpage}">
 		   <div class="temporary__storage" style="border:none">
-			  <div class="list-card" onclick="location.href='../main/detail.eum'">
+			  <div class="list-card">
 			    <div class="image">
 			      <img src="${vo.b_thumbnail}" width="200" height="160" style="border-radius: 15px;">
 			    </div>
@@ -295,6 +296,7 @@ window.addEventListener('DOMContentLoaded', function () {
 			    </div>
 			</div>
 		  </div>
+		  </a>
         </div>
       </c:forEach>
       <div id="app" class="container">  

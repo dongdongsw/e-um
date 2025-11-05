@@ -49,4 +49,18 @@ public class HobbyModel {
 		request.setAttribute("main_jsp", "../main/list/hobbylist.jsp");
 		return "../main/main.jsp";
 	}
+	
+	@RequestMapping("main/hobbydetail.eum")
+	public String hobbydetail(HttpServletRequest request, HttpServletResponse response) {
+		String b_id = request.getParameter("b_id");
+		String page = request.getParameter("page");
+		
+		ContentVO hvo = HobbyDAO.hobbyDetailData(b_id);
+		
+		request.setAttribute("hvo", hvo);
+		request.setAttribute("page", page);
+		
+		request.setAttribute("main_jsp", "../main/detail/hobbydetail.jsp");
+		return "../main/main.jsp";
+	}
 }
