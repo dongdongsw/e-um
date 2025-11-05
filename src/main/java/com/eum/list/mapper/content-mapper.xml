@@ -22,37 +22,43 @@
 	          	WHERE re.b_id = b.b_id
 	           AND ROWNUM =1) AS b_review_score
 	      FROM board b
-	      WHERE b.b_type = '외주'
+	      WHERE b.b_type = '비즈니스'
 	  )
 	)
 	WHERE num BETWEEN #{start} AND #{end}
   </select>
   
-   <select id="contentDetailData" resultType="ContentVO" parameterType="string">
-    SELECT 
-      u.u_s_id,
-      u.u_s_carrer,
-      u.u_s_zone,
-      b.b_thumbnail,
-      b.b_title,
-      b.b_view_count,
-      b.b_review_score,
-      b.b_content,
-      b.b_prod_on_off,
-      b.b_createdat AS b_createdAt,
-      b.b_updatedat AS b_updatedAt,
-      r.r_image_url,
-      re.b_review_score
-    FROM board b
-    LEFT JOIN users_seller u ON b.u_s_id = u.u_s_id
-    LEFT JOIN review_image r ON b.b_id = r.b_id
-    LEFT JOIN review re ON b.b_id = re.b_id
-    WHERE b.b_id = #{b_id}
-  </select>
+  <select id="contentDetailData" resultType="ContentVO" parameterType="string">
+	   SELECT 
+		    b.b_id,
+		    b.b_thumbnail,
+		    b.b_title,
+		    b.b_filter,
+		    b.b_view_count,
+		    b.b_content,
+		    b.b_prod_on_off,
+		    b.u_s_id,
+		    (SELECT COUNT(*) FROM review re WHERE re.b_id = b.b_id) AS r_count,
+		    (SELECT COUNT(*) FROM board_like bl WHERE bl.b_id = b.b_id) AS l_count,
+		    sel.u_s_com,
+		    sel.u_s_zone,
+		    sel.u_s_carrer,
+		    sel.u_s_profileimg_url
+		FROM board b
+		LEFT JOIN users_seller sel
+		    ON b.u_s_id = sel.u_s_id
+		WHERE b.b_id = #{b_id}
+	</select>
+<select id="contentDetailImage" resultType="string" parameterType="string">
+	   SELECT b_img_url 
+	   FROM board_image 
+	   WHERE b_id = #{b_id}
+	   ORDER BY b_img_id ASC
+	</select>
 
   <select id="contentTotalPage" resultType="int">
     SELECT CEIL(COUNT(*) / 12.0)
     FROM board
-    WHERE b_type='외주'
+    WHERE b_type='비즈니스'
   </select>
 </mapper>

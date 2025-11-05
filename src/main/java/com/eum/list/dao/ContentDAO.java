@@ -31,4 +31,17 @@ public class ContentDAO {
         }
         return total;
     }
+    public static ContentVO contentDetailData(String b_id) {
+		   SqlSession session=ssf.openSession();
+		   ContentVO vo=session.selectOne("contentDetailData",b_id);
+		   session.close();
+		   return vo;
+	   }
+	   
+	   public static List<String> contentDetailImage(String b_id) {
+		   SqlSession session=ssf.openSession();
+		   List<String> list=session.selectList("contentDetailImage",b_id);
+		   session.close();
+		   return list;
+	   }
 }

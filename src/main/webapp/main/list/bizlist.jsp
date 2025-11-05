@@ -275,7 +275,7 @@ window.addEventListener('DOMContentLoaded', function () {
        <c:forEach var="vo" items="${list }">
          <div class="col-md-3">
 		   <div class="temporary__storage" style="border:none">
-			  <div class="list-card" onclick="location.href='../main/detail.eum'">
+			  <div class="list-card" onclick="location.href='../main/bizdetail.eum?b_id=${vo.b_id}'">
 			    <div class="image">
 			      <img src="${vo.b_thumbnail }" width="200" height="160" style="border-radius: 15px;">
 			    </div>
@@ -285,7 +285,7 @@ window.addEventListener('DOMContentLoaded', function () {
 			      <div class="content__text">
 			        <span class="stream__title">${vo.b_title}</span>
 			        <div class="content__body">
-			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️${vo.b_review_score } (${vo.r_count })</span>
+			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️4.9 (${vo.r_count })</span>
 			          <span class="streamer__name" id="price" style="font-size: 12px"><fmt:formatNumber value="${vo.b_op_price_min}" type="number" />원</span>
 			          <span class="streamer__name" id="seller" style="font-size: 10px">${vo.u_s_com }</span>
 			        </div>
