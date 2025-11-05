@@ -284,7 +284,7 @@ window.addEventListener('DOMContentLoaded', function () {
 			      <div class="content__text">
 			        <span class="stream__title">${vo.b_title}</span>
 			        <div class="content__body">
-			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ 4.9 (${vo.r_count})</span>
+			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ ${vo.b_review_score}(${vo.r_count})</span>
 			          <span class="streamer__name" id="price" style="font-size: 12px">${vo.b_op_price_min}</span>
 			          <span class="streamer__name" id="seller" style="font-size: 10px">${vo.u_s_com}</span>
 			        </div>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.list.mapper.hobby-mapper">
+  <!-- list -->
   <select id="hobbyListData" resultType="ContentVO" parameterType="hashmap">
-    SELECT b_id, u_s_id, b_thumbnail, b_title, b_type, b_op_price_min, u_s_com, r_count
+    SELECT b_id, u_s_id, b_thumbnail, b_title, b_type, b_op_price_min, u_s_com, r_count, b_review_score
 	FROM (SELECT b.b_id, b.u_s_id, b.b_thumbnail, b.b_title, b.b_type,
         	MIN(b_o.b_op_price) AS b_op_price_min, u_s.u_s_com,
-        	COUNT(r.b_id) AS r_count,
+        	COUNT(r.b_id) AS r_count, (r.b_review_score) AS b_review_score,
         	ROW_NUMBER() OVER (ORDER BY b.b_id DESC) AS num
     FROM board b
     LEFT JOIN users_seller u_s ON b.u_s_id = u_s.u_s_id
@@ -18,4 +19,13 @@
   <select id="hobbyTotalPage" resultType="int">
     SELECT CEIL(COUNT(*)/12.0) FROM board
   </select>
+  
+  <!-- detail -->
+  <select id="hobbyDetailData" resultType="ContentVO" parameterType="int">
+    SELECT   
+  </select>
+  
+  <update id="hobbyHitIncrement" parameterType="int">
+  
+  </update>
 </mapper>
