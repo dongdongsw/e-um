@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <link rel="stylesheet" href="css/detail.css">
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
   $(function () {
@@ -84,8 +85,61 @@
     	  }, 400);
     });
   });
+  
+  $(function() {
+	  $(".stars").each(function() {
+	    const score = parseFloat($(this).data("score")) || 0;
+	    const fullStars = Math.floor(score);
+	    const partial = score - fullStars;
+	    const stars = $(this).find(".star");
+
+	    stars.each(function(i) {
+	      const $path = $(this).find("path");
+	      if (i < fullStars) {
+	        $path.css("fill", "var(--accent)");
+	      } else if (i === fullStars && partial > 0) {
+	        // 절반 채움
+	        $path.css("fill", "url(#half-fill)");
+	      } else {
+	        $path.css("fill", "#ddd"); // 빈 별 회색 처리
+	      }
+	    });
+	  });
+	});
+  $(function() {
+	  $(".stars-sm").each(function() {
+	    const score = parseFloat($(this).data("score")) || 0;
+	    const fullStars = Math.floor(score);
+	    const partial = score - fullStars;
+	    const stars = $(this).find(".star");
+
+	    stars.each(function(i) {
+	      const $path = $(this).find("path");
+	      if (i < fullStars) {
+	        $(this).addClass("filled");
+	        $path.css("fill", "var(--accent)");
+	      } else if (i === fullStars && partial > 0) {
+	        // 절반 별
+	        $path.css("fill", "url(#half-fill)");
+	      } else {
+	        $path.css("fill", "#ddd");
+	      }
+	    });
+	  });
+	});
+
+
 </script>
 </head>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="half-fill" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="50%" stop-color="var(--accent)" />
+      <stop offset="50%" stop-color="#ddd" />
+    </linearGradient>
+  </defs>
+</svg>
+
 <body>
   <div class="header-text" style="height: 200px;"></div>
 
@@ -93,19 +147,19 @@
     <div class="hero-left">
       <div class="title-row">
         <button class="prime-badge">즐겨찾기</button>
-        <h1 class="title">모든 종류의 보도자료, 기사 작성 및 송출해 드립니다.</h1> <!-- 컨텐츠 제목 -->
+        <h1 class="title">${vo.b_title }</h1> <!-- 컨텐츠 제목 -->
       </div>
 
       <div class="meta" aria-label="별점 및 관심">
-        <div class="stars" aria-hidden="true">
-          <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-          <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-          <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-          <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-          <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-        </div>
-        <span class="rating">${vo1.b_review_score }</span> <!-- 컨텐츠 평점 -->
-        <span class="count">${vo.r_count }</span> <!-- 리뷰 수 -->
+        <div class="stars" data-score="${list[0].r_avg_score }">
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		</div>
+        <span class="rating"><fmt:formatNumber value="${empty list[0].r_avg_score ? 0 : list[0].r_avg_score}" pattern="0.0"/></span> <!-- 컨텐츠 평점 -->
+        <span class="count">(${vo.r_count })</span> <!-- 리뷰 수 -->
 		<div class="like-button">
 		  <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
 		    <path d="M12 21s-6.7-4.3-9.4-7.1C.7 11.9.4 8.9 2.3 7 4 5.3 6.8 5.6 8.6 7.3L12 10.6l3.4-3.3c1.8-1.7 4.6-2 6.3-.3 1.9 1.9 1.6 4.9-.3 6.8C18.7 16.7 12 21 12 21z"></path>
@@ -155,14 +209,21 @@
 		<!-- 컨텐츠 상세 내용 -->
         <div id="tabs-1">
    		  <br>
-   		  <p style="font-weight: 600">작업 방식 : ${vo.b_prod_on_off }</p> <!-- ONLINE => 비대면 / OFFLINE => 대면 -->
+   		  <p style="font-weight: 600">
+			  작업 방식 : 
+			  <c:choose>
+			    <c:when test="${vo.b_prod_on_off eq 'ONLINE'}">온라인 (비대면)</c:when>
+			    <c:when test="${vo.b_prod_on_off eq 'OFFLINE'}">오프라인 (대면)</c:when>
+			    <c:otherwise>정보 없음</c:otherwise>
+			  </c:choose>
+			</p>
    		  <br>
           <p style="white-space: pre-line;">
 			    ${vo.b_content}
 			</p>
           <br><br>
-          <c:forEach begin="0" end="7">
-            <img style="width:100%" src="./assets/images/플랫폼개발.webp">
+          <c:forEach var="vo4" items="${list4 }">
+            <img style="width:100%" src="${vo4.b_img_url }">
           </c:forEach>
         </div>
 		<!-- 셀러 정보 -->
@@ -205,13 +266,13 @@
                   <div style="display: flex;">
                     <div class="avatar" style="margin-right: 10px; background-image: url('${vo1.u_profileimg_url}'"></div> <!-- 리뷰 프로필 -->
                     <div>
-                      <div class="stars-sm" aria-hidden="true">
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                      </div>
+                      <div class="stars-sm" data-score="${vo1.b_review_score }">
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					  </div>
                       <div class="name">${vo1.u_nickname }</div> <!-- 리뷰 작성자 -->
                     </div>
                     <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 리뷰 날짜 -->
@@ -260,29 +321,32 @@
     </div>
 	<!-- 가격 옵션 -->
     <div class="hero-right" id="skicky">
-      <div class="plans">
-          <span class="dropdown-el" id="sortDropdown">
-		  <span class="current">벽걸이 기본 (90,000원)</span>
-			  <div class="menu">
-			    <input type="radio" name="sortType" value="Relevance" checked id="sort-relevance">
-			    <label for="sort-relevance">벽걸이 기본 (90,000원)</label>
-			
-			    <input type="radio" name="sortType" value="Popularity" id="sort-best">
-			    <label for="sort-best">벽걸이 와이드 (100,000원)</label>
-			
-			    <input type="radio" name="sortType" value="PriceIncreasing" id="sort-low">
-			    <label for="sort-low">벽걸이 와이드 (100,000원)</label>
-			
-			    <input type="radio" name="sortType" value="PriceDecreasing" id="sort-high">
-			    <label for="sort-high">벽걸이 와이드 (100,000원)</label>
-			  </div>
-			</span>
-            <div class="cta">
-              <button class="btn-ghost">전문가에게 문의하기</button>
-              <button class="btn-pri">구매하기</button>
-            </div>
-          </div>
-        </div>
+	  <div class="plans">
+	    <span class="dropdown-el" id="sortDropdown">
+	      <span class="current">
+	        ${list3[0].b_op_title}  (<fmt:formatNumber value="${list3[0].b_op_price}" pattern="#,###" />원)
+	      </span>
+	      <div class="menu">
+	        <c:forEach var="vo3" items="${list3}" varStatus="status">
+	          <input type="radio"
+	                 name="sortType"
+	                 id="sort-${status.index}"
+	                 value="${vo3.b_op_title}"
+	                 <c:if test="${status.first}">checked</c:if> />
+	          <label for="sort-${status.index}">
+	            ${vo3.b_op_title} (<fmt:formatNumber value="${vo3.b_op_price}" pattern="#,###" />원)
+	          </label>
+	        </c:forEach>
+	      </div>
+	    </span>
+	
+	    <div class="cta">
+	      <button class="btn-ghost">전문가에게 문의하기</button>
+	      <button class="btn-pri">구매하기</button>
+	    </div>
+	  </div>
+	</div>
+
     <div style="height: 100px"></div>
   </section>
 </body>

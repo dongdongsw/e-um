@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -330,7 +332,7 @@ window.addEventListener('DOMContentLoaded', function () {
          
        
          <div class="col-md-3">
-         <a href="../main/exercisedetail.eum?b_id=${vo.b_id }&page=${curpage }">
+         <a href="../main/exercisedetail_before.eum?b_id=${vo.b_id }&page=${curpage }">
 		   <div class="temporary__storage" style="border:none">
 			  <div class="list-card">
 			    <div class="image">
@@ -343,13 +345,15 @@ window.addEventListener('DOMContentLoaded', function () {
 			      <div class="content__text">
 			        <span class="stream__title">${vo.b_title}</span>
 			        <div class="content__body">
-			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ 4.9 (${vo.r_count })</span>
-			          <span class="streamer__name" id="price" style="font-size: 12px">${vo.b_op_price_min }원</span>
+			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ ${vo.r_avg_score } (${vo.r_count })</span>
+			          <span class="streamer__name" id="price" style="font-size: 12px"><fmt:formatNumber value="${vo.b_op_price_min}" pattern="#,###" />원</span>
 			          <span class="streamer__name" id="seller" style="font-size: 10px">${vo.u_s_com }</span>
 			        </div>
 			        <span class="categories">
-			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">{vo.b_type}</div>
-			        </span>
+					  <div class="categories__btn">${vo.b_type}</div>
+					  <div class="categories__btn">${vo.b_filter}</div>
+					</span>
+
 			      </div>
 			    </div>
 			</div>

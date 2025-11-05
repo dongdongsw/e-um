@@ -21,6 +21,7 @@ public class ContentVO {
 	
 	private int   r_count; // 리뷰 개수
 	private int b_op_price_min; // 게시판 옵션 최저가
+	private Double r_avg_score;
 
 	// 판매자 테이블 
 	private int u_s_id;

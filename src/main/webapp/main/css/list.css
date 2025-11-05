@@ -228,17 +228,29 @@ label {
   color: black;
 }
 
+.categories {
+  display: inline-flex;   
+  align-items: center;        
+  gap: 6px;                
+  flex-wrap: wrap;       
+}
+
 .categories__btn {
+  display: inline-block;   
   text-decoration: none;
   color: rgb(73, 71, 71);
-  font-size: .8em;
+  font-size: 10px;
   background-color: rgb(220, 220, 220);
-  padding: 2px 8px;
+  padding: 2px 10px;
   border-radius: 15px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  max-width: 100px;
+  text-align: center;
+  transition: all 0.2s ease;
 }
+
 
 :root {
   --primary: #7453fc;

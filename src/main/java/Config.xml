@@ -9,9 +9,9 @@
      <typeAlias type="com.eum.list.vo.ContentVO" alias="ContentVO"/>
      <typeAlias type="com.eum.list.vo.ReviewVO" alias="ReviewVO"/>
      <typeAlias type="com.eum.list.vo.Review_ImageVO" alias="Review_ImageVO"/>
-     <!-- <typeAlias type="com.eum.list.vo.BoardVO" alias="BoardVO"/>
-     <typeAlias type="com.eum.list.vo.Board_ImageVO" alias="Board_ImageVO"/>
      <typeAlias type="com.eum.list.vo.Board_OptionVO" alias="Board_OptionVO"/>
+     <typeAlias type="com.eum.list.vo.Board_ImageVO" alias="Board_ImageVO"/>
+     <!-- <typeAlias type="com.eum.list.vo.BoardVO" alias="BoardVO"/>
      <typeAlias type="com.eum.list.vo.Board_LikeVO" alias="Board_LikeVO"/>
      <typeAlias type="com.eum.list.vo.ChatVO" alias="ChatVO"/>
      <typeAlias type="com.eum.list.vo.Chat_MessageVO" alias="Chat_MessageVO"/>

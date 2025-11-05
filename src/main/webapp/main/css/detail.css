@@ -37,7 +37,18 @@
 
     .meta{display:flex; align-items:center; gap:14px}
     .stars{display:inline-flex; gap:2px; transform: translateY(1px)}
-    .star{width:18px; height:18px; fill:var(--accent)}
+    .star {
+	  width: 18px;
+	  height: 18px;
+	}
+	.star path {
+	  fill: #ddd; /* 기본 빈 별 */
+	  transition: fill 0.2s ease;
+	}
+	.star.filled path {
+	  fill: var(--accent); /* 꽉 찬 별 */
+	}
+
     .rating{font-weight:700}
     .count{color:var(--muted); font-size:13px}
 
@@ -131,7 +142,23 @@
 		  display: flex;
 	}
     .stars-sm{display:inline-flex; gap:2px; transform:translateY(1px)}
-    .star-sm{width:14px; height:14px; fill:var(--accent)}
+    /* 리뷰용 별점 컨테이너 */
+	.stars-sm {
+  display: inline-flex;
+  gap: 2px;
+  transform: translateY(1px);
+  flex-direction: row; /* 왼쪽부터 순서대로 별 채우기 */
+}
+
+/* 기본 별색 회색 */
+.stars-sm .star path {
+  fill: #ddd;
+}
+
+/* 채워진 별은 노란색 */
+.stars-sm .star.filled path {
+  fill: var(--accent);
+}
 
     .side-sticky{position:sticky; top:18px; height:fit-content}
 
@@ -404,4 +431,3 @@
 .count {
   cursor: pointer;
 }
-
