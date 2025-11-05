@@ -56,8 +56,7 @@ window.addEventListener('DOMContentLoaded', function () {
 </script>
 </head>
 <body>
-  <div style="background-color:#fff; height:180px;"></div>
-  <div class="header-text" style="height: 100px;"></div>
+  <div class="header-text" style="height: 200px;"></div>
 
   <div class="list-container">
     <!-- 사이드바 -->
@@ -254,6 +253,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   })();
 </script>
+	
     <!-- 오른쪽 메인 -->
     <div class="main">
       <div class="row">
@@ -275,7 +275,7 @@ window.addEventListener('DOMContentLoaded', function () {
        <c:forEach var="vo" items="${list}">
          <div class="col-md-3">
 		   <div class="temporary__storage" style="border:none">
-			  <div class="list-card" onclick="location.href='../etc/detail.eum?b_id=${vo.b_id}'">
+			  <div class="list-card" onclick="location.href='../list/etcdetail.eum?b_id=${vo.b_id}'">
 			    <div class="image">
 			      <img src="${vo.b_thumbnail }" width="200" height="160" style="border-radius: 15px;">
 			    </div>
@@ -301,13 +301,13 @@ window.addEventListener('DOMContentLoaded', function () {
       <div id="app" class="container">  
 		  <ul class="page">
 		   <c:if test="${startPage>1 }">
-		      <li class="page__btn active" ><a class="material-icons" href="../etc/list.eum?page=${startPage-1 }">&lt;</a></li>
+		      <li class="page__btn active" ><a class="material-icons" href="../list/etclist.eum?page=${startPage-1 }">&lt;</a></li>
 		   </c:if>
 		    <c:forEach var="i" begin="${startPage }" end="${endPage }">
-		      <li class="page__numbers ${i==curpage?'active':'' }"><a href="../etc/list.eum?page=${i }">${i}</a></li>
+		      <li class="page__numbers ${i==curpage?'active':'' }"><a href="../list/etclist.eum?page=${i }">${i}</a></li>
 		    </c:forEach> 
 		    <c:if test="${endPage<totalpage }">
-		      <li class="page__btn active" ><a class="material-icons" href="../etc/list.eum?page=${endPage+1 }">&gt;</a></li>
+		      <li class="page__btn active" ><a class="material-icons" href="../list/etclist.eum?page=${endPage+1 }">&gt;</a></li>
 		    </c:if>
 		  </ul>
 		</div>

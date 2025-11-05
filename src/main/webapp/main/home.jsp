@@ -182,11 +182,12 @@ border-bottom: 1px solid #e6e6f8;
       <img src="../main/images/robot.png" alt="AI/테크" class="category-icon">
       <span>AI / 테크</span>
     </button>
-
+	<a href="../list/etclist.eum">
     <button class="brutalist-button button-1">
       <img src="../main/images/puzzle.png" alt="기타" class="category-icon">
       <span>기타</span>
     </button>
+    </a>
   </div>
 </section>
               <div class="col-lg-2 col-sm-5">

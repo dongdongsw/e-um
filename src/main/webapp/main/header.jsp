@@ -415,7 +415,7 @@ Header Style
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="../main/main.eum" class="logo">
-                        <img src="assets/images/logo.png" alt="">
+                        <img src="../assets/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
@@ -424,7 +424,7 @@ Header Style
                         <li><a href="../main/detail.eum">detail</a></li>
                         <li><a href="create.html">셀러 등록</a></li>
                         <li><a href="explore.html">로그인</a></li>
-                        <li><a href="index.html" class="active">회원가입</a></li>
+                        <li><a href="../join/join.eum" class="active">회원가입</a></li>
                     </ul>   
                     <!-- ***** Menu End ***** -->
                 </nav>

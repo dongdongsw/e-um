@@ -162,7 +162,7 @@
 		<!-- 컨텐츠 상세 내용 -->
         <div id="tabs-1">
    		  <br>
-   		  <p style="font-weight: 600">작업 방식 : ${vo.b_content eq "ONLINE" ? "온라인" : "오프라인"}</p> <!-- ONLINE => 비대면 / OFFLINE => 대면 -->
+   		  <p style="font-weight: 600">작업 방식 : ${vo.b_prod_on_off eq "ONLINE" ? "온라인" : "오프라인"}</p> <!-- ONLINE => 비대면 / OFFLINE => 대면 -->
    		  <br>
           <p style="font-size: 14px">${vo.b_content }</p>
           <br><br>

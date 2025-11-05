@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Controller
 public class EtcModel {
 	
-	@RequestMapping("etc/list.eum")
+	@RequestMapping("list/etclist.eum")
 	public String main_list(HttpServletRequest request, HttpServletResponse response) {
 		
 		String page=request.getParameter("page");
@@ -48,11 +48,11 @@ public class EtcModel {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		
-        request.setAttribute("main_jsp", "../etc/list.jsp");
+        request.setAttribute("main_jsp", "../list/etclist.jsp");
         return "../main/main.jsp";
     }
 	
-	@RequestMapping("etc/detail.eum")
+	@RequestMapping("list/etcdetail.eum")
 	public String main_detail(HttpServletRequest request, HttpServletResponse response) {
 		
 		String b_id=request.getParameter("b_id");
@@ -67,7 +67,7 @@ public class EtcModel {
 		request.setAttribute("rList", rList);
 		request.setAttribute("oList", oList);
 		
-		request.setAttribute("main_jsp", "../etc/detail.jsp");
+		request.setAttribute("main_jsp", "../list/etcdetail.jsp");
 		return "../main/main.jsp";
 	}
 	
