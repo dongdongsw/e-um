@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -162,7 +163,7 @@
 		<!-- 컨텐츠 상세 내용 -->
         <div id="tabs-1">
    		  <br>
-   		  <p style="font-weight: 600">작업 방식 : ${vo.b_prod_on_off eq "ONLINE" ? "온라인" : "오프라인"}</p> <!-- ONLINE => 비대면 / OFFLINE => 대면 -->
+   		  <p style="font-weight: 600">작업 방식 : ${vo.b_prod_on_off eq "ONLINE" ? "대면" : "비대면"}</p> <!-- ONLINE => 비대면 / OFFLINE => 대면 -->
    		  <br>
           <p style="font-size: 14px">${vo.b_content }</p>
           <br><br>
@@ -208,7 +209,7 @@
               <div class="re-card" id="reviews">
                 <div class="review">
                   <div style="display: flex;">
-                    <div class="avatar" style="margin-right: 10px;"></div> <!-- 리뷰 프로필 -->
+                    <div class="avatar" style="margin-right: 10px;"><img src="${rev.u_profileimg_url }" style="border-radius: 50px"></div> <!-- 리뷰 프로필 -->
                     <div>
                       <div class="stars-sm" aria-hidden="true">
                         <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
@@ -217,10 +218,10 @@
                         <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
                         <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
                       </div>
-                      <div class="name">${rev.u_id }</div> <!-- 리뷰 작성자 -->
+                      <div class="name">${rev.u_nickname }</div> <!-- 리뷰 작성자 -->
                     </div>
                     <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 리뷰 날짜 -->
-                      25.11.01 14:56
+						<fmt:formatDate value="${rev.b_review_createdat}" pattern="yyyy.MM.dd HH:mm"/>
                     </div>
                   </div>
                 </div>
@@ -229,7 +230,7 @@
                   <div class="review-img"></div>
                 </c:forEach>
 				<!-- 리뷰 내용 -->
-                <p style="margin:0; color:var(--muted)">빠르고 정확하기도 한데다가 원고도 너무 좋네요…</p>
+                <p style="margin:0; color:var(--muted)">${rev.b_review_content }</p>
                 
                 <div class="re-review">
                  <div class="review">
@@ -251,31 +252,34 @@
       </div>
     </div>
 	<!-- 가격 옵션 -->
-    <div class="hero-right" id="skicky">
-      <div class="plans">
-          <span class="dropdown-el" id="sortDropdown">
-		  <span class="current">벽걸이 기본 (90,000원)</span>
-			  <div class="menu">
-			    <input type="radio" name="sortType" value="Relevance" checked id="sort-relevance">
-			    <label for="sort-relevance">벽걸이 기본 (90,000원)</label>
-			
-			    <input type="radio" name="sortType" value="Popularity" id="sort-best">
-			    <label for="sort-best">벽걸이 와이드 (100,000원)</label>
-			
-			    <input type="radio" name="sortType" value="PriceIncreasing" id="sort-low">
-			    <label for="sort-low">벽걸이 와이드 (100,000원)</label>
-			
-			    <input type="radio" name="sortType" value="PriceDecreasing" id="sort-high">
-			    <label for="sort-high">벽걸이 와이드 (100,000원)</label>
-			  </div>
-			</span>
-            <div class="cta">
-              <button class="btn-ghost">전문가에게 문의하기</button>
-              <button class="btn-pri">구매하기</button>
-            </div>
-          </div>
-        </div>
-    <div style="height: 100px"></div>
+	<div class="hero-right" id="sticky">
+	  <div class="plans">
+	    <span class="dropdown-el" id="sortDropdown">
+	      <span class="current">
+	        ${oList[0].b_op_title} (<fmt:formatNumber value="${oList[0].b_op_price}" type="number"/>원)
+	      </span>
+	      <div class="menu">
+	       <c:forEach var="op" items="${oList}">
+	        <input type="radio" name="sortType" value="Relevance" id="sort-relevance">
+	        <label for="sort-relevance">${op.b_op_title } (<fmt:formatNumber value="${op.b_op_price}" type="number" />원)</label>
+	       </c:forEach>
+	      </div>
+	    </span>
+	    
+	    <div class="price-desc">
+	     <h5 style="color: black; font-weight: bold">가격 정보</h5><br><br>
+	      <c:forEach var="op" items="${oList }">
+	      <p>${op.b_op_title } : ${op.b_op_detail }</p><br>
+	      </c:forEach>
+	    </div>
+	
+	    <div class="cta">
+	      <button class="btn-ghost">전문가에게 문의하기</button>
+	      <button class="btn-pri">구매하기</button>
+	    </div>
+	  </div>
+	</div>    
+	<div style="height: 100px"></div>
   </section>
 </body>
 </html>

@@ -77,8 +77,12 @@
 	
 	<!-- 리뷰 -->
 	<select id="etcReview" resultType="ContentVO" parameterType="string">
-	   SELECT *
-	   FROM review
+       SELECT 
+	      b_review_createdat,
+	   	  DBMS_LOB.SUBSTR(b_review_content, 500, 1) AS b_review_content,
+	   	  (SELECT u_nickname FROM users u WHERE u.u_id=re.u_id) AS u_nickname,
+	   	  (SELECT u_profileimg_url FROM users u WHERE u.u_id=re.u_id) AS u_profileimg_url
+	   FROM review re
 	   WHERE b_id = #{b_id}
 	   ORDER BY b_review_createdat DESC
 	</select>

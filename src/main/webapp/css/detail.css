@@ -389,3 +389,13 @@
 .count {
   cursor: pointer;
 }
+.price-desc {
+  margin: 16px 0;
+  padding: 16px;
+  background-color: #fff;
+  border: 1px solid #E0E5EB;
+  border-radius: 15px;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
