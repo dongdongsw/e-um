@@ -16,11 +16,11 @@
 	            WHERE re.b_id = b.b_id) AS r_count,
 	          (SELECT sel.u_s_com
 	             FROM users_seller sel
-	            WHERE sel.u_s_id = b.u_s_id) AS u_s_com
-	          <!-- (SELECT re.b_review_score
+	            WHERE sel.u_s_id = b.u_s_id) AS u_s_com,
+	          (SELECT re.b_review_score
 	          	FROM  review re
 	          	WHERE re.b_id = b.b_id
-	           AND ROW NUM =1) AS b_review_score -->
+	           AND ROWNUM =1) AS b_review_score
 	      FROM board b
 	      WHERE b.b_type = '외주'
 	  )
@@ -36,7 +36,7 @@
       b.b_thumbnail,
       b.b_title,
       b.b_view_count,
-      <!-- b.b_review_score, -->
+      b.b_review_score,
       b.b_content,
       b.b_prod_on_off,
       b.b_createdat AS b_createdAt,
@@ -46,7 +46,7 @@
     FROM board b
     LEFT JOIN users_seller u ON b.u_s_id = u.u_s_id
     LEFT JOIN review_image r ON b.b_id = r.b_id
-    <!-- LEFT JOIN review re ON b.b_id = re.b_id -->
+    LEFT JOIN review re ON b.b_id = re.b_id
     WHERE b.b_id = #{b_id}
   </select>
 

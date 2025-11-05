@@ -285,13 +285,13 @@ window.addEventListener('DOMContentLoaded', function () {
 			      <div class="content__text">
 			        <span class="stream__title">${vo.b_title}</span>
 			        <div class="content__body">
-			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️4.0 (${vo.r_count })</span>
+			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️${vo.b_review_score } (${vo.r_count })</span>
 			          <span class="streamer__name" id="price" style="font-size: 12px"><fmt:formatNumber value="${vo.b_op_price_min}" type="number" />원</span>
 			          <span class="streamer__name" id="seller" style="font-size: 10px">${vo.u_s_com }</span>
 			        </div>
-			        <span class="categories">
-			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">${vo.b_filter }</div>
-			        </span>
+			        <div class="categories">
+			          <span class="categories__btn" style="width:55px; text-align: center; font-size: 10px">${vo.b_filter }</span>
+			        </div>
 			      </div>
 			    </div>
 			</div>
