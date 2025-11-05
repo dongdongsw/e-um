@@ -47,7 +47,6 @@ public class HobbyModel {
 		  
 		// 보여주는 화면 
 		request.setAttribute("main_jsp", "../main/list/hobbylist.jsp");
-		request.setAttribute("main_jsp", "../hobby/list.jsp");
 		return "../main/main.jsp";
 	}
 }
