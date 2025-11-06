@@ -423,7 +423,7 @@ Header Style
                         <li><a href="../main/list.eum">list</a></li>
                         <li><a href="../main/detail.eum">detail</a></li>
                         <li><a href="create.html">셀러 등록</a></li>
-                        <li><a href="../main/login.eum">로그인</a></li>
+                        <li><a href="login.eum">로그인</a></li>
                         <li><a href="index.html" class="active">회원가입</a></li>
                     </ul>   
                     <!-- ***** Menu End ***** -->

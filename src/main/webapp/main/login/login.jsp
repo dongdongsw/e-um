@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="login/css/login.css">
+</style>
 </head>
 <body>
   <div class="form-container">
@@ -49,6 +50,6 @@
 	<p class="signup">아직 회원이 아니신가요?
 		<a rel="noopener noreferrer" href="#" class="">회원가입</a>
 	</p>
-</div>
+  </div>
 </body>
 </html>
