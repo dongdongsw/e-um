@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,8 +112,8 @@
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
         </div>
-        <span class="rating">4.9</span> <!-- 컨텐츠 평점 -->
-        <span class="count">${vo.r_count }</span> <!-- 리뷰 수 -->
+        <span class="rating">${vo.r_avg_score ne null ? vo.r_avg_score : 0.0}</span> <!-- 컨텐츠 평점 -->
+        <span class="count">(${empty vo.r_count ? 0 : vo.r_count})</span> <!-- 리뷰 수 -->
 		<div class="like-button">
 		  <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
 		    <path d="M12 21s-6.7-4.3-9.4-7.1C.7 11.9.4 8.9 2.3 7 4 5.3 6.8 5.6 8.6 7.3L12 10.6l3.4-3.3c1.8-1.7 4.6-2 6.3-.3 1.9 1.9 1.6 4.9-.3 6.8C18.7 16.7 12 21 12 21z"></path>
@@ -138,7 +139,7 @@
 
       <div class="prime-card">
         <ul class="prime-list">
-          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 경력 : ${vo.u_s_carrer }</li>
+          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 경력 : ${vo.u_s_carrer } 년</li>
           <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 서비스 지역 : ${vo.u_s_zone }</li>
         </ul>
       </div>
@@ -162,7 +163,7 @@
 		<!-- 컨텐츠 상세 내용 -->
         <div id="tabs-1">
    		  <br>
-   		  <p style="font-weight: 600">작업 방식 : ${vo.b_prod_on_off =='ON'?'대면':'비대면' }</p>
+   		  <p style="font-weight: 600">작업 방식 : ${vo.b_prod_on_off eq "ONLINE" ? "대면" : "비대면"}</p> <!-- ONLINE => 비대면 / OFFLINE => 대면 -->
    		  <br>
           <p style="font-size: 14px">${vo.b_content }</p>
           <br><br>
@@ -204,11 +205,11 @@
 		<!-- 리뷰 -->
         <div id="tabs-3">
           <aside class="side-sticky">
-            <c:forEach var="rev" items="">
+            <c:forEach var="rev" items="${rList }">
               <div class="re-card" id="reviews">
                 <div class="review">
                   <div style="display: flex;">
-                    <div class="avatar" style="margin-right: 10px;"></div> <!-- 리뷰 프로필 -->
+                    <div class="avatar" style="margin-right: 10px;"><img src="${rev.u_profileimg_url }" style="border-radius: 50px"></div> <!-- 리뷰 프로필 -->
                     <div>
                       <div class="stars-sm" aria-hidden="true">
                         <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
@@ -217,25 +218,25 @@
                         <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
                         <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
                       </div>
-                      <div class="name">${rev.u_id }</div> <!-- 리뷰 작성자 -->
+                      <div class="name">${rev.u_nickname }</div> <!-- 리뷰 작성자 -->
                     </div>
                     <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 리뷰 날짜 -->
-                      25.11.01 14:56
+						<fmt:formatDate value="${rev.b_review_createdat}" pattern="yyyy.MM.dd HH:mm"/>
                     </div>
                   </div>
                 </div>
 
                 <c:forEach begin="0" end="2"> <!-- 리뷰 이미지 -->
-                  <div class="review-img"></div>
+                  <div class="review-img"><img src="${b.r_image_url }"></div>
                 </c:forEach>
 				<!-- 리뷰 내용 -->
-                <p style="margin:0; color:var(--muted)">빠르고 정확하기도 한데다가 원고도 너무 좋네요…</p>
+                <p style="margin:0; color:var(--muted)">${rev.b_review_content }</p>
                 
                 <div class="re-review">
                  <div class="review">
                   <div style="display: flex;">
-                    <div class="avatar" style="margin-right: 10px;"></div> <!-- 셀러 프로필 -->
-                      <div class="seller-name">김민식</div> <!--  -->
+                    <div class="avatar" style="margin-right: 10px;"><img src="${vo.u_s_profileimg_url }" style="border-radius: 50px"></div> <!-- 셀러 프로필 ${vo.u_s_profileimg_url }-->
+                      <div class="seller-name">${vo.u_s_com }</div>
                       <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 답글 날짜 -->
                         25.11.03 16:18
                       </div>
@@ -254,7 +255,7 @@
     <div class="hero-right" id="skicky">
       <div class="plans">
           <span class="dropdown-el" id="sortDropdown">
-		  <span class="current">벽걸이 기본 (90,000원)</span>
+		  <span class="current">${vo.b_op_id }</span>
 			  <div class="menu">
 			    <input type="radio" name="sortType" value="Relevance" checked id="sort-relevance">
 			    <label for="sort-relevance">벽걸이 기본 (90,000원)</label>
@@ -276,7 +277,6 @@
           </div>
         </div>
     <div style="height: 100px"></div>
-  </section>
 </body>
 </html>
 </html>

@@ -44,4 +44,26 @@ public class ContentDAO {
 		   session.close();
 		   return list;
 	   }
+	   public static List<ContentVO> contentReview(String b_id)
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<ContentVO> list=session.selectList("contentReview",b_id);
+		   session.close();
+		   return list;
+	   }
+	   public static List<String> contentReviewImage(String b_id)
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<String> list=session.selectList("contentReviewImage",b_id);
+		   session.close();
+		   return list;
+	   }
+	   public static List<ContentVO> contentOption(String b_id)
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<ContentVO> list=session.selectList("contentOption",b_id);
+		   session.close();
+		   return list;
+	   }
+	  
 }

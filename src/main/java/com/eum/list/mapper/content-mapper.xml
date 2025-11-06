@@ -5,22 +5,21 @@
 
 <mapper namespace="com.eum.list.mapper.content-mapper">
 <select id="contentListData" resultType="ContentVO" parameterType="map">
-   SELECT b_id, b_thumbnail, b_title, b_filter, b_op_price_min, r_count, u_s_com, num
-		  FROM (SELECT b_id, b_thumbnail, b_title, b_filter, b_op_price_min, r_count, u_s_com, ROWNUM AS num
+   SELECT b_id, b_thumbnail, b_title, b_filter, b_op_price_min, r_count, r_avg_score, u_s_com, num
+		  FROM (SELECT b_id, b_thumbnail, b_title, b_filter, b_op_price_min, r_count,r_avg_score, u_s_com, ROWNUM AS num
 	  	  FROM (SELECT b.b_id, b.b_thumbnail, b.b_title, b.b_filter,
 	          (SELECT MIN(op.b_op_price)
 	             FROM board_option op
 	            WHERE op.b_id = b.b_id) AS b_op_price_min,
 	          (SELECT COUNT(*)
-	             FROM review re
-	            WHERE re.b_id = b.b_id) AS r_count,
-	          (SELECT sel.u_s_com
-	             FROM users_seller sel
-	            WHERE sel.u_s_id = b.u_s_id) AS u_s_com,
-	          (SELECT re.b_review_score
-	          	FROM  review re
-	          	WHERE re.b_id = b.b_id
-	           AND ROWNUM =1) AS b_review_score
+               FROM review re
+               WHERE re.b_id = b.b_id) AS r_count,
+              (SELECT ROUND(AVG(re.b_review_score), 1)
+               FROM review re
+               WHERE re.b_id = b.b_id) AS r_avg_score, 
+              (SELECT sel.u_s_com
+               FROM users_seller sel
+               WHERE sel.u_s_id = b.u_s_id) AS u_s_com
 	      FROM board b
 	      WHERE b.b_type = '비즈니스'
 	  )
@@ -40,6 +39,9 @@
 		    b.u_s_id,
 		    (SELECT COUNT(*) FROM review re WHERE re.b_id = b.b_id) AS r_count,
 		    (SELECT COUNT(*) FROM board_like bl WHERE bl.b_id = b.b_id) AS l_count,
+		    (SELECT ROUND(AVG(re.b_review_score), 1)
+              FROM review re
+              WHERE re.b_id = b.b_id) AS r_avg_score,
 		    sel.u_s_com,
 		    sel.u_s_zone,
 		    sel.u_s_carrer,
@@ -61,4 +63,29 @@
     FROM board
     WHERE b_type='비즈니스'
   </select>
+  <select id="contentReview" resultType="ContentVO" parameterType="string">
+  SELECT 
+    re.b_review_createdat,
+    DBMS_LOB.SUBSTR(re.b_review_content, 500, 1) AS b_review_content,
+    u.u_nickname,
+    u.u_profileimg_url
+  FROM review re
+  LEFT JOIN users u
+    ON re.u_id = u.u_id
+  WHERE re.b_id = #{b_id}
+  ORDER BY re.b_review_createdat DESC
+</select>
+  <select id="contentReviewImage" resultType="string" parameterType="string">
+  SELECT b_review_img_url
+  FROM review_image
+  WHERE b_id = #{b_id}
+  ORDER BY b_review_img_id ASC
+</select>
+<select id="contentOption" resultType="ContentVO" parameterType="string">
+ SELECT b_op_id, b_id, b_op_title, b_op_price,
+ DBMS_LOB.SUBSTR(b_op_detail, 500, 1) AS b_op_detail
+ FROM board_option
+ WHERE b_id = #{b_id}
+ ORDER BY b_op_id ASC
+</select>
 </mapper>
