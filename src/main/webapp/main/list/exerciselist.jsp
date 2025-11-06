@@ -175,7 +175,7 @@ window.addEventListener('DOMContentLoaded', function () {
       <li class="accordion__section">
         <button class="accordion__toggle" type="button"
                 aria-expanded="false" aria-controls="panel-activate" id="toggle-activate">
-          <span>채널 활성화</span>
+          <span>라켓 스포츠</span>
           <!-- 화살표 (색상 지정 없음) -->
           <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -183,8 +183,9 @@ window.addEventListener('DOMContentLoaded', function () {
         </button>
         <div class="accordion__panel" id="panel-activate" role="region" aria-labelledby="toggle-activate" hidden>
           <ul class="submenu">
-            <li><button class="submenu__item" type="button">블로그 관리</button></li>
-            <li><button class="submenu__item" type="button">카페 관리</button></li>
+            <li><button class="submenu__item" type="button">테니스</button></li>
+            <li><button class="submenu__item" type="button">배드민턴</button></li>
+            <li><button class="submenu__item" type="button">스쿼시라켓볼</button></li>
           </ul>
         </div>
       </li>
@@ -193,15 +194,17 @@ window.addEventListener('DOMContentLoaded', function () {
       <li class="accordion__section">
         <button class="accordion__toggle" type="button"
                 aria-expanded="false" aria-controls="panel-instagram" id="toggle-instagram">
-          <span>인스타그램 관리</span>
+          <span>격투·무술</span>
           <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
         <div class="accordion__panel" id="panel-instagram" role="region" aria-labelledby="toggle-instagram">
           <ul class="submenu">
-            <li><button class="submenu__item" type="button">인스타그램 대행</button></li>
-            <li><button class="submenu__item" type="button">인스타그램 활성화</button></li>
+            <li><button class="submenu__item" type="button">복싱 & 킥복싱</button></li><!-- 킥복싱-무에타이 -->
+            <li><button class="submenu__item" type="button">태권도</button></li>
+            <li><button class="submenu__item" type="button">주짓수</button></li>
+            <li><button class="submenu__item" type="button">종합격투기-레슨</button></li>	
           </ul>
         </div>
       </li>
@@ -210,15 +213,16 @@ window.addEventListener('DOMContentLoaded', function () {
       <li class="accordion__section">
         <button class="accordion__toggle" type="button"
                 aria-expanded="false" aria-controls="panel-youtube" id="toggle-youtube">
-          <span>유튜브 관리</span>
+          <span>요가·필라테스·피트니스</span>
           <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
         <div class="accordion__panel" id="panel-youtube" role="region" aria-labelledby="toggle-youtube" hidden>
           <ul class="submenu">
-            <li><button class="submenu__item" type="button">채널 운영</button></li>
-            <li><button class="submenu__item" type="button">영상 최적화</button></li>
+            <li><button class="submenu__item" type="button">요가</button></li>
+            <li><button class="submenu__item" type="button">필라테스</button></li>
+            <li><button class="submenu__item" type="button">피트니스</button></li> <!-- 퍼스널트레이닝임 원래,  체조 -->
           </ul>
         </div>
       </li>
@@ -227,33 +231,97 @@ window.addEventListener('DOMContentLoaded', function () {
       <li class="accordion__section">
         <button class="accordion__toggle" type="button"
                 aria-expanded="false" aria-controls="panel-shorts" id="toggle-shorts">
-          <span>릴스·쇼츠·틱톡 관리</span>
+          <span>관리댄스·리듬운동</span>
           <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
         <div class="accordion__panel" id="panel-shorts" role="region" aria-labelledby="toggle-shorts" hidden>
           <ul class="submenu">
-            <li><button class="submenu__item" type="button">숏폼 편집</button></li>
-            <li><button class="submenu__item" type="button">캠페인 운영</button></li>
+            <li><button class="submenu__item" type="button">방송댄스</button></li>
+            <li><button class="submenu__item" type="button">스트릿-댄스</button></li>
+            <li><button class="submenu__item" type="button">댄스스포츠</button></li>
+            <li><button class="submenu__item" type="button">살사댄스</button></li>
+            <li><button class="submenu__item" type="button">바차타댄스-레슨</button></li>
+            <li><button class="submenu__item" type="button">폴-댄스</button></li>
+            <li><button class="submenu__item" type="button">음악줄넘기</button></li>
           </ul>
         </div>
       </li>
 
       <!-- 섹션 5 -->
       <li class="accordion__section">
-        <button class="accordion__toggle" type="button"
-                aria-expanded="false" aria-controls="panel-viral" id="toggle-viral">
-          <span>바이럴·협찬</span>
-          <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </button>
-        <div class="accordion__panel" id="panel-viral" role="region" aria-labelledby="toggle-viral" hidden>
+		  <button class="accordion__toggle" type="button"
+		          aria-expanded="false" aria-controls="panel-water" id="toggle-water">
+		    <span>수상·익스트림 스포츠</span>
+		    <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+		      <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+		    </svg>
+		  </button>
+		  <div class="accordion__panel" id="panel-water" role="region" aria-labelledby="toggle-water" hidden>
           <ul class="submenu">
-            <li><button class="submenu__item" type="button">인플루언서 마케팅</button></li>
-            <li><button class="submenu__item" type="button">체험단 모집</button></li>
-            <li><button class="submenu__item" type="button">바이럴·포스팅</button></li>
+            <li><button class="submenu__item" type="button">수영</button></li>
+            <li><button class="submenu__item" type="button">서핑</button></li>
+            <li><button class="submenu__item" type="button">스킨스쿠버</button></li>
+            <li><button class="submenu__item" type="button">프리다이빙-강습</button></li>
+            <li><button class="submenu__item" type="button">스키</button></li>
+            <li><button class="submenu__item" type="button">스노우보드</button></li>
+            <li><button class="submenu__item" type="button">스케이트보드-강습</button></li>
+            <li><button class="submenu__item" type="button">인라인-스케이트-레슨</button></li>
+            <li><button class="submenu__item" type="button">스포츠클라이밍</button></li>
+          </ul>
+        </div>
+      </li>
+      
+      <!-- 섹션 6 -->
+      <li class="accordion__section">
+		  <button class="accordion__toggle" type="button"
+		          aria-expanded="false" aria-controls="panel-team" id="toggle-team">
+		    <span>구기·팀스포츠</span>
+		    <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+		      <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+		    </svg>
+		  </button>
+		  <div class="accordion__panel" id="panel-team" role="region" aria-labelledby="toggle-team" hidden>
+          <ul class="submenu">
+            <li><button class="submenu__item" type="button">축구</button></li>
+            <li><button class="submenu__item" type="button">농구</button></li>
+            <li><button class="submenu__item" type="button">야구</button></li>
+            <li><button class="submenu__item" type="button">당구</button></li>
+          </ul>
+        </div>
+      </li>
+      
+      
+      <!-- 섹션 7 -->
+		<li class="accordion__section">
+		  <button class="accordion__toggle" type="button"
+		          aria-expanded="false" aria-controls="panel-athletic" id="toggle-athletic">
+		    <span>육상·체력운동</span>
+		    <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+		      <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+		    </svg>
+		  </button>
+		  <div class="accordion__panel" id="panel-athletic" role="region" aria-labelledby="toggle-athletic" hidden>
+          <ul class="submenu">
+            <li><button class="submenu__item" type="button">마라톤육상</button></li>
+            <li><button class="submenu__item" type="button">스포츠지도사-준비</button></li>
+          </ul>
+        </div>
+      </li>
+      
+      <!-- 섹션 8 -->
+      <li class="accordion__section">
+		  <button class="accordion__toggle" type="button"
+		          aria-expanded="false" aria-controls="panel-creative" id="toggle-creative">
+		    <span>창의·기타 운동</span>
+		    <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+		      <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+		    </svg>
+		  </button>
+		  <div class="accordion__panel" id="panel-creative" role="region" aria-labelledby="toggle-creative" hidden>
+          <ul class="submenu">
+            <li><button class="submenu__item" type="button">업사이클링-레슨</button></li>
           </ul>
         </div>
       </li>

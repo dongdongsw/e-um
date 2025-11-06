@@ -18,6 +18,19 @@
 			        LEFT JOIN board_option b_o ON b.b_id = b_o.b_id
 			        LEFT JOIN review r ON b.b_id = r.b_id
 			        WHERE b_type LIKE '%운동건강%'
+			        <!-- <if test="b_filter != null">
+			        	AND b_filter LIKE '%' || '요가' || '%'
+			        </if>
+			        <if test="b_filter != null">
+			        	AND b_filter LIKE '%' || '요가' || '%'
+			        </if>
+			        <if test="">
+			        
+			        </if>
+			        <if test="">
+			        
+			        </if> -->
+			        
 			        GROUP BY 
 			            b.b_id, b.u_s_id, b.b_thumbnail, b.b_title, b.b_type, u_s.u_s_com, b.b_filter
 			        ORDER BY b.b_id DESC

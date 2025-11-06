@@ -27,13 +27,13 @@ private static SqlSessionFactory ssf;
 		List<ContentVO> list = null;
 		
 		try {
-			
+			SqlSession session = ssf.openSession();
+			list = session.selectList("exerciseListData",map);
+			session.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		SqlSession session = ssf.openSession();
-		list = session.selectList("exerciseListData",map);
-		session.close();
+		
 		return list;
 		
 	}
@@ -71,13 +71,14 @@ private static SqlSessionFactory ssf;
 		
 	}
 	
+	// 컨텐츠 상세보기 이미지
 	public static List<Board_ImageVO> exerciseImagaeDetailData(String b_id){
 		List<Board_ImageVO> list = null;
 		
 		try {
 			SqlSession session = ssf.openSession();
 			list = session.selectList("exerciseImagaeDetailData",b_id);
-			
+			session.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
