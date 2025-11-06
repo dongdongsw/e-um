@@ -37,7 +37,18 @@
 
     .meta{display:flex; align-items:center; gap:14px}
     .stars{display:inline-flex; gap:2px; transform: translateY(1px)}
-    .star{width:18px; height:18px; fill:var(--accent)}
+    .star {
+	  width: 18px;
+	  height: 18px;
+	}
+	.star path {
+	  fill: #ddd; /* 기본 빈 별 */
+	  transition: fill 0.2s ease;
+	}
+	.star.filled path {
+	  fill: var(--accent); /* 꽉 찬 별 */
+	}
+
     .rating{font-weight:700}
     .count{color:var(--muted); font-size:13px}
 
@@ -54,9 +65,24 @@
     .prime-list li{list-style:none; display:flex; gap:10px; align-items:flex-start; color:var(--text)}
     .prime-list li .tick{color:var(--good); font-weight:900}
 
-    .hero-right .banner{background:linear-gradient(135deg,#222 0%,#111 100%); width: 100%; color:#fff; border-radius:16px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px; text-align:center; padding:20px}
-    .hero-right .banner small{display:block; margin-top:8px; opacity:.9; font-weight:600}
-    .banner {height: 100%}
+	.hero-right .banner {
+	  background: linear-gradient(135deg, #222 0%, #111 100%), 
+	              url('${vo.b_thumbnail}');
+	  background-size: cover;
+	  background-position: center;
+	  background-blend-mode: overlay;
+	  height: 280px;
+	  width: 100%;
+	  border-radius: 16px;
+	  overflow: hidden;
+	}    
+	.hero-right .banner small{display:block; margin-top:8px; opacity:.9; font-weight:600}
+    .hero-right .banner img {
+		  width: 100%;
+		  height: 100%;
+		  object-fit: cover; /* ✅ 이미지 꽉 채우기 */
+		  display: block;
+		}
 
     .plans{margin-top:16px}
     .plan-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:0;}
@@ -116,7 +142,23 @@
 		  display: flex;
 	}
     .stars-sm{display:inline-flex; gap:2px; transform:translateY(1px)}
-    .star-sm{width:14px; height:14px; fill:var(--accent)}
+    /* 리뷰용 별점 컨테이너 */
+	.stars-sm {
+  display: inline-flex;
+  gap: 2px;
+  transform: translateY(1px);
+  flex-direction: row; /* 왼쪽부터 순서대로 별 채우기 */
+}
+
+/* 기본 별색 회색 */
+.stars-sm .star path {
+  fill: #ddd;
+}
+
+/* 채워진 별은 노란색 */
+.stars-sm .star.filled path {
+  fill: var(--accent);
+}
 
     .side-sticky{position:sticky; top:18px; height:fit-content}
 

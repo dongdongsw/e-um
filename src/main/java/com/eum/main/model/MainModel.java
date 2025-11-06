@@ -56,10 +56,12 @@ public class MainModel {
         ContentVO vo = ContentDAO.contentDetailData(b_id);
         List<String> list = ContentDAO.contentDetailImage(b_id);
         List<ContentVO> rList=ContentDAO.contentReview(b_id);
+        List<ContentVO> oList=ContentDAO.contentOption(b_id);
 
         request.setAttribute("vo", vo);
         request.setAttribute("list", list);
         request.setAttribute("rList", rList);
+        request.setAttribute("oList", oList);
 
         request.setAttribute("main_jsp", "../main/list/bizdetail.jsp");
         return "../main/main.jsp";

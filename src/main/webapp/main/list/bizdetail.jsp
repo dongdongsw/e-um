@@ -85,6 +85,68 @@
     	  }, 400);
     });
   });
+  
+  $(function() {
+	  $(".stars").each(function() {
+	    const score = parseFloat($(this).data("score")) || 0;
+	    const fullStars = Math.floor(score);
+	    const partial = score - fullStars;
+	    const stars = $(this).find(".star");
+
+	    stars.each(function(i) {
+	      const $path = $(this).find("path");
+	      if (i < fullStars) {
+	        $path.css("fill", "var(--accent)");
+	      } else if (i === fullStars && partial > 0) {
+	        // 절반 채움
+	        $path.css("fill", "url(#half-fill)");
+	      } else {
+	        $path.css("fill", "#ddd"); // 빈 별 회색 처리
+	      }
+	    });
+	  });
+	});
+  
+  $(function() {
+	  $(".stars-sm").each(function() {
+	    const score = parseFloat($(this).data("score")) || 0;
+	    const fullStars = Math.floor(score);
+	    const partial = score - fullStars;
+	    const stars = $(this).find(".star");
+
+	    stars.each(function(i) {
+	      const $path = $(this).find("path");
+	      if (i < fullStars) {
+	        $(this).addClass("filled");
+	        $path.css("fill", "var(--accent)");
+	      } else if (i === fullStars && partial > 0) {
+	        // 절반 별
+	        $path.css("fill", "url(#half-fill)");
+	      } else {
+	        $path.css("fill", "#ddd");
+	      }
+	    });
+	  });
+	});
+  
+$(function() {
+     // 클릭 시 열고 닫기
+	 $('#sortDropdown').on('click', function(e) {
+	   $(this).toggleClass('open');
+	   e.stopPropagation(); // 클릭 버블링 방지
+	 });
+
+     // 바깥 클릭 시 닫기
+     $(document).on('click', function(e) {
+       if (!$(e.target).closest('#sortDropdown').length) {
+         $('#sortDropdown').removeClass('open');
+	    }
+	  });
+	  // 🔥 스크롤 시 닫기
+	 $(window).on('scroll', function() {
+	   $('#sortDropdown').removeClass('expanded');
+	  });
+	});
 </script>
 <style type="text/css">
   .profile {
@@ -92,9 +154,21 @@
      height: 100%; 
      border-radius: 50%;
   }
+  .price-desc{
+  	padding-top: 50px;
+  }
 </style>
 </head>
 <body>
+<svg width="0" height="0">
+  <defs>
+    <linearGradient id="half-fill" x1="0" y1="0" x2="100%" y2="0">
+      <stop offset="50%" stop-color="#FFD700"/>
+      <stop offset="50%" stop-color="#ddd"/>
+    </linearGradient>
+  </defs>
+</svg>
+
   <div class="header-text" style="height: 200px;"></div>
 
   <section class="dt-container hero" id="main-section">
@@ -105,7 +179,7 @@
       </div>
 
       <div class="meta" aria-label="별점 및 관심">
-        <div class="stars" aria-hidden="true">
+        <div class="stars" data-score="${vo.r_avg_score }">
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
@@ -254,22 +328,21 @@
 	<!-- 가격 옵션 -->
     <div class="hero-right" id="skicky">
       <div class="plans">
-          <span class="dropdown-el" id="sortDropdown">
-		  <span class="current">${vo.b_op_id }</span>
+          <div class="dropdown-el" id="sortDropdown">
+		  <span class="current">${op.b_op_price } (<fmt:formatNumber value="${op.b_op_price }" type="number"/>원)</span>
 			  <div class="menu">
+			   <c:forEach var="op" items="${oList }">
 			    <input type="radio" name="sortType" value="Relevance" checked id="sort-relevance">
-			    <label for="sort-relevance">벽걸이 기본 (90,000원)</label>
-			
-			    <input type="radio" name="sortType" value="Popularity" id="sort-best">
-			    <label for="sort-best">벽걸이 와이드 (100,000원)</label>
-			
-			    <input type="radio" name="sortType" value="PriceIncreasing" id="sort-low">
-			    <label for="sort-low">벽걸이 와이드 (100,000원)</label>
-			
-			    <input type="radio" name="sortType" value="PriceDecreasing" id="sort-high">
-			    <label for="sort-high">벽걸이 와이드 (100,000원)</label>
+			    <label for="sort-relevance">${op.b_op_title } (<fmt:formatNumber value="${op.b_op_price }" type="number"/>원)</label>
+			   </c:forEach>
 			  </div>
-			</span>
+			</div>
+			<div class="price-desc">
+			 <h5 style="color: black; font-weight: bold; height: 15px">가격 정보</h5><br><br>
+			  <c:forEach var="op" items="${oList }">
+			   <p>${op.b_op_title } : ${op.b_op_detail }</p><br>
+			  </c:forEach>
+			</div>
             <div class="cta">
               <button class="btn-ghost">전문가에게 문의하기</button>
               <button class="btn-pri">구매하기</button>
