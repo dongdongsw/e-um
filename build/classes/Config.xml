@@ -7,6 +7,7 @@
 
    <typeAliases>
      <typeAlias type="com.eum.list.vo.ContentVO" alias="ContentVO"/>
+     <typeAlias type="com.eum.users.vo.UsersVO" alias="UsersVO"/>
    </typeAliases>
   <environments default="develpoment">
     <environment id="develpoment">
@@ -21,5 +22,6 @@
   </environments>
   <mappers>
     <mapper resource="com/eum/list/mapper/etc-mapper.xml"/>
+    <mapper resource="com/eum/users/mapper/users-mapper.xml"/>
   </mappers>
 </configuration>

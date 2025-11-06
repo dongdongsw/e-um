@@ -22,7 +22,7 @@
     /* 폼 공통: 모든 항목을 세로로 한 줄씩/동일 간격 */
     .form{display:flex;flex-direction:column;gap:22px}
     .field{display:block}
-    .label{display:block;font-size:13px;font-weight:700;margin-bottom:8px}
+    .label{display:block;font-size:13px;font-weight:700; margin-bottom: 5px;}
 
     .search{
       height:44px;display:flex;align-items:center;padding:0 .8em;
@@ -49,4 +49,21 @@
 	.row { display:flex; gap:12px; }
 	.col { flex:1; }
 
-    .submit{margin-top:8px;width:100%;padding:14px 16px;border:0;border-radius:12px;background:#7453fc;color:#fff;font-weight:800;font-size:15px;cursor:pointer}
+    .submit{margin-top:8px;width:100%;padding:14px 16px;border:0;border-radius:12px;background:#7453fc;color:#fff;font-weight:800;font-size:15px;cursor:pointer;  margin:3px;}
+    .field {
+    	margin-bottom: 25px;
+    }
+    .sub-button {
+      display: flex;
+    }
+    .submit:hover {
+      background: #7453fcde;
+    }
+    
+    .cancel {
+      margin-top:8px;width:100%;padding:14px 16px;border:0;border-radius:12px;background:#f0f0f0;color:black;font-weight:800;font-size:15px;cursor:pointer; margin:3px;
+    }
+#id::placeholder {
+  color: #bbb;   /* 연한 회색 */
+  opacity: 1;    /* 브라우저 기본 흐림 강도 조절 (1이면 그대로 표시) */
+}

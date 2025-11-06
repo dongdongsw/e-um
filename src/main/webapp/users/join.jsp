@@ -4,96 +4,107 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-  <title>회원가입</title>
-  <link rel="stylesheet" href="../css/join.css">
-  <style>
-    .join-container{max-width:1170px;margin:0 auto;padding:48px 16px;display:flex;justify-content:center; font-weight: bold;}
-    .panel{width:100%;max-width:420px}
-    .title{font-size:26px;font-weight:800;line-height:1.35;margin:0 0 8px}
-    .subtitle{font-size:13px;color:var(--muted);margin:0 0 24px}
-    .subtitle a{color:inherit;font-weight:700;text-decoration:none}
+<title>회원가입</title>
+<link rel="stylesheet" href="../css/join.css">
+<link rel="stylesheet" href="../shadow/css/shadowbox.css">
 
-    /* 폼 공통: 모든 항목을 세로로 한 줄씩/동일 간격 */
-    .form{display:flex;flex-direction:column;gap:22px}
-    .field{display:block}
-    .label{display:block;font-size:13px;font-weight:700;margin-bottom:8px}
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="../shadow/js/shadowbox.js"></script>
 
-    .search{
-      height:44px;display:flex;align-items:center;padding:0 .8em;
-      border-bottom:1px solid #7453fc;background:#fff
-    }
-    .search_input,.search select{
-      width:100%;height:100%;border:none;background:transparent;font-size:13px
-    }
-    .search_input:focus,.search select:focus{outline:none}
-
-    /* 아이디: 입력 + 버튼(기능 없음, UI만) */
-    .id-inline{display:flex;gap:8px;align-items:center}
-    .id-inline .search{flex:1}
-    .btn{
-      height:44px;padding:0 14px;border:1px solid #111827;background:#111827;color:#fff;
-      border-radius:10px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap;
-    }
-
-    .radio-wrap{display:flex;gap:14px}
-    .agree-box{border:1px solid var(--border);border-radius:12px;background:#f9fafb;padding:14px}
-    .agree-item{display:flex;gap:10px;align-items:center;padding:8px 4px}
-    .agree-item + .agree-item{border-top:1px dashed var(--border)}
-
-	.row { display:flex; gap:12px; }
-	.col { flex:1; }
-
-    .submit{margin-top:8px;width:100%;padding:14px 16px;border:0;border-radius:12px;background:#7453fc;color:#fff;font-weight:800;font-size:15px;cursor:pointer}
-  </style>
+<script type="text/javascript">
+Shadowbox.init({
+	players:['iframe']
+})
+$(function(){
+	$('#idBtn').click(function(){
+		Shadowbox.open({
+			content:'../users/idcheck.eum',
+			player:'iframe',
+			width:500,
+			height:350,
+			title:'아이디 중복체크'
+		})
+	})
+	
+	$('#joinBtn').click(function(){
+		let id=$('#id').val()
+		if(id.trim()==="") {
+			alert("아이디 중복체크를 하세요")
+			return
+		}	
+		let pwd1=$('#pwd1').val()
+		if(pwd1.trim()==="") {
+			$('#pwd1').focus()
+			return
+		}
+		let pwd2=$('#pwd2').val()
+		if(pwd1!==pwd2) {
+			alert("비밀번호가 틀립니다")
+			$('#pwd2').val("")
+			$('#pwd2').focus()
+			return
+		}
+		let name=$('#name').val()
+		if(name.trim()==="") {
+			alert("이름을 입력하세요")
+			$('#name').focus()
+		}
+		let nickname=$('#nickname').val()
+		if(nickname.trim()==="") {
+			alert("닉네임을 입력하세요")
+			$('#nickname').focus()
+		}
+		
+		let email=$('#email').val()
+		if(email.trim()==="") {
+			alert("이메일을 입력하세요")
+			$('#email').focus()
+		}
+		
+		let day=$('#birth').val()
+		if(day.trim()==="") {
+			alert("생년월일을 선택하세요")
+			return
+		}
+		
+		$('input[type="checkbox"]').on('change', function() {
+		    if ($(this).is(':checked')) {
+		      $(this).val('Y');
+		    } else {
+		      $(this).val('N');
+		    }
+		  });
+		
+		// Model로 전송
+		$('#frm').submit()
+	})
+})
+</script>
 </head>
 <body>
 <div class="header-text" style="height: 150px;"></div>
   <div class="join-container">
     <div class="panel">
       <h1 class="title" style="color:black">회원가입하고<br/>비즈니스 성공을 시작해 보세요!</h1>
-      <p class="subtitle">이미 계정이 있으신가요? <a href="<c:url value='/login'/>">로그인하기</a></p>
+      <p class="subtitle">이미 계정이 있으신가요? <a href="#" style="color: #888;">로그인하기</a></p>
 
-      <form class="form" method="post" action="<c:url value='/join/submit.eum'/>">
+     <form id="frm" name="frm" method="post" action="../users/join_ok.eum">
         <!-- 아이디 (버튼만, 기능 없음) -->
         <div class="field">
           <label class="label" for="u_loginId">아이디</label>
           <div class="id-inline">
             <div class="search">
-              <input class="search_input" id="u_loginId" name="u_loginId" type="text" placeholder="아이디" />
+              <input class="search_input" id="id" name="id" type="text" placeholder="아이디" readonly/>
             </div>
-            <button type="button" id="btnIdCheck" class="btn">중복체크</button>
+            <button type="button" id="idBtn" class="btn">중복체크</button>
           </div>
         </div>
-
-        <!-- 닉네임 -->
-        <div class="field">
-          <label class="label" for="u_nickname">닉네임</label>
-          <div class="search">
-            <input class="search_input" id="u_nickname" name="u_nickname" type="text" placeholder="닉네임" />
-          </div>
-        </div>
-
-        <!-- 이메일 -->
-        <div class="field">
-          <label class="label" for="u_email">이메일</label>
-          <div class="search">
-            <input class="search_input" id="u_email" name="u_email" type="email" placeholder="이메일" />
-          </div>
-        </div>
-
-        <!-- 휴대폰 -->
-        <div class="field">
-          <label class="label" for="u_phone">휴대폰 번호</label>
-          <div class="search">
-            <input class="search_input" id="u_phone" name="u_phone" type="text" placeholder="010-0000-0000" />
-          </div>
-        </div>
-
+        
         <!-- 비밀번호 -->
         <div class="field">
           <label class="label" for="u_pwd">비밀번호</label>
           <div class="search">
-            <input class="search_input" id="u_pwd" name="u_pwd" type="password" placeholder="비밀번호" />
+            <input class="search_input" id="pwd1" name="pwd" type="password" placeholder="비밀번호" />
           </div>
         </div>
 
@@ -101,16 +112,41 @@
         <div class="field">
           <label class="label" for="u_pwd_check">비밀번호 확인</label>
           <div class="search">
-            <input class="search_input" id="u_pwd_check" type="password" placeholder="비밀번호 재입력" />
+            <input class="search_input" id="pwd2" type="text" placeholder="비밀번호 재입력" />
           </div>
         </div>
+
+        <!-- 닉네임 -->
+        <div class="field">
+          <label class="label" for="u_nickname">닉네임</label>
+          <div class="search">
+            <input class="search_input" id="nickname" name="nickname" type="text" placeholder="닉네임" />
+          </div>
+        </div>
+
+        <!-- 이메일 -->
+        <div class="field">
+          <label class="label" for="u_email">이메일</label>
+          <div class="search">
+            <input class="search_input" id="email" name="email" type="email" placeholder="이메일" />
+          </div>
+        </div>
+
+        <!-- 휴대폰 -->
+        <div class="field">
+          <label class="label" for="u_phone">휴대폰 번호</label>
+          <div class="search">
+            <input class="search_input" id="phone" name="phone" type="text" placeholder="010XXXXXXXX" />
+          </div>
+        </div>
+
 
         <!-- 성별 -->
         <div class="field">
           <label class="label">성별</label>
           <div class="radio-wrap">
-            <label><input type="radio" name="u_gender" value="M" /> 남성</label>
-            <label><input type="radio" name="u_gender" value="F" /> 여성</label>
+            <label><input type="radio" name="gender" value="M" checked /> 남성</label>
+            <label><input type="radio" name="gender" value="F" /> 여성</label>
           </div>
         </div>
 
@@ -118,7 +154,7 @@
         <div class="field">
           <label class="label" for="u_birth">생년월일</label>
           <div class="search">
-            <input class="search_input" id="u_birth" name="u_birth" type="date" />
+            <input class="search_input" id="birth" name="birth" type="date" />
           </div>
         </div>
 
@@ -127,7 +163,7 @@
 		  <div class="row">
 		    <div class="col">
 		      <div class="search">
-		        <select id="provinceSelect" name="u_loc_do">
+		        <select id="provinceSelect" name="loc_do">
 		          <option value="">도/광역시 선택</option>
 		          <option value="서울특별시">서울특별시</option>
 		          <option value="부산광역시">부산광역시</option>
@@ -151,7 +187,7 @@
 		    </div>
 		    <div class="col">
 		      <div class="search">
-		        <select id="citySelect" name="u_loc_si">
+		        <select id="citySelect" name="loc_si">
 		          <option value="">시/군/구 선택</option>
 		        </select>
 		      </div>
@@ -164,26 +200,28 @@
           <label class="label">수신동의</label>
           <div class="agree-box">
             <label class="agree-item">
-              <input type="checkbox" id="u_push_noti" name="u_push_noti" value="Y" />
+              <input type="checkbox" id="push_noti" name="push_noti" value="N" />
               <span>푸시 동의 (선택)</span>
             </label>
             <label class="agree-item">
-              <input type="checkbox" id="u_email_noti" name="u_email_noti" value="Y" />
+              <input type="checkbox" id="email_noti" name="email_noti" value="N" />
               <span>이메일 수신 동의 (선택)</span>
             </label>
             <label class="agree-item">
-              <input type="checkbox" id="u_sms_noti" name="u_sms_noti" value="Y" />
+              <input type="checkbox" id="sms_noti" name="sms_noti" value="N" />
               <span>SMS 수신 동의 (선택)</span>
             </label>
           </div>
         </div>
-
-        <button class="submit" type="submit">회원가입</button>
+		<div class="sub-button">
+		  <button class="cancel" type="button" onclick="history.back()">취소</button>
+		  <button class="submit" type="button" id="joinBtn">회원가입</button>
+		</div>
+        
       </form>
     </div>
   </div>
 
-  <!-- 주소 시/군/구 연동 전용 스크립트(중복체크 기능 없음) -->
   <script>
     const cityData = {
       '서울특별시': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
