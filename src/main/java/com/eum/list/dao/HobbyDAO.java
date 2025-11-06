@@ -16,41 +16,89 @@ public class HobbyDAO {
 	}
 	
 	public static List<ContentVO> hobbyListData(Map map) {
-		SqlSession session = ssf.openSession();
-		List<ContentVO> list = session.selectList("hobbyListData", map);
-		session.close();
+		List<ContentVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("hobbyListData", map);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
 		return list;
 	}
 	
 	public static int hobbyTotalPage() {
-		SqlSession session = ssf.openSession();
-		int total = session.selectOne("hobbyTotalPage");
-		session.close();
+		int total = 0;
+		try {
+			SqlSession session = ssf.openSession();
+			total = session.selectOne("hobbyTotalPage");
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
 		return total;
 	}
 	
-	/*
-	 *   <select id="hobbyDetailData" resultType="ContentVO" parameterType="int">
-		    SELECT b_id, u_s_id, b_thumbnail, b_title, b_type, b_op_price_min, u_s_com, r_count, b_review_score, u_s_carrer, u_s_zone, b_prod_on_off, b_content,
-		    		b_review_content, b_review_createdat
-			FROM (SELECT b.b_id, b.u_s_id, b.b_thumbnail, b.b_title, b.b_type, b.b_prod_on_off, b.b_content,
-		        	MIN(b_o.b_op_price) AS b_op_price_min, u_s.u_s_com,
-		        	COUNT(r.b_id) AS r_count, r.b_review_score AS b_review_score, u_s.u_s_carrer AS u_s_carrer, u_s.u_s_zone AS u_s_zone,
-		        	r.b_review_content AS b_review_content, r.b_review_createdat AS b_review_createdat
-		    FROM board b
-		    LEFT JOIN users_seller u_s ON b.u_s_id = u_s.u_s_id
-		    LEFT JOIN board_option b_o ON b.b_id = b_o.b_id
-		    LEFT JOIN review r ON b.b_id = r.b_id
-		    GROUP BY b.b_id, b.u_s_id, b.b_thumbnail, b.b_title, b.b_type, b.b_prod_on_off, b.b_content,
-		    			u_s.u_s_com, r.b_review_score, u_s.u_s_carrer, u_s.u_s_zone, r.b_review_content,
-		    			r.b_review_createdat)
-		    WHERE b_id=#{b_id}
-		  </select>
-	 */
 	public static ContentVO hobbyDetailData(String b_id) {
-		SqlSession session = ssf.openSession();
-		ContentVO hvo = session.selectOne("hobbyDetailData", b_id);
-		session.close();
-		return hvo;
+		ContentVO vo = null;
+		try {
+			SqlSession session = ssf.openSession();
+			vo = session.selectOne("hobbyDetailData", b_id);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return vo;
+	}
+	
+	public static List<Board_ImageVO> hobbyImagaeDetailData(String b_id){
+		List<Board_ImageVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("exerciseImagaeDetailData",b_id);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+	public static void hobbyHitIncrement(String b_id) {
+		try {
+			SqlSession session = ssf.openSession(true);
+			session.update("hobbyHitIncrement",b_id);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public static List<ReviewVO> hobbyReviewDetailData(Map map) {
+		List<ReviewVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("hobbyReviewDetailData",map);
+			for(ReviewVO vo : list) {
+				List<Review_ImageVO> imgList = session.selectList("hobbyReviewImageDetailData", vo.getB_review_id());
+				vo.setImageList(imgList);
+			}
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+	public static List<Board_OptionVO> hobbyOptionDetailData(Map map) {
+		
+		List<Board_OptionVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("hobbyOptionDetailData",map);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
 	}
 }
