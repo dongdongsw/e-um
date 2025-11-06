@@ -14,10 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class HobbyModel {
-	@RequestMapping("main/exerciselist.eum")
+	@RequestMapping("main/hobbylist.eum")
 	public String hobbylist(HttpServletRequest request, HttpServletResponse response) {
 
-		// 사용자가 요청 (페이지를 보여달라)
 		String page = request.getParameter("page");
 		if(page==null) {
 			page = "1";
@@ -77,18 +76,18 @@ public class HobbyModel {
 		request.setAttribute("list3",list3);
 		request.setAttribute("list4",list4);
 		
-		request.setAttribute("main_jsp", "../main/list/exercisedetail.jsp");
+		request.setAttribute("main_jsp", "../main/detail/hobbydetail.jsp");
 		return "../main/main.jsp";
 	}
 	
-	@RequestMapping("main/exercisedetail_before.eum")
-	public String exercisedetail_before(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("main/hobbydetail_before.eum")
+	public String hobbydetail_before(HttpServletRequest request, HttpServletResponse response) {
 		
 		String b_id = request.getParameter("b_id");
 		String page = request.getParameter("page");
 		
 		HobbyDAO.hobbyHitIncrement(b_id);
 		
-		return "redirect:../main/exercisedetail.eum?b_id="+b_id+"&page="+page;
+		return "redirect:../main/hobbydetail.eum?b_id="+b_id+"&page="+page;
 	}
 }
