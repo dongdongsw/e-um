@@ -11,13 +11,7 @@ public class UsersDAO {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
 	
-	/*
-	<select id="usersIdCheck" resultType="int" parameterType="string">
-	  SELECT COUNT(*)
-	  FROM users
-	  WHERE u_id=#{u_id}
-	</select>
-	 */
+	// 아이디 중복 체크
 	public static int usersIdCheck(String u_loginid) {
 		int count=0;
 		try {
@@ -30,16 +24,46 @@ public class UsersDAO {
 		return count;
 	}
 	
-	/*
-	<insert id="usersInsert" parameterType="UsersVO">
-	  INSERT INTO users 
-	  (u_id, u_loginid, u_pwd, u_nickname, u_email, u_phone, u_gender, u_loc,
-	   u_push_noti, u_email_noti, u_sms_noti, u_status, u_role)
-	  VALUES 
-	  (TO_CHAR(u_id_seq.NEXTVAL), #{u_loginid}, #{u_pwd}, #{u_nickname}, #{u_email}, #{u_phone}, #{u_gender}, 
-	  #{u_loc}, #{u_push_noti}, #{u_email_noti}, #{u_sms_noti}, 'active', 'ROLE_USER')
-	</insert>
-	 */
+	// 닉네임 중복 체크
+	public static int usersNickCheck(String u_nickname) {
+		int count=0;
+		try {
+			SqlSession session=ssf.openSession();
+			count=session.selectOne("usersNickCheck",u_nickname);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return count;
+	}
+	
+	// 이메일 존재로 회원 여부 판단
+	public static int usersEmailCheck(String u_email) {
+		int count=0;
+		try {
+			SqlSession session=ssf.openSession();
+			count=session.selectOne("usersEmailCheck",u_email);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return count;
+	}
+	
+	// 전화번호 존재로 회원 여부 판단
+	public static int usersPhoneCheck(String u_phone) {
+		int count=0;
+		try {
+			SqlSession session=ssf.openSession();
+			count=session.selectOne("usersPhoneCheck",u_phone);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return count;
+	}
+	
+	// 회원가입
 	public static void usersInsert(UsersVO vo) {
 		try {
 			SqlSession session=ssf.openSession(true);

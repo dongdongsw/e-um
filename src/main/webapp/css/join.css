@@ -63,7 +63,8 @@
     .cancel {
       margin-top:8px;width:100%;padding:14px 16px;border:0;border-radius:12px;background:#f0f0f0;color:black;font-weight:800;font-size:15px;cursor:pointer; margin:3px;
     }
-#id::placeholder {
-  color: #bbb;   /* 연한 회색 */
-  opacity: 1;    /* 브라우저 기본 흐림 강도 조절 (1이면 그대로 표시) */
-}
+	#id::placeholder,
+	#nickname::placeholder {
+	  color: #bbb;   
+	  opacity: 1;  
+	}

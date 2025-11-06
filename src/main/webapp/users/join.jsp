@@ -20,9 +20,17 @@ $(function(){
 		Shadowbox.open({
 			content:'../users/idcheck.eum',
 			player:'iframe',
-			width:500,
-			height:350,
-			title:'아이디 중복체크'
+			width:420,
+			height:290
+		})
+	})
+	
+	$('#nickBtn').click(function(){
+		Shadowbox.open({
+			content:'../users/nickcheck.eum',
+			player:'iframe',
+			width:420,
+			height:290
 		})
 	})
 	
@@ -44,36 +52,26 @@ $(function(){
 			$('#pwd2').focus()
 			return
 		}
-		let name=$('#name').val()
-		if(name.trim()==="") {
-			alert("이름을 입력하세요")
-			$('#name').focus()
-		}
 		let nickname=$('#nickname').val()
 		if(nickname.trim()==="") {
 			alert("닉네임을 입력하세요")
 			$('#nickname').focus()
+			return
 		}
 		
 		let email=$('#email').val()
 		if(email.trim()==="") {
 			alert("이메일을 입력하세요")
 			$('#email').focus()
-		}
-		
-		let day=$('#birth').val()
-		if(day.trim()==="") {
-			alert("생년월일을 선택하세요")
 			return
 		}
 		
-		$('input[type="checkbox"]').on('change', function() {
-		    if ($(this).is(':checked')) {
-		      $(this).val('Y');
-		    } else {
-		      $(this).val('N');
-		    }
-		  });
+		let birth=$('#birth').val()
+		if(birth.trim()==="") {
+			alert("생년월일을 선택하세요")
+			$('#birth').focus()
+			return
+		}
 		
 		// Model로 전송
 		$('#frm').submit()
@@ -87,11 +85,11 @@ $(function(){
     <div class="panel">
       <h1 class="title" style="color:black">회원가입하고<br/>비즈니스 성공을 시작해 보세요!</h1>
       <p class="subtitle">이미 계정이 있으신가요? <a href="#" style="color: #888;">로그인하기</a></p>
-
+	  <div style="height: 30px"></div>
      <form id="frm" name="frm" method="post" action="../users/join_ok.eum">
-        <!-- 아이디 (버튼만, 기능 없음) -->
+        <!-- 아이디 (필수) -->
         <div class="field">
-          <label class="label" for="u_loginId">아이디</label>
+          <label class="label" for="u_loginId">아이디<sup style="color: #a50021">&nbsp;*</sup></label>
           <div class="id-inline">
             <div class="search">
               <input class="search_input" id="id" name="id" type="text" placeholder="아이디" readonly/>
@@ -100,38 +98,49 @@ $(function(){
           </div>
         </div>
         
-        <!-- 비밀번호 -->
+        <!-- 비밀번호 (필수) -->
         <div class="field">
-          <label class="label" for="u_pwd">비밀번호</label>
+          <label class="label" for="u_pwd">비밀번호<sup style="color: #a50021">&nbsp;*</sup></label>
           <div class="search">
             <input class="search_input" id="pwd1" name="pwd" type="password" placeholder="비밀번호" />
           </div>
         </div>
 
-        <!-- 비밀번호 확인 -->
+        <!-- 비밀번호 확인 (필수) -->
         <div class="field">
-          <label class="label" for="u_pwd_check">비밀번호 확인</label>
+          <label class="label" for="u_pwd_check">비밀번호 확인<sup style="color: #a50021">&nbsp;*</sup></label>
           <div class="search">
-            <input class="search_input" id="pwd2" type="text" placeholder="비밀번호 재입력" />
+            <input class="search_input" id="pwd2" type="password" placeholder="비밀번호 재입력" />
           </div>
         </div>
 
-        <!-- 닉네임 -->
+        <!-- 닉네임 (필수) -->
         <div class="field">
-          <label class="label" for="u_nickname">닉네임</label>
-          <div class="search">
-            <input class="search_input" id="nickname" name="nickname" type="text" placeholder="닉네임" />
+          <label class="label" for="u_nickname">닉네임<sup style="color: #a50021">&nbsp;*</sup></label>
+          <div class="id-inline">
+            <div class="search">
+              <input class="search_input" id="nickname" name="nickname" type="text" placeholder="닉네임" readonly/>
+            </div>
+            <button type="button" id="nickBtn" class="btn">중복체크</button>
           </div>
         </div>
 
-        <!-- 이메일 -->
+        <!-- 이메일 (필수) -->
         <div class="field">
-          <label class="label" for="u_email">이메일</label>
+          <label class="label" for="u_email">이메일<sup style="color: #a50021">&nbsp;*</sup></label>
           <div class="search">
             <input class="search_input" id="email" name="email" type="email" placeholder="이메일" />
           </div>
         </div>
 
+		<!-- 생년월일 (필수) -->
+        <div class="field">
+          <label class="label" for="u_birth">생년월일<sup style="color: #a50021">&nbsp;*</sup></label>
+          <div class="search">
+            <input class="search_input" id="birth" name="birth" type="date" />
+          </div>
+        </div>
+        
         <!-- 휴대폰 -->
         <div class="field">
           <label class="label" for="u_phone">휴대폰 번호</label>
@@ -145,18 +154,12 @@ $(function(){
         <div class="field">
           <label class="label">성별</label>
           <div class="radio-wrap">
-            <label><input type="radio" name="gender" value="M" checked /> 남성</label>
-            <label><input type="radio" name="gender" value="F" /> 여성</label>
+            <label><input type="radio" name="gender" value="남" checked /> 남성</label>
+            <label><input type="radio" name="gender" value="여" /> 여성</label>
           </div>
         </div>
 
-        <!-- 생년월일 -->
-        <div class="field">
-          <label class="label" for="u_birth">생년월일</label>
-          <div class="search">
-            <input class="search_input" id="birth" name="birth" type="date" />
-          </div>
-        </div>
+
 
         <div class="field">
 		  <label class="label">주소</label>
@@ -200,15 +203,15 @@ $(function(){
           <label class="label">수신동의</label>
           <div class="agree-box">
             <label class="agree-item">
-              <input type="checkbox" id="push_noti" name="push_noti" value="N" />
+              <input type="checkbox" id="push_noti" name="push_noti" value="Y" />
               <span>푸시 동의 (선택)</span>
             </label>
             <label class="agree-item">
-              <input type="checkbox" id="email_noti" name="email_noti" value="N" />
+              <input type="checkbox" id="email_noti" name="email_noti" value="Y" />
               <span>이메일 수신 동의 (선택)</span>
             </label>
             <label class="agree-item">
-              <input type="checkbox" id="sms_noti" name="sms_noti" value="N" />
+              <input type="checkbox" id="sms_noti" name="sms_noti" value="Y" />
               <span>SMS 수신 동의 (선택)</span>
             </label>
           </div>
@@ -217,7 +220,7 @@ $(function(){
 		  <button class="cancel" type="button" onclick="history.back()">취소</button>
 		  <button class="submit" type="button" id="joinBtn">회원가입</button>
 		</div>
-        
+        <div style="height: 30px"></div>
       </form>
     </div>
   </div>

@@ -19,9 +19,13 @@ U_SMS_NOTI                CHAR(1)
 U_ROLE           NOT NULL VARCHAR2(15)  
  */
 import java.util.*;
+
+import lombok.Data;
+
+@Data
 public class UsersVO {
 	private String u_id, u_loginid, u_pwd, u_profileimg_url, u_nickname, u_email, u_phone,
-	 			   u_gender, u_loc, u_status, u_push_noti, u_sms_noti, u_email_noti, u_role;
+	 			   u_gender, u_loc, u_status, u_push_noti, u_sms_noti, u_email_noti, u_role, birth;
 	
 	private Date u_createat, u_updateat, u_birth;
 }
