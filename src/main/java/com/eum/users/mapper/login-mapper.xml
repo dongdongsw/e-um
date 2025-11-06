@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.users.mapper.login-mapper">
+  <select id="usersIdCheck" resultType="int" parameterType="string">
+    SELECT COUNT(*)
+    FROM users
+    WHERE u_id=#{u_id}
+  </select>
+  
+  <select id="usersInfoData" resultType="UsersVO" parameterType="string">
+    SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_role
+    FROM users
+    WHERE u_id=#{u_id}
+  </select>
+</mapper>

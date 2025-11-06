@@ -33,5 +33,6 @@
   </environments>
   <mappers>
     <mapper resource="com/eum/list/mapper/hobby-mapper.xml"/>
+    <mapper resource="com/eum/list/mapper/login-mapper.xml"/>
   </mappers>
 </configuration>
