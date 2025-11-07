@@ -340,7 +340,7 @@ $(function() {
 			    <input type="radio" name="sortType" value="Relevance" checked id="sort-relevance">
 			    <label for="sort-relevance">${op.b_op_title } (<fmt:formatNumber value="${op.b_op_price }" type="number"/>원)</label>
 			   </c:forEach>
-			  </div>
+			  </div> 
 			</div>
 			<div class="price-desc">
 			 <h5 style="color: black; font-weight: bold; height: 15px">가격 정보</h5><br><br>
@@ -354,7 +354,6 @@ $(function() {
             </div>
           </div>
         </div>
-    <div style="height: 100px"></div>
 </body>
 </html>
 </html>
