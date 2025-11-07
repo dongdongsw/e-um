@@ -6,24 +6,65 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="login/css/login.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#logBtn').click(function() {
+		let id = $('#id').val()
+		if(id.trim()==="") {
+			$('#id').focus()
+			return
+		}
+		
+		let pwd = $('#pwd').val()
+		if(pwd.trim()==="") {
+			$('#pwd').focus()
+			return
+		}
+		
+		$.ajax({
+			type:'post',
+			url:'../main/login/login.eum',
+			data:{"id":id,"pwd":pwd},
+			success:function(result) {
+				if(result==="NOID") {
+					alert("아이디가 존재하지 않습니다")
+					$('#id').val("")
+					$('#pwd').val("")
+					$('#id').focus()
+				} else if(result==="NOPWD") {
+					alert("비밀번호가 잘못 되었습니다")
+					$('#pwd').val("")
+					$('#pwd').focus()
+				} else if(result==="OK") {
+					location.href = "../main/main.eum"
+				}
+			},
+			error:function(err) {
+				console.log(err)
+			}
+		})
+	})
+})
+</script>
 </style>
 </head>
 <body>
   <div class="form-container">
 	<p class="title">E-UM</p>
-	<form class="form">
+	<form class="form" method="post" action="../main/login/login.eum">
 		<div class="input-group">
 			<label for="username">ID</label>
-			<input type="text" name="username" id="username" placeholder="">
+			<input type="text" name="id" id="id" placeholder="아이디 입력">
 		</div>
 		<div class="input-group">
 			<label for="password">PASSWORD</label>
-			<input type="password" name="password" id="password" placeholder="">
+			<input type="password" name="pwd" id="pwd" placeholder="비밀번호 입력">
 			<div class="forgot">
 				<a rel="noopener noreferrer" href="#">아이디 / 비밀번호 찾기</a>
 			</div>
 		</div>
-		<button class="sign">로그인</button>
+		<input type="button" class="sign" id="logBtn" value="로그인">
 	</form>
 	<div class="social-message">
 		<div class="line"></div>

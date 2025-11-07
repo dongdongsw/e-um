@@ -50,7 +50,7 @@ public class LoginDAO {
 			} else {
 				UsersVO dbVO = session.selectOne("usersInfoData", u_id);
 				if(pwd.equals(dbVO.getU_pwd())) {
-					vo.setMsg(dbVO.getMsg());
+					vo.setMsg("OK");
 					vo.setU_id(dbVO.getU_id());
 					vo.setU_loginid(dbVO.getU_loginid());
 					vo.setU_nickname(dbVO.getU_nickname());

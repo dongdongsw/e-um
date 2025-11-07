@@ -4,12 +4,12 @@
   <select id="usersIdCheck" resultType="int" parameterType="string">
     SELECT COUNT(*)
     FROM users
-    WHERE u_id=#{u_id}
+    WHERE u_loginid=#{u_loginid}
   </select>
   
   <select id="usersInfoData" resultType="UsersVO" parameterType="string">
     SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_role
     FROM users
-    WHERE u_id=#{u_id}
+    WHERE u_loginid=#{u_loginid}
   </select>
 </mapper>

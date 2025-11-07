@@ -37,11 +37,12 @@ public class LoginModel {
 		return "login/login.jsp";
 	}
 	
-	@RequestMapping("login/login.eum")
+	@RequestMapping("main/login/login.eum")
 	public void usersLogin(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		UsersVO vo = LoginDAO.usersLogin(id, pwd);
+		System.out.println(id+" "+pwd);
 		if(vo.getMsg().equals("OK")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", vo.getU_id());
@@ -63,7 +64,7 @@ public class LoginModel {
 		}
 	}
 	
-	@RequestMapping("users/logout.eum")
+	@RequestMapping("main/login/logout.eum")
 	public String usersLogout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		session.invalidate();
