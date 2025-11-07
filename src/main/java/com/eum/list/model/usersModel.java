@@ -73,7 +73,7 @@ public class usersModel {
 		String gender=request.getParameter("gender");
 		String birth=request.getParameter("birth");
 		String email=request.getParameter("email");
-		String loc_si=request.getParameter("loc_si");
+		String loc=request.getParameter("loc");
 		String loc_do=request.getParameter("loc_do");
 		String push_noti=request.getParameter("push_noti");
 		String email_noti=request.getParameter("email_noti");
@@ -109,7 +109,7 @@ public class usersModel {
 		vo.setU_phone(phone);
 		vo.setU_gender(gender);
 		vo.setBirth(birth);
-		vo.setU_loc(loc_do+" "+loc_si);
+		vo.setU_loc(loc);
 		vo.setU_push_noti(push_noti);
 		vo.setU_email_noti(email_noti);
 		vo.setU_sms_noti(sms_noti);
