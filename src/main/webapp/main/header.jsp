@@ -490,7 +490,7 @@ button.active2:hover {
                         <c:if test="${sessionScope.id!=null}">
                         	<li><a href="mypage.eum">${sessionScope.name} 님</a></li>
                             <li>
-                            	<form action="../main/login/logout.eum" method="post" style="margin: 0; padding: 0; display: inline;">
+                            	<form action="../main/logout.eum" method="post" style="margin: 0; padding: 0; display: inline;">
                                 	<button type="submit" class="active2">로그아웃</button>
                                 </form>
                             </li>

@@ -64,7 +64,7 @@ public class LoginModel {
 		}
 	}
 	
-	@RequestMapping("main/login/logout.eum")
+	@RequestMapping("main/logout.eum")
 	public String usersLogout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		session.invalidate();
