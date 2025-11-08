@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.seller.mapper.seller-mapper">
+
+	<!-- 셀러 이름 존재 여부 -->
+	<select id="sellerNameCheck" resultType="int" parameterType="string">
+	  SELECT COUNT(*) 
+	  FROM users_seller
+	  WHERE u_s_com=#{u_s_com} 
+	</select>
+	
+	<!-- 셀러 등록 -->
+	<insert id="sellerInsert" parameterType="SellerVO">
+	  INSERT INTO users_seller (u_s_id, u_id, u_s_carrer, u_s_zone, u_s_biz_no, u_s_com, u_s_profileimg_url, u_createat, u_s_role)
+	  VALUES (
+	  			#{u_s_id}, 
+	  			#{u_id},
+	  			#{u_s_carrer},
+	  			#{u_s_zone},
+	  			#{u_s_biz_no},
+	  			#{u_s_com},
+	  			#{u_s_profileimg_url},
+	  			SYSDATE,
+	  			'ROLL_SELLER'
+	  		  )
+	</insert>
+</mapper>

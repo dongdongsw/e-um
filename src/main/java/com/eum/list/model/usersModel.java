@@ -20,13 +20,6 @@ public class usersModel {
 		return "../main/main.jsp";
 	}
 	
-	// 아이디 체크 모달창
-	@RequestMapping("users/idcheck.eum")
-	public String user_idcheck(HttpServletRequest request, HttpServletResponse response) {
-  	   
- 	   return "../users/idcheck.jsp";
-	}
-	
 	// 아이디 중복 테크
 	@RequestMapping("users/idcheck_ok.eum")
 	public void users_idcheck_ok(HttpServletRequest request, HttpServletResponse response) {
@@ -40,15 +33,8 @@ public class usersModel {
 			out.write(String.valueOf(count));
 		} catch (Exception ex) {}
 	}
-	
-	// 닉네임 체크 모달창
-	@RequestMapping("users/nickcheck.eum")
-	public String user_nickcheck(HttpServletRequest request, HttpServletResponse response) {
-  	   
-		return "../users/nickcheck.jsp";
-	}
-		
-	// 닉네임 중복 테크
+
+	// 닉네임 중복 체크
 	@RequestMapping("users/nickcheck_ok.eum")
 	public void users_nickcheck_ok(HttpServletRequest request, HttpServletResponse response) {
 			

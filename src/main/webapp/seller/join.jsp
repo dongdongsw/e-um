@@ -6,18 +6,12 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="../css/join.css">
-<link rel="stylesheet" href="../shadow/css/shadowbox.css">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript" src="../shadow/js/shadowbox.js"></script>
 
 <script type="text/javascript">
-Shadowbox.init({
-  players:['iframe']
-})
 
 $(function(){
-  // ✅ 1️⃣ 프로필 이미지 업로드 기능 (맨 위에)
   $('#uploadBtn').click(function() {
     $('#profile_img').click();
   });
@@ -39,83 +33,133 @@ $(function(){
       preview.attr('src', '../images/default_profile.png');
     }
   });
+  $('#sellerBtn').click(function(){
+		let sn=$('#seller_name').val()
+		if(sn.trim()==="") {
+			$('#sn_msg').text("셀러 이름을 입력하세요")
+			$('#sn_msg').attr("class","message error")
+			$('#sn_msg').css('color', 'red')
+			$('#sn_msg').show()
+			return
+		}
+		$.ajax({
+			type:'post',
+			url:'../seller/seller_name_ok.eum',
+			data:{"u_s_com":sn},
+			success:function(result) {
+				if(result==0) {
+					$('#sn_msg').text(sn+ '는(은) 사용 가능한 셀러 이름입니다')
+					$('#sn_msg').attr("class","message success")
+					$('#sn_msg').css('color', 'green')
+					$('#sn_msg').show()
+				} else {
+					$('#sn_msg').text(sn+ '는(은) 이미 사용 중인 셀러 이름입니다')
+					$('#sn_msg').attr("class","message error")
+					$('#sn_msg').css('color', 'red')
+					$('#sn_msg').show()
+					}
+				}, 
+				error:function(err) {
+					console.log(err)
+				}
+			})
+				
+		})
+		
+  // 사업자번호 인증
+  $('#bizCheckBtn').click(function(){
+    const no = $('#biz_no').val();
 
-  // ✅ 2️⃣ 아이디 중복체크
-  $('#idBtn').click(function(){
-    Shadowbox.open({
-      content:'../users/idcheck.eum',
-      player:'iframe',
-      width:420,
-      height:290,
-      title:'아이디 중복체크'
+    $('#biz_msg').text('').css({color:'#333'});
+    $('#biz_verified').val('N');
+
+    if (no.length !== 10) {
+      $('#biz_msg').text('사업자등록번호는 숫자 10자리여야 합니다').css('color','red');
+      $('#biz_no').focus();
+      return;
+    }
+
+    const payload = { b_no: [ no ] };
+
+    $.ajax({
+      url: 'https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=cersZ70uxWU0ccYpSBAAT5gRkiOl1q3Pqr2GbOvzC0zzyQD073VSzVr0mYlqVldzVqlnc0pW2%2FK%2Fu7dU1s6AfA%3D%3D',
+      type: 'POST',
+      data: JSON.stringify(payload),
+      dataType: 'JSON',
+      contentType: 'application/json',
+      success: function(res){
+        // 기본 구조 안전 검사
+        const item = res && res.data && res.data[0] ? res.data[0] : null;
+        if (!item) {
+          $('#biz_msg').text('조회 결과가 없습니다. 번호를 다시 확인해주세요').css('color','red');
+          return;
+        }
+
+        // 상태코드: 01=계속사업자, 02=휴업자, 03=폐업자
+        const code = item.b_stt_cd; 
+        const status = item.b_stt || '';
+
+        if (code === '01') {
+          $('#biz_msg').text('유효한 사업자등록번호입니다 (' + status + ')').css('color','green');
+          $('#biz_verified').val('Y');
+        } else if (code === '02' || code === '03') {
+          $('#biz_msg').text((status || '휴업/폐업') + ' 상태의 사업자번호입니다').css('color','red');
+          $('#biz_verified').val('N');
+        } else {
+          $('#biz_msg').text('유효하지 않은 사업자등록번호입니다').css('color','red');
+          $('#biz_verified').val('N');
+        }
+      },
+      error: function(xhr){
+        console.log(xhr.responseText);
+        $('#biz_msg').text('인증 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요').css('color','red');
+        $('#biz_verified').val('N');
+      }
     });
   });
 
-  // ✅ 3️⃣ 닉네임 중복체크
-  $('#nickBtn').click(function(){
-    Shadowbox.open({
-      content:'../users/nickcheck.eum',
-      player:'iframe',
-      width:420,
-      height:290
-    });
-  });
-
-  // ✅ 4️⃣ 회원가입 버튼
   $('#joinBtn').click(function(){
-    let id=$('#id').val();
-    if(id.trim()==="") {
-      alert("아이디 중복체크를 하세요");
+    let seller_name=$('#seller_name').val();
+    if(seller_name.trim()==="") {
+      alert("셀러이름 중복체크를 하세요");
+      $('#seller_name').focus();
       return;
     }
 
-    let pwd1=$('#pwd1').val();
-    if(pwd1.trim()==="") {
-      $('#pwd1').focus();
+    let biz_no=$('#biz_no').val();
+    if(biz_no.trim()==="") {
+      alert("사업자 등록 번호를 인증하세요");
+      $('#biz_no').focus();
+      return;
+    }
+	
+    if($('#biz_verified').val()!=='Y'){
+        alert("사업자 등록 번호를 인증하세요");
+        $('#biz_no').focus();
+        return;
+    }
+    
+    let loc_do=$('#loc_do').val();
+    if(loc_do==="") {
+      alert("도/광역시를 선택하세요");
+      $('#loc_do').focus();
+      return;
+    }
+    
+    let loc_si=$('#loc_si').val();
+    if(loc_si.trim()==="") {
+      alert("시/군/구를 선택하세요");
+      $('#loc_si').focus();
       return;
     }
 
-    let pwd2=$('#pwd2').val();
-    if(pwd1!==pwd2) {
-      alert("비밀번호가 틀립니다");
-      $('#pwd2').val("");
-      $('#pwd2').focus();
+    let carrer=$('#carrer').val();
+    if(carrer.trim()==="") {
+      alert("경력을 입력하세요");
+      $('#carrer').focus();
       return;
     }
 
-    let name=$('#name').val();
-    if(name.trim()==="") {
-      alert("이름을 입력하세요");
-      $('#name').focus();
-      return;
-    }
-
-    let nickname=$('#nickname').val();
-    if(nickname.trim()==="") {
-      alert("닉네임을 입력하세요");
-      $('#nickname').focus();
-      return;
-    }
-
-    let email=$('#email').val();
-    if(email.trim()==="") {
-      alert("이메일을 입력하세요");
-      $('#email').focus();
-      return;
-    }
-
-    let birth=$('#birth').val();
-    if(birth.trim()==="") {
-      alert("생년월일을 선택하세요");
-      $('#birth').focus();
-      return;
-    }
-
-    $('input[type="checkbox"]').on('change', function() {
-      $(this).val($(this).is(':checked') ? 'Y' : 'N');
-    });
-
-    // 최종 전송
     $('#frm').submit();
   });
 });
@@ -129,34 +173,25 @@ $(function(){
   border-radius: 5px;
   cursor: pointer;
 }
-.profile-upload .btn:hover {
-  background-color: #222;
-}
 .field {
   margin-bottom: 50px;
 }
 </style>
 </head>
 <body>
-<div class="header-text" style="height: 150px;"></div>
+<div class="header-text" style="height: 150px; background-color: #fff;"></div>
   <div class="join-container">
     <div class="panel">
-      <h1 class="title" style="color:black">셀러 가입하고<br/>비즈니스 성공을 시작해 보세요!</h1>
-
+      <h1 class="title" style="color:black; text-align:center">
+  		<span style="font-size: 30px;">셀러 가입</span>하고<br/>재능 판매를 시작해 보세요!
+	 </h1>
+ 
 	  <div style="height: 30px"></div>
-     <form id="frm" name="frm" method="post" action="../users/join_ok.eum">
-
-		<!-- 
-			판매자 경력
-			서비스 지역
-			사업자 등록 번호
-			소속 회사명
-			프로필 사진
-		
-		 -->
+     <form id="frm" name="frm" method="post" action="../seller/seller_join_ok.eum">
+ 		<input type="hidden" id="biz_verified" name="biz_verified" value="N">
 		<!-- 프로필 이미지 업로드 -->
-		<div class="field" style="margin-top:30px">
-		  <label class="label" for="profile_img">프로필 이미지<sup style="color:#a50021">&nbsp;*</sup></label>
+		<div class="field" style="margin-top:30px;">
+		  <label class="label">프로필 이미지</label>
 		  <div class="profile-upload" style="display:flex; align-items:center; gap:20px;">
 		    
 		    <!-- 미리보기 영역 -->
@@ -172,33 +207,38 @@ $(function(){
 		  </div>
 		</div>
         <!-- 셀러 닉네임 -->
-        <div class="field">
-          <label class="label" for="u_s_biz_no">셀러 닉네임<sup style="color: #a50021">&nbsp;*</sup></label>
+        <div class="field" style="margin-bottom:0px">
+          <label class="label">셀러 이름<sup style="color: #a50021">&nbsp;*</sup></label>
           <div class="id-inline">
             <div class="search">
-              <input class="search_input" id="seller_nick" name="seller_nick" type="text" placeholder="셀러 닉네임" readonly/>
+              <input class="search_input" id="seller_name" name="seller_name" type="text" placeholder="셀러 이름"/>
             </div>
-            <button type="button" id="nickBtn" class="btn">중복체크</button>
+            <button type="button" id="sellerBtn" class="btn">중복체크</button>
           </div>
+           <div id="sn_msg" style="color:black; height: 50px; margin-left:20px"></div>
         </div>
         
         <!-- 사업자 등록 번호 -->
-        <div class="field">
-          <label class="label" for="u_s_biz_no">사업자 등록 번호<sup style="color: #a50021">&nbsp;*</sup></label>
-          <div class="id-inline">
-            <div class="search">
-              <input class="search_input" id="biz_no" name="biz_no" type="text" placeholder="사업자 등록 번호" readonly/>
-            </div>
-            <button type="button" id="nickBtn" class="btn">인증</button>
-          </div>
-        </div>
+		<div class="field" style="margin-bottom:0px">
+		  <label class="label">사업자 등록 번호<sup style="color: #a50021">&nbsp;*</sup></label>
+		  <div class="id-inline">
+		    <div class="search">
+		      <!-- 예: 3988701116 -->
+		      <input class="search_input" id="biz_no" name="biz_no" type="text" placeholder="사업자 등록 번호 (숫자만 입력)" />
+		    </div>
+		    <button type="button" id="bizCheckBtn" class="btn">인증</button>
+		  </div>
+		  <div id="biz_msg" style="color:black; height: 50px; margin-left:20px"></div>
+		</div>
+
+		
         
         <div class="field">
-		  <label class="label">서비스 지역</label>
+		  <label class="label">서비스 지역<sup style="color: #a50021">&nbsp;*</sup></label>
 		  <div class="row">
 		    <div class="col">
 		      <div class="search">
-		        <select id="provinceSelect" name="loc_do">
+		        <select id="loc_do" name="loc_do">
 		          <option value="">도/광역시 선택</option>
 		          <option value="서울특별시">서울특별시</option>
 		          <option value="부산광역시">부산광역시</option>
@@ -222,11 +262,23 @@ $(function(){
 		    </div>
 		    <div class="col">
 		      <div class="search">
-		        <select id="citySelect" name="loc_si">
+		        <select id="loc_si" name="loc_si">
 		          <option value="">시/군/구 선택</option>
 		        </select>
 		      </div>
 		    </div>
+		  </div>
+		</div>
+		
+		
+		        <!-- 셀러 경력 -->
+		<div class="field" style="margin-top:0px; width: 120px;">
+		  <label class="label" for="u_s_biz_no">경력<sup style="color: #a50021">&nbsp;*</sup></label>
+		  <div class="id-inline">
+		    <div class="search">
+		      <input class="search_input" id="carrer" name="carrer" type="text" placeholder="경력""/>
+		    </div>
+		    년
 		  </div>
 		</div>
 
@@ -261,20 +313,20 @@ $(function(){
       '제주특별자치도': ['제주시','서귀포시']
     };
 
-    const provinceSelect = document.getElementById('provinceSelect');
-    const citySelect = document.getElementById('citySelect');
+    const loc_do = document.getElementById('loc_do');
+    const loc_si = document.getElementById('loc_si');
 
     function renderCities(province){
-      citySelect.innerHTML = '<option value="">시/군/구 선택</option>';
+    	loc_si.innerHTML = '<option value="">시/군/구 선택</option>';
       (cityData[province] || []).forEach(city => {
         const opt = document.createElement('option');
         opt.value = city;
         opt.textContent = city;
-        citySelect.appendChild(opt);
+        loc_si.appendChild(opt);
       });
     }
 
-    provinceSelect.addEventListener('change', function(){
+      loc_do.addEventListener('change', function(){
       renderCities(this.value);
     });
   </script>

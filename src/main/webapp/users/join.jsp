@@ -6,10 +6,8 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="../css/join.css">
-<link rel="stylesheet" href="../shadow/css/shadowbox.css">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript" src="../shadow/js/shadowbox.js"></script>
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script type="text/javascript">
@@ -17,21 +15,69 @@ Shadowbox.init({
 	players:['iframe']
 })
 $(function(){
+		// 아이디 중복 검사
 	$('#idBtn').click(function(){
-		Shadowbox.open({
-			content:'../users/idcheck.eum',
-			player:'iframe',
-			width:420,
-			height:310
+		let id=$('#id').val()
+		if(id.trim()==="") {
+			$('#id_msg').text("아이디 입력하세요")
+			$('#id_msg').attr("class","message error")
+			$('#id_msg').css('color', 'red')
+			$('#id_msg').show()
+			return
+		}
+		$.ajax({
+			type:'post',
+			url:'../users/idcheck_ok.eum',
+			data:{"u_loginid":id},
+			success:function(result) {
+				if(result==0) {
+					$('#id_msg').text(id+ '는(은) 사용 가능한 아이디입니다')
+					$('#id_msg').attr("class","message success")
+					$('#id_msg').css('color', 'green')
+					$('#id_msg').show()
+				} else {
+					$('#id_msg').text(id+ '는(은) 이미 사용 중인 아이디입니다')
+					$('#id_msg').attr("class","message error")
+					$('#id_msg').css('color', 'red')
+					$('#id_msg').show()
+					}
+				}, 
+				error:function(err) {
+					console.log(err)
+				}
+			})
+				
 		})
-	})
-	
+
 	$('#nickBtn').click(function(){
-		Shadowbox.open({
-			content:'../users/nickcheck.eum',
-			player:'iframe',
-			width:420,
-			height:310
+		let nickname=$('#nickname').val()
+		if(nickname.trim()==="") {
+			$('#nick_msg').text("닉네임 입력하세요")
+			$('#nick_msg').attr("class","message error")
+			$('#nick_msg').css('color', 'red')
+			$('#nick_msg').show()
+			return
+		}
+		$.ajax({
+			type:'post',
+			url:'../users/nickcheck_ok.eum',
+			data:{"u_nickname":nickname},
+			success:function(result) {
+				if(result==0) {
+					$('#nick_msg').text(nickname + '는(은) 사용 가능한 닉네임입니다')
+					$('#nick_msg').attr("class","message success")
+					$('#nick_msg').css('color', 'green')
+					$('#nick_msg').show()
+				} else {
+					$('#nick_msg').text(nickname+ '는(은) 이미 사용 중인 닉네임입니다')
+					$('#nick_msg').attr("class","message error")
+					$('#nick_msg').css('color', 'red')
+					$('#nick_msg').show()
+				}
+			}, 
+			error:function(err) {
+				console.log(err)
+			}
 		})
 	})
 	
@@ -82,30 +128,31 @@ $(function(){
 			return
 		}
 		
-		// Model로 전송
 		$('#frm').submit()
 	})
 })
 </script>
 </head>
 <body>
-<div class="header-text" style="height: 150px;"></div>
+<div class="header-text" style="height: 150px;  background-color: #fff;"></div>
   <div class="join-container">
     <div class="panel">
-      <h1 class="title" style="color:black">회원가입하고<br/>비즈니스 성공을 시작해 보세요!</h1>
-      <p class="subtitle">이미 계정이 있으신가요? <a href="#" style="color: #888;">로그인하기</a></p>
+      <h1 class="title" style="color:black;  text-align: center"><span style="font-size: 30px;">회원가입</span>하고<br/>비즈니스 성공을 시작해 보세요!</h1>
+      <p class="subtitle" style=" text-align: center">이미 계정이 있으신가요? <a href="#" style="color: #888;">로그인하기</a></p>
 	  <div style="height: 30px"></div>
      <form id="frm" name="frm" method="post" action="../users/join_ok.eum">
         <!-- 아이디 (필수) -->
-        <div class="field">
+        <div class="field" style="margin-bottom:0px">
           <label class="label" for="u_loginId">아이디<sup style="color: #a50021">&nbsp;*</sup></label>
           <div class="id-inline">
             <div class="search">
-              <input class="search_input" id="id" name="id" type="text" placeholder="아이디" readonly/>
+              <input class="search_input" id="id" name="id" type="text" placeholder="아이디" />
             </div>
             <button type="button" id="idBtn" class="btn">중복체크</button>
           </div>
+          <div id="id_msg" style="color:black; height: 30px; margin-left:20px"></div>
         </div>
+        
         
         <!-- 비밀번호 (필수) -->
         <div class="field">
@@ -124,14 +171,15 @@ $(function(){
         </div>
 
         <!-- 닉네임 (필수) -->
-        <div class="field">
+        <div class="field" style="margin-bottom:0px">
           <label class="label" for="u_nickname">닉네임<sup style="color: #a50021">&nbsp;*</sup></label>
           <div class="id-inline">
             <div class="search">
-              <input class="search_input" id="nickname" name="nickname" type="text" placeholder="닉네임" readonly/>
+              <input class="search_input" id="nickname" name="nickname" type="text" placeholder="닉네임"/>
             </div>
             <button type="button" id="nickBtn" class="btn">중복체크</button>
           </div>
+          <div id="nick_msg" style="color:black; height: 30px; margin-left:20px"></div>
         </div>
 
         <!-- 이메일 (필수) -->

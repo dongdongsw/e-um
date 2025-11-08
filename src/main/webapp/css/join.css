@@ -40,7 +40,10 @@
       height:44px;padding:0 14px;border:1px solid #111827;background:#111827;color:#fff;
       border-radius:10px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap;
     }
-
+	.btn:hover{
+		color: white;
+		background: #545454;
+	}
     .radio-wrap{display:flex;gap:14px}
     .agree-box{border:1px solid var(--border);border-radius:12px;background:#f9fafb;padding:14px}
     .agree-item{display:flex;gap:10px;align-items:center;padding:8px 4px}
@@ -51,7 +54,7 @@
 
     .submit{margin-top:8px;width:100%;padding:14px 16px;border:0;border-radius:12px;background:#7453fc;color:#fff;font-weight:800;font-size:15px;cursor:pointer;  margin:3px;}
     .field {
-    	margin-bottom: 25px;
+    	margin-bottom: 30px;
     }
     .sub-button {
       display: flex;
@@ -63,9 +66,9 @@
     .cancel {
       margin-top:8px;width:100%;padding:14px 16px;border:0;border-radius:12px;background:#f0f0f0;color:black;font-weight:800;font-size:15px;cursor:pointer; margin:3px;
     }
-	#id::placeholder,
-	#nickname::placeholder,
-	#post::placeholder {
+    
+	#loc::placeholder {
 	  color: #bbb;   
-	  opacity: 1;  
+	  opacity: 2;  
 	}
+	

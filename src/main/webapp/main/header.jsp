@@ -11,7 +11,9 @@
 Header Style
 --------------------------------------------- 
 */
-
+body {
+ background-color: #f7f7f7;
+}
 .background-header {
   background-color: #fff !important;
   height: 70px!important;
@@ -422,7 +424,7 @@ Header Style
                     <ul class="nav">
                         <li><a href="../main/list.eum">list</a></li>
                         <li><a href="../main/detail.eum">detail</a></li>
-                        <li><a href="create.html">셀러 등록</a></li>
+                        <li><a href="../seller/join.eum">셀러 등록</a></li>
                         <li><a href="explore.html">로그인</a></li>
                         <li><a href="../users/join.eum" class="active">회원가입</a></li>
                     </ul>   
