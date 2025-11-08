@@ -4,14 +4,14 @@
 /* ========== 공통 영역 ========== */
 body {
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-  background-color: #faf9ff;
+  background-color: #fff;
   margin: 0;
   padding: 0;
 }
 
 .notice-container {
   width: 900px;
-  margin: 60px auto;
+  margin: 80px auto 60px auto;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -162,4 +162,235 @@ textarea {
 .btn-move {
   text-align: right;
 }
-/* footer */
+
+/* ================================
+   Footer
+   ================================ */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.footer {
+  flex-shrink: 0; 
+  display: flex;
+  flex-flow: row wrap;
+  padding: 10px 10px 5px 10px;
+  color: #2f2f2f;
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
+  font-size: 13px;
+  margin-top: 230px;
+}
+
+.footer > * {
+  flex:  1 100%;
+}
+
+.footer__addr {
+  margin-right: 1.25em;
+  margin-bottom: 2em;
+}
+
+.footer__logo {
+  font-family: 'Pacifico', cursive;
+  font-weight: 400;
+  text-transform: lowercase;
+  font-size: 1.5rem;
+}
+
+.footer__addr h2 {
+  margin-top: 1.3em;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.nav__title {
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.footer address {
+  font-style: normal;
+  color: #999;
+}
+
+.footer__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  max-width: max-content;
+  background-color: rgb(33, 33, 33, 0.07);
+  border-radius: 100px;
+  color: #2f2f2f;
+  line-height: 0;
+  margin: 0.6em 0;
+  font-size: 1rem;
+  padding: 0 1.3em;
+}
+
+.footer ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer li {
+  line-height: 2em;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.footer__nav {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.footer__nav > * {
+  flex: 1 50%;
+  margin-right: 1.25em;
+}
+
+.nav__ul a {
+  color: #999;
+}
+
+.nav__ul--extra {
+  column-count: 2;
+  column-gap: 1.25em;
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  color: #999;
+}
+
+.legal__links {
+  display: flex;
+  align-items: center;
+}
+
+.heart {
+  color: #2f2f2f;
+}
+
+@media screen and (min-width: 24.375em) {
+  .legal .legal__links {
+    margin-left: auto;
+  }
+}
+
+@media screen and (min-width: 40.375em) {
+  .footer__nav > * {
+    flex: 1;
+  }
+  
+  .nav__item--extra {
+    flex-grow: 2;
+  }
+  
+  .footer__addr {
+    flex: 1 0px;
+  }
+  
+  .footer__nav {
+    flex: 2 0px;
+  }
+}
+
+/* ================================
+   기존 메인 헤더 (둥근)
+   ================================ */
+.background-header {
+  background-color: #fff !important;
+  height: 70px !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0;
+  right: 0;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.15) !important;
+  transition: all .5s ease;
+  z-index: 1000;
+}
+
+.header-area {
+  background-color: transparent;
+  position: absolute;
+  height: 70px;
+  top: 30px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all .5s ease;
+}
+
+.header-area .main-nav {
+  min-height: 7px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-radius: 50px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+/* ================================
+   공지사항 전용 헤더 (조정된 직선형)
+   ================================ */
+.notice-header {
+  position: static;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: 2px solid #d4d4d4; /* ✅ 구분선 두껍고 진하게 */
+  z-index: 1000;
+  height: 70px; /* ✅ 기존보다 약 30% 확대 */
+}
+
+.notice-header .main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px; /* ✅ 여백 살짝 늘림 */
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.notice-header .logo img {
+  height: 80px; /* ✅ 로고도 약간 키움 */
+  width: auto;
+}
+
+.notice-header .nav {
+  display: flex;
+  gap: 22px; /* 항목 간 간격 */
+  list-style: none;
+  margin-right: 25px; /* 오른쪽 정렬 */
+}
+
+.notice-header .nav li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 15px; /* ✅ 살짝 키움 */
+  padding: 8px 14px; /* ✅ 클릭 영역 확대 */
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.notice-header .nav li a:hover,
+.notice-header .nav li a.active {
+  background-color: #7453fc;
+  color: #fff;
+}
+.nav{
+	margin-right: auto; 	
+}
+

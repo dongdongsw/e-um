@@ -5,71 +5,6 @@
   <meta charset="UTF-8">
   <title></title>
   <link rel="stylesheet" href="notice.css">
-  <!-- <style>
-    @charset "UTF-8";
-    body {
-      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-      background-color: #faf9ff;
-      margin: 0;
-      padding: 0;
-    }
-    .notice-container {
-      width: 900px;
-      margin: 60px auto;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      padding: 40px;
-    }
-    .notice-title {
-      font-size: 26px;
-      font-weight: 700;
-      color: #7453fc;
-      border-bottom: 3px solid #7453fc;
-      padding-bottom: 15px;
-      margin-bottom: 30px;
-    }
-    .notice-date {
-      color: #999;
-      font-size: 14px;
-      margin-bottom: 30px;
-    }
-    .notice-content {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #444;
-      white-space: pre-line;
-    }
-    .btn-back {
-      display: inline-block;
-      background: #7453fc;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 6px;
-      text-decoration: none;
-      margin-top: 40px;
-      text-align: right;
-    }
-    .btn-back:hover {
-      background: #5334d0;
-    }
-    .btn-update {
-      display: inline-block;
-      background: #7453fc;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 6px;
-      text-decoration: none;
-      margin-top: 40px;
-      text-align: right;
-    }
-    .btn-update:hover {
-      background: #5334d0;
-    }
-    .btn-move{
-      text-align: right;
-    }
-  </style> -->
 </head>
 <body>
   <div class="notice-container">
@@ -81,11 +16,108 @@
 
       점검 일시: 11월 10일(월) 00:00 ~ 06:00
       점검 내용: 서버 업그레이드 및 보안 패치
+      점검 내용: 서버 업그레이드 및 보안 패치
+      점검 내용: 서버 업그레이드 및 보안 패치
+      점검 내용: 서버 업그레이드 및 보안 패치
+      점검 내용: 서버 업그레이드 및 보안 패치
+      점검 내용: 서버 업그레이드 및 보안 패치
+      점검 내용: 서버 업그레이드 및 보안 패치
+      점검 내용: 서버 업그레이드 및 보안 패치
     </div>
    <div class="btn-move">
 	<a href="update.jsp" class="btn-update">수정</a>
     <a href="list.jsp" class="btn-back">목록</a>
     </div>
   </div>
+  <footer class="footer">
+  <div class="footer__addr">
+  
+    <h1 class="footer__logo">Something</h1>
+        
+    <h2>Contact</h2>
+    
+    <address>
+      5534 Somewhere In. The World 22193-10212<br>
+          
+      <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+    </address>
+  </div>
+  
+  <ul class="footer__nav">
+    <li class="nav__item">
+      <h2 class="nav__title">Media</h2>
+
+      <ul class="nav__ul">
+        <li>
+          <a href="#">Online</a>
+        </li>
+
+        <li>
+          <a href="#">Print</a>
+        </li>
+            
+        <li>
+          <a href="#">Alternative Ads</a>
+        </li>
+      </ul>
+    </li>
+    
+    <li class="nav__item nav__item--extra">
+      <h2 class="nav__title">Technology</h2>
+      
+      <ul class="nav__ul nav__ul--extra">
+        <li>
+          <a href="#">Hardware Design</a>
+        </li>
+        
+        <li>
+          <a href="#">Software Design</a>
+        </li>
+        
+        <li>
+          <a href="#">Digital Signage</a>
+        </li>
+        
+        <li>
+          <a href="#">Automation</a>
+        </li>
+        
+        <li>
+          <a href="#">Artificial Intelligence</a>
+        </li>
+        
+        <li>
+          <a href="#">IoT</a>
+        </li>
+      </ul>
+    </li>
+    
+    <li class="nav__item">
+      <h2 class="nav__title">Legal</h2>
+      
+      <ul class="nav__ul">
+        <li>
+          <a href="#">Privacy Policy</a>
+        </li>
+        
+        <li>
+          <a href="#">Terms of Use</a>
+        </li>
+        
+        <li>
+          <a href="#">미</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  
+  <div class="legal">
+    <p>&copy; 2019 Something. All rights reserved.</p>
+    
+    <div class="legal__links">
+      <span>Made with <span class="heart">♥</span> remotely from Anywhere</span>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

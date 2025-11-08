@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.list.mapper.notice-mapper">
-
+<!-- 리스트 -->
+ <select id="noticeListData" resultType="NoticeVO">
+  SELECT n_id, u_id, n_createdAt, n_updatedAt, n_content, n_title
+  FROM notice_board
+  ORDER BY n_id DESC
+ </select>
+<!-- 디테일 -->
+<!-- 총 페이지 -->
+ <select id="noticeTotalPage" resultType="int">
+  SELECT CEIL(COUNT(*) / 10.0)
+  FROM notice_board
+ </select>
 </mapper>

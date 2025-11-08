@@ -157,6 +157,21 @@ $(function() {
   .price-desc{
   	padding-top: 50px;
   }
+ .banner {
+  width: 100%;
+  aspect-ratio: 15 / 15; 
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #f5f5f5; 
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
+  border-radius: 16px;
+}
 </style>
 </head>
 <body>
@@ -221,7 +236,7 @@ $(function() {
 
     <div class="hero-right">
       <div class="banner"> <!--컨텐츠 메인 이미지 -->
-        <img src="${vo.b_thumbnail }" style="width: 100%; height: 100%; border-radius: 16px">
+        <img src="${vo.b_thumbnail }" >
       </div>
     </div>
   </section>
@@ -354,6 +369,7 @@ $(function() {
             </div>
           </div>
         </div>
+        
 </body>
 </html>
 </html>

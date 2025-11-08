@@ -5,6 +5,7 @@
 
 <mapper namespace="com.eum.list.mapper.content-mapper">
 	<!-- 리스트 -->
+	
 	<select id="contentListData" resultType="ContentVO" parameterType="map">
      SELECT b_id, b_thumbnail, b_title, b_filter, b_op_price_min, r_count, r_avg_score, u_s_com, num
 		  FROM (SELECT b_id, b_thumbnail, b_title, b_filter, b_op_price_min, r_count,r_avg_score, u_s_com, ROWNUM AS num
