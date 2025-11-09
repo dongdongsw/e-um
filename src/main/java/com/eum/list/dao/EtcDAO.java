@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
 import com.eum.list.vo.ContentVO;
+import com.eum.list.vo.ReviewVO;
 
 public class EtcDAO {
 	private static SqlSessionFactory ssf;
@@ -43,14 +44,19 @@ public class EtcDAO {
 		   return list;
 	   }
 	   
-	   public static List<ContentVO> etcReview(String b_id) {
+	   // 리뷰
+	   public static List<ReviewVO> etcReview(String b_id) {
 		   SqlSession session=ssf.openSession();
-		   List<ContentVO> list=session.selectList("etcReview",b_id);
+		   List<ReviewVO> list=session.selectList("etcReview", b_id);
+		   for (ReviewVO r:list) {
+			   List<String> imgs=session.selectList("etcReviewImage",r.getB_review_id());
+			   r.setImgList(imgs);
+		   }
 		   session.close();
 		   return list;
 	   }
 	   
-	   
+	   // 옵션
 	   public static List<ContentVO> etcPriceOption(String b_id) {
 		   SqlSession session=ssf.openSession();
 		   List<ContentVO> list=session.selectList("etcPriceOption",b_id);

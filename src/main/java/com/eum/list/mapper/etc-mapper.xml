@@ -76,23 +76,28 @@
 	</select>
 	
 	<!-- 리뷰 -->
-	<select id="etcReview" resultType="ContentVO" parameterType="string">
-       SELECT 
-	      b_review_createdat,
-	   	  DBMS_LOB.SUBSTR(b_review_content, 500, 1) AS b_review_content,
-	   	  (SELECT u_nickname FROM users u WHERE u.u_id=re.u_id) AS u_nickname,
-	   	  (SELECT u_profileimg_url FROM users u WHERE u.u_id=re.u_id) AS u_profileimg_url
+	<select id="etcReview" resultType="ReviewVO" parameterType="string">
+       SELECT
+	      re.b_review_id,                     
+	      re.b_id,
+	      re.b_review_score,
+	      DBMS_LOB.SUBSTR(re.b_review_content, 4000, 1) AS b_review_content,
+	      re.b_review_createdat,
+	      u.u_nickname,
+	      u.u_profileimg_url
 	   FROM review re
-	   WHERE b_id = #{b_id}
-	   ORDER BY b_review_createdat DESC
+	   JOIN users u
+	     ON u.u_id = re.u_id
+	   WHERE re.b_id = #{b_id}
+	   ORDER BY re.b_review_createdat DESC
 	</select>
 	
 	<!-- 리뷰 이미지 -->
 	<select id="etcReviewImage" resultType="string" parameterType="string">
-	   SELECT *
-	   FROM review
-	   WHERE b_id = #{b_id}
-	   ORDER BY b_review_createdat DESC
+	   SELECT r_image_url
+	    FROM review_image
+	    WHERE b_review_id = #{b_review_id}
+	    ORDER BY r_image_id ASC
 	</select>
 	
 	<!-- 가격 옵션 -->

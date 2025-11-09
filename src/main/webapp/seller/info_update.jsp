@@ -116,19 +116,25 @@ $(function(){
       }
     });
   });
+  
+  let originalBizNo = $('#biz_no').val();
+
+  $('#biz_no').on('input', function() {
+    if ($(this).val() !== originalBizNo) {
+      $('#biz_verified').val('N'); // 번호가 바뀌면 다시 인증 필요
+      $('#biz_msg').text('번호가 변경되어 재인증이 필요합니다.').css('color','red');
+    } else {
+      $('#biz_verified').val('Y'); // 원래 번호면 인증 유지
+      $('#biz_msg').text('');
+    }
+  });
+
 
   $('#joinBtn').click(function(){
     let seller_name=$('#seller_name').val();
     if(seller_name.trim()==="") {
       alert("셀러이름 중복체크를 하세요");
       $('#seller_name').focus();
-      return;
-    }
-
-    let biz_no=$('#biz_no').val();
-    if(biz_no.trim()==="") {
-      alert("사업자 등록 번호를 인증하세요");
-      $('#biz_no').focus();
       return;
     }
 	
@@ -178,16 +184,16 @@ $(function(){
 </style>
 </head>
 <body>
-<div class="header-text" style="height: 150px; background-color: #fff;"></div>
+<div class="header-text" style="height: 200px; background-color: #fff;"></div>
   <div class="join-container">
     <div class="panel">
       <h1 class="title" style="color:black; text-align:center">
-  		<span style="font-size: 30px;">셀러 가입</span>하고<br/>재능 판매를 시작해 보세요!
+  		<span style="font-size: 30px;">셀러 정보 수정</span>
 	 </h1>
  
 	  <div style="height: 30px"></div>
-     <form id="frm" name="frm" method="post" action="../seller/seller_join_ok.eum">
- 		<input type="hidden" id="biz_verified" name="biz_verified" value="N">
+     <form id="frm" name="frm" method="post" action="../seller/info_update_ok.eum">
+ 		<input type="hidden" id="biz_verified" name="biz_verified" value="Y">
 		<!-- 프로필 이미지 업로드 -->
 		<div class="field" style="margin-top:30px;">
 		  <label class="label">프로필 이미지</label>
@@ -195,7 +201,9 @@ $(function(){
 		    
 		    <!-- 미리보기 영역 -->
 		    <div class="preview" style="width:70px; height:70px; border-radius:50%; overflow:hidden; background:#f5f5f5; border:1px solid #ccc;">
-		      <img id="previewImg" src="../images/profile.jpg" alt="프로필 미리보기" style="width:100%; height:100%; object-fit:cover;">
+		      <img id="previewImg" src="${empty vo.u_s_profileimg_url ? '../images/profile.jpg' : vo.u_s_profileimg_url}"
+     			style="width:100%;height:100%;object-fit:cover;">
+		      <input type="hidden" id="profile_img_url" name="profile_img_url" value="${vo.u_s_profileimg_url}">
 		    </div>
 		    
 		    <!-- 파일 선택 -->
@@ -210,7 +218,7 @@ $(function(){
           <label class="label">셀러 이름<sup style="color: #a50021">&nbsp;*</sup></label>
           <div class="id-inline">
             <div class="search">
-              <input class="search_input" id="seller_name" name="seller_name" type="text" placeholder="셀러 이름"/>
+              <input class="search_input" id="seller_name" name="seller_name" type="text" placeholder="셀러 이름" value="${vo.u_s_com}"/>
             </div>
             <button type="button" id="sellerBtn" class="btn">중복체크</button>
           </div>
@@ -223,7 +231,7 @@ $(function(){
 		  <div class="id-inline">
 		    <div class="search">
 		      <!-- 예: 3988701116 -->
-		      <input class="search_input" id="biz_no" name="biz_no" type="text" placeholder="사업자 등록 번호 (숫자만 입력)" />
+		      <input class="search_input" id="biz_no" name="biz_no" type="text" placeholder="사업자 등록 번호 (숫자만 입력)" value="${vo.u_s_biz_no }"/>
 		    </div>
 		    <button type="button" id="bizCheckBtn" class="btn">인증</button>
 		  </div>
@@ -239,23 +247,23 @@ $(function(){
 		      <div class="search">
 		        <select id="loc_do" name="loc_do">
 		          <option value="">도/광역시 선택</option>
-		          <option value="서울특별시">서울특별시</option>
-		          <option value="부산광역시">부산광역시</option>
-		          <option value="대구광역시">대구광역시</option>
-		          <option value="인천광역시">인천광역시</option>
-		          <option value="광주광역시">광주광역시</option>
-		          <option value="대전광역시">대전광역시</option>
-		          <option value="울산광역시">울산광역시</option>
-		          <option value="세종특별자치시">세종특별자치시</option>
-		          <option value="경기도">경기도</option>
-		          <option value="강원도">강원도</option>
-		          <option value="충청북도">충청북도</option>
-		          <option value="충청남도">충청남도</option>
-		          <option value="전라북도">전라북도</option>
-		          <option value="전라남도">전라남도</option>
-		          <option value="경상북도">경상북도</option>
-		          <option value="경상남도">경상남도</option>
-		          <option value="제주특별자치도">제주특별자치도</option>
+				    <option value="서울특별시" ${loc_do eq '서울특별시' ? 'selected' : ''}>서울특별시</option>
+				    <option value="부산광역시" ${loc_do eq '부산광역시' ? 'selected' : ''}>부산광역시</option>
+				    <option value="대구광역시" ${loc_do eq '대구광역시' ? 'selected' : ''}>대구광역시</option>
+				    <option value="인천광역시" ${loc_do eq '인천광역시' ? 'selected' : ''}>인천광역시</option>
+				    <option value="광주광역시" ${loc_do eq '광주광역시' ? 'selected' : ''}>광주광역시</option>
+				    <option value="대전광역시" ${loc_do eq '대전광역시' ? 'selected' : ''}>대전광역시</option>
+				    <option value="울산광역시" ${loc_do eq '울산광역시' ? 'selected' : ''}>울산광역시</option>
+				    <option value="세종특별자치시" ${loc_do eq '세종특별자치시' ? 'selected' : ''}>세종특별자치시</option>
+				    <option value="경기도" ${loc_do eq '경기도' ? 'selected' : ''}>경기도</option>
+				    <option value="강원도" ${loc_do eq '강원도' ? 'selected' : ''}>강원도</option>
+				    <option value="충청북도" ${loc_do eq '충청북도' ? 'selected' : ''}>충청북도</option>
+				    <option value="충청남도" ${loc_do eq '충청남도' ? 'selected' : ''}>충청남도</option>
+				    <option value="전라북도" ${loc_do eq '전라북도' ? 'selected' : ''}>전라북도</option>
+				    <option value="전라남도" ${loc_do eq '전라남도' ? 'selected' : ''}>전라남도</option>
+				    <option value="경상북도" ${loc_do eq '경상북도' ? 'selected' : ''}>경상북도</option>
+				    <option value="경상남도" ${loc_do eq '경상남도' ? 'selected' : ''}>경상남도</option>
+				    <option value="제주특별자치도" ${loc_do eq '제주특별자치도' ? 'selected' : ''}>제주특별자치도</option>
 		        </select>
 		      </div>
 		    </div>
@@ -275,7 +283,7 @@ $(function(){
 		  <label class="label" for="u_s_biz_no">경력<sup style="color: #a50021">&nbsp;*</sup></label>
 		  <div class="id-inline">
 		    <div class="search">
-		      <input class="search_input" id="carrer" name="carrer" type="text" placeholder="경력"/>
+		      <input class="search_input" id="carrer" name="carrer" type="text" placeholder="경력" value="${vo.u_s_carrer }"/>
 		    </div>
 		    년
 		  </div>
@@ -283,10 +291,10 @@ $(function(){
 
 		<div class="sub-button">
 		  <button class="cancel" type="button" onclick="history.back()">취소</button>
-		  <button class="submit" type="button" id="joinBtn">셀러 가입</button>
+		  <button class="submit" type="button" id="joinBtn">수정</button>
 		</div>
         
-        <div style="height: 30px"></div>
+        <div class="header-text" style="height: 100px; background-color: #fff;"></div>
       </form>
     </div>
   </div>
@@ -315,18 +323,33 @@ $(function(){
     const loc_do = document.getElementById('loc_do');
     const loc_si = document.getElementById('loc_si');
 
+    const selectedDo = '${loc_do}';
+    const selectedSi = '${loc_si}';
+
     function renderCities(province){
-    	loc_si.innerHTML = '<option value="">시/군/구 선택</option>';
+      loc_si.innerHTML = '<option value="">시/군/구 선택</option>';
       (cityData[province] || []).forEach(city => {
         const opt = document.createElement('option');
         opt.value = city;
         opt.textContent = city;
+      
+        if (city === selectedSi) opt.selected = true;
         loc_si.appendChild(opt);
       });
     }
 
-      loc_do.addEventListener('change', function(){
+    loc_do.addEventListener('change', function(){
       renderCities(this.value);
+    });
+
+    window.addEventListener('DOMContentLoaded', function(){
+      if (selectedDo) {
+        loc_do.value = selectedDo;   
+        renderCities(selectedDo);     
+      } else if (loc_do.value) {
+
+        renderCities(loc_do.value);
+      }
     });
   </script>
 </body>

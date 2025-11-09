@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.eum.list.dao.EtcDAO;
 import com.eum.list.vo.ContentVO;
+import com.eum.list.vo.ReviewVO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
@@ -59,7 +60,7 @@ public class EtcModel {
 		
 		ContentVO vo=EtcDAO.etcDetailData(b_id);
 		List<String> list=EtcDAO.etcDetailImage(b_id);
-		List<ContentVO> rList=EtcDAO.etcReview(b_id);
+		List<ReviewVO> rList=EtcDAO.etcReview(b_id);
 		List<ContentVO> oList=EtcDAO.etcPriceOption(b_id);
 		
 		request.setAttribute("vo", vo);

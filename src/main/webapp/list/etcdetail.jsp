@@ -96,12 +96,20 @@
 </head>
 <body>
   <div class="header-text" style="height: 200px;"></div>
-
+	    
   <section class="dt-container hero" id="main-section">
     <div class="hero-left">
-      <div class="title-row">
-        <button class="prime-badge">즐겨찾기</button>
-        <h1 class="title">${vo.b_title }</h1> <!-- 컨텐츠 제목 -->
+      <div class="title-row" style="display: inline-block;">
+      <div>
+         <button class="prime-badge">즐겨찾기</button>
+      </div>
+      <div style="display: flex; align-items: center; height: 100px;">
+	  <h1 class="title" 
+	      style="margin: 0; line-height: 1; font-size: 28px;">
+	    ${vo.b_title}
+	  </h1>
+	</div>
+         
       </div>
 
       <div class="meta" aria-label="별점 및 관심">
@@ -130,8 +138,8 @@
       </div>
 
       <div class="contact-bar">
-        <div style="display: flex;">
-           <div class="avatar" style="margin-right: 10px;"><img src="${vo.u_s_profileimg_url }" class="profile"></div> <!-- 셀러 프로필 -->
+        <div style="display: flex; ">
+           <div class="avatar" style="margin-right: 10px; overflow: hidden;"><img src="${vo.u_s_profileimg_url }" class="profile"></div> <!-- 셀러 프로필 -->
            <div class="name"><p>${vo.u_s_com }</p></div> <!-- 셀러 이름 -->
         </div>
         <a class="btn-outline" href="#">문의하기</a>
@@ -207,17 +215,47 @@
           <aside class="side-sticky">
             <c:forEach var="rev" items="${rList }">
               <div class="re-card" id="reviews">
+               <div style="height: 15px;"></div>
                 <div class="review">
                   <div style="display: flex;">
                     <div class="avatar" style="margin-right: 10px;"><img src="${rev.u_profileimg_url }" style="border-radius: 50px"></div> <!-- 리뷰 프로필 -->
                     <div>
                       <div class="stars-sm" aria-hidden="true">
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                        <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
-                      </div>
+					  <c:forEach var="i" begin="1" end="5">
+					    <c:choose>
+					      <%-- 꽉 찬 별 --%>
+					      <c:when test="${i <= rev.b_review_score}">
+					        <svg class="star-sm" viewBox="0 0 20 20" style="fill:#facc15">
+					          <path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/>
+					        </svg>
+					      </c:when>
+					
+					      <%-- 반 별 --%>
+					      <c:when test="${i - 0.5 <= rev.b_review_score}">
+					        <svg class="star-sm" viewBox="0 0 20 20">
+					          <defs>
+					            <!-- 리뷰ID + 인덱스로 유니크 ID 생성 -->
+					            <linearGradient id="half${rev.b_review_id}${i}">
+					              <stop offset="50%" stop-color="#facc15"/>
+					              <stop offset="50%" stop-color="#e5e7eb"/>
+					            </linearGradient>
+					          </defs>
+					          <path fill="url(#half${rev.b_review_id}${i})"
+					                d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/>
+					        </svg>
+					      </c:when>
+					
+					      <%-- 빈 별 --%>
+					      <c:otherwise>
+					        <svg class="star-sm" viewBox="0 0 20 20" style="fill:#e5e7eb">
+					          <path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/>
+					        </svg>
+					      </c:otherwise>
+					    </c:choose>
+					  </c:forEach>
+					</div>
+
+
                       <div class="name">${rev.u_nickname }</div> <!-- 리뷰 작성자 -->
                     </div>
                     <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 리뷰 날짜 -->
@@ -225,27 +263,37 @@
                     </div>
                   </div>
                 </div>
-
-                <c:forEach begin="0" end="2"> <!-- 리뷰 이미지 -->
-                  <div class="review-img"></div>
-                </c:forEach>
+				<div style="height: 10px;"></div>
+                 <c:if test="${not empty rev.imgList and rev.imgList[0] ne null}">
+				  <div class="review-images" style="margin-left: 20px;">
+				    <c:forEach var="img" items="${rev.imgList}" varStatus="st">
+				      <c:if test="${st.index < 5}">
+				        <img class="review-img" src="${img}" alt="리뷰 이미지 ${st.index + 1}">
+				      </c:if>
+				    </c:forEach>
+				  </div>
+				</c:if>
+				<div style="height: 15px;"></div>
 				<!-- 리뷰 내용 -->
+				
                 <p style="margin:0; color:var(--muted)">${rev.b_review_content }</p>
                 
-                <div class="re-review">
+<!--                 <div class="re-review">
                  <div class="review">
                   <div style="display: flex;">
-                    <div class="avatar" style="margin-right: 10px;"></div> <!-- 셀러 프로필 -->
-                      <div class="seller-name">김민식</div> <!--  -->
-                      <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 답글 날짜 -->
+                    <div class="avatar" style="margin-right: 10px;"></div> 셀러 프로필
+                      <div class="seller-name">김민식</div> 
+                      <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> 답글 날짜
                         25.11.03 16:18
                       </div>
                     </div>
                   </div> 	
-					<!-- 대댓글 내용 -->
+					대댓글 내용
                 	<p style="margin:0; color:var(--muted)">좋은 리뷰 감사합니다~!!!</p>
-                </div>
+                </div> -->
+                <div style="height: 15px;"></div>
               </div>
+              
             </c:forEach>
           </aside>
         </div>
