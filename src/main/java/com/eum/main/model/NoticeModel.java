@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class NoticeModel {
 	
 	// ✅ 공지사항 목록
-	@RequestMapping("notice/list.do")
+	@RequestMapping("notice/list.eum")
 	public String notice_list(HttpServletRequest request, HttpServletResponse response)
 	{
 	    String page = request.getParameter("page");
@@ -43,14 +43,14 @@ public class NoticeModel {
 	    request.setAttribute("endPage", endPage);
 	    request.setAttribute("today", today);
 
-	    request.setAttribute("main_jsp", "notice/list.jsp");
-	    return "main/main.jsp";
+	    request.setAttribute("main_jsp", "../main/notice/list.jsp");
+	    return "../main/main.jsp";
 	}
 
 
 	
 	// ✅ 공지사항 상세보기
-	@RequestMapping("notice/detail.do")
+	@RequestMapping("notice/detail.eum")
 	public String notice_detail(HttpServletRequest request,HttpServletResponse response)
 	{
 		String n_id=request.getParameter("n_id");
@@ -62,7 +62,7 @@ public class NoticeModel {
 	}
 	
 	// ✅ 글쓰기 폼
-	@RequestMapping("notice/insert.do")
+	@RequestMapping("notice/insert.eum")
 	public String notice_insert(HttpServletRequest request,HttpServletResponse response)
 	{
 		request.setAttribute("main_jsp", "notice/insert.jsp");
@@ -70,7 +70,7 @@ public class NoticeModel {
 	}
 	
 	// ✅ 글쓰기 완료
-	@RequestMapping("notice/insert_ok.do")
+	@RequestMapping("notice/insert_ok.eum")
 	public String notice_insert_ok(HttpServletRequest request,HttpServletResponse response)
 	{
 		try {
@@ -92,7 +92,7 @@ public class NoticeModel {
 	}
 	
 	// ✅ 수정 폼
-	@RequestMapping("notice/update.do")
+	@RequestMapping("notice/update.eum")
 	public String notice_update(HttpServletRequest request,HttpServletResponse response)
 	{
 		String n_id=request.getParameter("n_id");
@@ -104,7 +104,7 @@ public class NoticeModel {
 	}
 	
 	// ✅ 수정 완료
-	@RequestMapping("notice/update_ok.do")
+	@RequestMapping("notice/update_ok.eum")
 	public String notice_update_ok(HttpServletRequest request,HttpServletResponse response)
 	{
 		try {
@@ -128,7 +128,7 @@ public class NoticeModel {
 	}
 	
 	// ✅ 삭제 확인 페이지
-	@RequestMapping("notice/delete.do")
+	@RequestMapping("notice/delete.eum")
 	public String notice_delete(HttpServletRequest request,HttpServletResponse response)
 	{
 		String n_id=request.getParameter("n_id");
@@ -140,7 +140,7 @@ public class NoticeModel {
 	}
 	
 	// ✅ 삭제 완료
-	@RequestMapping("notice/delete_ok.do")
+	@RequestMapping("notice/delete_ok.eum")
 	public String notice_delete_ok(HttpServletRequest request,HttpServletResponse response)
 	{
 		String n_id=request.getParameter("n_id");

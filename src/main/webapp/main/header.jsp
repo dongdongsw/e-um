@@ -415,13 +415,13 @@ Header Style
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="../main/main.eum" class="logo">
-                        <img src="assets/images/logo.png" alt="">
+                        <img src="assets/images/logo.png" alt="로고">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li><a href="../main/list.eum">list</a></li>
-                        <li><a href="../main/notice/list.jsp">공지사항</a></li>
+                        <li><a href="../notice/list.eum">공지사항</a></li>
                         <li><a href="create.html">셀러 등록</a></li>
                         <li><a href="explore.html">로그인</a></li>
                         <li><a href="index.html" class="active">회원가입</a></li>

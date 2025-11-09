@@ -1,15 +1,19 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
 
-/* ========== 공통 영역 ========== */
-body {
+/* =========================================================
+   📘 공지사항 전용 CSS (body.notice-page 스코프)
+   ========================================================= */
+
+body.notice-page {
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
   background-color: #fff;
   margin: 0;
   padding: 0;
 }
 
-.notice-container {
+/* ✅ 컨테이너 */
+body.notice-page .notice-container {
   width: 900px;
   margin: 80px auto 60px auto;
   background: #fff;
@@ -18,7 +22,8 @@ body {
   padding: 40px;
 }
 
-.notice-title {
+/* ✅ 타이틀 */
+body.notice-page .notice-title {
   font-weight: 700;
   color: #7453fc;
   border-bottom: 3px solid #7453fc;
@@ -26,12 +31,12 @@ body {
   margin-bottom: 30px;
 }
 
-/* 버튼 공통 */
-.btn,
-.btn-write,
-.btn-back,
-.btn-update,
-.btn-delete {
+/* ✅ 버튼 공통 */
+body.notice-page .btn,
+body.notice-page .btn-write,
+body.notice-page .btn-back,
+body.notice-page .btn-update,
+body.notice-page .btn-delete {
   background: #7453fc;
   color: white;
   border: none;
@@ -44,68 +49,69 @@ body {
   display: inline-block;
 }
 
-.btn:hover,
-.btn-write:hover,
-.btn-back:hover,
-.btn-update:hover {
+body.notice-page .btn:hover,
+body.notice-page .btn-write:hover,
+body.notice-page .btn-back:hover,
+body.notice-page .btn-update:hover {
   background: #5334d0;
 }
 
-.btn-cancel {
+body.notice-page .btn-cancel {
   background: #bbb;
 }
 
-.btn-cancel:hover {
+body.notice-page .btn-cancel:hover {
   background: #999;
 }
 
-/* 리스트 */
-.notice-title.list {
+/* ✅ 리스트 */
+body.notice-page .notice-title.list {
   font-size: 28px;
   margin-bottom: 40px;
 }
 
-table {
+body.notice-page table {
   width: 100%;
   border-collapse: collapse;
   font-size: 15px;
 }
 
-th, td {
+body.notice-page th,
+body.notice-page td {
   border-bottom: 1px solid #ddd;
   padding: 14px 10px;
   text-align: left;
 }
 
-th {
+body.notice-page th {
   background-color: #f4f0ff;
   color: #5334d0;
 }
 
-tr:hover {
+body.notice-page tr:hover {
   background-color: #f8f5ff;
   cursor: pointer;
 }
 
-.btn-write {
+body.notice-page .btn-write {
   float: right;
   margin-top: -15px;
   margin-bottom: 10px;
   padding: 8px 15px;
 }
 
-/* 작성, 수정 */
-.notice-title.insert,
-.notice-title.update {
+/* ✅ 작성, 수정 */
+body.notice-page .notice-title.insert,
+body.notice-page .notice-title.update {
   font-size: 26px;
 }
 
-form {
+body.notice-page form {
   display: flex;
   flex-direction: column;
 }
 
-label {
+body.notice-page label {
   font-weight: 600;
   margin-top: 15px;
   margin-bottom: 8px;
@@ -113,8 +119,8 @@ label {
   font-size: 15px;
 }
 
-input[type="text"],
-textarea {
+body.notice-page input[type="text"],
+body.notice-page textarea {
   font-size: 15px;
   padding: 12px;
   border: 1px solid #ddd;
@@ -123,188 +129,51 @@ textarea {
   transition: 0.2s;
 }
 
-input[type="text"]:focus,
-textarea:focus {
+body.notice-page input[type="text"]:focus,
+body.notice-page textarea:focus {
   border-color: #7453fc;
   box-shadow: 0 0 0 3px rgba(116, 83, 252, 0.1);
 }
 
-textarea {
+body.notice-page textarea {
   height: 250px;
   resize: vertical;
   line-height: 1.6;
 }
 
-.btn-wrap {
+body.notice-page .btn-wrap {
   margin-top: 30px;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
 }
 
-/* 디테일 */
-.notice-title.detail {
+/* ✅ 디테일 */
+body.notice-page .notice-title.detail {
   font-size: 26px;
 }
 
-.notice-date {
+body.notice-page .notice-date {
   color: #999;
   font-size: 14px;
   margin-bottom: 30px;
 }
 
-.notice-content {
+body.notice-page .notice-content {
   font-size: 16px;
   line-height: 1.8;
   color: #444;
   white-space: pre-line;
 }
 
-.btn-move {
+body.notice-page .btn-move {
   text-align: right;
 }
 
-/* ================================
-   Footer
-   ================================ */
-*, *:before, *:after {
-  box-sizing: border-box;
-}
-
-.footer {
-  flex-shrink: 0; 
-  display: flex;
-  flex-flow: row wrap;
-  padding: 10px 10px 5px 10px;
-  color: #2f2f2f;
-  background-color: #fff;
-  border-top: 1px solid #e5e5e5;
-  font-size: 13px;
-  margin-top: 230px;
-}
-
-.footer > * {
-  flex:  1 100%;
-}
-
-.footer__addr {
-  margin-right: 1.25em;
-  margin-bottom: 2em;
-}
-
-.footer__logo {
-  font-family: 'Pacifico', cursive;
-  font-weight: 400;
-  text-transform: lowercase;
-  font-size: 1.5rem;
-}
-
-.footer__addr h2 {
-  margin-top: 1.3em;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-.nav__title {
-  font-weight: 400;
-  font-size: 15px;
-}
-
-.footer address {
-  font-style: normal;
-  color: #999;
-}
-
-.footer__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 36px;
-  max-width: max-content;
-  background-color: rgb(33, 33, 33, 0.07);
-  border-radius: 100px;
-  color: #2f2f2f;
-  line-height: 0;
-  margin: 0.6em 0;
-  font-size: 1rem;
-  padding: 0 1.3em;
-}
-
-.footer ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.footer li {
-  line-height: 2em;
-}
-
-.footer a {
-  text-decoration: none;
-}
-
-.footer__nav {
-  display: flex;
-  flex-flow: row wrap;
-}
-
-.footer__nav > * {
-  flex: 1 50%;
-  margin-right: 1.25em;
-}
-
-.nav__ul a {
-  color: #999;
-}
-
-.nav__ul--extra {
-  column-count: 2;
-  column-gap: 1.25em;
-}
-
-.legal {
-  display: flex;
-  flex-wrap: wrap;
-  color: #999;
-}
-
-.legal__links {
-  display: flex;
-  align-items: center;
-}
-
-.heart {
-  color: #2f2f2f;
-}
-
-@media screen and (min-width: 24.375em) {
-  .legal .legal__links {
-    margin-left: auto;
-  }
-}
-
-@media screen and (min-width: 40.375em) {
-  .footer__nav > * {
-    flex: 1;
-  }
-  
-  .nav__item--extra {
-    flex-grow: 2;
-  }
-  
-  .footer__addr {
-    flex: 1 0px;
-  }
-  
-  .footer__nav {
-    flex: 2 0px;
-  }
-}
-
-/* ================================
-   기존 메인 헤더 (둥근)
-   ================================ */
-.background-header {
+/* =========================================================
+   📘 공지사항 헤더 스타일
+   ========================================================= */
+body.notice-page .background-header {
   background-color: #fff !important;
   height: 70px !important;
   position: fixed !important;
@@ -316,7 +185,7 @@ textarea {
   z-index: 1000;
 }
 
-.header-area {
+body.notice-page .header-area {
   background-color: transparent;
   position: absolute;
   height: 70px;
@@ -327,7 +196,7 @@ textarea {
   transition: all .5s ease;
 }
 
-.header-area .main-nav {
+body.notice-page .header-area .main-nav {
   min-height: 7px;
   background: #fff;
   display: flex;
@@ -338,122 +207,66 @@ textarea {
   box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
 
-/* ================================
-   공지사항 전용 헤더 (조정된 직선형)
-   ================================ */
-.notice-header {
-  position: static;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-  border-radius: 0;
-  box-shadow: none;
-  border-bottom: 2px solid #d4d4d4; /* ✅ 구분선 두껍고 진하게 */
-  z-index: 1000;
-  height: 70px; /* ✅ 기존보다 약 30% 확대 */
-}
-
-.notice-header .main-nav {
-  display: flex;
-  justify-content: space-between;
+/* =========================================================
+   📘 모달 (공지사항 삭제 확인 등)
+   ========================================================= */
+body.notice-page .modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  justify-content: center;
   align-items: center;
-  padding: 10px 50px; /* ✅ 여백 살짝 늘림 */
+  z-index: 999;
+}
+
+body.notice-page .modal-box {
   background: #fff;
-  border-radius: 0;
-  box-shadow: none;
+  border-radius: 10px;
+  padding: 25px 35px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  animation: fadeIn 0.2s ease-in-out;
 }
 
-.notice-header .logo img {
-  height: 80px; /* ✅ 로고도 약간 키움 */
-  width: auto;
+body.notice-page .modal-box h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
-.notice-header .nav {
+body.notice-page .modal-btns {
   display: flex;
-  gap: 22px; /* 항목 간 간격 */
-  list-style: none;
-  margin-right: 25px; /* 오른쪽 정렬 */
+  justify-content: center;
+  gap: 10px;
 }
 
-.notice-header .nav li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  font-size: 15px; /* ✅ 살짝 키움 */
-  padding: 8px 14px; /* ✅ 클릭 영역 확대 */
-  border-radius: 20px;
-  transition: 0.3s;
+body.notice-page .modal-btns button {
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
-.notice-header .nav li a:hover,
-.notice-header .nav li a.active {
-  background-color: #7453fc;
+body.notice-page .btn-cancel {
+  background: #ddd;
+}
+body.notice-page .btn-cancel:hover {
+  background: #ccc;
+}
+
+body.notice-page .btn-confirm {
+  background: #7453fc;
   color: #fff;
 }
-.nav{
-	margin-right: auto; 	
+body.notice-page .btn-confirm:hover {
+  background: #5b3ee6;
 }
-    /* ✅ 모달 배경 */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
 
-    /* ✅ 모달창 본체 */
-    .modal-box {
-      background: #fff;
-      border-radius: 10px;
-      padding: 25px 35px;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      animation: fadeIn 0.2s ease-in-out;
-    }
-
-    .modal-box h3 {
-      margin-bottom: 20px;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .modal-btns {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .modal-btns button {
-      border: none;
-      padding: 8px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.2s;
-    }
-
-    .btn-cancel {
-      background: #ddd;
-    }
-    .btn-cancel:hover {
-      background: #ccc;
-    }
-
-    .btn-confirm {
-      background: #7453fc;
-      color: #fff;
-    }
-    .btn-confirm:hover {
-      background: #5b3ee6;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
+}

@@ -14,9 +14,16 @@ public class NoticeDAO {
 	}
 	public static List<NoticeVO> noticeListData(Map<String, Object> map)
 	{
-		SqlSession session=ssf.openSession();
-		List<NoticeVO> list=session.selectList("noticeListData",map);
+		List<NoticeVO> list=null;
+		try {
+			
+			SqlSession session=ssf.openSession();
+		list=session.selectList("noticeListData",map);
 		session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return list;
 	}
 
