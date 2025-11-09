@@ -10,7 +10,7 @@
   <div class="notice-container">
     <h1 class="notice-title">공지사항 수정</h1>
 
-    <form method="post" action="insert.do">
+    <form method="post" action="update.jsp">
       <label for="title">제목</label>
       <input type="text" id="title" name="title" placeholder="공지 제목을 입력하세요" required>
 
@@ -18,8 +18,8 @@
       <textarea id="content" name="content" placeholder="공지 내용을 입력하세요" required></textarea>
 
       <div class="btn-wrap">
-        <button type="button" class="btn btn-cancel" onclick="location.href='list.jsp'">취소</button>
-        <button type="submit" class="btn">등록</button>
+        <button type="button" class="btn btn-cancel" onclick="javascript:history.back()">취소</button>
+        <button type="submit" class="btn">수정</button>
       </div>
     </form>
   </div>

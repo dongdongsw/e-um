@@ -51,10 +51,10 @@ public class ContentDAO {
 		   session.close();
 		   return list;
 	   }
-	   public static List<String> contentReviewImage(String b_id)
+	   public static List<ContentVO> contentReviewImage(String b_id)
 	   {
 		   SqlSession session=ssf.openSession();
-		   List<String> list=session.selectList("contentReviewImage",b_id);
+		   List<ContentVO> list=session.selectList("contentReviewImage",b_id);
 		   session.close();
 		   return list;
 	   }

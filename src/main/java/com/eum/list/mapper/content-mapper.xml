@@ -85,12 +85,12 @@
 	</select>
 	
 	<!-- 리뷰 이미지 -->
-	<select id="contentReviewImage" resultType="string" parameterType="string">
-     SELECT b_review_img_url
-     FROM review_image
-     WHERE b_id = #{b_id}
-     ORDER BY b_review_img_id ASC
-	</select>
+	<select id="contentReviewImage" resultType="ContentVO" parameterType="string">
+    SELECT b_review_img_url AS r_image_url
+    FROM review_image
+    WHERE b_id = #{b_id}
+    ORDER BY b_review_img_id ASC
+</select>
 	<!-- 가격 옵션 -->
 	<select id="contentOption" resultType="ContentVO" parameterType="string">
 	SELECT b_op_id, b_id, b_op_title, b_op_price,

@@ -317,9 +317,9 @@ $(function() {
                     </div>
                   </div>
                 </div>
-
-                <c:forEach begin="0" end="2"> <!-- 리뷰 이미지 -->
-                  <div class="review-img"><img src="${b.r_image_url }"></div>
+                <!-- 리뷰 이미지 -->
+                <c:forEach begin="0" end="2"> 
+                  <div class="review-img"><img src="${vo.r_image_url }"></div>
                 </c:forEach>
                 
                   

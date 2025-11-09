@@ -30,7 +30,8 @@ body {
 .btn,
 .btn-write,
 .btn-back,
-.btn-update {
+.btn-update,
+.btn-delete {
   background: #7453fc;
   color: white;
   border: none;
@@ -393,4 +394,66 @@ textarea {
 .nav{
 	margin-right: auto; 	
 }
+    /* ✅ 모달 배경 */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    /* ✅ 모달창 본체 */
+    .modal-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 25px 35px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .modal-box h3 {
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .modal-btns {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .modal-btns button {
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .btn-cancel {
+      background: #ddd;
+    }
+    .btn-cancel:hover {
+      background: #ccc;
+    }
+
+    .btn-confirm {
+      background: #7453fc;
+      color: #fff;
+    }
+    .btn-confirm:hover {
+      background: #5b3ee6;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
 

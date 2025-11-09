@@ -3,22 +3,26 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>공지사항 작성</title>
   <link rel="stylesheet" href="notice.css">
 </head>
 <body>
   <div class="notice-container">
     <h1 class="notice-title">공지사항 글쓰기</h1>
 
-    <form method="post" action="insert.do">
+    <!-- ✅ JSP에서는 Controller로 데이터 전송 -->
+    <form method="post" action="insert_ok.do">
+     <!--  <input type="hidden" name="u_id" value="admin"> -->
+
       <label for="title">제목</label>
-      <input type="text" id="title" name="title" placeholder="공지 제목을 입력하세요" required>
+      <input type="text" id="title" name="n_title" placeholder="공지 제목을 입력하세요" required>
 
       <label for="content">내용</label>
-      <textarea id="content" name="content" placeholder="공지 내용을 입력하세요" required></textarea>
+      <textarea id="content" name="n_content" placeholder="공지 내용을 입력하세요" required></textarea>
 
       <div class="btn-wrap">
-        <button type="button" class="btn btn-cancel" onclick="location.href='list.jsp'">취소</button>
+        <!-- ✅ 취소 시 다시 JSP로 돌아감 -->
+        <button type="button" class="btn btn-cancel" onclick="javascript:history.back()">취소</button>
         <button type="submit" class="btn">등록</button>
       </div>
     </form>
