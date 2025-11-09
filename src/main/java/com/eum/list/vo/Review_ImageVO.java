@@ -2,6 +2,13 @@ package com.eum.list.vo;
 
 import lombok.Data;
 
+/*
+ 	R_IMAGE_ID       NOT NULL NUMBER       
+	B_REVIEW_ID               VARCHAR2(30) 
+	R_IMAGE_URL               CLOB         
+	R_IMAGE_UPLOADAT          VARCHAR2(30) 
+ */
+
 @Data
 public class Review_ImageVO {
 
