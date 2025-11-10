@@ -423,7 +423,7 @@ body {
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li><a href="../main/list.eum">list</a></li>
-                        <li><a href="../main/detail.eum">detail</a></li>
+                        <li><a href="../seller/info.eum">셀러 페이지</a></li>
                         <li><a href="../seller/join.eum">셀러 등록</a></li>
                         <li><a href="explore.html">로그인</a></li>
                         <li><a href="../users/join.eum" class="active">회원가입</a></li>

@@ -81,7 +81,7 @@ $(function(){
     const payload = { b_no: [ no ] };
 
     $.ajax({
-      url: 'https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=cersZ70uxWU0ccYpSBAAT5gRkiOl1q3Pqr2GbOvzC0zzyQD073VSzVr0mYlqVldzVqlnc0pW2%2FK%2Fu7dU1s6AfA%3D%3D',
+      url: 'https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=cersZ70uxWU0ccYpSBAAT5gRkiOl1q3Pqr2GbOvzC0zzyQD073VSzVr0mYlqVldzVqlnc0pW2/K/u7dU1s6AfA==',
       type: 'POST',
       data: JSON.stringify(payload),
       dataType: 'JSON',

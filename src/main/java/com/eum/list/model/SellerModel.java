@@ -70,7 +70,7 @@ public class SellerModel {
 	@RequestMapping("seller/info.eum")
 	public String seller_info(HttpServletRequest request, HttpServletResponse response) {
 		
-		int u_s_id=4063;
+		int u_s_id=1;
 		
 		SellerVO vo=SellerDAO.sellerInfo(u_s_id);
 		
@@ -84,15 +84,24 @@ public class SellerModel {
 	@RequestMapping("seller/info_update.eum")
 	public String seller_info_update(HttpServletRequest request, HttpServletResponse response) {
 		
-		int u_s_id=4063;
+		int u_s_id=1;
 		
 		SellerVO vo=SellerDAO.sellerInfo(u_s_id);
 		
 		request.setAttribute("vo", vo);
 		
-		StringTokenizer zone=new StringTokenizer(vo.getU_s_zone(), " ");
-		String loc_do=zone.nextToken();
-		String loc_si=zone.nextToken();
+		String loc_do=null;
+		String loc_si=null;
+		
+		try {
+			StringTokenizer zone=new StringTokenizer(vo.getU_s_zone(), " ");
+			loc_do=zone.nextToken();
+			loc_si=zone.nextToken();
+		} catch (Exception ex) {
+			StringTokenizer zone=new StringTokenizer(vo.getU_s_zone(), "-");
+			loc_do=zone.nextToken();
+			loc_si=zone.nextToken();
+		}
 		
 		request.setAttribute("loc_do", loc_do);
 		request.setAttribute("loc_si", loc_si);
@@ -114,7 +123,7 @@ public class SellerModel {
 		
 		SellerVO vo=new SellerVO();
 
-		vo.setU_s_id(4063);
+		vo.setU_s_id(1);
 		vo.setU_s_carrer(u_s_carrer);
 		vo.setU_s_zone(loc_do+" "+loc_si);
 		vo.setU_s_biz_no(u_s_biz_no);
@@ -126,13 +135,13 @@ public class SellerModel {
 		return "redirect:../seller/info.eum";
 	}
 	
-	// 내 컨텐츠 목록
+	// 내 컨텐츠 목록 (셀러 페이지)
 	@RequestMapping("seller/my_contents.eum")
 	public String seller_my_contents(HttpServletRequest request, HttpServletResponse response) {
 		
 		List<BoardVO> list=new ArrayList<BoardVO>();
 		
-		list=SellerDAO.myContents(3000);
+		list=SellerDAO.myContents(1);
 		
 		request.setAttribute("list", list);
 				

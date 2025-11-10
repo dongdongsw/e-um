@@ -176,7 +176,7 @@ body {background-color: #fff !important;}
 			      </div>
 			      <div class="content-stats">
 			        <span class="status" style="font-weight: bold">
-			          ${vo.b_status eq 'active' ? '판매중' : 'inactive'}
+			          ${vo.b_status eq 'active' ? '판매중' : 'inactive'} 
 			        </span>
 			     	
 			        <span style="margin-left: 20px">조회수 ${vo.b_view_count}</span>
