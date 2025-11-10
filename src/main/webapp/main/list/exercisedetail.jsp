@@ -1,0 +1,354 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="css/detail.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<script>
+  $(function () {
+    // jQuery UI tabs
+    $("#tabs").tabs();
+
+    // ▼ 드롭다운 (민석님 기존 코드 유지)
+    const root    = document.getElementById('sortDropdown');
+    const current = root?.querySelector('.current');
+    const menu    = root?.querySelector('.menu');
+
+    if (root && menu) {
+      root.addEventListener('click', function(e){
+        if (e.target.closest('.menu')) return;
+        e.stopPropagation();
+        root.classList.toggle('expanded');
+      });
+
+      menu.addEventListener('click', function(e){
+        let input, labelText;
+        const label = e.target.closest('label[for]');
+        if (label) {
+          e.preventDefault();
+          const id = label.getAttribute('for');
+          input = document.getElementById(id);
+          labelText = label.textContent.trim();
+        } else {
+          input = e.target.closest('input[type="radio"]');
+          if (input) {
+            const assocLabel = menu.querySelector(`label[for="${input.id}"]`);
+            labelText = assocLabel ? assocLabel.textContent.trim() : input.value;
+          }
+        }
+        if (!input) return;
+        input.checked = true;
+        if (current) current.textContent = labelText;
+        root.classList.remove('expanded');
+        e.stopPropagation();
+      });
+
+      document.addEventListener('click', function(){
+        root.classList.remove('expanded');
+      });
+
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') root.classList.remove('expanded');
+      });
+
+      const checked = menu.querySelector('input:checked + label');
+      if (checked && current) current.textContent = checked.textContent.trim();
+    }
+
+    // ▼ 좋아요 버튼: 클릭 바인딩 + 토글
+    function toggleLike(e){
+      const el = e.currentTarget;                          // 클릭된 버튼
+      const countEl = el.querySelector(".like-count");
+      let count = parseInt(countEl.textContent.replace(/,/g, "")) || 0;
+      const liked = el.classList.toggle("liked");          // 클래스 토글 (색상 변경)
+
+      countEl.textContent = (liked ? count + 1 : count - 1).toLocaleString();
+    }
+
+    // 버튼 여러 개도 대응
+    document.querySelectorAll('.like-button').forEach(btn=>{
+      btn.addEventListener('click', toggleLike);
+    });
+    
+    $(".count").on("click", function() {
+    	  $("#tabs").tabs("option", "active", 2); // 0=상세, 1=셀러, 2=리뷰
+    	  $("html, body").animate({
+    	    scrollTop: $("#tabs").offset().top - 100 // 살짝 위로 위치 조정
+    	  }, 400);
+    });
+  });
+  
+  $(function() {
+	  $(".stars").each(function() {
+	    const score = parseFloat($(this).data("score")) || 0;
+	    const fullStars = Math.floor(score);
+	    const partial = score - fullStars;
+	    const stars = $(this).find(".star");
+
+	    stars.each(function(i) {
+	      const $path = $(this).find("path");
+	      if (i < fullStars) {
+	        $path.css("fill", "var(--accent)");
+	      } else if (i === fullStars && partial > 0) {
+	        // 절반 채움
+	        $path.css("fill", "url(#half-fill)");
+	      } else {
+	        $path.css("fill", "#ddd"); // 빈 별 회색 처리
+	      }
+	    });
+	  });
+	});
+  $(function() {
+	  $(".stars-sm").each(function() {
+	    const score = parseFloat($(this).data("score")) || 0;
+	    const fullStars = Math.floor(score);
+	    const partial = score - fullStars;
+	    const stars = $(this).find(".star");
+
+	    stars.each(function(i) {
+	      const $path = $(this).find("path");
+	      if (i < fullStars) {
+	        $(this).addClass("filled");
+	        $path.css("fill", "var(--accent)");
+	      } else if (i === fullStars && partial > 0) {
+	        // 절반 별
+	        $path.css("fill", "url(#half-fill)");
+	      } else {
+	        $path.css("fill", "#ddd");
+	      }
+	    });
+	  });
+	});
+
+
+</script>
+</head>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="half-fill" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="50%" stop-color="var(--accent)" />
+      <stop offset="50%" stop-color="#ddd" />
+    </linearGradient>
+  </defs>
+</svg>
+
+<body>
+  <div class="header-text" style="height: 200px;"></div>
+
+  <section class="dt-container hero" id="main-section">
+    <div class="hero-left">
+      <div class="title-row">
+        <button class="prime-badge">즐겨찾기</button>
+        <h1 class="title">${vo.b_title }</h1> <!-- 컨텐츠 제목 -->
+      </div>
+
+      <div class="meta" aria-label="별점 및 관심">
+        <div class="stars" data-score="${list[0].r_avg_score }">
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		  <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+		</div>
+        <span class="rating"><fmt:formatNumber value="${empty list[0].r_avg_score ? 0 : list[0].r_avg_score}" pattern="0.0"/></span> <!-- 컨텐츠 평점 -->
+        <span class="count">(${vo.r_count })</span> <!-- 리뷰 수 -->
+		<div class="like-button">
+		  <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
+		    <path d="M12 21s-6.7-4.3-9.4-7.1C.7 11.9.4 8.9 2.3 7 4 5.3 6.8 5.6 8.6 7.3L12 10.6l3.4-3.3c1.8-1.7 4.6-2 6.3-.3 1.9 1.9 1.6 4.9-.3 6.8C18.7 16.7 12 21 12 21z"></path>
+		  </svg>
+		  <span class="like-count">1,477</span> <!-- 좋아요 수 -->
+		</div>
+
+        <div class="quick">
+  <svg class="view" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 5C7 5 2.7 8.1 1 12c1.7 3.9 6 7 11 7s9.3-3.1 11-7c-1.7-3.9-6-7-11-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" fill="#6b7280"/>
+  </svg>
+  <span>${vo.b_view_count }</span> <!-- 조회수 -->
+</div>
+      </div>
+
+      <div class="contact-bar">
+        <div style="display: flex;">
+		  <img src="${vo.u_s_profileimg_url }" class="avatar" style="margin-right: 10px;" alt="seller profile"> <!-- 셀러 프로필 -->
+		  <div class="name"><p>${vo.u_s_com}</p></div> <!-- 셀러 이름 -->
+		</div>
+        <a class="btn-outline" href="#">문의하기</a>
+      </div>
+
+      <div class="prime-card">
+        <ul class="prime-list">
+          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 경력 : ${vo.u_s_carrer }</li>
+          <li style="font-size:13px; font-weight: 700"><span class="tick">✔</span> 셀러 서비스 지역 : ${vo.u_s_zone }</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="banner"> <!--컨텐츠 메인 이미지 -->
+        <img src="${vo.b_thumbnail }" class="main-img">
+      </div>
+    </div>
+  </section>
+  <!-- 상세정보 시작 --> 
+  <section class="dt-container hero">
+    <div class="hero-left">
+      <div id="tabs" style="background-color: #fff; border: none;">
+        <ul style="background-color: #fff; border: none; border-bottom: 1px solid #bebebe;">
+          <li><a href="#tabs-1">상세 내용</a></li>
+          <li><a href="#tabs-2">셀러 정보</a></li>
+          <li><a href="#tabs-3">리뷰</a></li>
+        </ul>
+		<!-- 컨텐츠 상세 내용 -->
+        <div id="tabs-1">
+   		  <br>
+   		  <p style="font-weight: 600">
+			  작업 방식 : 
+			  <c:choose>
+			    <c:when test="${vo.b_prod_on_off eq 'ONLINE'}">온라인 (비대면)</c:when>
+			    <c:when test="${vo.b_prod_on_off eq 'OFFLINE'}">오프라인 (대면)</c:when>
+			    <c:otherwise>정보 없음</c:otherwise>
+			  </c:choose>
+			</p>
+   		  <br>
+          <p style="white-space: pre-line;">
+			    ${vo.b_content}
+			</p>
+          <br><br>
+          <c:forEach var="vo4" items="${list4 }">
+            <img style="width:100%" src="${vo4.b_img_url }">
+          </c:forEach>
+        </div>
+		<!-- 셀러 정보 -->
+        <div id="tabs-2">
+           <div id="tabs-2" style="max-width:700px; margin:auto; font-family:'Noto Sans KR', sans-serif;">
+			  <div style="height: 30px;"></div>
+			
+			  <!-- 셀러 프로필 -->
+			  <div style="display: flex; align-items: center; margin-bottom: 20px; background-color:#f9f9ff; border-radius:10px; padding:15px;">
+			    <div class="avatar" style="width:60px; height:60px; border-radius:50%; background-color:#e0d8ff; margin-right:15px; overflow:hidden;">
+			      <img src="${vo.u_s_profileimg_url }" alt="셀러 프로필" style="width:100%; height:100%; object-fit:cover;">
+			    </div>
+			    <div>
+			      <div class="name" style="font-weight:700; font-size:16px; color:#333;">${vo.u_s_com}</div>
+			      <div style="font-size:12px; font-weight:600; color:#8e4dff;">사업자 인증 완료</div>
+			      <div style="font-size:11px; color:#666;">연락 가능 시간 : 언제나 가능 | 평균 응답 시간 : 1시간 이내</div>
+			    </div>
+			  </div>
+			
+			  <!-- 셀러 정보 -->
+			  <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; background:#fff; border:1px solid #eee; border-radius:10px; padding:20px;">
+			    <div class="stat-box" style="flex:1; min-width:200px;">
+			      <div class="stat-label" style="font-size:12px; color:#888;">서비스 지역</div>
+			      <div class="stat-value" style="font-weight:600;">${vo.u_s_zone }</div>
+			    </div>
+			    <div class="stat-box" style="flex:1; min-width:200px;">
+			      <div class="stat-label" style="font-size:12px; color:#888;">셀러 경력</div>
+			      <div class="stat-value" style="font-weight:600;">${vo.u_s_carrer }년</div>
+			    </div>
+			  </div>
+			</div>
+
+        </div>
+		<!-- 리뷰 -->
+        <div id="tabs-3">
+          <aside class="side-sticky">
+            <c:forEach var="vo1" items="${list}">
+              <div class="re-card" id="reviews">
+                <div class="review">
+                  <div style="display: flex;">
+                    <div class="avatar" style="margin-right: 10px; background-image: url('${vo1.u_profileimg_url}'"></div> <!-- 리뷰 프로필 -->
+                    <div>
+                      <div class="stars-sm" data-score="${vo1.b_review_score }">
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					   <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
+					  </div>
+                      <div class="name">${vo1.u_nickname }</div> <!-- 리뷰 작성자 -->
+                    </div>
+                    <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 리뷰 날짜 -->
+                      ${vo1.b_review_createdat }
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 리뷰 이미지 출력 -->
+			    <c:if test="${not empty vo1.imageList}">
+				  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+				    <c:forEach var="img" items="${vo1.imageList}">
+				      <c:if test="${not empty img.r_image_url}">
+				        <div class="review-img" 
+				             style="width: 100px; height: 100px; overflow: hidden; border-radius: 5px;">
+				          <img src="${img.r_image_url}" 
+				               alt="리뷰 이미지" 
+				               style="width: 100%; height: 100%; object-fit: cover;">
+				        </div>
+				      </c:if>
+				    </c:forEach>
+				  </div>
+				</c:if>
+
+				<!-- 리뷰 내용 -->
+                <p style="margin:0; color:var(--muted)">${vo1.b_review_content }</p>
+                
+                <div class="re-review">
+                 <div class="review">
+                  <div style="display: flex;">
+                    <div class="avatar" style="margin-right: 10px;"></div> <!-- 셀러 프로필 -->
+                      <div class="seller-name">dd</div> <!--  -->
+                      <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 답글 날짜 -->
+                        2023-01-91
+                      </div>
+                    </div>
+                  </div> 	
+					<!-- 대댓글 내용 -->
+                	<p style="margin:0; color:var(--muted)">좋은 리뷰 감사합니다~!!!</p>
+                </div>
+              </div>
+            </c:forEach>
+          </aside>
+        </div>
+      </div>
+    </div>
+	<!-- 가격 옵션 -->
+    <div class="hero-right" id="skicky">
+	  <div class="plans">
+	    <span class="dropdown-el" id="sortDropdown">
+	      <span class="current">
+	        ${list3[0].b_op_title}  (<fmt:formatNumber value="${list3[0].b_op_price}" pattern="#,###" />원)
+	      </span>
+	      <div class="menu">
+	        <c:forEach var="vo3" items="${list3}" varStatus="status">
+	          <input type="radio"
+	                 name="sortType"
+	                 id="sort-${status.index}"
+	                 value="${vo3.b_op_title}"
+	                 <c:if test="${status.first}">checked</c:if> />
+	          <label for="sort-${status.index}">
+	            ${vo3.b_op_title} (<fmt:formatNumber value="${vo3.b_op_price}" pattern="#,###" />원)
+	          </label>
+	        </c:forEach>
+	      </div>
+	    </span>
+	
+	    <div class="cta">
+	      <button class="btn-ghost">전문가에게 문의하기</button>
+	      <button class="btn-pri">구매하기</button>
+	    </div>
+	  </div>
+	</div>
+
+    <div style="height: 100px"></div>
+  </section>
+</body>
+</html>
+</html>
