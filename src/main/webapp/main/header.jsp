@@ -482,16 +482,13 @@ button.active2:hover {
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
-<<<<<<< HEAD
+
                     <ul class="nav">
                         <li><a href="../admin/admin_main.eum">admin</a></li>
-                        <li><a href="../main/life_list.eum">list</a></li>
-=======
-                     <ul class="nav">
-                        <li><a href="../main/list.eum">list</a></li>
->>>>>>> origin/test_backup
-                        <li><a href="../main/detail.eum">detail</a></li>
+                        <li><a href="../pay/life_list.eum">list</a></li>
                         <li><a href="../seller/join.eum">셀러 등록</a></li>
+                        <li><a href="../notice/list.eum">공지 사항</a></li>
+                        
                         <c:if test="${sessionScope.id==null}">
                         	<li><a href="../users/login.eum">로그인</a></li>
                         	<li><a href="../users/join.eum" class="active">회원가입</a></li>

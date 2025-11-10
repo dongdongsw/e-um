@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class LifeModel {
-   @RequestMapping("main/life_list.eum")
+   @RequestMapping("pay/life_list.eum")
    public String life_list(HttpServletRequest request,
          HttpServletResponse response)
    {
@@ -47,10 +47,10 @@ public class LifeModel {
       request.setAttribute("totalpage", totalpage);
       request.setAttribute("startPage", startPage);
       request.setAttribute("endPage", endPage);
-      request.setAttribute("main_jsp", "../main/pay/life_list.jsp");
+      request.setAttribute("main_jsp", "../pay/life_list.jsp");
       return "../main/main.jsp";
    }
-   @RequestMapping("main/life_detail.eum")
+   @RequestMapping("pay/life_detail.eum")
    public String life_detail(HttpServletRequest request,
 		   HttpServletResponse response)
    {
@@ -70,7 +70,7 @@ public class LifeModel {
 	   request.setAttribute("score_vo", score_vo);
 	   request.setAttribute("price_vo", price_vo);
 	   
-	   request.setAttribute("main_jsp", "../main/pay/life_detail.jsp");
+	   request.setAttribute("main_jsp", "../pay/life_detail.jsp");
 	   return "../main/main.jsp";
    }
    
