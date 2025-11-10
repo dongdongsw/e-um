@@ -13,7 +13,7 @@ public class Admin_Contents_Model {
 	@RequestMapping("admin/admin_contents_list.eum")
 	public String admin_contents_list(HttpServletRequest request, HttpServletResponse response) {
 								
-		request.setAttribute("admin_main_jsp", "admin_contents_list.jsp");
+		request.setAttribute("admin_main_jsp", "../contents/admin_contents_list.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
 				
@@ -21,7 +21,7 @@ public class Admin_Contents_Model {
 	@RequestMapping("admin/admin_contents_detail.eum")
 	public String admin_contents_detail(HttpServletRequest request, HttpServletResponse response) {
 									
-		request.setAttribute("admin_main_jsp", "admin_contents_detail.jsp");
+		request.setAttribute("admin_main_jsp", "../contents/admin_contents_detail.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
 				

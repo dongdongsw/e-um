@@ -13,7 +13,7 @@ public class Admin_Users_Model {
 	@RequestMapping("admin/admin_users_list.eum")
 	public String admin_users_list(HttpServletRequest request, HttpServletResponse response) {
 				
-		request.setAttribute("admin_main_jsp", "admin_users_list.jsp");
+		request.setAttribute("admin_main_jsp", "../users/admin_users_list.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
 		
@@ -21,7 +21,7 @@ public class Admin_Users_Model {
 	@RequestMapping("admin/admin_users_detail.eum")
 	public String admin_users_detail(HttpServletRequest request, HttpServletResponse response) {
 			
-		request.setAttribute("admin_main_jsp", "admin_users_detail.jsp");
+		request.setAttribute("admin_main_jsp", "../users/admin_users_detail.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
 			
@@ -29,7 +29,7 @@ public class Admin_Users_Model {
 		@RequestMapping("admin/admin_users_modify.eum")
 		public String admin_users_modify(HttpServletRequest request, HttpServletResponse response) {
 				
-			request.setAttribute("admin_main_jsp", "admin_users_modify.jsp");
+			request.setAttribute("admin_main_jsp", "../users/admin_users_modify.jsp");
 			return "../admin/common/admin_main.jsp";
 		}	
 	

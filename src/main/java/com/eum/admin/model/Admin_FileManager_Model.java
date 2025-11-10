@@ -13,7 +13,7 @@ public class Admin_FileManager_Model {
 	@RequestMapping("admin/admin_file_manager.eum")
 	public String admin_file_manager(HttpServletRequest request, HttpServletResponse response) {
 							
-		request.setAttribute("admin_main_jsp", "admin_file_manager.jsp");
+		request.setAttribute("admin_main_jsp", "../file_manager/admin_file_manager.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
 }

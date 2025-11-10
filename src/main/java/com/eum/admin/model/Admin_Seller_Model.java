@@ -14,7 +14,7 @@ public class Admin_Seller_Model {
 	public String admin_sellers_list(HttpServletRequest request, HttpServletResponse response) {
 							
 				
-		request.setAttribute("admin_main_jsp", "admin_sellers_list.jsp");
+		request.setAttribute("admin_main_jsp", "../sellers/admin_sellers_list.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
 			
@@ -23,7 +23,7 @@ public class Admin_Seller_Model {
 	public String admin_seller_detail(HttpServletRequest request, HttpServletResponse response) {
 								
 	
-		request.setAttribute("admin_main_jsp", "admin_seller_detail.jsp");
+		request.setAttribute("admin_main_jsp", "../sellers/admin_seller_detail.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
 			
@@ -32,7 +32,7 @@ public class Admin_Seller_Model {
 	public String admin_seller_modify(HttpServletRequest request, HttpServletResponse response) {
 									
 		
-		request.setAttribute("admin_main_jsp", "admin_seller_modify.jsp");
+		request.setAttribute("admin_main_jsp", "../sellers/admin_seller_modify.jsp");
 		return "../admin/common/admin_main.jsp";
 	}		
 }

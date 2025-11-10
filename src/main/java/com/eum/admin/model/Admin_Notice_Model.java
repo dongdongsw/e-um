@@ -12,7 +12,7 @@ public class Admin_Notice_Model {
 	@RequestMapping("admin/admin_notice_list.eum")
 	public String admin_notice_list(HttpServletRequest request, HttpServletResponse response) {
 					
-		request.setAttribute("admin_main_jsp", "admin_notice_list.jsp");
+		request.setAttribute("admin_main_jsp", "../notice/admin_notice_list.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
 	
