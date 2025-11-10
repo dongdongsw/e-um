@@ -6,10 +6,11 @@
   <properties resource="db.properties"/>
 
    <typeAliases>
-     <typeAlias type="com.eum.list.vo.ContentVO" alias="ContentVO"/>
+     <typeAlias type="com.eum.list.vo.BoardVO" alias="BoardVO"/>
+     <typeAlias type="com.eum.list.vo.Board_OptionVO" alias="Board_OptionVO"/>
    </typeAliases>
-  <environments default="develpoment">
-    <environment id="develpoment">
+  <environments default="development">
+    <environment id="development">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="${driver}"/>
@@ -20,6 +21,6 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="com/eum/list/mapper/content-mapper.xml"/>
+    <mapper resource="com/eum/list/mapper/life-mapper.xml"/>
   </mappers>
 </configuration>

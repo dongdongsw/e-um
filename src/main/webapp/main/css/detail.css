@@ -85,9 +85,13 @@
     .kv small{color:var(--muted)}
 
     .cta{display:flex; gap:10px; margin-top:14px}
-    .btn-ghost{flex:1; border:1px solid var(--line) #7553fcde; padding:12px; border-radius:12px; font-weight:700}
-    .btn-pri{flex:1; background:#7453fc; color:#fff; padding:12px; border-radius:12px; font-weight:900; border:1px solid #00000020}
-	.btn-pri:hover{background:#7453fcde}
+    .cta .btn-ghost,.cta .btn-pri {flex: 1;}
+    .btn-ghost{ border:1px solid var(--line) #7553fcde; padding:12px; border-radius:12px; font-weight:700}
+    .btn-pri{transition: none !important;display: flex;align-items: center;justify-content: center;background:#7453fc; color:#fff; padding:12px; border-radius:12px; font-weight:900; border:1px solid #00000020;}
+	.btn-pri:hover{opacity: 0.9;}
+    /* 링크 깜빡임(하이라이트) 완전 제거 */a.btn-pri,a.btn-pri:link,a.btn-pri:visited,a.btn-pri:hover,a.btn-pri:active,a.btn-pri:focus {
+  	background: #7453fc;color: #fff;text-decoration: none;outline: none;box-shadow: none;-webkit-tap-highlight-color: transparent; /* 모바일/크롬 하이라이트 제거 */transition: none;}
+  	
     /* 섹션 탭 네비게이션 (하단) */
     .section-tabs{margin-top:28px; display:flex; gap:12px; border-bottom:1px solid var(--line)}
     .section-tabs a{padding:12px 2px; color:var(--muted); font-weight:700}

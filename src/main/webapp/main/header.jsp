@@ -420,7 +420,7 @@ Header Style
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a href="../main/list.eum">list</a></li>
+                        <li><a href="../main/life_list.eum">list</a></li>
                         <li><a href="../main/detail.eum">detail</a></li>
                         <li><a href="create.html">셀러 등록</a></li>
                         <li><a href="explore.html">로그인</a></li>

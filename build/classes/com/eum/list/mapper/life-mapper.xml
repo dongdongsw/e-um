@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.list.mapper.life-mapper">
+  <resultMap type="com.eum.list.vo.BoardVO" id="boardMap">
+  	<result property="rvo.b_review_score" column="b_review_score"/>
+  	<result property="rvo.u_s_id" column="u_s_id"/>
+	<result property="rvo.b_review_id" column="b_review_id"/>
+	<result property="rvo.b_review_createdat" column="b_review_createdat"/>
+	<result property="rvo.b_review_content" column="b_review_content"/>
+	<result property="rvo.review_count" column="review_count"/>
+	<result property="rivo.r_image_url" column="r_image_url"/>
+  	<result property="bovo.b_op_price" column="b_op_price"/>
+  	<result property="bivo.b_img_url" column="b_img_url"/>
+  	<result property="usvo.u_s_com" column="u_s_com"/>
+	<result property="usvo.u_s_profileimg_url" column="u_s_profileimg_url"/>
+	<result property="usvo.u_s_carrer" column="u_s_carrer"/>
+	<result property="usvo.u_s_zone" column="u_s_zone"/>
+	<result property="uvo.u_nickname" column="u_nickname"/>
+	<result property="uvo.u_profileimg_url" column="u_profileImg_url"/>
+  </resultMap>
+  <select id="lifeListData" resultMap="boardMap" parameterType="hashmap">
+	SELECT * FROM ( SELECT ROWNUM AS num, A.*
+	FROM ( SELECT 
+		   board.b_id AS b_id,
+		   b_title,
+		   b_thumbnail AS b_thumbnail,
+		   ROUND(AVG(b_review_score),1) AS b_review_score,
+		   COUNT(DISTINCT b_review_id) AS review_count,
+		   MIN(b_op_price) AS b_op_price,
+		   u_s_com,
+		   b_type
+		   FROM board,board_option,users_seller,review
+		   WHERE board.b_id = board_option.b_id
+		   AND board.u_s_id = users_seller.u_s_id
+		   AND board.b_id = review.b_id
+		   AND b_type='생활라이프'
+		   GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
+		   ORDER BY b_id DESC
+	   ) A
+	)
+	WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <!-- 총페이지 -->
+  <select id="lifeTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/12.0) 
+    FROM board
+  </select>
+  <select id="lifeDetailData" resultType="BoardVO" parameterType="string">
+    SELECT * FROM board
+    WHERE b_id=#{b_id}
+  </select>
+  
+  <!-- 디테일 페이지 -->
+  
+  <!-- board -->
+  <select id="lifeDetailboard" resultMap="boardMap" parameterType="string">
+	SELECT 
+	board.b_id AS b_id,
+	b_title,
+	b_thumbnail,
+	b_view_count,
+	b_prod_on_off,
+	b_content,
+	b_img_url,
+	b_op_price,
+	b_type,
+	b_view_count,
+	u_s_com,
+	u_s_profileimg_url,
+	u_s_carrer,
+	u_s_zone
+	FROM board,board_option,board_image,users_seller
+	WHERE board.b_id = board_option.b_id
+	AND board.b_id = board_image.b_id
+	AND board.u_s_id = users_seller.u_s_id
+    AND board.b_id=#{b_id} AND ROWNUM=1
+  </select>
+
+  <!-- review -->
+  <select id="lifeDetailreview" resultMap="boardMap" parameterType="string">
+    SELECT 
+	board.b_id AS b_id,
+	review.u_s_id AS u_s_id,
+	review.b_review_id AS b_review_id,
+	b_review_createdat,
+	b_review_content,
+	r_image_url,
+    u_nickname,
+    u_profileImg_url
+	FROM review,board,review_image,users
+	WHERE board.b_id = review.b_id
+	AND review.b_review_id = review_image.b_review_id
+    AND review.u_id = users.u_id
+	AND board.b_id=#{b_id}
+  </select>
+  
+  <!-- score -->
+  <select id="lifeDetailscore" resultMap="boardMap" parameterType="string">
+    SELECT b_id,ROUND(AVG(b_review_score),1) AS b_review_score,
+    COUNT(b_review_id) AS review_count
+	FROM review
+	WHERE b_id=#{b_id}
+	GROUP BY b_id
+  </select>
+  
+  <select id="lifeDetailprice" resultType="Board_OptionVO" parameterType="string">
+    SELECT * FROM board_option
+    WHERE b_id=#{b_id}
+  </select>
+  
+  <update id="lifeHitIncrement" parameterType="string">
+    UPDATE board SET
+    b_view_count=b_view_count+1 
+    WHERE b_id=#{b_id}
+   </update>
+</mapper>
