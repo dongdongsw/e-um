@@ -70,7 +70,7 @@
    <div class="btn-move">
 	<a href="update.jsp" class="btn-update">수정</a>
 	<span id="delSpan" class="btn-delete">삭제</span>
-    <a href="../notice/list.eum" class="btn-back">목록</a>
+    <a href="javascript:history.back()" class="btn-back">목록</a>
     </div>
   </div>
    <!-- ✅ 삭제 확인 모달창 -->

@@ -82,13 +82,13 @@ public class NoticeModel {
 		String n_content=request.getParameter("n_content");
 		
 		NoticeVO vo=new NoticeVO();
-		/* vo.setU_id(u_id); */
+		vo.setU_id("eaujmrkw");
 		vo.setN_title(n_title);
 		vo.setN_content(n_content);
 		
 		NoticeDAO.noticeInsert(vo);
 		
-		return "redirect:/main/notice/list.do";
+		return "redirect:../notice/list.eum";
 	}
 	
 	// ✅ 수정 폼

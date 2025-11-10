@@ -12,7 +12,7 @@
     <h1 class="notice-title">공지사항 작성</h1>
 
     <!-- ✅ JSP에서는 Controller로 데이터 전송 -->
-    <form method="post" action="insert_ok.jsp">
+    <form method="post" action="insert_ok.eum">
      <!--  <input type="hidden" name="u_id" value="admin"> -->
 
       <label for="title">제목</label>
