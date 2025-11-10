@@ -4,14 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <title>공지사항 작성</title>
-  <link rel="stylesheet" href="notice.css">
+  <link rel="stylesheet" href="../css/notice.css">
+  <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 </head>
-<body>
+<body class="notice-page">
   <div class="notice-container">
-    <h1 class="notice-title">공지사항 글쓰기</h1>
+    <h1 class="notice-title">공지사항 작성</h1>
 
     <!-- ✅ JSP에서는 Controller로 데이터 전송 -->
-    <form method="post" action="insert_ok.do">
+    <form method="post" action="insert_ok.jsp">
      <!--  <input type="hidden" name="u_id" value="admin"> -->
 
       <label for="title">제목</label>

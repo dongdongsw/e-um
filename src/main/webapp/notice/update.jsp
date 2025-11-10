@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <link rel="stylesheet" href="notice.css">
+  <link rel="stylesheet" href="../css/notice.css">
+  <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 </head>
-<body>
+<body class="notice-page">
   <div class="notice-container">
     <h1 class="notice-title">공지사항 수정</h1>
 

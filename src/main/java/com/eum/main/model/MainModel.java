@@ -45,7 +45,7 @@ public class MainModel {
         request.setAttribute("startPage", startPage);
         request.setAttribute("endPage", endPage);
 
-        request.setAttribute("main_jsp", "../main/list/bizlist.jsp");
+        request.setAttribute("main_jsp", "../list/bizlist.jsp");
         return "../main/main.jsp";
     }
 
@@ -63,7 +63,7 @@ public class MainModel {
         request.setAttribute("rList", rList);
         request.setAttribute("oList", oList);
 
-        request.setAttribute("main_jsp", "../main/list/bizdetail.jsp");
+        request.setAttribute("main_jsp", "../list/bizdetail.jsp");
         return "../main/main.jsp";
     }
 }

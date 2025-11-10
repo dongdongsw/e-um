@@ -43,7 +43,7 @@ public class NoticeModel {
 	    request.setAttribute("endPage", endPage);
 	    request.setAttribute("today", today);
 
-	    request.setAttribute("main_jsp", "../main/notice/list.jsp");
+	    request.setAttribute("main_jsp", "../notice/list.jsp");
 	    return "../main/main.jsp";
 	}
 
@@ -57,16 +57,16 @@ public class NoticeModel {
 		NoticeVO vo=NoticeDAO.noticeDetailData(n_id);
 		
 		request.setAttribute("vo", vo);
-		request.setAttribute("main_jsp","notice/detail.jsp");
-		return "main/main.jsp";
+		request.setAttribute("main_jsp","../notice/detail.jsp");
+		return "../main/main.jsp";
 	}
 	
 	// ✅ 글쓰기 폼
 	@RequestMapping("notice/insert.eum")
 	public String notice_insert(HttpServletRequest request,HttpServletResponse response)
 	{
-		request.setAttribute("main_jsp", "notice/insert.jsp");
-		return "main/main.jsp";
+		request.setAttribute("main_jsp", "../notice/insert.jsp");
+		return "../main/main.jsp";
 	}
 	
 	// ✅ 글쓰기 완료
@@ -99,8 +99,8 @@ public class NoticeModel {
 		NoticeVO vo=NoticeDAO.noticeDetailData(n_id);
 		
 		request.setAttribute("vo", vo);
-		request.setAttribute("main_jsp", "notice/update.jsp");
-		return "main/main.jsp";
+		request.setAttribute("main_jsp", "../notice/update.jsp");
+		return "../main/main.jsp";
 	}
 	
 	// ✅ 수정 완료
@@ -135,8 +135,8 @@ public class NoticeModel {
 		NoticeVO vo=NoticeDAO.noticeDetailData(n_id);
 		
 		request.setAttribute("vo", vo);
-		request.setAttribute("main_jsp", "notice/delete.jsp");
-		return "main/main.jsp";
+		request.setAttribute("main_jsp", "../notice/delete.jsp");
+		return "../main/main.jsp";
 	}
 	
 	// ✅ 삭제 완료

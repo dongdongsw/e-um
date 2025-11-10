@@ -415,7 +415,7 @@ Header Style
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="../main/main.eum" class="logo">
-                        <img src="assets/images/logo.png" alt="로고">
+                        <img src="../assets/images/logo.png" alt="로고">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->

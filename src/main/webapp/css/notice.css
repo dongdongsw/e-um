@@ -5,7 +5,7 @@
    📘 공지사항 전용 CSS (body.notice-page 스코프)
    ========================================================= */
 
-body.notice-page {
+ .notice-page {
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
   background-color: #fff;
   margin: 0;
@@ -13,7 +13,7 @@ body.notice-page {
 }
 
 /* ✅ 컨테이너 */
-body.notice-page .notice-container {
+ .notice-page .notice-container {
   width: 900px;
   margin: 80px auto 60px auto;
   background: #fff;
@@ -23,7 +23,7 @@ body.notice-page .notice-container {
 }
 
 /* ✅ 타이틀 */
-body.notice-page .notice-title {
+ .notice-page .notice-title {
   font-weight: 700;
   color: #7453fc;
   border-bottom: 3px solid #7453fc;
@@ -32,11 +32,11 @@ body.notice-page .notice-title {
 }
 
 /* ✅ 버튼 공통 */
-body.notice-page .btn,
-body.notice-page .btn-write,
-body.notice-page .btn-back,
-body.notice-page .btn-update,
-body.notice-page .btn-delete {
+ .notice-page .btn,
+ .notice-page .btn-write,
+ .notice-page .btn-back,
+ .notice-page .btn-update,
+ .notice-page .btn-delete {
   background: #7453fc;
   color: white;
   border: none;
@@ -49,51 +49,51 @@ body.notice-page .btn-delete {
   display: inline-block;
 }
 
-body.notice-page .btn:hover,
-body.notice-page .btn-write:hover,
-body.notice-page .btn-back:hover,
-body.notice-page .btn-update:hover {
+ .notice-page .btn:hover,
+ .notice-page .btn-write:hover,
+ .notice-page .btn-back:hover,
+ .notice-page .btn-update:hover {
   background: #5334d0;
 }
 
-body.notice-page .btn-cancel {
+ .notice-page .btn-cancel {
   background: #bbb;
 }
 
-body.notice-page .btn-cancel:hover {
+ .notice-page .btn-cancel:hover {
   background: #999;
 }
 
 /* ✅ 리스트 */
-body.notice-page .notice-title.list {
+ .notice-page .notice-title.list {
   font-size: 28px;
   margin-bottom: 40px;
 }
 
-body.notice-page table {
+ .notice-page table {
   width: 100%;
   border-collapse: collapse;
   font-size: 15px;
 }
 
-body.notice-page th,
-body.notice-page td {
+ .notice-page th,
+ .notice-page td {
   border-bottom: 1px solid #ddd;
   padding: 14px 10px;
   text-align: left;
 }
 
-body.notice-page th {
+ .notice-page th {
   background-color: #f4f0ff;
   color: #5334d0;
 }
 
-body.notice-page tr:hover {
+ .notice-page tr:hover {
   background-color: #f8f5ff;
   cursor: pointer;
 }
 
-body.notice-page .btn-write {
+ .notice-page .btn-write {
   float: right;
   margin-top: -15px;
   margin-bottom: 10px;
@@ -101,17 +101,17 @@ body.notice-page .btn-write {
 }
 
 /* ✅ 작성, 수정 */
-body.notice-page .notice-title.insert,
-body.notice-page .notice-title.update {
+ .notice-page .notice-title.insert,
+ .notice-page .notice-title.update {
   font-size: 26px;
 }
 
-body.notice-page form {
+ .notice-page form {
   display: flex;
   flex-direction: column;
 }
 
-body.notice-page label {
+ .notice-page label {
   font-weight: 600;
   margin-top: 15px;
   margin-bottom: 8px;
@@ -119,8 +119,8 @@ body.notice-page label {
   font-size: 15px;
 }
 
-body.notice-page input[type="text"],
-body.notice-page textarea {
+ .notice-page input[type="text"],
+ .notice-page textarea {
   font-size: 15px;
   padding: 12px;
   border: 1px solid #ddd;
@@ -129,19 +129,19 @@ body.notice-page textarea {
   transition: 0.2s;
 }
 
-body.notice-page input[type="text"]:focus,
-body.notice-page textarea:focus {
+ .notice-page input[type="text"]:focus,
+ .notice-page textarea:focus {
   border-color: #7453fc;
   box-shadow: 0 0 0 3px rgba(116, 83, 252, 0.1);
 }
 
-body.notice-page textarea {
+ .notice-page textarea {
   height: 250px;
   resize: vertical;
   line-height: 1.6;
 }
 
-body.notice-page .btn-wrap {
+ .notice-page .btn-wrap {
   margin-top: 30px;
   display: flex;
   justify-content: flex-end;
@@ -149,31 +149,31 @@ body.notice-page .btn-wrap {
 }
 
 /* ✅ 디테일 */
-body.notice-page .notice-title.detail {
+ .notice-page .notice-title.detail {
   font-size: 26px;
 }
 
-body.notice-page .notice-date {
+ .notice-page .notice-date {
   color: #999;
   font-size: 14px;
   margin-bottom: 30px;
 }
 
-body.notice-page .notice-content {
+ .notice-page .notice-content {
   font-size: 16px;
   line-height: 1.8;
   color: #444;
   white-space: pre-line;
 }
 
-body.notice-page .btn-move {
+ .notice-page .btn-move {
   text-align: right;
 }
 
 /* =========================================================
    📘 공지사항 헤더 스타일
    ========================================================= */
-body.notice-page .background-header {
+ .notice-page .background-header {
   background-color: #fff !important;
   height: 70px !important;
   position: fixed !important;
@@ -185,7 +185,7 @@ body.notice-page .background-header {
   z-index: 1000;
 }
 
-body.notice-page .header-area {
+ .notice-page .header-area {
   background-color: transparent;
   position: absolute;
   height: 70px;
@@ -196,7 +196,7 @@ body.notice-page .header-area {
   transition: all .5s ease;
 }
 
-body.notice-page .header-area .main-nav {
+ .notice-page .header-area .main-nav {
   min-height: 7px;
   background: #fff;
   display: flex;
@@ -210,7 +210,7 @@ body.notice-page .header-area .main-nav {
 /* =========================================================
    📘 모달 (공지사항 삭제 확인 등)
    ========================================================= */
-body.notice-page .modal-overlay {
+ .notice-page .modal-overlay {
   display: none;
   position: fixed;
   top: 0; left: 0;
@@ -221,7 +221,7 @@ body.notice-page .modal-overlay {
   z-index: 999;
 }
 
-body.notice-page .modal-box {
+ .notice-page .modal-box {
   background: #fff;
   border-radius: 10px;
   padding: 25px 35px;
@@ -230,19 +230,19 @@ body.notice-page .modal-box {
   animation: fadeIn 0.2s ease-in-out;
 }
 
-body.notice-page .modal-box h3 {
+ .notice-page .modal-box h3 {
   margin-bottom: 20px;
   font-size: 18px;
   font-weight: 600;
 }
 
-body.notice-page .modal-btns {
+ .notice-page .modal-btns {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
 
-body.notice-page .modal-btns button {
+ .notice-page .modal-btns button {
   border: none;
   padding: 8px 20px;
   border-radius: 6px;
@@ -251,18 +251,18 @@ body.notice-page .modal-btns button {
   transition: 0.2s;
 }
 
-body.notice-page .btn-cancel {
+ .notice-page .btn-cancel {
   background: #ddd;
 }
-body.notice-page .btn-cancel:hover {
+ .notice-page .btn-cancel:hover {
   background: #ccc;
 }
 
-body.notice-page .btn-confirm {
+ .notice-page .btn-confirm {
   background: #7453fc;
   color: #fff;
 }
-body.notice-page .btn-confirm:hover {
+ .notice-page .btn-confirm:hover {
   background: #5b3ee6;
 }
 
@@ -270,3 +270,85 @@ body.notice-page .btn-confirm:hover {
   from {opacity: 0; transform: translateY(-10px);}
   to {opacity: 1; transform: translateY(0);}
 }
+/* =========================================================
+   📘 공지사항 페이지네이션 (선택된 페이지는 흰색 글씨)
+   ========================================================= */
+.notice-page .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 35px;
+  padding: 12px 0;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+/* 기본 숫자 버튼 */
+.notice-page .pagination a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #8f82ff; /* ✅ 기본은 연보라색 글씨 */
+  transition: all 0.25s ease;
+  background-color: transparent;
+}
+
+/* hover 시 */
+.notice-page .pagination a:hover {
+  background-color: #7453fc;
+  color: #fff;
+  box-shadow: 0 3px 8px rgba(116, 83, 252, 0.25);
+}
+
+/* ✅ 현재 선택된 페이지 (active) */
+.notice-page .pagination strong {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: #7453fc; /* 보라색 배경 */
+  color: #fff !important; /* ✅ 반드시 흰색으로 표시 */
+  box-shadow: 0 4px 12px rgba(116, 83, 252, 0.35);
+}
+
+/* 화살표 (<, >) */
+.notice-page .pagination a:first-child,
+.notice-page .pagination a:last-child {
+  font-size: 18px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 8px;
+  color: #b2a8ff;
+}
+
+/* 화살표 hover 시 */
+.notice-page .pagination a:first-child:hover,
+.notice-page .pagination a:last-child:hover {
+  background-color: #7453fc;
+  color: #fff;
+}
+
+/* 모바일 대응 */
+@media (max-width: 500px) {
+  .notice-page .pagination a,
+  .notice-page .pagination strong {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+}
+
+
