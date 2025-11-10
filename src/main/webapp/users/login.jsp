@@ -61,7 +61,9 @@ $(function() {
 </head>
 <body>
   <div class="form-container">
-	<p class="title">E-UM</p>
+    <a href="../main/main.eum" style="text-decoration: none; color: black;">
+	  <p class="title">E-UM</p>
+	</a>
 	<form class="form" method="post" action="../main/login/login.eum">
 		<div class="input-group">
 			<label for="username">ID</label>
