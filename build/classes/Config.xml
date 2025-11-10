@@ -7,11 +7,11 @@
 
    <typeAliases>
 
-     <typeAlias type="com.eum.list.vo.BoardVO" alias="BoardVO"/>
-     <typeAlias type="com.eum.list.vo.Board_OptionVO" alias="Board_OptionVO"/>
-     <typeAlias type="com.eum.list.vo.NoticeVO" alias="NoticeVO"/>
-     <typeAlias type="com.eum.users.vo.UsersVO" alias="UsersVO"/>
-     <typeAlias type="com.eum.seller.vo.SellerVO" alias="SellerVO"/>
+     <typeAlias type="com.eum.main.vo.BoardVO" alias="BoardVO"/>
+     <typeAlias type="com.eum.main.vo.Board_OptionVO" alias="Board_OptionVO"/>
+     <typeAlias type="com.eum.main.vo.NoticeVO" alias="NoticeVO"/>
+     <typeAlias type="com.eum.main.vo.UsersVO" alias="UsersVO"/>
+     <typeAlias type="com.eum.main.vo.Users_SellerVO" alias="Users_SellerVO"/>
 
    </typeAliases>
   <environments default="development">
@@ -27,7 +27,7 @@
   </environments>
   <mappers>
 
-    <mapper resource="com/eum/list/mapper/life-mapper.xml"/>
+    <mapper resource="com/eum/main/mapper/talent-mapper.xml"/>
     <mapper resource="com/eum/notice/mapper/notice-mapper.xml"/>
     <mapper resource="com/eum/users/mapper/users-mapper.xml"/>
     <mapper resource="com/eum/seller/mapper/seller-mapper.xml"/>

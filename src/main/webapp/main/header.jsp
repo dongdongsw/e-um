@@ -356,6 +356,7 @@ body {
     border: none !important;
     background: #fff !important;
     color: #1e1e1e !important;
+    font-weight: bold;
   }
   .header-area .main-nav .nav li a:hover {
     background: #fff !important;
@@ -485,7 +486,7 @@ button.active2:hover {
 
                     <ul class="nav">
                         <li><a href="../admin/admin_main.eum">admin</a></li>
-                        <li><a href="../pay/life_list.eum">list</a></li>
+                        <li><a href="../talent/list.eum">list</a></li>
                         <li><a href="../seller/join.eum">셀러 등록</a></li>
                         <li><a href="../notice/list.eum">공지 사항</a></li>
                         

@@ -10,7 +10,7 @@
 	</select>
 	
 	<!-- 셀러 등록 -->
-	<insert id="sellerInsert" parameterType="SellerVO">
+	<insert id="sellerInsert" parameterType="Users_SellerVO">
 	  INSERT INTO users_seller (u_s_id, u_id, u_s_carrer, u_s_zone, u_s_biz_no, u_s_com, u_s_profileimg_url, u_createat, u_s_role)
 	  VALUES (
 	  			u_s_id_seq.NEXTVAL,
@@ -26,14 +26,14 @@
 	</insert>
 	
 	<!-- 셀러 정보 출력 (셀러 페이지) -->
-	<select id="sellerInfo" resultType="SellerVO" parameterType="int">
+	<select id="sellerInfo" resultType="Users_SellerVO" parameterType="int">
 	  SELECT * 
 	  FROM users_seller
 	  WHERE u_s_id=#{u_s_id}
 	</select>
 	
 	<!-- 셀러 정보 수정 (셀러 페이지) -->
-	<update id="sellerInfoUpdate" parameterType="SellerVO">
+	<update id="sellerInfoUpdate" parameterType="Users_SellerVO">
 	  UPDATE users_seller
 	  SET
 	  		u_s_carrer=#{u_s_carrer},

@@ -1,10 +1,11 @@
 package com.eum.users.dao;
 
 import org.apache.ibatis.session.SqlSession;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.*;
-import com.eum.users.vo.*;
+import com.eum.main.vo.*;
 public class UsersDAO {
 	private static SqlSessionFactory ssf;
 	static {

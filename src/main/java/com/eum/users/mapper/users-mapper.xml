@@ -47,4 +47,9 @@
       FROM users
       WHERE u_loginid=#{u_loginid}
     </select>
+    <select id="usersGetSellerId" resultType="int" parameterType="string">
+      SELECT u_s_id 
+      FROM users_seller
+      WHERE u_id=#{u_id}
+    </select>
 </mapper>

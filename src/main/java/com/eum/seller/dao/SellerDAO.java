@@ -2,19 +2,17 @@ package com.eum.seller.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
-import com.eum.seller.vo.BoardVO;
-import com.eum.seller.vo.SellerVO;
+import com.eum.main.vo.BoardVO;
+import com.eum.main.vo.Users_SellerVO;
 
 public class SellerDAO {
 
 	private static SqlSessionFactory ssf;
-	private static SellerVO vo;
 	static {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
@@ -35,7 +33,7 @@ public class SellerDAO {
 	}
 	
 	// 셀러 가입
-	public static void sellerInsert(SellerVO vo) {
+	public static void sellerInsert(Users_SellerVO vo) {
 		
 		try {
 			SqlSession session=ssf.openSession(true);
@@ -47,17 +45,17 @@ public class SellerDAO {
 	}
 	
 	// 셀러 정보 출력(셀러 페이지)
-	public static SellerVO sellerInfo(int u_s_id) {
+	public static Users_SellerVO sellerInfo(int u_s_id) {
 
 		SqlSession session=ssf.openSession();
-		SellerVO vo=session.selectOne("sellerInfo",u_s_id);
+		Users_SellerVO vo=session.selectOne("sellerInfo",u_s_id);
 		session.close();
 		
 		return vo;
 	}
 	
 	// 셀러 정보 수정 (셀러 페이지) 
-	public static void sellerInfoUpdate(SellerVO vo) {
+	public static void sellerInfoUpdate(Users_SellerVO vo) {
 		try {
 			SqlSession session=ssf.openSession(true);
 			session.update("sellerInfoUpdate",vo);

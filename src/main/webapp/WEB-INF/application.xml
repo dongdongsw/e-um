@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
   <context:component-scan basepackage="com.eum.main.model"/>
-  <context:component-scan basepackage="com.eum.list.model"/>
   <context:component-scan basepackage="com.eum.admin.model"/>
   <context:component-scan basepackage="com.eum.notice.model"/>
+  <context:component-scan basepackage="com.eum.users.model"/>
+  <context:component-scan basepackage="com.eum.seller.model"/>
 </beans>

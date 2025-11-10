@@ -416,4 +416,5 @@
   height: 100%;
   object-fit: cover;     /* 비율 유지하면서 꽉 채움 */
   display: block;        /* inline 이미지의 아래 여백 제거 */
+  border-radius: 50%;
 }

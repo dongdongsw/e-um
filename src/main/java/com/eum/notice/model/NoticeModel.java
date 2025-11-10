@@ -1,9 +1,10 @@
 package com.eum.notice.model;
 
 import java.text.SimpleDateFormat;
+
 import java.util.*;
 import com.eum.notice.dao.*;
-import com.eum.list.vo.*;
+import com.eum.main.vo.*;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import jakarta.servlet.http.HttpServletRequest;

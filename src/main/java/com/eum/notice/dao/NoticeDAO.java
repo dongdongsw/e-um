@@ -2,11 +2,12 @@ package com.eum.notice.dao;
 
 import java.util.*;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
-import com.eum.list.vo.NoticeVO;
+import com.eum.main.vo.NoticeVO;
 public class NoticeDAO {
 	private static SqlSessionFactory ssf;
 	static
