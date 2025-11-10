@@ -6,9 +6,17 @@
   <properties resource="db.properties"/>
 
    <typeAliases>
+<<<<<<< HEAD
      <typeAlias type="com.eum.list.vo.BoardVO" alias="BoardVO"/>
      <typeAlias type="com.eum.list.vo.Board_OptionVO" alias="Board_OptionVO"/>
      <typeAlias type="com.eum.list.vo.NoticeVO" alias="NoticeVO"/>
+=======
+     <typeAlias type="com.eum.list.vo.ContentVO" alias="ContentVO"/>
+     <typeAlias type="com.eum.list.vo.ReviewVO" alias="ReviewVO"/>
+     <typeAlias type="com.eum.users.vo.UsersVO" alias="UsersVO"/>
+     <typeAlias type="com.eum.seller.vo.SellerVO" alias="SellerVO"/>
+     <typeAlias type="com.eum.seller.vo.BoardVO" alias="BoardVO"/>
+>>>>>>> origin/test_backup
    </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -22,7 +30,13 @@
     </environment>
   </environments>
   <mappers>
+<<<<<<< HEAD
     <mapper resource="com/eum/list/mapper/life-mapper.xml"/>
     <mapper resource="com/eum/notice/mapper/notice-mapper.xml"/>
+=======
+    <mapper resource="com/eum/list/mapper/etc-mapper.xml"/>
+    <mapper resource="com/eum/users/mapper/users-mapper.xml"/>
+    <mapper resource="com/eum/seller/mapper/seller-mapper.xml"/>
+>>>>>>> origin/test_backup
   </mappers>
 </configuration>

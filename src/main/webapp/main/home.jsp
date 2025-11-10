@@ -139,10 +139,10 @@ border-bottom: 1px solid #e6e6f8;
         <div class="col-lg-5 offset-lg-1">
           <div class="owl-banner owl-carousel">
             <div class="item">
-              <img src="assets/images/banner-01.png" alt="">
+              <img src="../assets/images/banner-01.png" alt="">
             </div>
             <div class="item">
-              <img src="assets/images/banner-02.png" alt="">
+              <img src="../assets/images/banner-02.png" alt="">
             </div>
           </div>
         </div>
@@ -159,40 +159,41 @@ border-bottom: 1px solid #e6e6f8;
               <section class="category-section">
   <div class="category-container">
     <button class="brutalist-button button-1">
-      <img src="../main/images/color-pallete.png" alt="디자인" class="category-icon">
+      <img src="../../main/images/color-pallete.png" alt="디자인" class="category-icon">
       <span>디자인</span>
     </button>
 
     <button class="brutalist-button button-1">
-      <img src="../main/images/video-camera.png" alt="영상" class="category-icon">
+      <img src="../../main/images/video-camera.png" alt="영상" class="category-icon">
       <span>영상</span>
     </button>
 
     <button class="brutalist-button button-1">
-      <img src="../main/images/headphones.png" alt="음악" class="category-icon">
+      <img src="../../main/images/headphones.png" alt="음악" class="category-icon">
       <span>음악</span>
     </button>
 
     <button class="brutalist-button button-1">
-      <img src="../main/images/graduation.png" alt="교육" class="category-icon">
+      <img src="../../main/images/graduation.png" alt="교육" class="category-icon">
       <span>교육</span>
     </button>
 
     <button class="brutalist-button button-1">
-      <img src="../main/images/robot.png" alt="AI/테크" class="category-icon">
+      <img src="../../main/images/robot.png" alt="AI/테크" class="category-icon">
       <span>AI / 테크</span>
     </button>
-
+	<a href="../list/etclist.eum">
     <button class="brutalist-button button-1">
-      <img src="../main/images/puzzle.png" alt="기타" class="category-icon">
+      <img src="../../main/images/puzzle.png" alt="기타" class="category-icon">
       <span>기타</span>
     </button>
+    </a>
   </div>
 </section>
               <div class="col-lg-2 col-sm-5">
                 <div class="item">
                   <div class="icon">
-                    <img src="assets/images/icon-01.png" alt="">
+                    <img src="../assets/images/icon-01.png" alt="">
                   </div>
                   <h4>Blockchain</h4>
                   <div class="icon-button">
@@ -203,7 +204,7 @@ border-bottom: 1px solid #e6e6f8;
               <div class="col-lg-2 col-sm-5">
                 <div class="item">
                   <div class="icon">
-                    <img src="assets/images/icon-02.png" alt="">
+                    <img src="../assets/images/icon-02.png" alt="">
                   </div>
                   <h4>Digital Art</h4>
                   <div class="icon-button">
@@ -214,7 +215,7 @@ border-bottom: 1px solid #e6e6f8;
               <div class="col-lg-2 col-sm-5">
                 <div class="item">
                   <div class="icon">
-                    <img src="assets/images/icon-03.png" alt="">
+                    <img src="../assets/images/icon-03.png" alt="">
                   </div>
                   <h4>Music Art</h4>
                   <div class="icon-button">
@@ -225,7 +226,7 @@ border-bottom: 1px solid #e6e6f8;
               <div class="col-lg-2 col-sm-5">
                 <div class="item">
                   <div class="icon">
-                    <img src="assets/images/icon-05.png" alt="">
+                    <img src="../assets/images/icon-05.png" alt="">
                   </div>
                   <h4>Valuable</h4>
                   <div class="icon-button">
@@ -236,7 +237,7 @@ border-bottom: 1px solid #e6e6f8;
               <div class="col-lg-2 col-sm-5">
                 <div class="item">
                   <div class="icon">
-                    <img src="assets/images/icon-06.png" alt="">
+                    <img src="../assets/images/icon-06.png" alt="">
                   </div>
                   <h4>Triple NFT</h4>
                   <div class="icon-button">
@@ -268,7 +269,7 @@ border-bottom: 1px solid #e6e6f8;
               <div class="col-lg-12">
                 <div class="owl-collection owl-carousel">
                   <div class="item">
-                    <img src="assets/images/collection-01.jpg" alt="">
+                    <img src="../assets/images/collection-01.jpg" alt="">
                     <div class="down-content">
                       <h4>Mutant Bored Ape Yacht Club</h4>
                       <span class="collection">Items In Collection:<br><strong>310/340</strong></span>
@@ -279,7 +280,7 @@ border-bottom: 1px solid #e6e6f8;
                     </div>
                   </div>
                   <div class="item">
-                    <img src="assets/images/collection-01.jpg" alt="">
+                    <img src="../assets/images/collection-01.jpg" alt="">
                     <div class="down-content">
                       <h4>Bored Ape Kennel Club</h4>
                       <span class="collection">Items In Collection:<br><strong>324/324</strong></span>
@@ -290,7 +291,7 @@ border-bottom: 1px solid #e6e6f8;
                     </div>
                   </div>
                   <div class="item">
-                    <img src="assets/images/collection-01.jpg" alt="">
+                    <img src="../assets/images/collection-01.jpg" alt="">
                     <div class="down-content">
                       <h4>Genesis Collective Statue</h4>
                       <span class="collection">Items In Collection:<br><strong>380/394</strong></span>
@@ -301,7 +302,7 @@ border-bottom: 1px solid #e6e6f8;
                     </div>
                   </div>
                   <div class="item">
-                    <img src="assets/images/collection-01.jpg" alt="">
+                    <img src="../assets/images/collection-01.jpg" alt="">
                     <div class="down-content">
                       <h4>Worldwide Artwork Ground</h4>
                       <span class="collection">Items In Collection:<br><strong>426/468</strong></span>
@@ -340,7 +341,7 @@ border-bottom: 1px solid #e6e6f8;
               <h6>1</h6>
             </div>
             <div class="icon">
-              <img src="assets/images/icon-02.png" alt="">
+              <img src="../assets/images/icon-02.png" alt="">
             </div>
             <h4>Set Up Your Wallet</h4>
             <p>NFT means Non-Fungible Token that are used in digital cryptocurrency markets. There are many different kinds of NFTs in the industry.</p>
@@ -352,7 +353,7 @@ border-bottom: 1px solid #e6e6f8;
               <h6>2</h6>
             </div>
             <div class="icon">
-              <img src="assets/images/icon-04.png" alt="">
+              <img src="../assets/images/icon-04.png" alt="">
             </div>
             <h4>Add Your Digital NFT</h4>
             <p>There are 5 different HTML pages included in this NFT <a href="https://templatemo.com/page/1" target="_blank" rel="nofollow">website template</a>. You can edit or modify any section on any page as you required.</p>
@@ -361,7 +362,7 @@ border-bottom: 1px solid #e6e6f8;
         <div class="col-lg-4">
           <div class="item">
             <div class="icon">
-              <img src="assets/images/icon-06.png" alt="">
+              <img src="../assets/images/icon-06.png" alt="">
             </div>
             <h4>Sell Your NFT &amp; Make Profit</h4>
             <p>If you would like to support our TemplateMo website, please visit <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">our contact page</a> to make a PayPal contribution. Thank you.</p>
@@ -396,12 +397,12 @@ border-bottom: 1px solid #e6e6f8;
             <div class="col-lg-6 currently-market-item all msc">
               <div class="item">
                 <div class="left-image">
-                  <img src="assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
+                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
                 </div>
                 <div class="right-content">
                   <h4>Music Art Super Item</h4>
                   <span class="author">
-                    <img src="assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
+                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
                     <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
                   </span>
                   <div class="line-dec"></div>
@@ -420,12 +421,12 @@ border-bottom: 1px solid #e6e6f8;
             <div class="col-lg-6 currently-market-item all dig">
               <div class="item">
                 <div class="left-image">
-                  <img src="assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
+                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
                 </div>
                 <div class="right-content">
                   <h4>Digital Crypto Artwork</h4>
                   <span class="author">
-                    <img src="assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
+                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
                     <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
                   </span>
                   <div class="line-dec"></div>
@@ -444,12 +445,12 @@ border-bottom: 1px solid #e6e6f8;
             <div class="col-lg-6 currently-market-item all blc">
               <div class="item">
                 <div class="left-image">
-                  <img src="assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
+                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
                 </div>
                 <div class="right-content">
                   <h4>Blockchain Item One</h4>
                   <span class="author">
-                    <img src="assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
+                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
                     <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
                   </span>
                   <div class="line-dec"></div>
@@ -468,12 +469,12 @@ border-bottom: 1px solid #e6e6f8;
             <div class="col-lg-6 currently-market-item all vtr">
               <div class="item">
                 <div class="left-image">
-                  <img src="assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
+                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
                 </div>
                 <div class="right-content">
                   <h4>Virtual Currency Art</h4>
                   <span class="author">
-                    <img src="assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
+                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
                     <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
                   </span>
                   <div class="line-dec"></div>
@@ -492,12 +493,12 @@ border-bottom: 1px solid #e6e6f8;
             <div class="col-lg-6 currently-market-item all vrt dig">
               <div class="item">
                 <div class="left-image">
-                  <img src="assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
+                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
                 </div>
                 <div class="right-content">
                   <h4>Digital Art Item</h4>
                   <span class="author">
-                    <img src="assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
+                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
                     <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
                   </span>
                   <div class="line-dec"></div>
@@ -516,12 +517,12 @@ border-bottom: 1px solid #e6e6f8;
             <div class="col-lg-6 currently-market-item all msc blc">
               <div class="item">
                 <div class="left-image">
-                  <img src="assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
+                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
                 </div>
                 <div class="right-content">
                   <h4>Blockchain Music Design</h4>
                   <span class="author">
-                    <img src="assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
+                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
                     <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
                   </span>
                   <div class="line-dec"></div>

@@ -34,7 +34,12 @@
     .prime-badge{background:#111; color:#fff; border-radius:6px; padding:4px 8px; font-weight:700; font-size:12px; letter-spacing:.2px}
 
     .title{font-size:32px; line-height:1.25; font-weight:800; color:black;}
-
+	.banner img {
+		width: 100%;
+		  height: 100%;
+		  object-fit: cover;     /* 비율 유지하면서 꽉 채움 */
+		  display: block;       
+	}
     .meta{display:flex; align-items:center; gap:14px}
     .stars{display:inline-flex; gap:2px; transform: translateY(1px)}
     .star{width:18px; height:18px; fill:var(--accent)}
@@ -54,9 +59,11 @@
     .prime-list li{list-style:none; display:flex; gap:10px; align-items:flex-start; color:var(--text)}
     .prime-list li .tick{color:var(--good); font-weight:900}
 
-    .hero-right .banner{background:linear-gradient(135deg,#222 0%,#111 100%); width: 100%; color:#fff; border-radius:16px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px; text-align:center; padding:20px}
+    .hero-right .banner{background:linear-gradient(135deg,#222 0%,#111 100%); width: 100%; color:#fff; border-radius:16px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px; text-align:center;
+      
+    }
     .hero-right .banner small{display:block; margin-top:8px; opacity:.9; font-weight:600}
-    .banner {height: 100%}
+    .banner {height: 100%; padding: 0}
 
     .plans{margin-top:16px}
     .plan-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:0;}
@@ -392,4 +399,21 @@
 }
 .count {
   cursor: pointer;
+}
+.price-desc {
+  margin: 16px 0;
+  padding: 16px;
+  background-color: #fff;
+  border: 1px solid #E0E5EB;
+  border-radius: 15px;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* 비율 유지하면서 꽉 채움 */
+  display: block;        /* inline 이미지의 아래 여백 제거 */
 }

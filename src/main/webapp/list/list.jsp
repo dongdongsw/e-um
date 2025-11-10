@@ -252,6 +252,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   })();
 </script>
+    <div class="header-text" style="height: 200px;"></div>
     <!-- 오른쪽 메인 -->
     <div class="main">
       <div class="row">

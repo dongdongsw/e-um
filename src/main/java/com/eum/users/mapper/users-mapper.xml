@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.users.mapper.users-mapper">
+
+	<!-- id 중복 체크 -->
+	<select id="usersIdCheck" resultType="int" parameterType="string">
+	  SELECT COUNT(*)
+	  FROM users
+	  WHERE u_loginid=#{u_loginid}
+	</select>
+	
+	<!-- nickname 중복 체크 -->
+	<select id="usersNickCheck" resultType="int" parameterType="string">
+	  SELECT COUNT(*)
+	  FROM users
+	  WHERE u_nickname=#{u_nickname}
+	</select>
+	
+	<!-- 이메일 존재로 회원 여부 판단 -->
+	<select id="usersEmailCheck" resultType="int" parameterType="string">
+	  SELECT COUNT(*)
+	  FROM users
+	  WHERE u_email=#{u_email}
+	</select>
+	
+	<!-- 전화번호 존재로 회원 여부 판단 -->
+	<select id="usersPhoneCheck" resultType="int" parameterType="string">
+	  SELECT COUNT(*)
+	  FROM users
+	  WHERE u_phone=#{u_phone}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="usersInsert" parameterType="UsersVO">
+	  INSERT INTO users 
+	  (u_id, u_loginid, u_pwd, u_nickname, u_email, u_phone, u_gender, u_loc,
+	  u_birth, u_push_noti, u_email_noti, u_sms_noti, u_status, u_role, u_createat)
+	  VALUES 
+	  (TO_CHAR(u_id_seq.NEXTVAL), #{u_loginid}, #{u_pwd}, #{u_nickname}, 
+	  #{u_email}, #{u_phone}, #{u_gender}, #{u_loc}, TO_DATE(#{birth}, 'YYYY-MM-DD'),
+	   #{u_push_noti}, #{u_email_noti}, #{u_sms_noti}, 'active', 'ROLE_USER', SYSDATE)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="usersInfoData" resultType="UsersVO" parameterType="string">
+      SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_role
+      FROM users
+      WHERE u_loginid=#{u_loginid}
+    </select>
+</mapper>

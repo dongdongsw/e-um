@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.seller.mapper.seller-mapper">
+
+	<!-- 셀러 이름 존재 여부 -->
+	<select id="sellerNameCheck" resultType="int" parameterType="string">
+	  SELECT COUNT(*) 
+	  FROM users_seller
+	  WHERE u_s_com=#{u_s_com} 
+	</select>
+	
+	<!-- 셀러 등록 -->
+	<insert id="sellerInsert" parameterType="SellerVO">
+	  INSERT INTO users_seller (u_s_id, u_id, u_s_carrer, u_s_zone, u_s_biz_no, u_s_com, u_s_profileimg_url, u_createat, u_s_role)
+	  VALUES (
+	  			u_s_id_seq.NEXTVAL,
+	  			#{u_id},
+	  			#{u_s_carrer},
+	  			#{u_s_zone},
+	  			#{u_s_biz_no},
+	  			#{u_s_com},
+	  			#{u_s_profileimg_url},
+	  			SYSDATE,
+	  			'ROLL_SELLER'
+	  		  )
+	</insert>
+	
+	<!-- 셀러 정보 출력 (셀러 페이지) -->
+	<select id="sellerInfo" resultType="SellerVO" parameterType="int">
+	  SELECT * 
+	  FROM users_seller
+	  WHERE u_s_id=#{u_s_id}
+	</select>
+	
+	<!-- 셀러 정보 수정 (셀러 페이지) -->
+	<update id="sellerInfoUpdate" parameterType="SellerVO">
+	  UPDATE users_seller
+	  SET
+	  		u_s_carrer=#{u_s_carrer},
+	  		u_s_zone=#{u_s_zone},
+	  		u_s_biz_no=#{u_s_biz_no},
+			u_s_com=#{u_s_com},
+	  		u_s_profileimg_url=#{u_s_profileimg_url}
+	  WHERE u_s_id=#{u_s_id} 
+	</update>
+	
+	<!-- 내 컨첸츠 조회 -->
+	<select id="myContents" resultType="BoardVO" parameterType="int">
+	  SELECT b.b_id, b.b_thumbnail, b.b_title, b.b_filter, b.b_view_count, b_createdat, b_updatedat, b_prod_on_off, b_status, b_type,
+	          (SELECT MIN(op.b_op_price)
+	             FROM board_option op
+	            WHERE op.b_id = b.b_id) AS b_op_price_min,
+	          (SELECT COUNT(*)
+	             FROM review re
+	            WHERE re.b_id = b.b_id) AS r_count,
+	          (SELECT sel.u_s_com
+	             FROM users_seller sel
+	            WHERE sel.u_s_id = b.u_s_id) AS u_s_com
+	      FROM board b
+	      WHERE u_s_id=#{u_s_id}
+	</select>
+	
+	<!-- 내 컨텐츠 리뷰 수 -->
+	<select id="ContentsReviewCount">
+	  
+	</select>
+	
+</mapper>

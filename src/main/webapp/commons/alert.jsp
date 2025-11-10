@@ -4,10 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>알림</title>
+
+<script type="text/javascript">
+	alert("${msg}")
+	location.href="${url}"
+</script>
+
 </head>
 <body>
-	<div style="height: 1500px"></div>
 
 </body>
 </html>

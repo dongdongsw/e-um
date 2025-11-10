@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title></title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/list.css">
+<link rel="stylesheet" href="../css/list.css">
 <script>
 window.addEventListener('DOMContentLoaded', function () {
   const rangeInput = document.querySelectorAll(".range-input input");
@@ -55,8 +56,7 @@ window.addEventListener('DOMContentLoaded', function () {
 </script>
 </head>
 <body>
-  <div style="background-color:#fff; height:180px;"></div>
-  <div class="header-text" style="height: 100px;"></div>
+  <div class="header-text" style="height: 200px;"></div>
 
   <div class="list-container">
     <!-- 사이드바 -->
@@ -253,6 +253,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   })();
 </script>
+	
     <!-- 오른쪽 메인 -->
     <div class="main">
       <div class="row">
@@ -271,25 +272,25 @@ window.addEventListener('DOMContentLoaded', function () {
        </form>
        <!-- end 검색바 -->
        <div class="header-text" style="height: 10px;"></div>
-       <c:forEach begin="0" end="11">
+       <c:forEach var="vo" items="${list}">
          <div class="col-md-3">
 		   <div class="temporary__storage" style="border:none">
-			  <div class="list-card" onclick="location.href='../main/detail.eum'">
+			  <div class="list-card" onclick="location.href='../list/etcdetail.eum?b_id=${vo.b_id}'">
 			    <div class="image">
-			      <img src="./assets/images/플랫폼개발.webp" width="200" height="160" style="border-radius: 15px;">
+			      <img src="${vo.b_thumbnail }" width="200" height="160" style="border-radius: 15px;">
 			    </div>
 			    <div class="image__overlay"></div>
 			    <div class="content">
 			      <div class="avatar"></div>
 			      <div class="content__text">
-			        <span class="stream__title">맞춤 개발로 완벽한 플랫폼을 만들어드립니다</span>
+			        <span class="stream__title">${vo.b_title }</span>
 			        <div class="content__body">
-			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ 4.9 (23)</span>
-			          <span class="streamer__name" id="price" style="font-size: 12px">10,000원</span>
-			          <span class="streamer__name" id="seller" style="font-size: 10px">김민식</span>
+			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ 4.9 (${vo.r_count})</span>
+			          <span class="streamer__name" id="price" style="font-size: 12px"><fmt:formatNumber value="${vo.b_op_price_min}" type="number" />원</span>
+			          <span class="streamer__name" id="seller" style="font-size: 10px">${vo.u_s_com }</span>
 			        </div>
 			        <span class="categories">
-			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">카테고리</div>
+			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 9px">${vo.b_filter }</div>
 			        </span>
 			      </div>
 			    </div>
@@ -298,17 +299,18 @@ window.addEventListener('DOMContentLoaded', function () {
         </div>
       </c:forEach>
       <div id="app" class="container">  
-  <ul class="page">
-    <li class="page__btn active"><span class="material-icons">&lt;</span></li>
-    <li class="page__numbers">1</li>
-    <li class="page__numbers active">2</li>
-    <li class="page__numbers">3</li>
-    <li class="page__numbers">4</li>
-    <li class="page__numbers">5</li>
-    <li class="page__btn active"><span class="material-icons">&gt;</span></li>
-  </ul>
-</div>
-      
+		  <ul class="page">
+		   <c:if test="${startPage>1 }">
+		      <li class="page__btn active" ><a class="material-icons" href="../list/etclist.eum?page=${startPage-1 }">&lt;</a></li>
+		   </c:if>
+		    <c:forEach var="i" begin="${startPage }" end="${endPage }">
+		      <li class="page__numbers ${i==curpage?'active':'' }"><a href="../list/etclist.eum?page=${i }">${i}</a></li>
+		    </c:forEach> 
+		    <c:if test="${endPage<totalpage }">
+		      <li class="page__btn active" ><a class="material-icons" href="../list/etclist.eum?page=${endPage+1 }">&gt;</a></li>
+		    </c:if>
+		  </ul>
+		</div>
     </div>
   </div>
  </div>
