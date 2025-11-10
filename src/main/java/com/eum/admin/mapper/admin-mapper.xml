@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.admin.mapper.admin-mapper">
-
+	<!-- <유저> 리스트 -->
+	<select id="adminUsersListData">
+	
+	</select>
+	
+	<!-- <셀러> 리스트 -->
+	<select id="adminSellerListData">
+	
+	</select>
+	
+	<!-- <컨텐츠> 리스트 -->
+	<select id="adminContentsListData">
+	
+	</select>
+	
+	<!-- <공지사항> 리스트 -->
+	<select id="adminNoticeListData">
+	
+	</select>
+	
+	<!-- <주문> 리스트 -->
+	<select id="adminOredersListData">
+	
+	</select>
 </mapper>

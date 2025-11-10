@@ -85,7 +85,15 @@
             <li class="nav-item w-100">
               <a class="nav-link" href="admin_users_detail.eum">
                 <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">사용자 상세페이지(임시)</span>
+                <span class="ml-3 item-text">사용자 상세(임시)</span>
+              </a>
+            </li>
+            
+            <!-- 관리자 사용자 상세 페이지 수정(임시) -->
+            <li class="nav-item w-100">
+              <a class="nav-link" href="admin_users_modify.eum">
+                <i class="fe fe-users fe-16"></i>
+                <span class="ml-3 item-text">사용자 상세 수정(임시)</span>
               </a>
             </li>
             
@@ -98,11 +106,19 @@
               </a>
             </li>
             
-            <!-- 관리자 셀러 상세 페이지(임시) -->
+            <!-- 관리자 셀러 상세(임시) -->
             <li class="nav-item w-100">
               <a class="nav-link" href="admin_sellers_detail.eum">
                 <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">셀러 상세페이지(임시)</span>
+                <span class="ml-3 item-text">셀러 상세(임시)</span>
+              </a>
+            </li>
+            
+            <!-- 관리자 셀러 상세 수정(임시) -->
+            <li class="nav-item w-100">
+              <a class="nav-link" href="admin_sellers_modify.eum">
+                <i class="fe fe-users fe-16"></i>
+                <span class="ml-3 item-text">셀러 상세 수정(임시)</span>
               </a>
             </li>
             
@@ -114,11 +130,11 @@
               </a>
             </li>
             
-             <!-- 관리자 컨텐츠 상세 페이지(임시) -->
+             <!-- 관리자 컨텐츠 상세 (임시) -->
             <li class="nav-item w-100">
               <a class="nav-link" href="admin_contents_detail.eum">
                 <i class="fe fe-shopping-bag fe-16"></i>
-                <span class="ml-3 item-text">컨텐츠 상세페이지(임시)</span>
+                <span class="ml-3 item-text">컨텐츠 상세(임시)</span>
               </a>
             </li>
             

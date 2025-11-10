@@ -25,6 +25,12 @@ public class Admin_Users_Model {
 		return "../admin/common/admin_main.jsp";
 	}
 			
-		
+	// 관리자 사용자 상세 페이지 수정
+		@RequestMapping("admin/admin_users_modify.eum")
+		public String admin_users_modify(HttpServletRequest request, HttpServletResponse response) {
+				
+			request.setAttribute("admin_main_jsp", "admin_users_modify.jsp");
+			return "../admin/common/admin_main.jsp";
+		}	
 	
 }
