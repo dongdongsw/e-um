@@ -85,6 +85,12 @@ public class UsersDAO {
 			} else {
 				UsersVO dbVO = session.selectOne("usersInfoData", u_id);
 				if(pwd.equals(dbVO.getU_pwd())) {
+					int sellerCheck = session.selectOne("usersSellerCheck",u_id);
+					String sid = null;
+					if (sellerCheck==1) {
+						sid=session.selectOne("sellerGetId",u_id);
+					}
+					
 					vo.setMsg("OK");
 					vo.setU_id(dbVO.getU_id());
 					vo.setU_loginid(dbVO.getU_loginid());
@@ -95,6 +101,7 @@ public class UsersDAO {
 					vo.setU_email(dbVO.getU_email());
 					vo.setU_role(dbVO.getU_role());
 					vo.setU_phone(dbVO.getU_phone());
+					vo.setSid(sid);
 				} else {
 					vo.setMsg("NOPWD");
 				}

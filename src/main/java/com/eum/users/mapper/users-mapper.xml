@@ -47,4 +47,18 @@
       FROM users
       WHERE u_loginid=#{u_loginid}
     </select>
+    
+    <!-- 셀러 여부 확인 -->
+    <select id="usersSellerCheck" resultType="int" parameterType="string">
+      SELECT COUNT(*) 
+      FROM users_seller
+      WHERE u_id=#{u_id}
+    </select>
+    
+    <!-- 셀러이면 셀러 키값 가져오기 -->
+    <select id="sellerGetId" resultType="int" parameterType="string">
+      SELECT u_s_id
+      FROM users_seller
+      WHERE u_id=#{u_id}
+    </select>
 </mapper>
