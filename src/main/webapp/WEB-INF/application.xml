@@ -3,4 +3,5 @@
   <context:component-scan basepackage="com.eum.main.model"/>
   <context:component-scan basepackage="com.eum.list.model"/>
   <context:component-scan basepackage="com.eum.admin.model"/>
+  <context:component-scan basepackage="com.eum.notice.model"/>
 </beans>

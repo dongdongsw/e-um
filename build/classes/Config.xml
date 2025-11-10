@@ -8,6 +8,7 @@
    <typeAliases>
      <typeAlias type="com.eum.list.vo.BoardVO" alias="BoardVO"/>
      <typeAlias type="com.eum.list.vo.Board_OptionVO" alias="Board_OptionVO"/>
+     <typeAlias type="com.eum.list.vo.NoticeVO" alias="NoticeVO"/>
    </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -22,5 +23,6 @@
   </environments>
   <mappers>
     <mapper resource="com/eum/list/mapper/life-mapper.xml"/>
+    <mapper resource="com/eum/notice/mapper/notice-mapper.xml"/>
   </mappers>
 </configuration>
