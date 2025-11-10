@@ -113,12 +113,13 @@ public class usersModel {
 	}
 	
 	// 로그인 처리
-	@RequestMapping("users/login.eum")
+	@RequestMapping("users/login_ok.eum")
 	public void usersLogin(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		UsersVO vo = UsersDAO.usersLogin(id, pwd);
 		System.out.println(id+" "+pwd);
+		
 		if(vo.getMsg().equals("OK")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", vo.getU_id());

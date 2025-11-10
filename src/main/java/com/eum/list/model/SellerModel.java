@@ -13,6 +13,7 @@ import com.sist.controller.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -43,14 +44,15 @@ public class SellerModel {
 	@RequestMapping("seller/seller_join_ok.eum")
 	public String seller_join_ok(HttpServletRequest request, HttpServletResponse response) {
 		
+		HttpSession session=request.getSession();
+		String u_id=(String) session.getAttribute("id");
+		
 		String u_s_carrer=request.getParameter("carrer");
 		String loc_do=request.getParameter("loc_do");
 		String loc_si=request.getParameter("loc_si");
 		String u_s_biz_no=request.getParameter("biz_no");
 		String u_s_com=request.getParameter("seller_name");
 		String u_s_profileimg_url=request.getParameter("profile_img");
-		
-		String u_id="null";
 		
 		SellerVO vo=new SellerVO();
 		
@@ -70,7 +72,8 @@ public class SellerModel {
 	@RequestMapping("seller/info.eum")
 	public String seller_info(HttpServletRequest request, HttpServletResponse response) {
 		
-		int u_s_id=0;
+		HttpSession session=request.getSession();
+		int u_s_id=(int) session.getAttribute("u_s_id");
 		
 		SellerVO vo=SellerDAO.sellerInfo(u_s_id);
 		
@@ -84,7 +87,8 @@ public class SellerModel {
 	@RequestMapping("seller/info_update.eum")
 	public String seller_info_update(HttpServletRequest request, HttpServletResponse response) {
 		
-		int u_s_id=1;
+		HttpSession session=request.getSession();
+		int u_s_id=(int) session.getAttribute("u_s_id");
 		
 		SellerVO vo=SellerDAO.sellerInfo(u_s_id);
 		
@@ -141,7 +145,10 @@ public class SellerModel {
 		
 		List<BoardVO> list=new ArrayList<BoardVO>();
 		
-		list=SellerDAO.myContents(1);
+		HttpSession session=request.getSession();
+		int u_s_id=(int) session.getAttribute("u_s_id");
+		
+		list=SellerDAO.myContents(u_s_id);
 		
 		request.setAttribute("list", list);
 				

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="login/css/login.css">
+<link rel="stylesheet" href="../css/login.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 $(function() {
@@ -24,7 +24,7 @@ $(function() {
 		
 		$.ajax({
 			type:'post',
-			url:'../main/login/login.eum',
+			url:'../users/login_ok.eum',
 			data:{"id":id,"pwd":pwd},
 			success:function(result) {
 				if(result==="NOID") {
@@ -99,7 +99,7 @@ $(function() {
 		</button>
 	</div>
 	<p class="signup">아직 회원이 아니신가요?
-		<a rel="noopener noreferrer" href="#" class="">회원가입</a>
+		<a rel="noopener noreferrer" href="../users/join.eum" class="">회원가입</a>
 	</p>
   </div>
 </body>
