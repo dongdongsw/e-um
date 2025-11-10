@@ -73,4 +73,36 @@ public class UsersDAO {
 			ex.printStackTrace();
 		}
 	}
+	
+	// 로그인
+	public static UsersVO usersLogin(String u_id, String pwd) {
+		UsersVO vo = new UsersVO();
+		try {
+			SqlSession session = ssf.openSession();
+			int count = session.selectOne("usersIdCheck", u_id);
+			if(count==0) {
+				vo.setMsg("NOID");
+			} else {
+				UsersVO dbVO = session.selectOne("usersInfoData", u_id);
+				if(pwd.equals(dbVO.getU_pwd())) {
+					vo.setMsg("OK");
+					vo.setU_id(dbVO.getU_id());
+					vo.setU_loginid(dbVO.getU_loginid());
+					vo.setU_nickname(dbVO.getU_nickname());
+					vo.setU_gender(dbVO.getU_gender());
+					vo.setU_loc(dbVO.getU_loc());
+					vo.setU_status(dbVO.getU_status());
+					vo.setU_email(dbVO.getU_email());
+					vo.setU_role(dbVO.getU_role());
+					vo.setU_phone(dbVO.getU_phone());
+				} else {
+					vo.setMsg("NOPWD");
+				}
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return vo;
+	}
+
 }

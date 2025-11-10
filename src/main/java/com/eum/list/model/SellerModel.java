@@ -50,7 +50,7 @@ public class SellerModel {
 		String u_s_com=request.getParameter("seller_name");
 		String u_s_profileimg_url=request.getParameter("profile_img");
 		
-		String u_id="16";
+		String u_id="null";
 		
 		SellerVO vo=new SellerVO();
 		
@@ -70,7 +70,7 @@ public class SellerModel {
 	@RequestMapping("seller/info.eum")
 	public String seller_info(HttpServletRequest request, HttpServletResponse response) {
 		
-		int u_s_id=1;
+		int u_s_id=0;
 		
 		SellerVO vo=SellerDAO.sellerInfo(u_s_id);
 		
@@ -123,7 +123,7 @@ public class SellerModel {
 		
 		SellerVO vo=new SellerVO();
 
-		vo.setU_s_id(1);
+		vo.setU_s_id(0);
 		vo.setU_s_carrer(u_s_carrer);
 		vo.setU_s_zone(loc_do+" "+loc_si);
 		vo.setU_s_biz_no(u_s_biz_no);

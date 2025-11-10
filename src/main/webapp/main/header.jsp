@@ -391,6 +391,66 @@ body {
   .header-area .main-nav .nav li.submenu:hover ul, .header-area .main-nav .nav li.submenu:focus ul {
     height: 0px;
   }
+  /* 모바일 환경 로그아웃 버튼 */
+  .header-area .main-nav .nav li form {
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  button.active2 {
+    height: 50px !important;
+    line-height: 50px !important;
+    padding: 0px !important;
+    border: none !important;
+    background: #fff !important;
+    color: #1e1e1e !important;
+    width: 100% !important;
+    display: block !important;
+  }
+  
+  button.active2:hover {
+    background: #fff !important;
+    color: #7453fc !important;
+  }
+}
+
+/* 로그아웃 버튼 form 스타일 */
+.header-area .main-nav .nav li form {
+  display: inline !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 로그아웃 버튼 스타일 - 회원가입 버튼과 동일하게 */
+button.active2 {
+  display: inline-block !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  text-transform: capitalize !important;
+  color: #fff !important;
+  background-color: #7453fc !important;
+  -webkit-transition: all 0.3s ease 0s !important;
+  -moz-transition: all 0.3s ease 0s !important;
+  -o-transition: all 0.3s ease 0s !important;
+  transition: all 0.3s ease 0s !important;
+  border: 1px solid #7453fc !important;
+  padding: 8px 15px !important;
+  border-radius: 18px !important;
+  letter-spacing: 1px !important;
+  cursor: pointer !important;
+  outline: none !important;
+}
+
+button.active2:hover {
+  color: #fff !important;
+  background-color: #7453fc !important;
+  opacity: 0.9 !important;
+}
+
+.background-header .main-nav .nav li button.active2:hover {
+  color: #fff !important;
+  opacity: 1 !important;
+}
 }
 
 </style>
@@ -425,8 +485,18 @@ body {
                         <li><a href="../main/list.eum">list</a></li>
                         <li><a href="../seller/info.eum">셀러 페이지</a></li>
                         <li><a href="../seller/join.eum">셀러 등록</a></li>
-                        <li><a href="explore.html">로그인</a></li>
-                        <li><a href="../users/join.eum" class="active">회원가입</a></li>
+                        <c:if test="${sessionScope.id==null}">
+	                        <li><a href="../users/login.eum">로그인</a></li>
+	                        <li><a href="../users/join.eum" class="active">회원가입</a></li>
+	                    </c:if>
+	                    <c:if test="${sessionScope.id!=null}">
+                        	<li><a href="mypage.eum">${sessionScope.name} 님</a></li>
+                            <li>
+                            	<form action="../users/logout.eum" method="post" style="margin: 0; padding: 0; display: inline;">
+                                	<button type="submit" class="active2">로그아웃</button>
+                                </form>
+                            </li>
+                    	</c:if>
                     </ul>   
                     <!-- ***** Menu End ***** -->
                 </nav>

@@ -9,6 +9,7 @@ import com.eum.users.vo.UsersVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 @Controller
 public class usersModel {
 	
@@ -102,6 +103,48 @@ public class usersModel {
 		
 		UsersDAO.usersInsert(vo);
 		
+		return "redirect:../main/main.eum";
+	}
+	
+	// 로그인 폼
+	@RequestMapping("users/login.eum")
+	public String loginForm(HttpServletRequest request, HttpServletResponse response) {
+		return "../users/login.jsp";
+	}
+	
+	// 로그인 처리
+	@RequestMapping("users/login.eum")
+	public void usersLogin(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		UsersVO vo = UsersDAO.usersLogin(id, pwd);
+		System.out.println(id+" "+pwd);
+		if(vo.getMsg().equals("OK")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("id", vo.getU_id());
+			session.setAttribute("name", vo.getU_nickname());
+			session.setAttribute("loginid", vo.getU_loginid());
+			session.setAttribute("gender", vo.getU_gender());
+			session.setAttribute("loc", vo.getU_loc());
+			session.setAttribute("status", vo.getU_status());
+			session.setAttribute("email", vo.getU_email());
+			session.setAttribute("role", vo.getU_role());
+			session.setAttribute("phone", vo.getU_phone());
+		}
+		try {
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.write(vo.getMsg());
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	// 로그아웃
+	@RequestMapping("users/logout.eum")
+	public String usersLogout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		session.invalidate();
 		return "redirect:../main/main.eum";
 	}
 }
