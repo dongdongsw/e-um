@@ -9,7 +9,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 $(function() {
-	$('#logBtn').click(function() {
+	function doLogin() {
 		let id = $('#id').val()
 		if(id.trim()==="") {
 			$('#id').focus()
@@ -44,6 +44,16 @@ $(function() {
 				console.log(err)
 			}
 		})
+	}
+	
+	$('#logBtn').click(function() {
+		doLogin()
+	})
+	
+	$('#id, #pwd').keydown(function(e) {
+		if(e.keyCode==13) {
+			doLogin()
+		}
 	})
 })
 </script>
