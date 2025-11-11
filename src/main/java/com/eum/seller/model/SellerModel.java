@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 import com.eum.seller.dao.SellerDAO;
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.Users_SellerVO;
+import com.eum.users.dao.UsersDAO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
@@ -65,6 +66,9 @@ public class SellerModel {
 		
 		SellerDAO.sellerInsert(vo);
 		
+		int sid=SellerDAO.sellerGetSid(u_id);
+		session.setAttribute("sid", sid);
+		
 		return "redirect:../main/main.eum";
 	}
 	
@@ -73,9 +77,9 @@ public class SellerModel {
 	public String seller_info(HttpServletRequest request, HttpServletResponse response) {
 		
 		HttpSession session=request.getSession();
-		int u_s_id=(int) session.getAttribute("u_s_id");
+		int sid=(int) session.getAttribute("sid");
 		
-		Users_SellerVO vo=SellerDAO.sellerInfo(u_s_id);
+		Users_SellerVO vo=SellerDAO.sellerInfo(sid);
 		
 		request.setAttribute("vo", vo);
 		
@@ -88,9 +92,9 @@ public class SellerModel {
 	public String seller_info_update(HttpServletRequest request, HttpServletResponse response) {
 		
 		HttpSession session=request.getSession();
-		int u_s_id=(int) session.getAttribute("u_s_id");
+		int sid=(int) session.getAttribute("sid");
 		
-		Users_SellerVO vo=SellerDAO.sellerInfo(u_s_id);
+		Users_SellerVO vo=SellerDAO.sellerInfo(sid);
 		
 		request.setAttribute("vo", vo);
 		
@@ -118,6 +122,9 @@ public class SellerModel {
 	@RequestMapping("seller/info_update_ok.eum")
 	public String seller_update_ok(HttpServletRequest request, HttpServletResponse response) {
 		
+		HttpSession session=request.getSession();
+		int sid=(int) session.getAttribute("sid");
+		
 		String u_s_carrer=request.getParameter("carrer");
 		String loc_do=request.getParameter("loc_do");
 		String loc_si=request.getParameter("loc_si");
@@ -127,7 +134,7 @@ public class SellerModel {
 		
 		Users_SellerVO vo=new Users_SellerVO();
 
-		vo.setU_s_id(0);
+		vo.setU_s_id(sid);
 		vo.setU_s_carrer(u_s_carrer);
 		vo.setU_s_zone(loc_do+" "+loc_si);
 		vo.setU_s_biz_no(u_s_biz_no);
@@ -146,9 +153,9 @@ public class SellerModel {
 		List<BoardVO> list=new ArrayList<BoardVO>();
 		
 		HttpSession session=request.getSession();
-		int u_s_id=(int) session.getAttribute("u_s_id");
+		int sid=(int) session.getAttribute("sid");
 		
-		list=SellerDAO.myContents(u_s_id);
+		list=SellerDAO.myContents(sid);
 		
 		request.setAttribute("list", list);
 				

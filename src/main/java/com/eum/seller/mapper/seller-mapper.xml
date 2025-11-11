@@ -60,9 +60,11 @@
 	      WHERE u_s_id=#{u_s_id}
 	</select>
 	
-	<!-- 내 컨텐츠 리뷰 수 -->
-	<select id="ContentsReviewCount">
-	  
-	</select>
+	<!-- 셀러이면 셀러 키 값 가져오기 -->
+    <select id="sellerGetSid" resultType="int" parameterType="string">
+      SELECT u_s_id
+      FROM users_seller
+      WHERE u_id=#{u_id}
+    </select>
 	
 </mapper>
