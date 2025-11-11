@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 	 <main role="main" class="main-content">
         <div class="container-fluid">
@@ -9,7 +10,7 @@
               
                 <!-- Small table -->
                 <div class="col-md-12 my-4">
-                  <h2 class="h4 mb-1">Customize table rendering</h2>
+                  <h2 class="h4 mb-1">사용자 리스트</h2>
                   <p class="mb-3">Additional table rendering with vertical border, rich content formatting for cell</p>
                   <div class="card shadow">
                     <div class="card-body">
@@ -57,18 +58,20 @@
                                 <label class="custom-control-label" for="all2"></label>
                               </div>
                             </td>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th class="w-25">Bio</th>
-                            <th>Date</th>
+                            <th></th>
+                            <th>닉네임</th>
+                            <th>주소</th>
+                            <th>연락처</th>
+                            <th class="w-24">email</th>
+                            <th>수정 날짜</th>
+                            <th>회원 상태</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                           <!-- 가데이터 -->
-                          <c:forEach begin="1" end="8">
+                          <%-- <c:forEach begin="1" end="8"> --%>
+                          <c:forEach var="users" items="${ users_list}">
                           <tr>
                             <td>
                               <div class="custom-control custom-checkbox">
@@ -78,30 +81,43 @@
                             </td>
                             <td>
                               <div class="avatar avatar-md">
-                                <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="${users.u_profileimg_url }" alt="..." class="avatar-img rounded-circle">
                               </div>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><strong>Brown, Asher D.</strong></p>
-                              <small class="mb-0 text-muted">2474</small>
+                            	<a href="../admin/admin_users_detail.eum?u_id=${users.u_id }">
+                              		<p class="mb-0 text-muted"><strong>${users.u_nickname }</strong></p>
+                              		<small class="mb-0 text-muted">id:${users.u_loginid }</small>
+                              	</a>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted">Accumsan Consulting</p>
-                              <small class="mb-0 text-muted">Ap #331-7123 Lobortis Avenue</small>
+                              <p class="mb-0 text-muted">${users.u_loc }</p>
+                              <small class="mb-0 text-muted"></small>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><a href="#" class="text-muted">(958) 421-0798</a></p>
-                              <small class="mb-0 text-muted">Nigeria</small>
+                              <p class="mb-0 text-muted"><a href="#" class="text-muted">(+82)${users.u_phone }</a></p>
+                              <small class="mb-0 text-muted"></small>
                             </td>
-                            <td class="w-25"><small class="text-muted"> Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus.</small></td>
-                            <td class="text-muted">13/09/2020</td>
+                            <td class="w-24"><small class="text-muted">${users.u_email }</small></td>
+                            <td class="text-muted">
+                            	<fmt:formatDate value="${users.u_updateat}" pattern="yyyy-MM-dd" />
+							</td>
+							<td>
+                              <div class="form-group mb-3">
+		                        <select class="form-control" id="example-select">
+		                          <option>활동</option>
+		                          <option>경고 처리</option>
+		                          <option>정지 처리</option>
+		                          <option>탈퇴 처리</option>
+		                        </select>
+		                      </div>
+                            </td>
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                                <a class="dropdown-item" href="#">Assign</a>
+                                <a class="dropdown-item" href="../admin/admin_users_detail.eum?u_id=${users.u_id }">프로필</a>
+                                <a class="dropdown-item" href="#">수정하기</a>
                               </div>
                             </td>
                           </tr>
@@ -148,11 +164,21 @@
                       </table>
                       <nav aria-label="Table Paging" class="mb-0 text-muted">
                         <ul class="pagination justify-content-end mb-0">
-                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        <c:if test="${startPage > 1 }">
+                          <li class="page-item">
+                          	<a class="page-link" href="../admin/admin_users_list.eum?page=${startPage-1 }">&lt;</a>
+                          </li>
+                        </c:if>
+                        <c:forEach var="i" begin="${startPage }" end="${endPage }">
+                          <li class="page-item ${i==curpage?'active':'' }" >
+                          	<a class="page-link" href="../admin/admin_users_list.eum?page=${i }">${i }</a>
+                          </li>
+                        </c:forEach>  
+                        <c:if test="${endPage < totalpage }">
+                          <li class="page-item">
+                          <a class="page-link" href="../admin/admin_users_list.eum?page=${endPage+1 }">&gt;</a>
+                          </li>
+                        </c:if>
                         </ul>
                       </nav>
                     </div>
