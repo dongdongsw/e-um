@@ -142,7 +142,7 @@ h2 {margin-bottom:100px}
     <div class="profile-card">
       <!-- 프로필 이미지 -->
       <div class="profile-img">
-        <img src="${empty vo.u_profileimg_url ? '../images/profile.jpg' : vo.u_profileimg_url}" alt="프로필 이미지">
+        <img src="${empty sessionScope.profile ? '../images/profile.jpg' : sessionScope.profile}" alt="프로필 이미지">
       </div>
 
       <!-- 셀러 기본 정보 -->

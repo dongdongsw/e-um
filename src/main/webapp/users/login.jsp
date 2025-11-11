@@ -78,6 +78,7 @@ $(function() {
 </style>
 </head>
 <body>
+  <div class="login-wrapper">
   <div class="form-container">
     <a href="../main/main.eum" style="text-decoration: none; color: black;">
 	  <p class="title">E-UM</p>
@@ -118,6 +119,7 @@ $(function() {
 	<p class="signup">아직 회원이 아니신가요?
 		<a rel="noopener noreferrer" href="../users/join.eum" class="">회원가입</a>
 	</p>
+  </div>
   </div>
 </body>
 </html>
