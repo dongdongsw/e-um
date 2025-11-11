@@ -485,7 +485,12 @@ button.active2:hover {
                      <ul class="nav">
                         <li><a href="../main/list.eum">list</a></li>
                         <li><a href="../main/detail.eum">detail</a></li>
+                        <c:if test="${sessionScope.sid==0 && sessionScope.id!=null}">
                         <li><a href="../seller/join.eum">셀러 등록</a></li>
+                        </c:if>
+                         <c:if test="${sessionScope.sid!=0 && sessionScope.id!=null}">
+                        <li><a href="../seller/info.eum">셀러페이지</a></li>
+                        </c:if>
                         <c:if test="${sessionScope.id==null}">
                         	<li><a href="../users/login.eum">로그인</a></li>
                         	<li><a href="../users/join.eum" class="active">회원가입</a></li>

@@ -79,4 +79,17 @@ public class SellerDAO {
 		}
 		return list;
 	}
+
+	// 셀러 고유값 가져오기 (세션)
+	public static int sellerGetSid(String u_id) {
+		int sid=0;
+		try {
+			SqlSession session=ssf.openSession();
+			sid=session.selectOne("sellerGetId",u_id);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return sid;
+	}
 }

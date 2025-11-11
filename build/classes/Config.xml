@@ -11,6 +11,7 @@
      <typeAlias type="com.eum.users.vo.UsersVO" alias="UsersVO"/>
      <typeAlias type="com.eum.seller.vo.SellerVO" alias="SellerVO"/>
      <typeAlias type="com.eum.seller.vo.BoardVO" alias="BoardVO"/>
+     
    </typeAliases>
   <environments default="develpoment">
     <environment id="develpoment">

@@ -11,9 +11,7 @@
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script type="text/javascript">
-Shadowbox.init({
-	players:['iframe']
-})
+
 $(function(){
 		// 아이디 중복 검사
 	$('#idBtn').click(function(){

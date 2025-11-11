@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 @Controller
-public class usersModel {
+public class UsersModel {
 	
 	// 회원가입 페이지
 	@RequestMapping("users/join.eum")
@@ -120,12 +120,11 @@ public class usersModel {
 		UsersVO vo = UsersDAO.usersLogin(id, pwd);
 		System.out.println(id+" "+pwd);
 		
-		System.out.println(vo.getSid());
+		
 		
 		if(vo.getMsg().equals("OK")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", vo.getU_id());
-			session.setAttribute("sid", vo.getSid());
 			session.setAttribute("name", vo.getU_nickname());
 			session.setAttribute("loginid", vo.getU_loginid());
 			session.setAttribute("gender", vo.getU_gender());
@@ -134,6 +133,7 @@ public class usersModel {
 			session.setAttribute("email", vo.getU_email());
 			session.setAttribute("role", vo.getU_role());
 			session.setAttribute("phone", vo.getU_phone());
+			session.setAttribute("sid", vo.getSid());
 			
 		}
 		try {

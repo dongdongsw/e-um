@@ -85,11 +85,6 @@ public class UsersDAO {
 			} else {
 				UsersVO dbVO = session.selectOne("usersInfoData", u_id);
 				if(pwd.equals(dbVO.getU_pwd())) {
-					int sellerCheck = session.selectOne("usersSellerCheck",u_id);
-					String sid = null;
-					if (sellerCheck==1) {
-						sid=session.selectOne("sellerGetId",u_id);
-					}
 					
 					vo.setMsg("OK");
 					vo.setU_id(dbVO.getU_id());
@@ -100,8 +95,17 @@ public class UsersDAO {
 					vo.setU_status(dbVO.getU_status());
 					vo.setU_email(dbVO.getU_email());
 					vo.setU_role(dbVO.getU_role());
-					vo.setU_phone(dbVO.getU_phone());
-					vo.setSid(sid);
+					vo.setU_phone(dbVO.getU_phone());	
+					
+					
+					int seller = session.selectOne("usersSellerCheck", dbVO.getU_id());
+					int sid=0;
+					if (seller == 1) {
+						sid = session.selectOne("sellerGetId", dbVO.getU_id());
+						vo.setSid(sid);
+						System.out.println(sid);
+					}
+					
 				} else {
 					vo.setMsg("NOPWD");
 				}
