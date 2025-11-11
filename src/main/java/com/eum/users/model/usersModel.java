@@ -152,8 +152,8 @@ public class usersModel {
 	}
 	
 	// 마이페이지
-//	@RequestMapping("users/info.eum")
-//	public String usersInfo(HttpServletRequest request, HttpServletResponse response) {
-//		
-//	}
+	@RequestMapping("users/info.eum")
+	public String users_info(HttpServletRequest request, HttpServletResponse response) {
+		return "../users/info.jsp";
+	}
 }

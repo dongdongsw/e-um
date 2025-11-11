@@ -149,7 +149,7 @@ h2 {margin-bottom:100px}
       <div class="profile-info">
         <div class="info-block">
           <div class="info-title">아이디</div>
-          <div class="info-value">${sessionScope.id}</div>
+          <div class="info-value">${sessionScope.loginid}</div>
         </div>
 
         <div class="info-block">
@@ -159,22 +159,22 @@ h2 {margin-bottom:100px}
 
         <div class="info-block">
           <div class="info-title">이메일</div>
-          <div class="info-value">${vo.u_email}</div>
+          <div class="info-value">${sessionScope.email}</div>
         </div>
 
         <div class="info-block">
           <div class="info-title">연락처</div>
-          <div class="info-value">${vo.u_phone}</div>
+          <div class="info-value">${sessionScope.phone}</div>
         </div>
         
         <div class="info-block">
           <div class="info-title">거주지역</div>
-          <div class="info-value">${vo.u_loc}</div>
+          <div class="info-value">${sessionScope.loc}</div>
         </div>
         
         <div class="info-block">
           <div class="info-title">가입일</div>
-          <div class="info-value">${vo.u_createat}</div>
+          <div class="info-value">${sessionScope.createat}</div>
         </div>
       </div>
     </div>
