@@ -57,6 +57,24 @@ $(function() {
 	})
 })
 </script>
+<style type="text/css">
+.social-icons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-login-link {
+    display: inline-block;
+    padding: 10px; 
+    text-decoration: none; 
+}
+
+.social-login-link .icon-image {
+    display: block; 
+    width: 30px; 
+}
 </style>
 </head>
 <body>
@@ -84,18 +102,18 @@ $(function() {
 		<div class="line"></div>
 	</div>
 	<div class="social-icons">
-		<a href="#" aria-label="Login with kakao" class="icon">
-		  <img src="../images/kakao_login.png" style="width: 30px;">
-		</a>
-		<a href="#" aria-label="Login with naver" class="icon">
-		  <img src="../images/naver_login.png" style="width: 30px;">
-		</a>
-		<a href="#" aria-label="Login with google" class="icon">
-          <img src="../images/google_login.png" style="width: 30px;">
-		</a>
-		<a href="#" aria-label="Login with apple" class="icon">
-		  <img src="../images/apple_login.png" style="width: 30px;">
-		</a>
+      <a href="#" aria-label="Login with kakao" class="social-login-link">
+        <img src="../images/kakao_login.png" class="icon-image">
+      </a>
+      <a href="#" aria-label="Login with naver" class="social-login-link">
+        <img src="../images/naver_login.png" class="icon-image">
+      </a>
+      <a href="#" aria-label="Login with google" class="social-login-link">
+        <img src="../images/google_login.png" class="icon-image">
+      </a>
+      <a href="#" aria-label="Login with apple" class="social-login-link">
+        <img src="../images/apple_login.png" class="icon-image">
+      </a>
 	</div>
 	<p class="signup">아직 회원이 아니신가요?
 		<a rel="noopener noreferrer" href="../users/join.eum" class="">회원가입</a>
