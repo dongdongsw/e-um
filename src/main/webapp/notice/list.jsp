@@ -207,17 +207,12 @@
 
     <!-- 페이지네이션 -->
     <div class="pagination" style="margin-top:20px; text-align:center;">
-  <%-- ◀◀ 이전 10페이지 이동 --%>
   <c:if test="${startPage > 1}">
     <a href="list.eum?page=${startPage - 10}">&laquo;</a>
   </c:if>
-
-  <%-- ◀ 이전 1페이지 이동 --%>
   <c:if test="${curpage > 1}">
     <a href="list.eum?page=${curpage - 1}">&lt;</a>
   </c:if>
-
-  <%-- 페이지 번호 목록 출력 (현재 그룹 범위) --%>
   <c:forEach var="i" begin="${startPage}" end="${endPage}">
     <c:choose>
       <c:when test="${i == curpage}">
@@ -228,13 +223,9 @@
       </c:otherwise>
     </c:choose>
   </c:forEach>
-
-  <%-- ▶ 다음 1페이지 이동 --%>
   <c:if test="${curpage < totalpage}">
     <a href="list.eum?page=${curpage + 1}">&gt;</a>
   </c:if>
-
-  <%-- ▶▶ 다음 10페이지 이동 --%>
   <c:if test="${endPage < totalpage}">
     <a href="list.eum?page=${startPage + 10}">&raquo;</a>
   </c:if>

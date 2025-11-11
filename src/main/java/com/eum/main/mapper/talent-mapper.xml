@@ -33,7 +33,7 @@
 		   WHERE board.b_id = board_option.b_id
 		   AND board.u_s_id = users_seller.u_s_id
 		   AND board.b_id = review.b_id
-		   AND b_type='생활라이프'
+		   AND b_type='비즈니스'
 		   GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
 		   ORDER BY b_id DESC
 	   ) A

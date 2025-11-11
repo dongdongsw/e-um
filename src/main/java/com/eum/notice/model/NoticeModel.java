@@ -84,7 +84,7 @@ public class NoticeModel {
 		String n_content=request.getParameter("n_content");
 		
 		NoticeVO vo=new NoticeVO();
-		vo.setU_id("eaujmrkw");
+		vo.setU_id("eaujmrkw"); 
 		vo.setN_title(n_title);
 		vo.setN_content(n_content);
 		

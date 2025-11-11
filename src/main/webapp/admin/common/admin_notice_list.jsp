@@ -1,18 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    input[type="search"]:focus::placeholder {
+      color: transparent;
+      transition: color 0.2s ease;
+    }
+  </style>
+</head>
+<body>
 	<main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12">
               <h2 class="h3 mb-3 page-title">공지사항</h2>
+              <!-- 검색 -->
               <div class="row mb-4 items-align-center">
-                <div class="col-md-auto ml-auto text-right">
-                  <button type="button" class="btn" data-toggle="modal" data-target=".modal-slide"><span class="fe fe-filter fe-16 text-muted"></span></button>
-                  <button type="button" class="btn"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
-                </div>
-              </div>
-              
+				  <div class="col-12 d-flex align-items-center justify-content-end">
+				    <div class="position-relative mr-3" style="width: 300px;">
+				      <span class="fe fe-search position-absolute text-muted" style="top: 8px; left: 14px;"></span>
+				      <input
+				        class="form-control form-control-sm bg-white rounded-pill pl-5"
+				        type="search" placeholder="검색어를 입력하세요" style="text-align: center;" aria-label="Search">
+				    </div>
+				    <button type="button" class="btn" data-toggle="modal" data-target=".modal-slide">
+				      <span class="fe fe-filter fe-16 text-muted"></span>
+				    </button>
+				    <button type="button" class="btn">
+				      <span class="fe fe-refresh-ccw fe-16 text-muted"></span>
+				    </button>
+				  </div>
+				</div>
               <!-- 필터 -->
               <div class="modal fade modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -113,11 +135,11 @@
                 <tbody>
                   <!-- 테이블 가데이터 -->
                   <c:forEach var="i" begin="1" end="12">
-	                  <tr>
+	                  <tr onclick="location.href='../notice/list.eum'" style="cursor:pointer;">
 	                    <td class="align-center">
 	                      <div class="custom-control custom-checkbox">
 	                        <input type="checkbox" class="custom-control-input">
-	                        <label class="custom-control-label"></label>
+	                        <label class="custom-control-label" ></label>
 	                      </div>
 	                    </td>
 	                    <td>1331</td>
@@ -187,4 +209,5 @@
             </div>
           </div> <!-- .row -->
         </div> <!-- .container-fluid -->
+        </main>
        
