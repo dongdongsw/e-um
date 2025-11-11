@@ -43,7 +43,7 @@
 	
 	<!-- 로그인 -->
 	<select id="usersInfoData" resultType="UsersVO" parameterType="string">
-      SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_role
+      SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_role, u_email, u_createat
       FROM users
       WHERE u_loginid=#{u_loginid}
     </select>
@@ -52,4 +52,5 @@
       FROM users_seller
       WHERE u_id=#{u_id}
     </select>
+    
 </mapper>

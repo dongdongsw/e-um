@@ -105,5 +105,15 @@ public class UsersDAO {
 		}
 		return vo;
 	}
+	
+	// 마이페이지
+	/*
+	 * 	<select id="usersInfoData" resultType="UsersVO" parameterType="string">
+	      SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_role, u_email, u_createat
+	      FROM users
+	      WHERE u_loginid=#{u_loginid}
+	    </select>
+	 */
+//	public static Users
 
 }

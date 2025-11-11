@@ -2,12 +2,10 @@ package com.eum.users.model;
 
 import java.io.PrintWriter;
 
-
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.eum.users.dao.*;
-import com.eum.main.vo.UsersVO;
-import com.eum.main.vo.Users_SellerVO;
+import com.eum.main.vo.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -134,6 +132,7 @@ public class usersModel {
 			session.setAttribute("email", vo.getU_email());
 			session.setAttribute("role", vo.getU_role());
 			session.setAttribute("phone", vo.getU_phone());
+			session.setAttribute("createat", vo.getU_createat());
 		}
 		try {
 			response.setContentType("text/plain;charset=UTF-8");
@@ -151,4 +150,10 @@ public class usersModel {
 		session.invalidate();
 		return "redirect:../main/main.eum";
 	}
+	
+	// 마이페이지
+//	@RequestMapping("users/info.eum")
+//	public String usersInfo(HttpServletRequest request, HttpServletResponse response) {
+//		
+//	}
 }
