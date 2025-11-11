@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
+import com.eum.list.vo.ReviewVO;
 import com.eum.seller.vo.BoardVO;
 import com.eum.seller.vo.SellerVO;
 
@@ -91,5 +92,33 @@ public class SellerDAO {
 			ex.printStackTrace();
 		}
 		return sid;
+	}
+	/*
+	 *   <!-- 셀러 컨텐츠의 대한 모든 리뷰 -->
+	    <resultMap type="ReviewVO" id="reviewMap">
+	      <result property="bvo.b_title" column="title"/>
+	      <result property="uvo.u_nickname" column="nickname"/>
+	      <result property="uvo.u_profileimg_url" column="profile"/>
+	    </resultMap>
+	    <select id="sellerReview" resultMap="reviewMap" parameterType="int">
+	      SELECT title, b_review_content, b_review_score, b_review_createdat, nickname, profile
+			FROM review r
+			JOIN board b ON r.b_id = b.b_id
+			JOIN users u ON r.u_id = u.u_id
+			WHERE b.u_s_id = #{u_s_id}
+			ORDER BY b_review_createdat DESC;
+	    </select>
+	 */
+	// 셀러 리뷰 목록
+	public static List<ReviewVO> sellerReview(int u_s_id) {
+		List<ReviewVO> list=new ArrayList<ReviewVO>();
+		try {
+			SqlSession session=ssf.openSession();
+			list=session.selectList("sellerReview",u_s_id);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
 	}
 }

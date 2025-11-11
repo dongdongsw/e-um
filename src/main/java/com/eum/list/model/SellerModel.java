@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.eum.list.vo.ReviewVO;
 import com.eum.seller.dao.SellerDAO;
 import com.eum.seller.vo.BoardVO;
 import com.eum.seller.vo.SellerVO;
@@ -25,7 +26,7 @@ public class SellerModel {
 		request.setAttribute("main_jsp", "../seller/join.jsp");
 		return "../main/main.jsp";
 	}
-	
+
 	//셀러 이름 존재 여부
 	@RequestMapping("seller/seller_name_ok.eum") 
 	public void seller_name_ok(HttpServletRequest request, HttpServletResponse response) {
@@ -162,4 +163,36 @@ public class SellerModel {
 		request.setAttribute("main_jsp", "../seller/my_contents.jsp");
 		return "../main/main.jsp";
 	}
+
+	@RequestMapping("seller/review.eum")
+	public String seller_review(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<ReviewVO> list=new ArrayList<ReviewVO>();
+		
+		HttpSession session=request.getSession();
+		int sid=(int) session.getAttribute("sid");
+		
+		list=SellerDAO.sellerReview(sid);
+		
+		request.setAttribute("list", list);
+		
+		request.setAttribute("main_jsp", "../seller/review.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("seller/sell.eum")
+	public String seller_sell(HttpServletRequest request, HttpServletResponse response) {
+		
+		request.setAttribute("main_jsp", "../seller/sell.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("seller/chat.eum")
+	public String seller_chat(HttpServletRequest request, HttpServletResponse response) {
+		
+		request.setAttribute("main_jsp", "../seller/chat.jsp");
+		return "../main/main.jsp";
+	}
+	
+
 }

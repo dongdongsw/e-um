@@ -1,8 +1,5 @@
-package com.eum.list.vo;
+package com.eum.users.vo;
 import java.util.*;
-
-import com.eum.users.vo.BoardVO;
-import com.eum.users.vo.UsersVO;
 
 import lombok.Data;
 
