@@ -84,25 +84,17 @@ $(function() {
 		<div class="line"></div>
 	</div>
 	<div class="social-icons">
-		<a href="#">
-		  <button aria-label="Login with kakao" class="icon">
-			<img src="../images/kakao_login.png" style="width: 30px; text-align: center;">
-		  </button>
+		<a href="#" aria-label="Login with kakao" class="icon">
+		  <img src="../images/kakao_login.png" style="width: 30px;">
 		</a>
-		<a href="#">
-		  <button aria-label="Login with naver" class="icon">
-			  <img src="../images/naver_login.png" style="width: 30px; text-align: center;">
-		  </button>
+		<a href="#" aria-label="Login with naver" class="icon">
+		  <img src="../images/naver_login.png" style="width: 30px;">
 		</a>
-		<a href="#">
-		  <button aria-label="Login with google" class="icon">
-			  <img src="../images/google_login.png" style="width: 30px; text-align: center;">
-		  </button>
+		<a href="#" aria-label="Login with google" class="icon">
+          <img src="../images/google_login.png" style="width: 30px;">
 		</a>
-		<a href="#">
-		<button aria-label="Login with apple" class="icon">
-			<img src="../images/apple_login.png" style="width: 30px; text-align: center;">
-		</button>
+		<a href="#" aria-label="Login with apple" class="icon">
+		  <img src="../images/apple_login.png" style="width: 30px;">
 		</a>
 	</div>
 	<p class="signup">아직 회원이 아니신가요?
