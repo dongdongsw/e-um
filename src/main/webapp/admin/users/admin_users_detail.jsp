@@ -1,238 +1,448 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12">
-              <h2 class="h3 mb-4 page-title">Profile</h2>
-              <div class="row mt-5 align-items-center">
-                <div class="col-md-3 text-center mb-5">
-                  <div class="avatar avatar-xl">
-                    <img src="./assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
+             
+                <div class="col-md-15 mb-13">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        
+                        <li class="nav-item">
+                          <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Review</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        
+                        <!-- 프로필 정보 -->
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"> 
+                        	
+			                  <div class="row mt-5 align-items-center">
+			                    <div class="col-md-3 text-center mb-5">
+			                      <div class="avatar avatar-xl">
+			                        <img src="${users_vo.u_profileimg_url }" alt="..." class="avatar-img rounded-circle">
+			                      </div>
+			                    </div>
+			                    <div class="col">
+			                      <div class="row align-items-center">
+			                        <div class="col-md-7">
+			                          <h4 class="mb-1">일련변호  : ${users_vo.u_id }</h4>
+			                          <h4 class="mb-1">닉네임   : ${users_vo.u_nickname }</h4>
+			                       
+			                        </div>
+			                      </div>
+			                      
+			                    </div>
+			                  </div>
+			                  <hr class="my-4">
+			                  <div class="card-deck">
+				                <!--  -->
+				                <div class="card shadow mb-4">
+				                  <div class="card-header">
+				                    <strong class="card-title">기본 정보</strong>
+				                  </div>
+				                  <div class="card-body">
+				                    <form>
+				                      <div class="form-row">
+				                        <div class="form-group col-md-6">
+				                          <label for="inputEmail4">Email</label>
+				                          <p class="form-control-plaintext">${users_vo.u_email}</p>
+				                        </div>
+				                        <div class="form-group col-md-6">
+				                          <label for="inputPassword4">phone</label>
+				                          <p class="form-control-plaintext">${users_vo.u_phone}</p>
+				                        </div>
+				                      </div>
+				                      
+				                      <!-- 주소 & 성별 -->
+				                      <div class="form-row">
+					                      <div class="form-group col-md-6">
+					                        <label for="inputAddress">Address</label>
+					                        <p class="form-control-plaintext">${users_vo.u_loc}</p>
+					                      </div>
+				                        <!-- 성별 -->
+								        <div class="form-group col-md-6">
+								          <label class="text small d-block">성별</label>
+								          <c:choose>
+								            <c:when test="${users_vo.u_gender eq '남'}">
+								              <span class="form-control-plaintext">남성</span>
+								            </c:when>
+								            <c:when test="${users_vo.u_gender eq '여'}">
+								              <span class="form-control-plaintext">여성</span>
+								            </c:when>
+								            <c:otherwise>
+								              <span class="badge badge-secondary">정보 없음</span>
+								            </c:otherwise>
+								          </c:choose>
+								        </div>
+							         </div>
+							         
+							         <!-- 활동 상태&생년월일 -->
+				                      <div class="form-row">
+				                      	<div class="form-group col-md-6">
+					                        <label for="inputAddress">활동 상태</label>
+					                        <p class="form-control-plaintext">${users_vo.u_status}</p>
+					                    </div>
+					                    <div class="form-group col-md-6">
+					                        <label for="inputAddress">생년월일</label>
+					                        <p class="form-control-plaintext">
+												<fmt:formatDate value="${users_vo.u_birth}" pattern="yyyy-MM-dd" />
+											</p>
+					                    </div>
+				                      </div>
+				                      
+				                      <!-- 가입일&수정일 -->
+				                      <div class="form-row">
+				                      	<div class="form-group col-md-6">
+					                        <label for="inputAddress">가입일</label>
+					                        <p class="form-control-plaintext">
+												<fmt:formatDate value="${users_vo.u_createat}" pattern="yyyy-MM-dd" />
+											</p>
+					                    </div>
+					                    <div class="form-group col-md-6">
+					                        <label for="inputAddress">수정일</label>
+					                        <p class="form-control-plaintext">
+												<fmt:formatDate value="${users_vo.u_updateat}" pattern="yyyy-MM-dd" />
+											</p>
+					                    </div>
+				                      </div>
+				                      
+				                    </form>
+				                  </div>
+				                </div>
+				                
+				                <div class="card shadow mb-4">
+				                  <div class="card-header">
+				                    <strong class="card-title">계정 정보</strong>
+				                  </div>
+				                  <div class="card-body">
+				                    <form>
+				                      <div class="form-row">
+				                        <div class="form-group col-md-6">
+				                          <label for="inputEmail4">Id</label>
+				                          <p class="form-control-plaintext">${users_vo.u_loginid}</p>
+				                        </div>
+				                        <div class="form-group col-md-6">
+				                          <label for="inputPassword4">Password</label>
+        								  <p class="form-control-plaintext text-muted">********</p>
+				                        </div>
+				                      </div>
+				                      	<br><br>
+				                       <h6 class="text-muted mb-3"><i class="fe fe-settings mr-1 text-secondary"></i> 사용자 설정</h6>
+								        <div class="form-row">
+					                      <!-- 푸시 알림 -->
+								        <div class="col-md-3 mb-3">
+								          <label class="text-muted small d-block">푸시 알림</label>
+								          <c:choose>
+								            <c:when test="${users_vo.u_push_noti eq 'Y'}">
+								              <span class="badge badge-success">ON</span>
+								            </c:when>
+								            <c:otherwise>
+								              <span class="badge badge-danger">OFF</span>
+								            </c:otherwise>
+								          </c:choose>
+								        </div>
+					                      <!-- 이메일 알림 -->
+								        <div class="col-md-3 mb-3">
+								          <label class="text-muted small d-block">이메일 알림</label>
+								          <c:choose>
+								            <c:when test="${users_vo.u_email_noti eq 'Y'}">
+								              <span class="badge badge-success">ON</span>
+								            </c:when>
+								            <c:otherwise>
+								              <span class="badge badge-danger">OFF</span>
+								            </c:otherwise>
+								          </c:choose>
+								        </div>
+								
+								        <!-- SMS 알림 -->
+								        <div class="col-md-3 mb-3">
+								          <label class="text-muted small d-block">SMS 알림</label>
+								          <c:choose>
+								            <c:when test="${users_vo.u_sms_noti eq 'Y'}">
+								              <span class="badge badge-success">ON</span>
+								            </c:when>
+								            <c:otherwise>
+								              <span class="badge badge-danger">OFF</span>
+								            </c:otherwise>
+								          </c:choose>
+								        </div>
+				                      </div>
+				                    </form>
+				                  </div>
+				                </div>
+                        	</div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab"> 
+						        <div class="container-fluid">
+						          <div class="row justify-content-center">
+						            <div class="col-12">
+						              <div class="row align-items-center my-4">
+						                <div class="col">
+						                  <h2 class="h3 mb-0 page-title">Review</h2>
+						                </div>
+						                <div class="col-auto">
+						                  <button type="button" class="btn btn-secondary"><span class="fe fe-trash fe-12 mr-2"></span>Delete</button>
+						                  <button type="button" class="btn btn-primary"><span class="fe fe-filter fe-12 mr-2"></span>Create</button>
+						                </div>
+						              </div>
+						              <div class="row">
+						              <!-- 리뷰 가데이터 -->
+						              <c:forEach begin="1" end="8">
+						                <div class="col-md-3">
+						                  <div class="card shadow mb-4">
+						                    <div class="card-body text-center">
+						                      <div class="avatar avatar-lg mt-4">
+						                        <a href="">
+						                          <img src="./assets/avatars/face-4.jpg" alt="..." class="avatar-img rounded-circle">
+						                        </a>
+						                      </div>
+						                      <div class="card-text my-2">
+						                        <strong class="card-title my-0">Bass Wendy </strong>
+						                        <p class="small text-muted mb-0">Accumsan Consulting</p>
+						                        <p class="small"><span class="badge badge-light text-muted">New York, USA</span></p>
+						                      </div>
+						                    </div> <!-- ./card-text -->
+						                    <div class="card-footer">
+						                      <div class="row align-items-center justify-content-between">
+						                        <div class="col-auto">
+						                          <small>
+						                            <span class="dot dot-lg bg-success mr-1"></span> Online </small>
+						                        </div>
+						                        <div class="col-auto">
+						                          <div class="file-action">
+						                            <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						                              <span class="text-muted sr-only">Action</span>
+						                            </button>
+						                            <div class="dropdown-menu m-2">
+						                              <a class="dropdown-item" href="#"><i class="fe fe-meh fe-12 mr-4"></i>Profile</a>
+						                              <a class="dropdown-item" href="#"><i class="fe fe-message-circle fe-12 mr-4"></i>Chat</a>
+						                              <a class="dropdown-item" href="#"><i class="fe fe-mail fe-12 mr-4"></i>Contact</a>
+						                              <a class="dropdown-item" href="#"><i class="fe fe-delete fe-12 mr-4"></i>Delete</a>
+						                            </div>
+						                          </div>
+						                        </div>
+						                      </div>
+						                    </div> <!-- /.card-footer -->
+						                  </div>
+						                  
+						                </div> <!-- .col -->
+						                </c:forEach>
+						                
+						                <div class="col-md-9">
+						                </div> <!-- .col -->
+						              </div> <!-- .row -->
+						              <nav aria-label="Table Paging" class="my-3">
+						                <ul class="pagination justify-content-end mb-0">
+						                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+						                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+						                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+						                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+						                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+						                </ul>
+						              </nav>
+						            </div> <!-- .col-12 -->
+						          </div> <!-- .row -->
+						        </div> <!-- .container-fluid -->
+						        <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+						          <div class="modal-dialog modal-sm" role="document">
+						            <div class="modal-content">
+						              <div class="modal-header">
+						                <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+						                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						                  <span aria-hidden="true">&times;</span>
+						                </button>
+						              </div>
+						              <div class="modal-body">
+						                <div class="list-group list-group-flush my-n3">
+						                  <div class="list-group-item bg-transparent">
+						                    <div class="row align-items-center">
+						                      <div class="col-auto">
+						                        <span class="fe fe-box fe-24"></span>
+						                      </div>
+						                      <div class="col">
+						                        <small><strong>Package has uploaded successfull</strong></small>
+						                        <div class="my-0 text-muted small">Package is zipped and uploaded</div>
+						                        <small class="badge badge-pill badge-light text-muted">1m ago</small>
+						                      </div>
+						                    </div>
+						                  </div>
+						                  <div class="list-group-item bg-transparent">
+						                    <div class="row align-items-center">
+						                      <div class="col-auto">
+						                        <span class="fe fe-download fe-24"></span>
+						                      </div>
+						                      <div class="col">
+						                        <small><strong>Widgets are updated successfull</strong></small>
+						                        <div class="my-0 text-muted small">Just create new layout Index, form, table</div>
+						                        <small class="badge badge-pill badge-light text-muted">2m ago</small>
+						                      </div>
+						                    </div>
+						                  </div>
+						                  <div class="list-group-item bg-transparent">
+						                    <div class="row align-items-center">
+						                      <div class="col-auto">
+						                        <span class="fe fe-inbox fe-24"></span>
+						                      </div>
+						                      <div class="col">
+						                        <small><strong>Notifications have been sent</strong></small>
+						                        <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo</div>
+						                        <small class="badge badge-pill badge-light text-muted">30m ago</small>
+						                      </div>
+						                    </div> <!-- / .row -->
+						                  </div>
+						                  <div class="list-group-item bg-transparent">
+						                    <div class="row align-items-center">
+						                      <div class="col-auto">
+						                        <span class="fe fe-link fe-24"></span>
+						                      </div>
+						                      <div class="col">
+						                        <small><strong>Link was attached to menu</strong></small>
+						                        <div class="my-0 text-muted small">New layout has been attached to the menu</div>
+						                        <small class="badge badge-pill badge-light text-muted">1h ago</small>
+						                      </div>
+						                    </div>
+						                  </div> <!-- / .row -->
+						                </div> <!-- / .list-group -->
+						              </div>
+						              <div class="modal-footer">
+						                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
+						              </div>
+						            </div>
+						          </div>
+						        </div>
+						        <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+						          <div class="modal-dialog" role="document">
+						            <div class="modal-content">
+						              <div class="modal-header">
+						                <h5 class="modal-title" id="defaultModalLabel">Shortcuts</h5>
+						                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						                  <span aria-hidden="true">&times;</span>
+						                </button>
+						              </div>
+						              <div class="modal-body px-5">
+						                <div class="row align-items-center">
+						                  <div class="col-6 text-center">
+						                    <div class="squircle bg-success justify-content-center">
+						                      <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
+						                    </div>
+						                    <p>Control area</p>
+						                  </div>
+						                  <div class="col-6 text-center">
+						                    <div class="squircle bg-primary justify-content-center">
+						                      <i class="fe fe-activity fe-32 align-self-center text-white"></i>
+						                    </div>
+						                    <p>Activity</p>
+						                  </div>
+						                </div>
+						                <div class="row align-items-center">
+						                  <div class="col-6 text-center">
+						                    <div class="squircle bg-primary justify-content-center">
+						                      <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
+						                    </div>
+						                    <p>Droplet</p>
+						                  </div>
+						                  <div class="col-6 text-center">
+						                    <div class="squircle bg-primary justify-content-center">
+						                      <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
+						                    </div>
+						                    <p>Upload</p>
+						                  </div>
+						                </div>
+						                <div class="row align-items-center">
+						                  <div class="col-6 text-center">
+						                    <div class="squircle bg-primary justify-content-center">
+						                      <i class="fe fe-users fe-32 align-self-center text-white"></i>
+						                    </div>
+						                    <p>Users</p>
+						                  </div>
+						                  <div class="col-6 text-center">
+						                    <div class="squircle bg-primary justify-content-center">
+						                      <i class="fe fe-settings fe-32 align-self-center text-white"></i>
+						                    </div>
+						                    <p>Settings</p>
+						                  </div>
+						                </div>
+						              </div>
+						            </div>
+						          </div>
+						        </div>
+						        </div>
+						        
+                        
+                        <!-- 결제 내역 탭 -->
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> 
+                        <h6 class="mb-3">Last payment</h6>
+			              <table class="table table-borderless table-striped">
+			                <thead>
+			                  <tr role="row">
+			                    <th>ID</th>
+			                    <th>Purchase Date</th>
+			                    <th>Total</th>
+			                    <th>Payment</th>
+			                    <th>Status</th>
+			                    <th>결제상태 변경</th>
+			                    <th>Action</th>
+			                  </tr>
+			                </thead>
+			                <tbody>
+				                <c:forEach begin="1" end="14">
+				                  <tr>
+				                    <th scope="col">1331</th>
+				                    <td>2020-12-26 01:32:21</td>
+				                    <td>$16.9</td>
+				                    <td>Paypal</td>
+				                    <td><span class="dot dot-lg bg-warning mr-2"></span>Due</td>
+				                    <td>
+		                              <div class="form-group mb-3">
+				                        <select class="form-control" id="example-select">
+				                          <option>결제완료</option>
+				                          <option>결제중</option>
+				                          <option>결제취소</option>
+				                          <option>환불완료</option>
+				                        </select>
+				                      </div>
+		                            </td>
+				                    <td>
+				                      <div class="dropdown">
+				                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				                          <span class="text-muted sr-only">Action</span>
+				                        </button>
+				                        <div class="dropdown-menu dropdown-menu-right">
+				                          <a class="dropdown-item" href="#">Edit</a>
+				                          <a class="dropdown-item" href="#">Remove</a>
+				                          <a class="dropdown-item" href="#">Assign</a>
+				                        </div>
+				                      </div>
+				                    </td>
+				                  </tr>
+				                </c:forEach>
+			                </tbody>
+			              </table>
+              			</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="row align-items-center">
-                    <div class="col-md-7">
-                      <h4 class="mb-1">${users_vo.u_nickname }</h4>
-                      <p class="small mb-3"><span class="badge badge-dark">${users_vo.u_loc }</span></p>
-                    </div>
-                  </div>
-                  <div class="row mb-4">
-                    <div class="col">
-                      <p class="mb-1">주소:${users_vo.u_loc }</p>
-                      <p class="mb-1">이메일:${users_vo.u_email }</p>
-                      <p class="mb-1">번호:(+82)${users_vo.u_phone }</p>
-                    </div>
-                    <div class="col">
-                      <p class="mb-1">Nec Urna Suscipit Ltd</p>
-                      <p class="mb-1">P.O. Box 464, 5975 Eget Avenue</p>
-                      <p class="mb-1">(537) 315-1481</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row my-4">
-                <div class="col-md-4">
-                  <div class="card mb-4 shadow">
-                    <div class="card-body my-n3">
-                      <div class="row align-items-center">
-                        <div class="col-3 text-center">
-                          <span class="circle circle-lg bg-light">
-                            <i class="fe fe-user fe-24 text-primary"></i>
-                          </span>
-                        </div> <!-- .col -->
-                        <div class="col">
-                          <a href="#">
-                            <h3 class="h5 mt-4 mb-1">Personal</h3>
-                          </a>
-                          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl ullamcorper, rutrum metus in, congue lectus.</p>
-                        </div> <!-- .col -->
-                      </div> <!-- .row -->
-                    </div> <!-- .card-body -->
-                    <div class="card-footer">
-                      <a href="" class="d-flex justify-content-between text-muted"><span>Account Settings</span><i class="fe fe-chevron-right"></i></a>
-                    </div> <!-- .card-footer -->
-                  </div> <!-- .card -->
-                </div> <!-- .col-md-->
-                <div class="col-md-4">
-                  <div class="card mb-4 shadow">
-                    <div class="card-body my-n3">
-                      <div class="row align-items-center">
-                        <div class="col-3 text-center">
-                          <span class="circle circle-lg bg-light">
-                            <i class="fe fe-shield fe-24 text-primary"></i>
-                          </span>
-                        </div> <!-- .col -->
-                        <div class="col">
-                          <a href="#">
-                            <h3 class="h5 mt-4 mb-1">Security</h3>
-                          </a>
-                          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl ullamcorper, rutrum metus in, congue lectus.</p>
-                        </div> <!-- .col -->
-                      </div> <!-- .row -->
-                    </div> <!-- .card-body -->
-                    <div class="card-footer">
-                      <a href="" class="d-flex justify-content-between text-muted"><span>Security Settings</span><i class="fe fe-chevron-right"></i></a>
-                    </div> <!-- .card-footer -->
-                  </div> <!-- .card -->
-                </div> <!-- .col-md-->
-                <div class="col-md-4">
-                  <div class="card mb-4 shadow">
-                    <div class="card-body my-n3">
-                      <div class="row align-items-center">
-                        <div class="col-3 text-center">
-                          <span class="circle circle-lg bg-light">
-                            <i class="fe fe-bell fe-24 text-primary"></i>
-                          </span>
-                        </div> <!-- .col -->
-                        <div class="col">
-                          <a href="#">
-                            <h3 class="h5 mt-4 mb-1">Notifications</h3>
-                          </a>
-                          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl ullamcorper, rutrum metus in, congue lectus.</p>
-                        </div> <!-- .col -->
-                      </div> <!-- .row -->
-                    </div> <!-- .card-body -->
-                    <div class="card-footer">
-                      <a href="" class="d-flex justify-content-between text-muted"><span>Notification Settings</span><i class="fe fe-chevron-right"></i></a>
-                    </div> <!-- .card-footer -->
-                  </div> <!-- .card -->
-                </div> <!-- .col-md-->
               </div> <!-- .row-->
-              <h3>Subscription</h3>
-              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl ullamcorper, rutrum metus in, congue lectus.</p>
-              <div class="card-deck my-4">
-                <div class="card mb-4 shadow">
-                  <div class="card-body text-center my-4">
-                    <a href="#">
-                      <h3 class="h5 mt-4 mb-0">Basic</h3>
-                    </a>
-                    <p class="text-muted">package</p>
-                    <span class="h1 mb-0">$9.9</span>
-                    <p class="text-muted">year</p>
-                    <ul class="list-unstyled">
-                      <li>Lorem ipsum dolor sit amet</li>
-                      <li>Consectetur adipiscing elit</li>
-                      <li>Integer molestie lorem at massa</li>
-                      <li>Eget porttitor lorem</li>
-                    </ul>
-                    <span class="dot dot-lg bg-success"></span>
-                    <span class="text-muted ml-3">Active</span>
-                  </div> <!-- .card-body -->
-                </div> <!-- .card -->
-                <div class="card mb-4">
-                  <div class="card-body text-center my-4">
-                    <a href="#">
-                      <h3 class="h5 mt-4 mb-0">Professional</h3>
-                    </a>
-                    <p class="text-muted">package</p>
-                    <span class="h1 mb-0">$16.9</span>
-                    <p class="text-muted">year</p>
-                    <ul class="list-unstyled">
-                      <li>Lorem ipsum dolor sit amet</li>
-                      <li>Consectetur adipiscing elit</li>
-                      <li>Integer molestie lorem at massa</li>
-                      <li>Eget porttitor lorem</li>
-                    </ul>
-                    <button type="button" class="btn mb-2 btn-primary btn-lg">Ugrade</button>
-                  </div> <!-- .card-body -->
-                </div> <!-- .card -->
-              </div> <!-- .card-group -->
-              <h6 class="mb-3">Last payment</h6>
-              <table class="table table-borderless table-striped">
-                <thead>
-                  <tr role="row">
-                    <th>ID</th>
-                    <th>Purchase Date</th>
-                    <th>Total</th>
-                    <th>Payment</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="col">1331</th>
-                    <td>2020-12-26 01:32:21</td>
-                    <td>$16.9</td>
-                    <td>Paypal</td>
-                    <td><span class="dot dot-lg bg-warning mr-2"></span>Due</td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Edit</a>
-                          <a class="dropdown-item" href="#">Remove</a>
-                          <a class="dropdown-item" href="#">Assign</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="col">1156</th>
-                    <td>2020-04-21 00:38:38</td>
-                    <td>$9.9</td>
-                    <td>Paypal</td>
-                    <td><span class="dot dot-lg bg-danger mr-2"></span>False</td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Edit</a>
-                          <a class="dropdown-item" href="#">Remove</a>
-                          <a class="dropdown-item" href="#">Assign</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="col">1038</th>
-                    <td>2019-06-25 19:13:36</td>
-                    <td>$9.9</td>
-                    <td>Credit Card </td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span>Paid</td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Edit</a>
-                          <a class="dropdown-item" href="#">Remove</a>
-                          <a class="dropdown-item" href="#">Assign</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="col">1227</th>
-                    <td>2021-01-22 13:28:00</td>
-                    <td>$9.9</td>
-                    <td>Paypal</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span>Paid</td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Edit</a>
-                          <a class="dropdown-item" href="#">Remove</a>
-                          <a class="dropdown-item" href="#">Assign</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              
+              
+            
+              
             </div> <!-- /.col-12 -->
           </div> <!-- .row -->
-        </div> <!-- .container-fluid -->
+        <!-- .container-fluid -->
         <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
