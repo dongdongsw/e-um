@@ -50,8 +50,7 @@ public class NoticeModel {
 	}
 
 
-	
-	// ✅ 공지사항 상세보기
+	// 상세보기
 	@RequestMapping("notice/detail.eum")
 	public String notice_detail(HttpServletRequest request,HttpServletResponse response)
 	{
@@ -63,7 +62,7 @@ public class NoticeModel {
 		return "../main/main.jsp";
 	}
 	
-	// ✅ 글쓰기 폼
+	// 글쓰기
 	@RequestMapping("notice/insert.eum")
 	public String notice_insert(HttpServletRequest request,HttpServletResponse response)
 	{
@@ -71,7 +70,7 @@ public class NoticeModel {
 		return "../main/main.jsp";
 	}
 	
-	// ✅ 글쓰기 완료
+	// 글쓰기 완료
 	@RequestMapping("notice/insert_ok.eum")
 	public String notice_insert_ok(HttpServletRequest request,HttpServletResponse response)
 	{
@@ -93,7 +92,7 @@ public class NoticeModel {
 		return "redirect:../notice/list.eum";
 	}
 	
-	// ✅ 수정 폼
+	// 수정
 	@RequestMapping("notice/update.eum")
 	public String notice_update(HttpServletRequest request,HttpServletResponse response)
 	{
@@ -105,7 +104,7 @@ public class NoticeModel {
 		return "../main/main.jsp";
 	}
 	
-	// ✅ 수정 완료
+	// 수정 완료
 	@RequestMapping("notice/update_ok.eum")
 	public String notice_update_ok(HttpServletRequest request,HttpServletResponse response)
 	{
@@ -124,12 +123,11 @@ public class NoticeModel {
 		
 		NoticeDAO.noticeUpdate(vo);
 		
-		// ✅ 수정 후 상세보기 이동
 		return "redirect:../notice/detail.do?n_id=" + n_id;
 		
 	}
 	
-	// ✅ 삭제 확인 페이지
+	// 삭제
 	@RequestMapping("notice/delete.eum")
 	public String notice_delete(HttpServletRequest request,HttpServletResponse response)
 	{
@@ -141,7 +139,7 @@ public class NoticeModel {
 		return "../main/main.jsp";
 	}
 	
-	// ✅ 삭제 완료
+	// 삭제 완료
 	@RequestMapping("notice/delete_ok.eum")
 	public String notice_delete_ok(HttpServletRequest request,HttpServletResponse response)
 	{

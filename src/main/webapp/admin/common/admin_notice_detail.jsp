@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ include file="../common/slidebar.jsp" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,6 +22,12 @@
       color: transparent;
       transition: color 0.2s ease;
     }
+    .notice-content {
+      min-height: 400px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+    }
   </style>
 </head>
 
@@ -29,93 +37,94 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-12">
-          <h2 class="h3 mb-3 page-title">공지사항</h2>
+          <h2 class="h3 mb-3 page-title">공지사항 상세보기</h2>
 
-          <!-- 검색 -->
-          <div class="row mb-4 items-align-center">
-            <div class="col-12 d-flex align-items-center justify-content-end">
-              <div class="position-relative mr-3" style="width: 300px;">
-                <span class="fe fe-search position-absolute text-muted" style="top: 8px; left: 14px;"></span>
-                <input
-                  class="form-control form-control-sm bg-white rounded-pill pl-5"
-                  type="search" placeholder="검색어를 입력하세요"
-                  style="text-align: center;" aria-label="Search">
+          <!-- 상세 정보 카드 -->
+          <div class="card shadow mb-4">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">공지사항 제목입니다</h4>
+                <span class="badge badge-success">공개</span>
               </div>
-              <button type="button" class="btn" data-toggle="modal" data-target=".modal-slide">
-                <span class="fe fe-filter fe-16 text-muted"></span>
-              </button>
-              <button type="button" class="btn">
-                <span class="fe fe-refresh-ccw fe-16 text-muted"></span>
-              </button>
             </div>
-          </div>
+            <div class="card-body">
+              <!-- 작성자 정보 -->
+              <div class="row mb-3 pb-3 border-bottom">
+                <div class="col-md-6">
+                  <small class="text-muted">작성자</small>
+                  <p class="mb-0"><strong>관리자</strong></p>
+                </div>
+                <div class="col-md-6 text-md-right">
+                  <small class="text-muted">작성일</small>
+                  <p class="mb-0"><strong>2025-11-11 14:30</strong></p>
+                </div>
+              </div>
 
-          <!-- 모달(필터) -->
-          <div class="modal fade modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="defaultModalLabel">Filters</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i class="fe fe-x fe-12"></i>
+              <!-- 공지사항 내용 -->
+              <div class="notice-content">
+                <p>안녕하세요. 공지사항 내용입니다.</p>
+                <p>이곳에 공지사항의 상세 내용이 표시됩니다.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p>여러 줄의 내용을 표시할 수 있습니다.</p>
+              </div>
+
+              <!-- 첨부파일 (선택사항) -->
+              <div class="mt-4 pt-3 border-top">
+                <h6 class="mb-3">첨부파일</h6>
+                <ul class="list-unstyled">
+                  <li class="mb-2">
+                    <i class="fe fe-file-text fe-16 mr-2"></i>
+                    <a href="#" class="text-primary">공지사항_첨부파일.pdf</a>
+                    <small class="text-muted ml-2">(1.2MB)</small>
+                  </li>
+                  <li class="mb-2">
+                    <i class="fe fe-image fe-16 mr-2"></i>
+                    <a href="#" class="text-primary">이미지.jpg</a>
+                    <small class="text-muted ml-2">(856KB)</small>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" onclick="location.href='../notice/list.eum'">
+                  <i class="fe fe-list fe-16 mr-2"></i>목록으로
+                </button>
+                <div>
+                  <button type="button" class="btn btn-outline-primary mr-2">
+                    <i class="fe fe-edit fe-16 mr-2"></i>수정
+                  </button>
+                  <button type="button" class="btn btn-outline-danger">
+                    <i class="fe fe-trash-2 fe-16 mr-2"></i>삭제
                   </button>
                 </div>
-                <div class="modal-body">
-                  <div class="p-2">
-                    <!-- 예시 필터 -->
-                    <div class="form-group my-4">
-                      <p class="mb-2"><strong>Regions</strong></p>
-                      <select class="form-control">
-                        <option>Seoul</option>
-                        <option>Busan</option>
-                        <option>Incheon</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn mb-2 btn-primary btn-block">Apply</button>
-                  <button type="button" class="btn mb-2 btn-secondary btn-block" data-dismiss="modal">Close</button>
-                </div>
               </div>
             </div>
           </div>
 
-          <!-- 테이블 -->
-          <table class="table border table-hover bg-white">
-            <thead>
-              <tr>
-                <th><input type="checkbox" id="all"></th>
-                <th>ID</th>
-                <th>작성일</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>상태</th>
-              </tr>
-            </thead>
-            <tbody>
-              <c:forEach var="i" begin="1" end="10">
-                <tr onclick="location.href='../notice/detail.eum'" style="cursor:pointer;">
-                  <td><input type="checkbox"></td>
-                  <td>${i}</td>
-                  <td>2025-11-11</td>
-                  <td>공지사항 테스트 ${i}</td>
-                  <td>관리자</td>
-                  <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                </tr>
-              </c:forEach>
-            </tbody>
-          </table>
-
-          <!-- 페이지네이션 -->
-          <nav aria-label="Table Paging" class="my-3">
-            <ul class="pagination justify-content-end mb-0">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
+          <!-- 이전글/다음글 -->
+          <div class="card shadow">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center" style="cursor:pointer;" onclick="location.href='../notice/detail.eum?id=2'">
+                  <div>
+                    <i class="fe fe-chevron-up fe-16 mr-2 text-muted"></i>
+                    <span class="text-muted">이전글</span>
+                    <span class="ml-3">이전 공지사항 제목</span>
+                  </div>
+                  <small class="text-muted">2025-11-10</small>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center" style="cursor:pointer;" onclick="location.href='../notice/detail.eum?id=4'">
+                  <div>
+                    <i class="fe fe-chevron-down fe-16 mr-2 text-muted"></i>
+                    <span class="text-muted">다음글</span>
+                    <span class="ml-3">다음 공지사항 제목</span>
+                  </div>
+                  <small class="text-muted">2025-11-12</small>
+                </li>
+              </ul>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -133,6 +142,5 @@
   <script src="../js/tinycolor-min.js"></script>
   <script src="../js/config.js"></script>
   <script src="../js/apps.js"></script>
-
 </body>
 </html>
