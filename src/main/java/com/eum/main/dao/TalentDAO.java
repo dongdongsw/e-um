@@ -8,8 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
-import com.eum.main.vo.BoardVO;
-import com.eum.main.vo.Board_OptionVO;
+import com.eum.main.vo.*;
 
 /*
  * <select id="lifeListData" resultMap="boardMap" parameterType="hashmap">

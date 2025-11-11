@@ -498,7 +498,7 @@ button.active2:hover {
                         	<li><a href="../users/join.eum" class="active">회원가입</a></li>
                         </c:if>
                         <c:if test="${sessionScope.id!=null}">
-                        	<li><a href="mypage.eum">${sessionScope.name} 님</a></li>
+                        	<li><a href="../users/info.eum">${sessionScope.name} 님</a></li>
                             <li>
                             	<form action="../users/logout.eum" method="post" style="margin: 0; padding: 0; display: inline;">
                                 	<button type="submit" class="active2">로그아웃</button>

@@ -7,8 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
-import com.eum.main.vo.BoardVO;
-import com.eum.main.vo.Users_SellerVO;
+import com.eum.main.vo.*;
 
 public class SellerDAO {
 

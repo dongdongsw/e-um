@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.eum.main.vo.BoardVO;
-import com.eum.main.vo.Board_OptionVO;
-import com.eum.main.vo.ReviewVO;
+import com.eum.main.vo.*;
 import com.eum.main.dao.TalentDAO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;

@@ -109,7 +109,8 @@ public class UsersModel {
 	// 로그인 폼
 	@RequestMapping("users/login.eum")
 	public String loginForm(HttpServletRequest request, HttpServletResponse response) {
-		return "../users/login.jsp";
+		request.setAttribute("main_jsp", "../users/login.jsp");
+		return "../main/main.jsp";
 	}
 	
 	// 로그인 처리
@@ -118,9 +119,6 @@ public class UsersModel {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		UsersVO vo = UsersDAO.usersLogin(id, pwd);
-		System.out.println(id+" "+pwd);
-		
-		
 		
 		if(vo.getMsg().equals("OK")) {
 			HttpSession session = request.getSession();
@@ -133,6 +131,8 @@ public class UsersModel {
 			session.setAttribute("email", vo.getU_email());
 			session.setAttribute("role", vo.getU_role());
 			session.setAttribute("phone", vo.getU_phone());
+			session.setAttribute("createat", vo.getCreateat());
+			session.setAttribute("profile", vo.getU_profileimg_url());
 			session.setAttribute("sid", vo.getSid());
 			
 		}
@@ -151,5 +151,12 @@ public class UsersModel {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		return "redirect:../main/main.eum";
+	}
+	
+	// 마이페이지
+	@RequestMapping("users/info.eum")
+	public String users_info(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("main_jsp", "../users/info.jsp");
+		return "../main/main.jsp";
 	}
 }

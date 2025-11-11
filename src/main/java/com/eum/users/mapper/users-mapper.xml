@@ -43,7 +43,8 @@
 	
 	<!-- 로그인 -->
 	<select id="usersInfoData" resultType="UsersVO" parameterType="string">
-      SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_role
+      SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_role,
+      			u_email, TO_CHAR(u_createat, 'YYYY-MM-DD') AS createat, u_profileimg_url
       FROM users
       WHERE u_loginid=#{u_loginid}
     </select>
