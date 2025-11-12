@@ -134,6 +134,7 @@ public class UsersModel {
 			session.setAttribute("role", vo.getU_role());
 			session.setAttribute("phone", vo.getU_phone());
 			session.setAttribute("sid", vo.getSid());
+			session.setAttribute("profile", vo.getU_profileimg_url());
 			
 		}
 		try {

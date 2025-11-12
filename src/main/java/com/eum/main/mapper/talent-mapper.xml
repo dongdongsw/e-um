@@ -16,6 +16,7 @@
 	<result property="usvo.u_s_carrer" column="u_s_carrer"/>
 	<result property="usvo.u_s_zone" column="u_s_zone"/>
 	<result property="uvo.u_nickname" column="u_nickname"/>
+	<result property="uvo.u_id" column="u_id"/>
 	<result property="uvo.u_profileimg_url" column="u_profileImg_url"/>
   </resultMap>
   <select id="talentListData" resultMap="boardMap" parameterType="hashmap">
@@ -65,6 +66,7 @@
 	b_op_price,
 	b_type,
 	b_view_count,
+	board.u_s_id AS u_s_id,
 	u_s_com,
 	u_s_profileimg_url,
 	u_s_carrer,
@@ -79,6 +81,8 @@
   <!-- review -->
   <select id="talentDetailreview" resultMap="boardMap" parameterType="string">
     SELECT 
+    users.u_id,
+    review.b_review_id,
 	board.b_id AS b_id,
 	review.u_s_id AS u_s_id,
 	review.b_review_id AS b_review_id,
