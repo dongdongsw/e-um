@@ -98,6 +98,9 @@ public class UsersDAO {
 					vo.setU_phone(dbVO.getU_phone());
 					vo.setCreateat(dbVO.getCreateat());
 					vo.setU_profileimg_url(dbVO.getU_profileimg_url());
+					vo.setU_push_noti(dbVO.getU_push_noti());
+					vo.setU_email_noti(dbVO.getU_email_noti());
+					vo.setU_sms_noti(dbVO.getU_sms_noti());
 				} else {
 					vo.setMsg("NOPWD");
 				}
@@ -106,6 +109,30 @@ public class UsersDAO {
 			ex.printStackTrace();
 		}
 		return vo;
+	}
+	
+	// 정보 수정 데이터
+	public static UsersVO usersInfoUpdateData(String u_loginid) {
+	    UsersVO vo = null;
+	    try {
+	        SqlSession session = ssf.openSession();
+	        vo = session.selectOne("usersInfoData", u_loginid); 
+	        session.close();
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
+	    return vo;
+	}
+	
+	// 정보수정
+	public static void usersInfoUpdate(UsersVO vo) {
+		try {
+			SqlSession session = ssf.openSession(true);
+			session.update("usersInfoUpdate_ok", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 }

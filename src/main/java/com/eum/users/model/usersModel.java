@@ -6,6 +6,7 @@ import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.eum.users.dao.*;
 import com.eum.main.vo.*;
+import com.eum.seller.dao.SellerDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -133,6 +134,9 @@ public class usersModel {
 			session.setAttribute("phone", vo.getU_phone());
 			session.setAttribute("createat", vo.getCreateat());
 			session.setAttribute("profile", vo.getU_profileimg_url());
+			session.setAttribute("push_noti", vo.getU_push_noti());
+			session.setAttribute("email_noti", vo.getU_email_noti());
+			session.setAttribute("sms_noti", vo.getU_sms_noti());
 		}
 		try {
 			response.setContentType("text/plain;charset=UTF-8");
@@ -157,4 +161,61 @@ public class usersModel {
 		request.setAttribute("main_jsp", "../users/info.jsp");
 		return "../main/main.jsp";
 	}
+	
+	// 정보수정 폼
+	@RequestMapping("users/info_update.eum")
+	public String users_info_updateForm(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("main_jsp", "../users/info_update.jsp");
+		return "../main/main.jsp";
+	}
+	
+	// 정보수정 처리
+	@RequestMapping("users/update_ok.eum")
+	public String users_info_update(HttpServletRequest request, HttpServletResponse response) {
+		String pwd=request.getParameter("pwd");
+		String nickname=request.getParameter("nickname");
+		String phone=request.getParameter("phone");
+		String loc=request.getParameter("loc");
+		String push_noti=request.getParameter("push_noti");
+		String email_noti=request.getParameter("email_noti");
+		String sms_noti=request.getParameter("sms_noti");
+		
+		HttpSession session = request.getSession();
+		String loginid = (String)session.getAttribute("u_loginid");
+		
+		UsersVO uvo = UsersDAO.usersInfoUpdateData(loginid);
+		String cPhone = uvo.getU_phone();
+		String cPwd = uvo.getU_pwd();
+		
+		// 전화번호 중복 체크: 본인 번호와 다를 때만 체크
+		if (!phone.equals(cPhone) && UsersDAO.usersPhoneCheck(phone.trim())==1) {
+	        request.setAttribute("msg", "이미 가입된 전화번호입니다.");
+			return "redirect:../users/info_update.eum";
+		}
+		
+		UsersVO uvo2=new UsersVO();
+		uvo2.setU_loginid(loginid);
+		
+		if (pwd != null && !pwd.trim().isEmpty()) {
+			uvo2.setU_pwd(pwd); 
+	    } else {
+	    	uvo2.setU_pwd(cPwd); 
+	    }
+		
+		uvo2.setU_nickname(nickname);
+		uvo2.setU_phone(phone);
+		uvo2.setU_loc(loc);
+	    
+		uvo2.setU_push_noti(push_noti==null ? "N" : "Y");
+		uvo2.setU_email_noti(email_noti==null ? "N" : "Y");
+		uvo2.setU_sms_noti(sms_noti==null ? "N" : "Y");
+	    
+		UsersDAO.usersInfoUpdate(uvo2);
+		
+		session.setAttribute("nickname", nickname);
+	    session.setAttribute("phone", phone);
+	    session.setAttribute("loc", loc);
+	    
+		return "redirect:../users/info.eum";
+    }
 }
