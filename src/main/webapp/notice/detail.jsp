@@ -68,8 +68,8 @@
       점검 내용: 서버 업그레이드 및 보안 패치
     </div>
    <div class="btn-move">
-	<a href="update.jsp" class="btn-update">수정</a>
-	<span id="delSpan" class="btn-delete">삭제</span>
+	<!-- <a href="update.jsp" class="btn-update">수정</a>
+	<span id="delSpan" class="btn-delete">삭제</span> -->
     <a href="javascript:history.back()" class="btn-back">목록</a>
     </div>
   </div>

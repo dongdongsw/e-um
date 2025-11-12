@@ -129,7 +129,7 @@ public class Admin_Notice_Model {
 	}
 	
 	// 삭제
-	@RequestMapping("admin/admin_notice_delete.eum")
+	/*@RequestMapping("admin/admin_notice_delete.eum")
 	public String notice_delete(HttpServletRequest request,HttpServletResponse response)
 	{
 		String n_id=request.getParameter("n_id");
@@ -138,13 +138,21 @@ public class Admin_Notice_Model {
 		request.setAttribute("vo", vo);
 		request.setAttribute("main_jsp", "admin_notice_delete.jsp");
 		return "../admin/common/admin_notice_list.eum";
-	}
+	}*/
 	
 	// 삭제 완료
 	@RequestMapping("admin/admin_notice_delete_ok.eum")
-	public void notice_delete_ok(HttpServletRequest request,HttpServletResponse response)
+	public String notice_delete_ok(HttpServletRequest request,HttpServletResponse response)
 	{
+		try
+		{
 		String n_id=request.getParameter("n_id");
 		NoticeDAO.noticeDelete(n_id);
+		return "redirect:admin_notice_list.eum";
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return "../admin/admin_notice_list.eum?error=delete";
+		}
 	}
 }

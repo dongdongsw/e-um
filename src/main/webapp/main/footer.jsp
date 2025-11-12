@@ -48,6 +48,7 @@ body {
   font-weight: 400;
   text-transform: lowercase;
   font-size: 1.5rem;
+  color: gray;
 }
 
 .footer__addr h2 {

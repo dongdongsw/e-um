@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>공지사항</title>
 
-  <!-- 💡 Tiny Dashboard CSS 연결 -->
   <link rel="stylesheet" href="../css/simplebar.css">
   <link rel="stylesheet" href="../css/feather.css">
   <link rel="stylesheet" href="../css/daterangepicker.css">
@@ -21,9 +22,43 @@
     }
     .notice-content {
       min-height: 400px;
-      padding: 20px;
+      padding: 30px;
       background-color: #f8f9fa;
       border-radius: 8px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #333;
+    }
+    .notice-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+      padding-right: 10px;
+      letter-spacing: -0.5px;
+    }
+    .notice-header {
+      padding: 2rem 1.5rem;
+      background: #ffffff;
+      border-bottom: 3px solid #4e73df;
+    }
+    .title-label {
+      display: inline-block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #4e73df;
+      background: #e8eeff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+    .date-info {
+      text-align: right;
+      padding: 1rem 0;
+      color: #6c757d;
+      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -38,26 +73,20 @@
 
           <!-- 상세 정보 카드 -->
           <div class="card shadow mb-4">
-            <div class="card-header">
-              <div class="d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">${vo.n_title }</h4>
-                <span class="badge badge-success">공개</span>
+            <div class="card-header notice-header">
+              <div class="d-flex justify-content-between align-items-start">
+                <h4 class="notice-title">${vo.n_title }</h4>
               </div>
             </div>
             <div class="card-body">
-              <!-- 작성자 정보 -->
-              <div class="row mb-3 pb-3 border-bottom">
-                <div class="col-md-6">
-                  <small class="text-muted">작성자</small>
-                  <p class="mb-0"><strong>관리자</strong></p>
-                </div>
-                <div class="col-md-6 text-md-right">
-                  <small class="text-muted">${vo.n_createdAt }</small>
-                </div>
-              </div>
-
               <!-- 공지사항 내용 -->
               <div class="notice-content">${vo.n_content }</div>
+
+              <!-- 작성 날짜 -->
+              <div class="date-info">
+				<i class="fe fe-calendar fe-14 mr-1"></i>
+				 <fmt:formatDate value="${vo.n_createdAt}" pattern="yyyy-MM-dd" />
+			  </div>
 
               <!-- 첨부파일 (선택사항) -->
               <div class="mt-4 pt-3 border-top">
@@ -76,6 +105,8 @@
                 </ul>
               </div>
             </div>
+
+            <!-- 하단 버튼 -->
             <div class="card-footer">
               <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary" onclick="location.href='admin_notice_list.eum'">
@@ -85,7 +116,7 @@
                   <button type="button" class="btn btn-outline-primary mr-2" onclick="location.href='admin_notice_update.eum?n_id=${vo.n_id}'">
                     <i class="fe fe-edit fe-16 mr-2"></i>수정
                   </button>
-                  <button type="button" class="btn btn-outline-danger">
+                  <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
                     <i class="fe fe-trash-2 fe-16 mr-2"></i>삭제
                   </button>
                 </div>
@@ -122,6 +153,27 @@
     </div>
   </main>
 
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">공지사항 삭제</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="닫기">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          정말로 이 공지사항을 삭제하시겠습니까?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-danger" id="confirmDelete">삭제</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ JS -->
   <script src="../js/jquery.min.js"></script>
   <script src="../js/popper.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
@@ -132,5 +184,14 @@
   <script src="../js/tinycolor-min.js"></script>
   <script src="../js/config.js"></script>
   <script src="../js/apps.js"></script>
+
+  <script>
+  $(function() {
+    $('#confirmDelete').on('click', function() {
+      location.href = 'admin_notice_delete_ok.eum?n_id=${vo.n_id}';
+    });
+  });
+  </script>
+
 </body>
 </html>

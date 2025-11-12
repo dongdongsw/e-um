@@ -52,9 +52,6 @@
 
           <!-- 공지사항 작성 -->
           <div class="card shadow mb-4">
-            <div class="card-header">
-              <h4 class="mb-0">새 공지사항 작성</h4>
-            </div>
 
             <div class="card-body">
               <form method="post" action="admin_notice_insert_ok.eum">
