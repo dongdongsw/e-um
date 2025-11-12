@@ -1,6 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<style>
+.avatar-md {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.avatar-md .avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      
+  border-radius: 50%;   
+  display: block;
+}
+
+</style>
 	 <main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
@@ -8,7 +26,7 @@
               <div class="row">
                 <!-- Small table -->
                 <div class="col-md-12 my-4">
-                  <h2 class="h4 mb-1">Customize table rendering</h2>
+                  <h2 class="h4 mb-1">컨텐츠 리스트</h2>
                   <p class="mb-3">Additional table rendering with vertical border, rich content formatting for cell</p>
                   <div class="card shadow">
                     <div class="card-body">
@@ -55,17 +73,19 @@
                                 <label class="custom-control-label" for="all2"></label>
                               </div>
                             </td>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th class="w-25">Bio</th>
-                            <th>Date</th>
-                            <th>Action</th>
+                            <th></th>
+                            <th>셀러 KEY</th>
+                            <th>카테고리</th>
+                            <th>셀러 이름</th>
+                            <th class="w-25">title</th>
+                            <th>가입일</th>
+                            <th>셀러 상태</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
-                          <c:forEach begin="1" end="8">
+                          <!-- 가데이터 -->
+                          <c:forEach var="contents_list" items="${contents_list }">
                           <tr>
                             <td>
                               <div class="custom-control custom-checkbox">
@@ -73,82 +93,72 @@
                                 <label class="custom-control-label" for="2474"></label>
                               </div>
                             </td>
+                            
                             <td>
                               <div class="avatar avatar-md">
-                                <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
+                                <c:choose>
+						        <c:when test="${not empty contents_list.b_thumbnail}">
+						          <img src="${contents_list.b_thumbnail}"  alt="프로필 이미지" class="avatar-img rounded-circle">
+						        </c:when>
+						        <c:otherwise>
+									<img src="/e-umProject/admin/img/defaut_profile.jpg" alt="준비중" class="avatar-img rounded-circle">
+						        </c:otherwise>
+						      </c:choose>
                               </div>
+                              
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><strong>Brown, Asher D.</strong></p>
-                              <small class="mb-0 text-muted">2474</small>
+                              <p class="mb-0 text-muted"><strong>${contents_list.b_id }</strong></p>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted">Accumsan Consulting</p>
-                              <small class="mb-0 text-muted">Ap #331-7123 Lobortis Avenue</small>
+                              <p class="mb-0 text-muted">${contents_list.b_type}</p>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><a href="#" class="text-muted">(958) 421-0798</a></p>
-                              <small class="mb-0 text-muted">Nigeria</small>
+                              <p class="mb-0 text-muted"><a href="#" class="text-muted">${contents_list.usvo.u_s_com }</a></p>
                             </td>
-                            <td class="w-25"><small class="text-muted"> Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus.</small></td>
-                            <td class="text-muted">13/09/2020</td>
+                            <td class="w-25"><small class="text-muted">${contents_list.b_title }</small></td>
+                            <td class="text-muted">
+							  <fmt:formatDate value="${contents_list.b_createdat}" pattern="yyyy-MM-dd" />
+							</td>
+                            <td>
+							  <div class="form-group mb-3">
+							    <select class="form-control" id="example-select">
+							      <option value="active" ${contents_list.b_status eq 'active' ? 'selected' : ''}>활성화</option>
+							      <option value="inactive" ${contents_list.b_status eq 'inactive' ? 'selected' : ''}>비활성화</option>
+							    </select>
+							  </div>
+							</td>
+
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                                <a class="dropdown-item" href="#">Assign</a>
+                                <a class="dropdown-item" href="#">상세보기</a>
+                                <a class="dropdown-item" href="#">삭제</a>
                               </div>
                             </td>
                           </tr>
                           </c:forEach>
-                          <!-- <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2786">
-                                <label class="custom-control-label" for="2786"></label>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="avatar avatar-md">
-                                <img src="./assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
-                              </div>
-                            </td>
-                            <td>
-                              <p class="mb-0 text-muted"><strong>Leblanc, Yoshio V.</strong></p>
-                              <small class="mb-0 text-muted">2786</small>
-                            </td>
-                            <td>
-                              <p class="mb-0 text-muted">Fringilla Ornare Placerat Consulting</p>
-                              <small class="mb-0 text-muted">287-8300 Nisl. St</small>
-                            </td>
-                            <td>
-                              <p class="mb-0 text-muted"><a href="#" class="text-muted">(899) 881-3833</a></p>
-                              <small class="mb-0 text-muted">Papua New Guinea</small>
-                            </td>
-                            <td class="w-25"><small class="text-muted"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
-                            <td class="text-muted">04/05/2019</td>
-                            <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="text-muted sr-only">Action</span>
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                                <a class="dropdown-item" href="#">Assign</a>
-                              </div>
-                            </td>
-                          </tr> -->
                           
                         </tbody>
                       </table>
                       <nav aria-label="Table Paging" class="mb-0 text-muted">
                         <ul class="pagination justify-content-end mb-0">
-                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        <c:if test="${startPage > 1 }">
+                          <li class="page-item">
+                          	<a class="page-link" href="../admin/admin_contents_list.eum?page=${startPage-1 }">&lt;</a>
+                          </li>
+                        </c:if>
+                        <c:forEach var="i" begin="${startPage }" end="${endPage }">
+                          <li class="page-item ${i==curpage?'active':'' }" >
+                          	<a class="page-link" href="../admin/admin_contents_list.eum?page=${i }">${i }</a>
+                          </li>
+                        </c:forEach>  
+                        <c:if test="${endPage < totalpage }">
+                          <li class="page-item">
+                          <a class="page-link" href="../admin/admin_contents_list.eum?page=${endPage+1 }">&gt;</a>
+                          </li>
+                        </c:if>
                         </ul>
                       </nav>
                     </div>

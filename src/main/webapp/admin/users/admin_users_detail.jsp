@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <style>
 
  /* 리뷰 탭 내용 높이 고정 + 내부 스크롤 */
@@ -19,71 +21,127 @@
   #home .card-body {
     overflow: hidden;
   }
-  
-  /* 리뷰 내용 기본 스타일 (3줄 제한) */
-  .review-content {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;       /* 표시할 최대 줄 수 */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
+ /* 리뷰 내용 영역 (기본: 3줄만 보이기) */
+.review-content-wrapper {
+  max-height: 120px;                /* 기본 표시 높이 */
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.4s ease;
+}
 
-  /* 펼쳐진 상태 */
-  .review-content.expanded {
-    -webkit-line-clamp: unset;
-    overflow: visible;
-  }
+/* 펼쳐진 상태 */
+.review-content-wrapper.expanded {
+  max-height: 1000px;               /* 충분히 큰 높이 */
+  overflow: visible;
+}
 
-  /* “더보기” 텍스트 버튼 */
-  .more-toggle {
-    color: #007bff;
-    font-size: 13px;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 5px;
-  }
-  .more-toggle:hover {
-    text-decoration: underline;
-  }
+/* 본문 텍스트 */
+.review-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;            /* 기본 표시 줄 수 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* 펼쳐진 상태에서는 줄 제한 해제 */
+.review-content.expanded {
+  -webkit-line-clamp: unset;
+}
+
+/* 이미지 영역 */
+.review-images {
+  display: none;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.review-images img {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+
+/* 펼쳐진 상태일 때만 표시 */
+.review-content-wrapper.expanded .review-images {
+  display: flex;
+}
+
+/* 더보기 버튼 */
+.more-toggle {
+  color: #007bff;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 5px;
+}
+.more-toggle:hover {
+  text-decoration: underline;
+}
+
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // 모든 리뷰 본문을 순회
-  document.querySelectorAll(".review-content").forEach(content => {
-    const toggle = content.nextElementSibling; // 더보기 버튼(span)
+  document.querySelectorAll(".review-content-wrapper").forEach(wrapper => {
+    const text = wrapper.querySelector(".review-content");
+    const toggle = wrapper.querySelector(".more-toggle");
+    const imageContainer = wrapper.querySelector(".review-images");
 
-    // 실제 텍스트 길이 판단 (100자 이상이면 버튼 표시)
-    if (content.textContent.trim().length > 100) {
+    if (!text || !toggle) return;
+
+    const hasImages = imageContainer?.dataset.hasImg === "true";
+
+    // ✅ 실제로 텍스트가 잘렸는지 체크
+    const isOverflowing = text.scrollHeight > text.clientHeight;
+
+    // ✅ 조건 정리
+    // - 글이 실제로 잘렸거나
+    // - 이미지가 존재하면 → 더보기 표시
+    if (isOverflowing || hasImages) {
       toggle.style.display = "inline-block";
     } else {
-      toggle.style.display = "none"; // 짧으면 숨김
+      toggle.style.display = "none";
+    }
+
+    // ✅ 초기 상태에서 이미지 숨기기
+    if (!wrapper.classList.contains("expanded") && imageContainer) {
+      imageContainer.style.display = "none";
     }
   });
 });
 
 function toggleContent(el) {
-  // 클릭된 요소가 span이면 바로 위의 p 선택
-  const content = el.previousElementSibling?.classList.contains('review-content')
-    ? el.previousElementSibling
-    : el.classList.contains('review-content')
-    ? el
-    : null;
+  const wrapper = el.closest(".review-content-wrapper");
+  const imageContainer = wrapper.querySelector(".review-images");
+  const text = wrapper.querySelector(".review-content");
 
-  if (!content) return;
+  wrapper.classList.toggle("expanded");
+  const expanded = wrapper.classList.contains("expanded");
 
-  content.classList.toggle('expanded');
-
-  // "더보기" ↔ "접기" 전환
-  if (content.classList.contains('expanded')) {
-    el.textContent = "접기";
-  } else {
-    el.textContent = "더보기";
+  // 이미지 토글
+  if (imageContainer && imageContainer.dataset.hasImg === "true") {
+    imageContainer.style.display = expanded ? "flex" : "none";
   }
+
+  // 텍스트 줄 수 토글
+  if (expanded) {
+    text.style.webkitLineClamp = "unset";
+  } else {
+    text.style.webkitLineClamp = "3";
+  }
+
+  // 버튼 텍스트 전환
+  el.textContent = expanded ? "접기" : "더보기";
 }
 </script>
+
+
+
+
 
 
 <main role="main" class="main-content">
@@ -283,52 +341,45 @@ function toggleContent(el) {
 						              </div>
 						              <div class="row">
 						              <!-- 리뷰 가데이터 -->
-						              <c:forEach var="r_list" items="${review_list }">
-						                <div class="col-md-3">
-						                  <div class="card shadow mb-4">
-						                    <div class="card-body text-center">
-						                      
-						                      <div class="card-text my-2 text-left">
-						                      
-						                        <strong class="card-title my-0">리뷰 점수 ${r_list.b_review_score } </strong>
-						                        <p class="small text-muted mb-0 review-content" onclick="toggleContent(this)">
-												  ${r_list.b_review_content}
-												</p>
-												<c:forEach var="img" items="${r_list.imageList}">
-										        <img src="${img.r_image_url}" alt="리뷰 이미지" style="width:100px; height:100px;">
-										      </c:forEach>
-												<span class="more-toggle" onclick="toggleContent(this)">더보기</span>
+						              <c:forEach var="r_list" items="${review_list}">
+										  <div class="col-md-3">
+										    <div class="card shadow mb-4">
+										      <div class="card-body text-left">
+										        <strong class="card-title d-block mb-2">⭐ 리뷰 점수 ${r_list.b_review_score}</strong>
+										        <div class="review-content-wrapper">
+										          <p class="review-content">${r_list.b_review_content}</p>
+										           <c:if test="${r_list.imageList ne null 
+													             and fn:length(r_list.imageList) gt 0 
+													             and r_list.imageList[0].r_image_url ne null}">
+													  <div class="review-images" data-has-img="true" style="display:none;">
+													    <c:forEach var="img" items="${r_list.imageList}">
+													      <c:if test="${img.r_image_url ne null and img.r_image_url ne ''}">
+													        <img src="${img.r_image_url}" alt="리뷰 이미지">
+													      </c:if>
+													    </c:forEach>
+													  </div>
+													</c:if>
 
-						                      </div>
-						                    </div> <!-- ./card-text -->
-						                    <div class="card-footer">
-						                      <div class="row align-items-center justify-content-between">
-						                        <div class="col-auto">
-						                          <small>
-						                            <span class="dot dot-lg bg-success mr-3"></span> 작성일 ${ r_list.b_review_createdat} </small>
-						                        </div>
-						                        <div class="col-auto">
-						                          
-						                          <div class="file-action">
-						                            <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						                              <span class="text-muted sr-only">Action</span>
-						                            </button>
-						                            <div class="dropdown-menu m-2">
-						                              <a class="dropdown-item" href="#"><i class="fe fe-delete fe-12 mr-4"></i>Delete</a>
-						                            </div>
-						                          </div>
-						                        </div>
-						                      </div>
-						                    </div> <!-- /.card-footer -->
-						                  </div>
-						                  
-						                </div> <!-- .col -->
-						                </c:forEach>
-						                
-						               
+										          <span class="more-toggle" onclick="toggleContent(this)">더보기</span>
+										        </div>
+										      </div>
+										      <div class="card-footer d-flex justify-content-between align-items-center">
+												  <small class="text-muted">작성일 ${r_list.b_review_createdat}</small>
+												  <div class="file-action dropdown">
+												    <button type="button" class="btn btn-link p-0 text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												      <i class="fe fe-more-vertical"></i>
+												    </button>
+												    <div class="dropdown-menu dropdown-menu-right m-2">
+												      <a class="dropdown-item" href="#"><i class="fe fe-edit fe-12 mr-2"></i>Edit</a>
+												      <a class="dropdown-item" href="#"><i class="fe fe-delete fe-12 mr-2"></i>Delete</a>
+												    </div>
+												  </div>
+												</div>
+										    </div>
+										  </div>
+										</c:forEach>
+										
 						              </div> <!-- .row -->
-						            
-						              
 						              <nav aria-label="Table Paging" class="my-3">
 					                     <ul class="pagination justify-content-end mb-0">
 					                        <c:if test="${startPage > 1 }">

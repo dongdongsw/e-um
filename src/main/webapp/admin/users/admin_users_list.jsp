@@ -1,7 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<style>
+.avatar-md {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+}
 
+.avatar-md .avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      
+  border-radius: 50%;   
+  display: block;
+}
+
+</style>
 	 <main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
@@ -69,8 +85,8 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <!-- 가데이터 -->
-                          <%-- <c:forEach begin="1" end="8"> --%>
+                        
+                        
                           <c:forEach var="users" items="${ users_list}">
                           <tr>
                             <td>
@@ -122,45 +138,7 @@
                               </div>
                             </td>
                           </tr>
-                          </c:forEach>
-                          
-                         <!--  <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2786">
-                                <label class="custom-control-label" for="2786"></label>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="avatar avatar-md">
-                                <img src="./assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
-                              </div>
-                            </td>
-                            <td>
-                              <p class="mb-0 text-muted"><strong>Leblanc, Yoshio V.</strong></p>
-                              <small class="mb-0 text-muted">2786</small>
-                            </td>
-                            <td>
-                              <p class="mb-0 text-muted">Fringilla Ornare Placerat Consulting</p>
-                              <small class="mb-0 text-muted">287-8300 Nisl. St</small>
-                            </td>
-                            <td>
-                              <p class="mb-0 text-muted"><a href="#" class="text-muted">(899) 881-3833</a></p>
-                              <small class="mb-0 text-muted">Papua New Guinea</small>
-                            </td>
-                            <td class="w-25"><small class="text-muted"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
-                            <td class="text-muted">04/05/2019</td>
-                            <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="text-muted sr-only">Action</span>
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                                <a class="dropdown-item" href="#">Assign</a>
-                              </div>
-                            </td>
-                          </tr> -->
-                          
+                          </c:forEach>     
                         </tbody>
                       </table>
                       <nav aria-label="Table Paging" class="mb-0 text-muted">
