@@ -130,6 +130,8 @@ h2 {margin-bottom:100px}
       <a href="../seller/info.eum" class="active">셀러 정보</a>
       <a href="#" class="">컨텐츠 작성</a>
       <a href="../seller/my_contents.eum">내 컨텐츠</a>
+      <a href="../seller/review.eum">구매자 리뷰</a>
+      <a href="../seller/chat.eum">채팅 문의</a>
       <a href="#">판매 내역</a>
       <a href="../seller/info_update.eum">정보 수정</a>
     </nav>

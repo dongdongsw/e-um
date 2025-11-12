@@ -85,8 +85,203 @@
     	    scrollTop: $("#tabs").offset().top - 100 // 살짝 위로 위치 조정
     	  }, 400);
     });
+    $('.re-reply').hide()
+    let u=0
+    $('.ansBtn').click(function(){
+		let data=$(this).attr("data-nick")
+		if(u==0) {
+			$('#re'+data).show()
+			$(this).text("취소")
+			u=1
+		} else {
+			$('#re'+data).hide()
+			$(this).text("답변")
+			u=0
+		}
+    })
   });
+  
+  
 </script>
+<style type="text/css">
+  .profile {
+     width: 100%; 
+     height: 100%; 
+     border-radius: 50%;
+  }
+  
+  /* 리뷰 작성 폼 */
+.form-box{border:none; background:#f9f9f9; border-radius:12px; padding:16px;}
+.review-write{margin:10px 0 18px 0;}
+
+.rw-row{display:flex; gap:12px; margin-top:10px;}
+.rw-row:first-of-type{margin-top:0;}
+.rw-label{width:72px; font-weight:700; font-size:13px; color:var(--text); line-height:36px;}
+.rw-field{flex:1; min-width:0;}
+.rw-head{ border-bottom:1px solid var(--line); padding-bottom:8px;
+display: flex;
+  align-items: center;
+  gap: 10px;}
+.rw-helper{font-size:12px; color:var(--muted);}
+
+.rw-rate{display:flex; gap:6px; align-items:center;}
+.rw-star{font-size:22px; cursor:pointer; user-select:none; color:#d1d5db; line-height:1;}
+.rw-star.on{color:var(--accent);}
+
+/* textarea */
+#rw-content{width:100%; min-height:120px; padding:10px; border:1px solid var(--line); border-radius:10px; font-size:14px; resize:vertical;}
+
+/* 썸네일 프리뷰 */
+.rw-thumbs{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.rw-thumb{width:76px; height:76px; border:1px dashed var(--line); border-radius:10px; background:#f3f4f6; overflow:hidden; display:flex; align-items:center; justify-content:center;}
+.rw-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+
+/* 하단 액션 (컨텐츠 페이지 버튼 톤과 맞춤) */
+.rw-actions{display:flex; justify-content:flex-end; gap:8px; margin-top:12px;}
+.btn-ghost{border:1px solid var(--line); background:var(--card); padding:10px 14px; border-radius:10px; font-weight:700;}
+.btn-pri{background:#7453fc; color:#fff; padding:10px 14px; border-radius:10px; font-weight:900; border:1px solid #00000020; width: 30px;}
+.btn-pri:hover{background:#7453fcde;}
+ .rw-actions{
+  display:flex;
+  justify-content:flex-end;  /* 오른쪽 붙이기 */
+  gap:8px;
+  margin-top:12px;
+}
+
+/* 기본 프라이머리 버튼 (이미 있으면 유지) */
+.reBtn{
+  background:#7453fc;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  border:1px solid #00000020;
+  height: 40px;
+}
+.reBtn:hover{ background:#7453fcde; }
+
+/* 더 작은 사이즈 변형 */
+.btn-pri--sm{
+  padding:8px 12px;         /* 작게 */
+  font-size:13px;           /* 글자도 살짝 작게 */
+  border-radius:8px;        /* 카드 톤에 맞춰 둥글기 축소 */
+}
+.re-reply {
+  margin: 10px 0 0 10px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 15px;
+}
+
+.re-reply-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom:8px;
+}
+
+.re-reply .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background:#e5e7eb;
+  overflow: hidden;
+}
+
+.re-reply .seller-name {
+  font-weight: 800;
+}
+
+.re-reply .reply-date {
+  margin-left: auto;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.re-reply-body {
+  margin-top: 10px;
+}
+
+/* 내용 입력영역: 디자인만 (원하면 textarea로 교체 가능) */
+.re-reply-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #111;
+  line-height: 1.5;
+  outline: none;
+}
+
+.re-reply-input::placeholder {
+  color: #9ca3af;
+}
+
+/* 하단 액션: 오른쪽 작은 버튼 */
+.re-reply-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+/* 답변 카드 하단 우측 액션 */
+.re-review { position: relative; }  /* 필요 시 하단 고정용 */
+.re-review-footer{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:5px;
+  margin-top:5px;                /* 본문과 살짝 간격 */
+}
+
+.re-review-btn{
+  font-size:9px;
+  color:#6b7280;                 /* 날짜와 비슷한 색 */
+  background:transparent;
+  border:0;
+  padding:2px 4px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.re-review-btn:hover{
+  background:#eeeeee;            /* 살짝만 강조 */
+  color:#111;
+}
+.re-review-dot{ color:#d1d5db; } /* 가운데 점 구분자 */
+/* 리뷰 카드 하단 우측 액션 */
+.review-footer{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:5px;
+  margin-top:8px;          /* 본문과 살짝 띄움 */
+  padding-right:6px;        /* 오른쪽 여백 약간 */
+}
+
+.review-btn{
+  font-size:11px;
+  color:#6b7280;            /* 날짜와 동일 톤 */
+  background:transparent;
+  border:0;
+  padding:2px 4px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.review-btn:hover{
+  background:#f3f4f6;       /* 부드럽게 하이라이트 */
+  color:#111;
+}
+.review-dot{ color:#d1d5db; } /* 중간 구분 점 */
+
+#file-upload-button {
+  background: black;
+  color: white;
+  border-radius: 15px;
+}
+</style>
 </head>
 <body>
   <div class="header-text" style="height: 200px;"></div>
@@ -199,8 +394,64 @@
 		<!-- 리뷰 -->
         <div id="tabs-3">
           <aside class="side-sticky">
+          
+           <!-- =========================리뷰 작성 폼 start ========================== -->
+			<div class="review-write form-box">
+			  <form action="../review/write_ok.eum" method="post" enctype="multipart/form-data">
+			    <input type="hidden" name="b_id" value="${vo.b_id}">
+			    <input type="hidden" name="score" id="rw-score" value="5">
+			    <!-- 헤더 -->
+			    <div class="rw-row rw-head">
+				    <div class="avatar"></div>
+				    <div class="seller-name">작성자명</div>
+				</div>
+			    <!-- 별점 -->
+			    <div class="rw-row">
+			      <label class="rw-label">별점</label>
+			      <div class="rw-rate" id="rw-rate">
+			        <span class="rw-star on" data-score="1">★</span>
+			        <span class="rw-star on" data-score="2">★</span>
+			        <span class="rw-star on" data-score="3">★</span>
+			        <span class="rw-star on" data-score="4">★</span>
+			        <span class="rw-star on" data-score="5">★</span>
+			      </div>
+			    </div>
+			    <!-- 내용 -->
+			    <div class="rw-row">
+			      <label class="rw-label">내용</label>
+			      <div class="rw-field">
+			        <textarea name="content" id="rw-content" maxlength="1000"></textarea>
+			
+			      </div>
+			    </div>
+			    <!-- 이미지 -->
+			    <div class="rw-row">
+			      <label class="rw-label">이미지</label>
+			      <div class="rw-field">
+			        <input type="file" id="rw-images" name="images" accept="image/*" multiple>
+			        <div class="rw-thumbs" id="rw-thumbs">
+			          <!-- 미리보기 썸네일이 여기에 렌더링됨 -->
+			        </div>
+			        <div class="rw-sub"><span class="rw-helper">최대 5장 (JPG/PNG 권장)</span></div>
+			      </div>
+			    </div>
+			
+			    <!-- 제출 -->
+			    <div class="rw-actions">
+				  <button type="submit" class=reBtn>등록</button>
+				</div>
+			  </form>
+			</div>
+			<hr>
+			
+			<!-- =========================리뷰 작성 폼 end========================== -->
+			
+            <div style="height: 50px;"></div>
+            
+            <!-- =========================리뷰 목록 start========================== -->
+            
             <c:forEach var="rvo" items="${review_vo}">
-              <div class="re-card" id="reviews">
+              <div class="re-card">
                 <div class="review">
                   <div style="display: flex;">
                     <div class="avatar" style="margin-right: 10px;"><img src="${rvo.uvo.u_profileimg_url }"></div> <!-- 리뷰 프로필 -->
@@ -225,23 +476,61 @@
 						<img src="${rvo.rivo.r_image_url}">
 					</div>
 				</c:if>
+				<div style="height: 15px;"></div>
 				<!-- 리뷰 내용 -->
-                <p style="margin-top: 10px; margin-bottom: 0; color:var(--muted)">${rvo.rvo.b_review_content}</p>
-                
-                <div class="re-review">
+                <p style="margin:0; color:var(--muted)">${rvo.rvo.b_review_content}</p>
+                <div class="review-footer">
+						  <button type="button" class="review-btn">수정</button>
+						  <button type="button" class="review-btn">삭제</button>
+						  <button type="button" class="review-btn ansBtn" data-nick="${rvo.uvo.u_nickname }">답변</button>
+				</div>
+				
+				<!-- =========================리뷰 목록 end ========================== -->
+				
+				<!-- ========================= 답글 start ========================== -->
+                 <div class="re-review">
                  <div class="review">
                   <div style="display: flex;">
-                    <div class="avatar" style="margin-right: 10px;"><img src="${board_vo.usvo.u_s_profileimg_url}"></div> <!-- 셀러 프로필 -->
-                      <div class="seller-name">${board_vo.usvo.u_s_com}</div> <!--  -->
-                      <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 답글 날짜 -->
+                    <div class="avatar" style="margin-right: 10px;"></div> 
+                      <div class="seller-name">김민식</div> 
+                      <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> 
                         25.11.03 16:18
                       </div>
                     </div>
                   </div> 	
-					<!-- 대댓글 내용 -->
+					
                 	<p style="margin:0; color:var(--muted)">좋은 리뷰 감사합니다~!!!</p>
-                </div>
+
+					<div class="re-review-footer">
+					  <button type="button" class="re-review-btn">수정</button>
+					  <button type="button" class="re-review-btn">삭제</button>
+					</div>
+                </div> 
+                <!-- ========================= 답글 end ========================== -->
+                <!-- ========================= 답글 작성 start ========================== -->
+                <div style="height: 15px;"></div>
+                <div class="re-reply"  id="re${rvo.uvo.u_nickname }">
+				  <div class="re-reply-head">
+				    <div class="avatar"></div>
+				    <div class="seller-name">셀러명</div>
+				  </div>
+				
+				  <div class="re-reply-body">
+				    <!-- 디자인만 필요하면 contenteditable, 아니면 textarea로 교체 가능 -->
+				    <textarea class="re-reply-input" placeholder="구매자에게 답변을 남겨주세요">
+
+				    </textarea>
+				  </div>
+				
+				  <div class="re-reply-actions">
+				    <button type="button" class="reBtn" style="margin-top:5px">등록</button>
+				  </div>
+				</div>
+				
+				<!-- ========================= 답글 작성 end ========================== -->
               </div>
+              
+              
             </c:forEach>
           </aside>
         </div>

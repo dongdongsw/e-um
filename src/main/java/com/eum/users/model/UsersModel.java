@@ -2,18 +2,16 @@ package com.eum.users.model;
 
 import java.io.PrintWriter;
 
-
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.eum.users.dao.*;
 import com.eum.main.vo.UsersVO;
-import com.eum.main.vo.Users_SellerVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 @Controller
-public class usersModel {
+public class UsersModel {
 	
 	// 회원가입 페이지
 	@RequestMapping("users/join.eum")
@@ -120,8 +118,9 @@ public class usersModel {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		UsersVO vo = UsersDAO.usersLogin(id, pwd);
-
 		System.out.println(id+" "+pwd);
+		
+		
 		
 		if(vo.getMsg().equals("OK")) {
 			HttpSession session = request.getSession();
@@ -134,6 +133,8 @@ public class usersModel {
 			session.setAttribute("email", vo.getU_email());
 			session.setAttribute("role", vo.getU_role());
 			session.setAttribute("phone", vo.getU_phone());
+			session.setAttribute("sid", vo.getSid());
+			
 		}
 		try {
 			response.setContentType("text/plain;charset=UTF-8");

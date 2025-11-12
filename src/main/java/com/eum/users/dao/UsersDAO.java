@@ -86,6 +86,7 @@ public class UsersDAO {
 			} else {
 				UsersVO dbVO = session.selectOne("usersInfoData", u_id);
 				if(pwd.equals(dbVO.getU_pwd())) {
+						
 					vo.setMsg("OK");
 					vo.setU_id(dbVO.getU_id());
 					vo.setU_loginid(dbVO.getU_loginid());
@@ -95,7 +96,17 @@ public class UsersDAO {
 					vo.setU_status(dbVO.getU_status());
 					vo.setU_email(dbVO.getU_email());
 					vo.setU_role(dbVO.getU_role());
-					vo.setU_phone(dbVO.getU_phone());
+					vo.setU_phone(dbVO.getU_phone());	
+					
+					// 셀러인지 체크
+					int seller = session.selectOne("usersSellerCheck", dbVO.getU_id());
+					int sid=0;
+					if (seller == 1) {
+						sid = session.selectOne("sellerGetSid", dbVO.getU_id());
+						vo.setSid(sid);
+						System.out.println(sid);
+					}
+						
 				} else {
 					vo.setMsg("NOPWD");
 				}

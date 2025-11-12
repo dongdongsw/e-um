@@ -47,8 +47,10 @@
       FROM users
       WHERE u_loginid=#{u_loginid}
     </select>
-    <select id="usersGetSellerId" resultType="int" parameterType="string">
-      SELECT u_s_id 
+    
+    <!-- 셀러 여부 확인 -->
+    <select id="usersSellerCheck" resultType="int" parameterType="string">
+      SELECT COUNT(*) 
       FROM users_seller
       WHERE u_id=#{u_id}
     </select>

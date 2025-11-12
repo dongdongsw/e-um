@@ -77,4 +77,30 @@ public class SellerDAO {
 		}
 		return list;
 	}
+	
+	// 셀러 고유값 가져오기 (세션)
+	public static int sellerGetSid(String u_id) {
+		int sid=0;
+		try {
+			SqlSession session=ssf.openSession();
+			sid=session.selectOne("sellerGetSid",u_id);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return sid;
+	}
+	
+	// 셀러 리뷰 목록
+		public static List<BoardVO> sellerReview(int u_s_id) {
+			List<BoardVO> list=new ArrayList<BoardVO>();
+			try {
+				SqlSession session=ssf.openSession();
+				list=session.selectList("sellerReview",u_s_id);
+				session.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return list;
+		}
 }
