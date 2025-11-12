@@ -67,7 +67,7 @@ public class Admin_Notice_Model {
 	public String notice_insert(HttpServletRequest request,HttpServletResponse response)
 	{
 		request.setAttribute("admin_main_jsp", "admin_notice_insert.jsp");
-		return "../main/main.jsp";
+		return "../admin/common/admin_main.jsp";
 	}
 	
 	// 글쓰기 완료
@@ -89,7 +89,7 @@ public class Admin_Notice_Model {
 		
 		NoticeDAO.noticeInsert(vo);
 		
-		return "redirect:../notice/list.eum";
+		return "redirect:../admin/admin_notice_list.eum";
 	}
 	
 	// 수정
@@ -99,9 +99,10 @@ public class Admin_Notice_Model {
 		String n_id=request.getParameter("n_id");
 		NoticeVO vo=NoticeDAO.noticeDetailData(n_id);
 		
+		
 		request.setAttribute("vo", vo);
-		request.setAttribute("main_jsp", "../notice/update.jsp");
-		return "../main/main.jsp";
+		request.setAttribute("admin_main_jsp", "admin_notice_update.jsp");
+		return "../admin/common/admin_main.jsp";
 	}
 	
 	// 수정 완료
@@ -123,7 +124,7 @@ public class Admin_Notice_Model {
 		
 		NoticeDAO.noticeUpdate(vo);
 		
-		return "redirect:../notice/detail.do?n_id=" + n_id;
+		return "redirect:../admin/admin_notice_detail.eum?n_id="+n_id;
 		
 	}
 	
@@ -135,17 +136,15 @@ public class Admin_Notice_Model {
 		NoticeVO vo=NoticeDAO.noticeDetailData(n_id);
 		
 		request.setAttribute("vo", vo);
-		request.setAttribute("main_jsp", "../notice/delete.jsp");
-		return "../main/main.jsp";
+		request.setAttribute("main_jsp", "admin_notice_delete.jsp");
+		return "../admin/common/admin_notice_list.eum";
 	}
 	
 	// 삭제 완료
 	@RequestMapping("admin/admin_notice_delete_ok.eum")
-	public String notice_delete_ok(HttpServletRequest request,HttpServletResponse response)
+	public void notice_delete_ok(HttpServletRequest request,HttpServletResponse response)
 	{
 		String n_id=request.getParameter("n_id");
 		NoticeDAO.noticeDelete(n_id);
-		
-		return "redirect:../notice/list.do";
 	}
 }

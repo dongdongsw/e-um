@@ -29,11 +29,18 @@
  </select>
  <!-- 추가 -->
  <insert id="noticeInsert" parameterType="NoticeVO">
-  INSERT INTO notice_board(n_id,u_id,n_title,n_content,n_createdAt,n_updatedAt)
-  VALUES(NOTICE_BOARD_SEQ.NEXTVAL,
-   #{u_id},#{n_title},#{n_content},SYSDATE,NULL
+  INSERT INTO notice_board (
+    n_id, u_id, n_title, n_content, n_createdAt, n_updatedAt
   )
- </insert>
+  VALUES (
+    NOTICE_BOARD_SEQ.NEXTVAL,
+    #{u_id, jdbcType=INTEGER},
+    #{n_title, jdbcType=VARCHAR},
+    #{n_content, jdbcType=VARCHAR},
+    SYSDATE,
+    NULL
+  )
+</insert>
  <!-- 수정 -->
  <update id="noticeUpdate" parameterType="NoticeVO">
   UPDATE notice_board

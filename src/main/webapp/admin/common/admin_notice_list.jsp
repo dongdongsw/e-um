@@ -70,13 +70,13 @@
   border-radius: 8px;
   color: #b2a8ff;
 }
-
 /* 화살표 hover 시 */
 .pagination a:first-child:hover,
  .pagination a:last-child:hover {
   background-color: #7453fc;
   color: #fff;
 }
+
   </style>
 </head>
 <body>
@@ -98,7 +98,7 @@
 				      <span class="fe fe-filter fe-16 text-muted"></span>
 				    </button>
 				    <button type="button" class="btn">
-				      <span class="fe fe-refresh-ccw fe-16 text-muted"></span>
+				      <a href="admin_notice_insert.eum"><span class="fe fe-edit fe-16 text-muted"></span></a>
 				    </button>
 				  </div>
 				</div>
@@ -204,7 +204,7 @@
 	                      </div>
 	                    </td>
 	                    <td>${vo.n_id }</td>
-	                    <td  onclick="location.href='common/admin_notice_detail.eum'" style="cursor:pointer;">${vo.n_title }</td>
+	                    <td onclick="location.href='admin_notice_detail.eum?n_id=${vo.n_id}'" style="cursor:pointer;">${vo.n_title }</td>
 	                    <td>
 			              <fmt:formatDate value="${vo.n_createdAt}" pattern="yyyy.MM.dd" />
 			            </td>
@@ -214,7 +214,7 @@
 	                          <span class="text-muted sr-only">Action</span>
 	                        </button>
 	                        <div class="dropdown-menu dropdown-menu-right">
-	                          <a class="dropdown-item" href="#">수정</a>
+	                          <a class="dropdown-item" onclick="location.href='admin_notice_update.eum?n_id=${vo.n_id}'">수정</a>
 	                          <a class="dropdown-item" href="#">삭제</a>
 	                        </div>
 	                      </div>
@@ -227,10 +227,10 @@
               <!-- pagenations -->
                  <div class="pagination" style="margin-top:20px; text-align:center;">
 				  <c:if test="${startPage > 1}">
-				    <a href="list.eum?page=${startPage - 10}">&laquo;</a>
+				    <a href="admin_notice_list.eum?page=${startPage - 10}">&laquo;</a>
 				  </c:if>
 				  <c:if test="${curpage > 1}">
-				    <a href="list.eum?page=${curpage - 1}">&lt;</a>
+				    <a href="admin_notice_list.eum?page=${curpage - 1}">&lt;</a>
 				  </c:if>
 				  <c:forEach var="i" begin="${startPage}" end="${endPage}">
 				    <c:choose>
@@ -238,15 +238,15 @@
 				        <strong style="color:#7453fc;">${i}</strong>
 				      </c:when>
 				      <c:otherwise>
-				        <a href="list.eum?page=${i}">${i}</a>
+				        <a href="admin_notice_list.eum?page=${i}">${i}</a>
 				      </c:otherwise>
 				    </c:choose>
 				  </c:forEach>
 				  <c:if test="${curpage < totalpage}">
-				    <a href="list.eum?page=${curpage + 1}">&gt;</a>
+				    <a href="admin_notice_list.eum?page=${curpage + 1}">&gt;</a>
 				  </c:if>
 				  <c:if test="${endPage < totalpage}">
-				    <a href="list.eum?page=${startPage + 10}">&raquo;</a>
+				    <a href="admin_notice_list.eum?page=${startPage + 10}">&raquo;</a>
 				  </c:if>
 				</div>
             </div>

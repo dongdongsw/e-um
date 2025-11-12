@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ include file="../common/slidebar.jsp" %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,7 +14,6 @@
   <link rel="stylesheet" href="../css/app-light.css" id="lightTheme">
   <link rel="stylesheet" href="../css/app-dark.css" id="darkTheme" disabled>
 
-  <!-- 💜 검색창 placeholder 스타일 -->
   <style>
     input[type="search"]:focus::placeholder {
       color: transparent;
@@ -43,7 +40,7 @@
           <div class="card shadow mb-4">
             <div class="card-header">
               <div class="d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">공지사항 제목입니다</h4>
+                <h4 class="mb-0">${vo.n_title }</h4>
                 <span class="badge badge-success">공개</span>
               </div>
             </div>
@@ -55,18 +52,12 @@
                   <p class="mb-0"><strong>관리자</strong></p>
                 </div>
                 <div class="col-md-6 text-md-right">
-                  <small class="text-muted">작성일</small>
-                  <p class="mb-0"><strong>2025-11-11 14:30</strong></p>
+                  <small class="text-muted">${vo.n_createdAt }</small>
                 </div>
               </div>
 
               <!-- 공지사항 내용 -->
-              <div class="notice-content">
-                <p>안녕하세요. 공지사항 내용입니다.</p>
-                <p>이곳에 공지사항의 상세 내용이 표시됩니다.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <p>여러 줄의 내용을 표시할 수 있습니다.</p>
-              </div>
+              <div class="notice-content">${vo.n_content }</div>
 
               <!-- 첨부파일 (선택사항) -->
               <div class="mt-4 pt-3 border-top">
@@ -87,11 +78,11 @@
             </div>
             <div class="card-footer">
               <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-secondary" onclick="location.href='../notice/list.eum'">
+                <button type="button" class="btn btn-secondary" onclick="location.href='admin_notice_list.eum'">
                   <i class="fe fe-list fe-16 mr-2"></i>목록으로
                 </button>
                 <div>
-                  <button type="button" class="btn btn-outline-primary mr-2">
+                  <button type="button" class="btn btn-outline-primary mr-2" onclick="location.href='admin_notice_update.eum?n_id=${vo.n_id}'">
                     <i class="fe fe-edit fe-16 mr-2"></i>수정
                   </button>
                   <button type="button" class="btn btn-outline-danger">
@@ -131,7 +122,6 @@
     </div>
   </main>
 
-  <!-- 💡 JS 파일들 (Bootstrap 작동용) -->
   <script src="../js/jquery.min.js"></script>
   <script src="../js/popper.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
