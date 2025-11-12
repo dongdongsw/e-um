@@ -7,15 +7,15 @@
 <meta charset="UTF-8">
 <title>내 컨텐츠</title>
 <style>
-body {background-color: #fff !important;}
 html {
   overflow-y: scroll;
   scrollbar-gutter: stable;
 }
+body {background-color: #fff !important;}
 .seller-container {
   display: grid;
   grid-template-columns: 240px 1fr;
-  width: 1180px !important;
+  width: 1180px;
   margin: 60px auto;
   gap: 40px;
 }
@@ -142,9 +142,9 @@ html {
     <nav class="menu">
       <a href="../seller/info.eum">셀러 정보</a>
       <a href="../seller/create.eum">컨텐츠 작성</a>
-      <a href="../seller/my_contents.eum" class="active">내 컨텐츠</a>
+      <a href="../seller/my_contents.eum">내 컨텐츠</a>
       <a href="../seller/review.eum">구매자 리뷰</a>
-      <a href="../seller/chat.eum">채팅 문의</a>
+      <a href="../seller/chat.eum"  class="active">채팅 문의</a>
       <a href="../seller/sell.eum">판매 내역</a>
       <a href="../seller/info_update.eum">정보 수정</a>
     </nav>
@@ -152,7 +152,7 @@ html {
 
   <!-- 오른쪽 본문 -->
   <main class="content">
-    <h2 style="color:black; margin-bottom: 50px">내 컨텐츠</h2>
+    <h2 style="color:black;">내 컨텐츠</h2>
 
     <div class="content-list">
       <c:choose>

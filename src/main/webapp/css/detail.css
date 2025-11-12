@@ -418,3 +418,181 @@
   display: block;        /* inline 이미지의 아래 여백 제거 */
   border-radius: 50%;
 }
+
+  .profile {
+     width: 100%; 
+     height: 100%; 
+     border-radius: 50%;
+  }
+  
+  /* 리뷰 작성 폼 */
+.form-box{border:none; background:#f9f9f9; border-radius:12px; padding:16px;}
+.review-write{margin:10px 0 18px 0;}
+
+.rw-row{display:flex; gap:12px; margin-top:10px;}
+.rw-row:first-of-type{margin-top:0;}
+.rw-label{width:72px; font-weight:700; font-size:13px; color:var(--text); line-height:36px;}
+.rw-field{flex:1; min-width:0;}
+.rw-head{ border-bottom:1px solid var(--line); padding-bottom:8px;
+display: flex;
+  align-items: center;
+  gap: 10px;}
+.rw-helper{font-size:12px; color:var(--muted);}
+
+.rw-rate{display:flex; gap:6px; align-items:center;}
+.rw-star{font-size:22px; cursor:pointer; user-select:none; color:#d1d5db; line-height:1;}
+.rw-star.on{color:var(--accent);}
+
+/* textarea */
+#rw-content{width:100%; min-height:120px; padding:10px; border:1px solid var(--line); border-radius:10px; font-size:14px; resize:vertical;}
+
+/* 썸네일 프리뷰 */
+.rw-thumbs{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.rw-thumb{width:76px; height:76px; border:1px dashed var(--line); border-radius:10px; background:#f3f4f6; overflow:hidden; display:flex; align-items:center; justify-content:center;}
+.rw-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+
+/* 하단 액션 (컨텐츠 페이지 버튼 톤과 맞춤) */
+.rw-actions{display:flex; justify-content:flex-end; gap:8px; margin-top:12px;}
+.btn-ghost{border:1px solid var(--line); background:var(--card); padding:10px 14px; border-radius:10px; font-weight:700;}
+.btn-pri{background:#7453fc; color:#fff; padding:10px 14px; border-radius:10px; font-weight:900; border:1px solid #00000020; width: 30px;}
+.btn-pri:hover{background:#7453fcde;}
+ .rw-actions{
+  display:flex;
+  justify-content:flex-end;  /* 오른쪽 붙이기 */
+  gap:8px;
+  margin-top:12px;
+}
+
+/* 기본 프라이머리 버튼 (이미 있으면 유지) */
+.reBtn{
+  background:#7453fc;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:900;
+  border:1px solid #00000020;
+  height: 40px;
+}
+.reBtn:hover{ background:#7453fcde; }
+
+/* 더 작은 사이즈 변형 */
+.btn-pri--sm{
+  padding:8px 12px;         /* 작게 */
+  font-size:13px;           /* 글자도 살짝 작게 */
+  border-radius:8px;        /* 카드 톤에 맞춰 둥글기 축소 */
+}
+.re-reply {
+  margin: 10px 0 0 10px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 15px;
+}
+
+.re-reply-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom:8px;
+}
+
+.re-reply .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background:#e5e7eb;
+  overflow: hidden;
+}
+
+.re-reply .seller-name {
+  font-weight: 800;
+}
+
+.re-reply .reply-date {
+  margin-left: auto;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.re-reply-body {
+  margin-top: 10px;
+}
+
+/* 내용 입력영역: 디자인만 (원하면 textarea로 교체 가능) */
+.re-reply-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #111;
+  line-height: 1.5;
+  outline: none;
+}
+
+.re-reply-input::placeholder {
+  color: #9ca3af;
+}
+
+/* 하단 액션: 오른쪽 작은 버튼 */
+.re-reply-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+/* 답변 카드 하단 우측 액션 */
+.re-review { position: relative; }  /* 필요 시 하단 고정용 */
+.re-review-footer{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:5px;
+  margin-top:5px;                /* 본문과 살짝 간격 */
+}
+
+.re-review-btn{
+  font-size:9px;
+  color:#6b7280;                 /* 날짜와 비슷한 색 */
+  background:transparent;
+  border:0;
+  padding:2px 4px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.re-review-btn:hover{
+  background:#eeeeee;            /* 살짝만 강조 */
+  color:#111;
+}
+.re-review-dot{ color:#d1d5db; } /* 가운데 점 구분자 */
+/* 리뷰 카드 하단 우측 액션 */
+.review-footer{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:5px;
+  margin-top:8px;          /* 본문과 살짝 띄움 */
+  padding-right:6px;        /* 오른쪽 여백 약간 */
+}
+
+.review-btn{
+  font-size:11px;
+  color:#6b7280;            /* 날짜와 동일 톤 */
+  background:transparent;
+  border:0;
+  padding:2px 4px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.review-btn:hover{
+  background:#f3f4f6;       /* 부드럽게 하이라이트 */
+  color:#111;
+}
+.review-dot{ color:#d1d5db; } /* 중간 구분 점 */
+
+#file-upload-button {
+  background: black;
+  color: white;
+  border-radius: 15px;
+}

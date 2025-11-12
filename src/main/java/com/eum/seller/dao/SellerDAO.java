@@ -7,7 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
-import com.eum.main.vo.*;
+import com.eum.main.vo.BoardVO;
+import com.eum.main.vo.Users_SellerVO;
 
 public class SellerDAO {
 
@@ -89,4 +90,17 @@ public class SellerDAO {
 		}
 		return sid;
 	}
+	
+	// 셀러 리뷰 목록
+		public static List<BoardVO> sellerReview(int u_s_id) {
+			List<BoardVO> list=new ArrayList<BoardVO>();
+			try {
+				SqlSession session=ssf.openSession();
+				list=session.selectList("sellerReview",u_s_id);
+				session.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return list;
+		}
 }

@@ -162,4 +162,34 @@ public class SellerModel {
 		request.setAttribute("main_jsp", "../seller/my_contents.jsp");
 		return "../main/main.jsp";
 	}
+	
+	@RequestMapping("seller/review.eum")
+	public String seller_review(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<BoardVO> list=new ArrayList<BoardVO>();
+		
+		HttpSession session=request.getSession();
+		int sid=(int) session.getAttribute("sid");
+		
+		list=SellerDAO.sellerReview(sid);
+		
+		request.setAttribute("list", list);
+		
+		request.setAttribute("main_jsp", "../seller/review.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("seller/sell.eum")
+	public String seller_sell(HttpServletRequest request, HttpServletResponse response) {
+		
+		request.setAttribute("main_jsp", "../seller/sell.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("seller/chat.eum")
+	public String seller_chat(HttpServletRequest request, HttpServletResponse response) {
+		
+		request.setAttribute("main_jsp", "../seller/chat.jsp");
+		return "../main/main.jsp";
+	}
 }

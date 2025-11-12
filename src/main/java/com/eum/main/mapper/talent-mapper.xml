@@ -66,6 +66,7 @@
 	b_type,
 	b_view_count,
 	u_s_com,
+	board.u_s_id, 
 	u_s_profileimg_url,
 	u_s_carrer,
 	u_s_zone
@@ -79,6 +80,8 @@
   <!-- review -->
   <select id="talentDetailreview" resultMap="boardMap" parameterType="string">
     SELECT 
+    review.u_id,
+    review.b_review_id, 
 	board.b_id AS b_id,
 	review.u_s_id AS u_s_id,
 	review.b_review_id AS b_review_id,
