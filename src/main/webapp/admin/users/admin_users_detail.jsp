@@ -2,6 +2,90 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<style>
+
+ /* 리뷰 탭 내용 높이 고정 + 내부 스크롤 */
+  #home .container-fluid {
+    max-height: 700px;   /* 원하는 높이 */
+  }
+
+  /* 카드 높이 일정하게 맞추기 (선택사항) */
+  #home .card {
+  	min-height: 230px;
+    height: auto;       /* 카드 높이 고정 */
+    
+  }
+
+  #home .card-body {
+    overflow: hidden;
+  }
+  
+  /* 리뷰 내용 기본 스타일 (3줄 제한) */
+  .review-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;       /* 표시할 최대 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  /* 펼쳐진 상태 */
+  .review-content.expanded {
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+
+  /* “더보기” 텍스트 버튼 */
+  .more-toggle {
+    color: #007bff;
+    font-size: 13px;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 5px;
+  }
+  .more-toggle:hover {
+    text-decoration: underline;
+  }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // 모든 리뷰 본문을 순회
+  document.querySelectorAll(".review-content").forEach(content => {
+    const toggle = content.nextElementSibling; // 더보기 버튼(span)
+
+    // 실제 텍스트 길이 판단 (100자 이상이면 버튼 표시)
+    if (content.textContent.trim().length > 100) {
+      toggle.style.display = "inline-block";
+    } else {
+      toggle.style.display = "none"; // 짧으면 숨김
+    }
+  });
+});
+
+function toggleContent(el) {
+  // 클릭된 요소가 span이면 바로 위의 p 선택
+  const content = el.previousElementSibling?.classList.contains('review-content')
+    ? el.previousElementSibling
+    : el.classList.contains('review-content')
+    ? el
+    : null;
+
+  if (!content) return;
+
+  content.classList.toggle('expanded');
+
+  // "더보기" ↔ "접기" 전환
+  if (content.classList.contains('expanded')) {
+    el.textContent = "접기";
+  } else {
+    el.textContent = "더보기";
+  }
+}
+</script>
+
+
 <main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
@@ -19,7 +103,7 @@
                           <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Review</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Order</a>
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
@@ -199,36 +283,37 @@
 						              </div>
 						              <div class="row">
 						              <!-- 리뷰 가데이터 -->
-						              <c:forEach begin="1" end="8">
+						              <c:forEach var="r_list" items="${review_list }">
 						                <div class="col-md-3">
 						                  <div class="card shadow mb-4">
 						                    <div class="card-body text-center">
-						                      <div class="avatar avatar-lg mt-4">
-						                        <a href="">
-						                          <img src="./assets/avatars/face-4.jpg" alt="..." class="avatar-img rounded-circle">
-						                        </a>
-						                      </div>
-						                      <div class="card-text my-2">
-						                        <strong class="card-title my-0">Bass Wendy </strong>
-						                        <p class="small text-muted mb-0">Accumsan Consulting</p>
-						                        <p class="small"><span class="badge badge-light text-muted">New York, USA</span></p>
+						                      
+						                      <div class="card-text my-2 text-left">
+						                      
+						                        <strong class="card-title my-0">리뷰 점수 ${r_list.b_review_score } </strong>
+						                        <p class="small text-muted mb-0 review-content" onclick="toggleContent(this)">
+												  ${r_list.b_review_content}
+												</p>
+												<c:forEach var="img" items="${r_list.imageList}">
+										        <img src="${img.r_image_url}" alt="리뷰 이미지" style="width:100px; height:100px;">
+										      </c:forEach>
+												<span class="more-toggle" onclick="toggleContent(this)">더보기</span>
+
 						                      </div>
 						                    </div> <!-- ./card-text -->
 						                    <div class="card-footer">
 						                      <div class="row align-items-center justify-content-between">
 						                        <div class="col-auto">
 						                          <small>
-						                            <span class="dot dot-lg bg-success mr-1"></span> Online </small>
+						                            <span class="dot dot-lg bg-success mr-3"></span> 작성일 ${ r_list.b_review_createdat} </small>
 						                        </div>
 						                        <div class="col-auto">
+						                          
 						                          <div class="file-action">
 						                            <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						                              <span class="text-muted sr-only">Action</span>
 						                            </button>
 						                            <div class="dropdown-menu m-2">
-						                              <a class="dropdown-item" href="#"><i class="fe fe-meh fe-12 mr-4"></i>Profile</a>
-						                              <a class="dropdown-item" href="#"><i class="fe fe-message-circle fe-12 mr-4"></i>Chat</a>
-						                              <a class="dropdown-item" href="#"><i class="fe fe-mail fe-12 mr-4"></i>Contact</a>
 						                              <a class="dropdown-item" href="#"><i class="fe fe-delete fe-12 mr-4"></i>Delete</a>
 						                            </div>
 						                          </div>
@@ -240,18 +325,37 @@
 						                </div> <!-- .col -->
 						                </c:forEach>
 						                
-						                <div class="col-md-9">
-						                </div> <!-- .col -->
+						               
 						              </div> <!-- .row -->
+						            
+						              
 						              <nav aria-label="Table Paging" class="my-3">
-						                <ul class="pagination justify-content-end mb-0">
+					                     <ul class="pagination justify-content-end mb-0">
+					                        <c:if test="${startPage > 1 }">
+					                          <li class="page-item">
+					                          	<a class="page-link" href="../admin/admin_users_detail.eum?page=${startPage-1 }&u_id=${users_vo.u_id}#home">&lt;</a>
+					                          </li>
+					                        </c:if>
+					                        <c:forEach var="i" begin="${startPage }" end="${endPage }">
+					                          <li class="page-item ${i==curpage?'active':'' }" >
+					                          	<a class="page-link" href="../admin/admin_users_detail.eum?page=${i }&u_id=${users_vo.u_id}#home">${i }</a>
+					                          </li>
+					                        </c:forEach>  
+					                        <c:if test="${endPage < totalpage }">
+					                          <li class="page-item">
+					                          <a class="page-link" href="../admin/admin_users_detail.eum?page=${endPage+1 }&u_id=${users_vo.u_id}#home">&gt;</a>
+					                          </li>
+					                        </c:if>
+					                      </ul>
+						                <!-- <ul class="pagination justify-content-end mb-0">
 						                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
 						                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
 						                  <li class="page-item"><a class="page-link" href="#">2</a></li>
 						                  <li class="page-item"><a class="page-link" href="#">3</a></li>
 						                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-						                </ul>
+						                </ul> -->
 						              </nav>
+						              
 						            </div> <!-- .col-12 -->
 						          </div> <!-- .row -->
 						        </div> <!-- .container-fluid -->

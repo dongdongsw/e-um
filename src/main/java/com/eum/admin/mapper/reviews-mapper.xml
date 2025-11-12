@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eum.admin.mapper.admin-mapper">
+<mapper namespace="com.eum.admin.mapper.review-mapper">
 <resultMap type="com.eum.main.vo.BoardVO" id="boardMap">
   	<result property="rvo.b_review_score" column="b_review_score"/>
   	<result property="rvo.u_s_id" column="u_s_id"/>
@@ -18,49 +18,29 @@
 	<result property="uvo.u_nickname" column="u_nickname"/>
 	<result property="uvo.u_profileimg_url" column="u_profileImg_url"/>
   </resultMap>
-
-	<!-- <유저> 리스트 -->
-	<select id="adminUsersListData" resultType="UsersVO" parameterType="hashmap">
-		SELECT u_id, u_nickname, u_phone, u_profileimg_url, u_status,
-			u_loginid, u_email, u_loc, u_updateat, num
+	<!-- <유저> 리뷰 리스트 -->
+	<select id="ReviewListData" resultType="ReviewVO" parameterType="hashmap">
+		SELECT u_id, b_review_id, b_review_createdat, 
+			b_review_content, b_review_score, num
 		FROM (
-			SELECT u_id, u_nickname, u_phone, u_status, u_profileimg_url, u_email, u_loc, 
-				u_loginid, u_updateat, rownum as num 
-			FROM users
+			SELECT u_id, b_review_id, b_review_createdat, 
+				b_review_content, b_review_score, rownum as num
+			FROM review
 		)
 		WHERE num BETWEEN #{start} AND #{end}
-	</select>
-	<!-- <유저> 페이징 -->
-	<select id="adminUsersListTotalData" resultType="int">
-		SELECT CEIL(COUNT(*)/12.0)
-		FROM users
-	</select>
-	<!-- <유저> 디테일 페이지 -->
-	<select id="adminUsersDetailData" resultType="UsersVO" parameterType="string">
-		SELECT u_id, u_nickname, u_phone, u_profileimg_url, u_gender, u_push_noti,
-			u_email_noti, u_sms_noti, u_role, u_birth, u_status,
-			u_loginid, u_email, u_loc, u_createat, u_updateat
-		FROM users
-		WHERE u_id=#{u_id}
 	</select> 
 	
-	<!-- <셀러> 리스트 -->
-	<select id="adminSellerListData">
-	
+	<!-- <유저> 리뷰 페이징 -->
+	<select id="ReviewTotalData" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM review
 	</select>
 	
-	<!-- <컨텐츠> 리스트 -->
-	<select id="adminContentsListData">
-	
+	<!-- <유저> 리뷰 상세 -->
+	<select id="ReviewDetailData" resultType="ReviewVO" parameterType="int">
+		SELECT u_id, b_review_id, b_review_createdat, b_review_content, b_review_score
+		FROM review
+		WHERE b_review_id=#{b_review_id}
 	</select>
 	
-	<!-- <공지사항> 리스트 -->
-	<select id="adminNoticeListData">
-	
-	</select>
-	
-	<!-- <주문> 리스트 -->
-	<select id="adminOredersListData">
-	
-	</select>
 </mapper>

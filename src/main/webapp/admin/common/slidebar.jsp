@@ -81,14 +81,6 @@
               </a>
             </li>
             
-            <!-- 관리자 사용자 상세 페이지(임시) -->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="../admin/admin_users_detail.eum">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">사용자 상세(임시)</span>
-              </a>
-            </li>
-            
             <!-- 관리자 사용자 상세 페이지 수정(임시) -->
             <li class="nav-item w-100">
               <a class="nav-link" href="../admin/admin_users_modify.eum">
