@@ -15,4 +15,6 @@ public class FavoriteVO {
 	private Date fv_pushat;
 	private UsersVO uvo = new UsersVO();
 	private BoardVO bvo = new BoardVO();
+	private Users_SellerVO usvo = new Users_SellerVO();
+	private ReviewVO rvo = new ReviewVO();
 }

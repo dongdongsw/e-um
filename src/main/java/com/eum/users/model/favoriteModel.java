@@ -1,6 +1,7 @@
 package com.eum.users.model;
 
-import com.eum.main.vo.FavoriteVO;
+import com.eum.main.vo.*;
+import com.eum.users.dao.*;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
@@ -8,75 +9,55 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.*;
+
 @Controller
 public class favoriteModel {
 	@RequestMapping("users/favorite_insert.eum")
 	public String favorite_insert(HttpServletRequest request, HttpServletResponse response) {
-		String fv_id = request.getParameter("fv_id");
-		String u_id = request.getParameter("u_id");
-		String b_id = request.getParameter("b_id");
-		String dbday = request.getParameter("dbday"); 
-		
 		HttpSession session = request.getSession();
-		String loginid = (String)session.getAttribute("loginid");
+		String u_id = (String)session.getAttribute("id");
 		
-		FavoriteVO vo = new FavoriteVO();
-		vo.setFv_id(Integer.parseInt(fv_id));
-		vo.setU_id(u_id);
-		vo.setB_id(b_id);
-		vo.setDbday(dbday);
+		String b_id = request.getParameter("b_id");
 		
+		if(u_id!=null && b_id!=null) {
+			FavoriteVO vo = new FavoriteVO();
+			vo.setU_id(u_id);
+			vo.setB_id(b_id);
+			
+			int count = FavoriteDAO.favoriteCheckCount(vo);
+			if(count==0) {
+				FavoriteDAO.favoriteInsert(vo);
+			}
+		}
 		return "redirect:../talent/detail.eum?b_id="+b_id;
 	}
-/*
 	
-	@RequestMapping("jjim/jjim_list.do")
-	public String jjim_list(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("users/favorite_list.eum")
+	public String favorite_list(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
-		List<JjimVO> list = JjimDAO.jjimFoodListData(id);
+		String u_id = (String)session.getAttribute("id");
 		
-		request.setAttribute("list", list);
-		
-		request.setAttribute("mypage_jsp", "../mypage/jjim_list.jsp");
-		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		if(u_id!=null) {
+			List<FavoriteVO> fList = FavoriteDAO.favoriteListData(u_id);
+			request.setAttribute("fList", fList);
+		}
+		request.setAttribute("main_jsp", "../users/favorite_list.jsp");
 		return "../main/main.jsp";
 	}
 	
-	@RequestMapping("jjim/jjim_cancel.do")
-	public String jjim_cancel(HttpServletRequest request, HttpServletResponse response) {
-		String jno = request.getParameter("jno");
+	@RequestMapping("users/favorite_delete.eum")
+	public String favorite_delete(HttpServletRequest request, HttpServletResponse response) {
+		String fv_id_str = request.getParameter("fv_id");
 		
-		// DB연동
-		JjimDAO.jjimCancel(Integer.parseInt(jno));
-		return "redirect:../jjim/jjim_list.do";
-	}
-	
-	@RequestMapping("jjim/food_detail.do")
-	public void jjim_food_detail(HttpServletRequest request, HttpServletResponse response) {
-		String fno = request.getParameter("fno");
-		FoodVO vo = JjimDAO.foodDetailData(Integer.parseInt(fno));
-		JSONObject obj = new JSONObject();
-		obj.put("name", vo.getName());
-		obj.put("poster", vo.getPoster());
-		obj.put("address", vo.getAddress());
-		obj.put("phone", vo.getPhone());
-		obj.put("price", vo.getPrice());
-		obj.put("parking", vo.getParking());
-		obj.put("type", vo.getType());
-		obj.put("theme", vo.getTheme());
-		obj.put("content", vo.getContent());
-		obj.put("time", vo.getTime());
-		obj.put("score", vo.getScore());
-		
-		try {
-			response.setContentType("text/plain;charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.write(obj.toJSONString());
-		} catch(Exception ex) {
-			ex.printStackTrace();
+		if(fv_id_str!=null) {
+			try {
+				int fv_id = Integer.parseInt(fv_id_str);
+				FavoriteDAO.favoriteDelete(fv_id);
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		}
+		return "redirect:../users/favorite_list.eum";
 	}
- */
-	
 }

@@ -7,7 +7,9 @@ import java.util.Map;
 
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.Board_OptionVO;
+import com.eum.main.vo.FavoriteVO;
 import com.eum.main.vo.ReviewVO;
+import com.eum.users.dao.FavoriteDAO;
 import com.eum.main.dao.TalentDAO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
@@ -15,6 +17,7 @@ import com.sist.controller.RequestMapping;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class TalentModel {
@@ -55,6 +58,9 @@ public class TalentModel {
    public String talent_detail(HttpServletRequest request,
 		   HttpServletResponse response)
    {
+	   HttpSession session = request.getSession();
+	   String u_id = (String)session.getAttribute("id"); // 세션에 저장된 유저 키값 가져오기
+	   
 	   String b_id=request.getParameter("b_id");
 	   String page=request.getParameter("page");
 	   
@@ -64,12 +70,21 @@ public class TalentModel {
 	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
 	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
 	   
+	   int fCount = 0; // 즐겨찾기 카운트 초기화
+	    if(u_id != null && b_id != null) {
+	        FavoriteVO vo = new FavoriteVO();
+	        vo.setU_id(u_id);
+	        vo.setB_id(b_id);
+	        
+	        fCount = FavoriteDAO.favoriteCheckCount(vo); // 즐겨찾기 카운트 조회
+	    }
 	   request.setAttribute("page", page);
 	   request.setAttribute("detail_vo", detail_vo);
 	   request.setAttribute("board_vo", board_vo);
 	   request.setAttribute("review_vo", review_vo);
 	   request.setAttribute("score_vo", score_vo);
 	   request.setAttribute("price_vo", price_vo);
+	   request.setAttribute("fCount", fCount); // 즐겨찾기 카운트 값 넘기기
 	   
 	   request.setAttribute("main_jsp", "../talent/detail.jsp");
 	   return "../main/main.jsp";

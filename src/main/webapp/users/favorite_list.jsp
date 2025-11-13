@@ -189,38 +189,37 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   <!-- 오른쪽 본문 -->
   <main class="content">
     <h2>즐겨찾기한 컨텐츠</h2>
-	<c:if test="${vo.fv_id!=null}"> 
+	<c:if test="${!empty fList}">
       <div class="favorites-list">
         <!-- 항목 -->
-        <%-- <c:forEach> --%>
+        <c:forEach var="vo" items="${fList}">
           <div class="favorite-item">
             <div class="item-thumbnail">
-              <img src="#">
+              <img src="${vo.bvo.b_thumbnail}" alt="${vo.bvo.b_title} 썸네일">
             </div>
             <div class="item-info">
               <div>
-                <div class="item-category">카테고리</div>
-                <div class="item-title">제목</div>
-                <div class="item-author">셀러명</div>
+                <div class="item-category">${vo.bvo.b_type}</div>
+                <div class="item-title">${vo.bvo.b_title}</div>
+                <div class="item-author">${vo.usvo.u_s_com}</div>
               </div>
               <div class="item-meta">
-                <span>별점 (리뷰수)</span>
-                <span>저장한 날짜</span>
+                <span>⭐️ ${vo.rvo.b_review_score} (${vo.rvo.review_count})</span>
+                <span>${vo.dbday} 저장</span>
               </div>
             </div>
             <div class="item-actions">
-              <div class="item-price">옵션가</div>
               <a href="../users/favorite_delete.eum?fv_id=${vo.fv_id}">
                 <button class="btn-remove">삭제</button>
               </a>
             </div>
           </div>
-        <%-- </c:forEach> --%>
+        </c:forEach>
       </div>
     </c:if>
     
     <!-- 빈 상태 (즐겨찾기가 없을 때) -->
-    <c:if test="${vo.fv_id==null}">
+    <c:if test="${empty fList}">
       <div class="empty-state">
         <div>아직 즐겨찾기한 컨텐츠가 없습니다.</div>
       </div>
