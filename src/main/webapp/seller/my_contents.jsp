@@ -146,7 +146,6 @@ html {
       <a href="../seller/review.eum">구매자 리뷰</a>
       <a href="../seller/chat.eum">채팅 문의</a>
       <a href="../seller/sell.eum">판매 내역</a>
-      <a href="../seller/info_update.eum">정보 수정</a>
     </nav>
   </aside>
 

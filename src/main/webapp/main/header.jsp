@@ -485,7 +485,7 @@ button.active2:hover {
                     <!-- ***** Menu Start ***** -->
 
                     <ul class="nav">
-                        <li><a href="../main/list.eum">list</a></li>
+                        <li><a href="../talent/list.eum">list</a></li>
                         <li><a href="../main/detail.eum">detail</a></li>
                         <c:if test="${sessionScope.sid==0 && sessionScope.id!=null}">
                         <li><a href="../seller/join.eum">셀러 등록</a></li>

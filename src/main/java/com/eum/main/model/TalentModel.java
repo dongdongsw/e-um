@@ -63,6 +63,7 @@ public class TalentModel {
 	   List<BoardVO> review_vo=TalentDAO.talentDetailreview(b_id);
 	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
 	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
+	   List<BoardVO> reList=TalentDAO.talentRereview(b_id);
 	   
 	   request.setAttribute("page", page);
 	   request.setAttribute("detail_vo", detail_vo);
@@ -70,6 +71,7 @@ public class TalentModel {
 	   request.setAttribute("review_vo", review_vo);
 	   request.setAttribute("score_vo", score_vo);
 	   request.setAttribute("price_vo", price_vo);
+	   request.setAttribute("reList", reList);
 	   
 	   request.setAttribute("main_jsp", "../talent/detail.jsp");
 	   return "../main/main.jsp";

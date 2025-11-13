@@ -118,6 +118,16 @@ body {background-color: #fff !important;}
   margin-top: 4px;
 }
 h2 {margin-bottom:100px}
+
+.editBtn {
+  color: white;
+  background-color: black;
+  width: 80px;
+  height: 40px;
+  align-content: flex-end;
+  border-radius: 15px;
+  font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -133,7 +143,6 @@ h2 {margin-bottom:100px}
       <a href="../seller/review.eum">구매자 리뷰</a>
       <a href="../seller/chat.eum">채팅 문의</a>
       <a href="#">판매 내역</a>
-      <a href="../seller/info_update.eum">정보 수정</a>
     </nav>
   </aside>
 
@@ -167,6 +176,11 @@ h2 {margin-bottom:100px}
         <div class="info-block">
           <div class="info-title">경력</div>
           <div class="info-value">${vo.u_s_carrer}년</div>
+        </div>
+        <div style="text-align: right;">
+         <a href="../seller/info_update.eum">
+          <button class="editBtn">✍️수정</button>
+         </a>
         </div>
       </div>
     </div>

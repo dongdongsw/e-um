@@ -472,7 +472,7 @@ display: flex;
 		    <!--------------------------- 리뷰 목록 start -------------------------------->
 		    <c:forEach var="rvo" items="${review_vo}">
 		      <div style="height: 15px;"></div>
-		
+					${rvo.rvo.b_review_id }
 		      <div class="re-card">
 		        <div class="review">
 		          <div style="display: flex;">
@@ -536,18 +536,22 @@ display: flex;
 		        </div>
 		
 		        <!-------------------------- 답글 start ------------------------------>
+		        <c:forEach var="re" items="${reList }">
+		        <c:if test="${re.rvo.root eq rvo.rvo.b_review_id }">
 		        <div class="re-review">
 		          <div class="review">
 		            <div style="display: flex; border-bottom: 1px solid var(--line); padding-bottom:8px; margin-bottom: 8px;">
-		              <div class="avatar" style="margin-right: 10px;"></div>
-		              <div class="seller-name">김민식</div>
+		              <div class="avatar" style="margin-right: 10px;">
+		                <img src="${board_vo.usvo.u_s_profileimg_url}">
+		              </div>
+		              <div class="seller-name">${board_vo.usvo.u_s_com}</div>
 		              <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;">
-		                25.11.03 16:18
+		                
 		              </div>
 		            </div>
 		          </div>
 		
-		          <p style="margin:0; color:var(--muted)">좋은 리뷰 감사합니다~!!!</p>
+		          <p style="margin:0; color:var(--muted)">${re.rvo.b_review_content}</p>
 				  
 		          <div class="re-review-footer">
 		           <c:if test="${sessionScope.sid eq detail_vo.u_s_id}">
@@ -555,8 +559,9 @@ display: flex;
 		            <button type="button" class="re-review-btn">삭제</button>
 		            </c:if>
 		          </div>
-		          
 		        </div>
+		        </c:if>
+		        </c:forEach>
 		        <!------------------------------ 답글 end ---------------------------------->
 		
 		        <!-- ---------------------- 답글 작성 start -------------------------------->
@@ -565,7 +570,7 @@ display: flex;
 		        <div class="re-reply" id="re${rvo.uvo.u_id}">
 		          <div class="re-reply-head">
 		            <div class="avatar"></div>
-		            <div class="seller-name" style="margin-bottom:8px">셀러명</div>
+		            <div class="seller-name" style="margin-bottom:8px"></div>
 		          </div>
 		
 		          <div class="re-reply-body">

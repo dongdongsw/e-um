@@ -8,6 +8,8 @@
 	<result property="rvo.b_review_createdat" column="b_review_createdat"/>
 	<result property="rvo.b_review_content" column="b_review_content"/>
 	<result property="rvo.review_count" column="review_count"/>
+	<result property="rvo.root" column="root"/>
+	<result property="rvo.depth" column="depth"/>
 	<result property="rivo.r_image_url" column="r_image_url"/>
   	<result property="bovo.b_op_price" column="b_op_price"/>
   	<result property="bivo.b_img_url" column="b_img_url"/>
@@ -83,6 +85,8 @@
     SELECT 
     users.u_id,
     review.b_review_id,
+    review.root,
+    review.depth,
 	board.b_id AS b_id,
 	review.u_s_id AS u_s_id,
 	review.b_review_id AS b_review_id,
@@ -93,9 +97,28 @@
     u_profileImg_url
 	FROM review,board,review_image,users
 	WHERE board.b_id = review.b_id
-	AND review.b_review_id = review_image.b_review_id
+	AND review.b_review_id = review_image.b_review_id(+)
     AND review.u_id = users.u_id
 	AND board.b_id=#{b_id}
+	AND review.depth = 1
+  </select>
+  
+  <select id="talentRereview" resultMap="boardMap" parameterType="string">
+    SELECT 
+    users.u_id,
+    review.b_review_id,
+    review.root,
+    review.depth,
+	board.b_id AS b_id,
+	review.u_s_id AS u_s_id,
+	review.b_review_id AS b_review_id,
+	b_review_createdat,
+	b_review_content
+	FROM review,board,review_image,users
+	WHERE board.b_id = review.b_id
+    AND review.u_id = users.u_id
+	AND board.b_id=#{b_id}
+	AND review.depth = 2
   </select>
   
   <!-- score -->
