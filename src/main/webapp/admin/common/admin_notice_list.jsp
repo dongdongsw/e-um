@@ -11,67 +11,80 @@
       color: transparent;
       transition: color 0.2s ease;
     }
-     .pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-top: 35px;
-  padding: 12px 0;
-  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-}
+    
+    button a {
+      text-decoration: none !important;
+    }
+    
+    /* 삭제 & 작성 아이콘 hover 효과 */
+    .btn:hover {
+      background-color: #d4d4d4;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 35px;
+      padding: 12px 0;
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    }
 
- .pagination a {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 500;
-  text-decoration: none;
-  color: #8f82ff; 
-  transition: all 0.25s ease;
-  background-color: transparent;
-}
+    .pagination a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #888; 
+      transition: all 0.25s ease;
+      background-color: transparent;
+    }
 
-.pagination a:hover {
-  background-color: #7453fc;
-  color: #fff;
-  box-shadow: 0 3px 8px rgba(116, 83, 252, 0.25);
-}
+    .pagination a:hover {
+      background-color: #d4d4d4;
+      color: #333;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
 
- .pagination strong {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  background-color: #7453fc; 
-  color: #fff !important; 
-  box-shadow: 0 4px 12px rgba(116, 83, 252, 0.35);
-}
+    .pagination strong {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      background-color: #d4d4d4; 
+      color: #333 !important; 
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
 
-/* 화살표  */
- .pagination a:first-child,
-.pagination a:last-child {
-  font-size: 18px;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 8px;
-  color: #b2a8ff;
-}
-.pagination a:first-child:hover,
- .pagination a:last-child:hover {
-  background-color: #7453fc;
-  color: #fff;
-}
+    /* 화살표 */
+    .pagination a:first-child,
+    .pagination a:last-child {
+      font-size: 18px;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 8px;
+      color: #999;
+    }
+    
+    .pagination a:first-child:hover,
+    .pagination a:last-child:hover {
+      background-color: #d4d4d4;
+      color: #333;
+    }
   </style>
 </head>
 
@@ -80,7 +93,7 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12">
-              <h2 class="h3 mb-3 page-title">공지사항</h2>
+              <h2 class="h3 mb-3 page-title" style="font-size: 35px">공지사항</h2>
               <!-- 검색 -->
               <div class="row mb-4 items-align-center">
 				  <div class="col-12 d-flex align-items-center justify-content-end">
@@ -176,7 +189,7 @@
         </div> 
     </main>
 
-    <!-- 삭제 확인  -->
+    <!-- 삭제 확인 -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

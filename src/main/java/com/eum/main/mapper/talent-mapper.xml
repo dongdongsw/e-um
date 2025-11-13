@@ -113,4 +113,80 @@
     b_view_count=b_view_count+1 
     WHERE b_id=#{b_id}
    </update>
+   <select id="talentFindData" resultMap="boardMap" parameterType="hashmap">
+    SELECT * FROM(
+    SELECT ROWNUM AS num, A.*
+    FROM(
+    	SELECT
+    		board.b_id AS b_id,
+    		b_title,
+    		b_thumbnail AS b_thumbnail,
+    		ROUND(AVG(b_review_score),1) AS b_review_score,
+    		COUNT(DISTINCT b_review_id) AS review_count,
+    		MIN(b_op_price) AS b_op_price,
+    		u_s_com,
+    		b_type
+    	FROM board, board_option,users_seller,review
+    	WHERE board.b_id=board_option.b_id
+    	AND board.u_s_id=users_seller.u_s_id
+    	AND board.b_id=review.b_id
+    	<!-- 키워드 검색 -->
+    	<if test="keyword != null and keyword != ''">
+    	 AND(
+    	 	b_title LIKE '%'||#{keyword}||'%'
+    	 	OR b_content LIKE '%'||#{keyword}||'%'
+    	 )
+    	</if>
+    	<!-- 타입 검색 -->
+    	<if test="b_type != null and b_type!=''">
+    	 AND b_type=#{b_type}
+    	</if>
+    	GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type,board.b_view_count
+    	<!-- 정렬 -->
+    	<choose>
+    	 <when test="fd == 'price_asc'">
+    	  ORDER BY MIN(b_op_price) ASC
+    	 </when>
+    	 <when test="fd == 'price_desc'">
+    	  ORDER BY MIN(b_op_price) DESC
+    	 </when>
+    	 <when test="fd == 'review'">
+    	  ORDER BY review_count DESC
+    	 </when>
+    	 <when test="fd == 'view'">
+    	  ORDER BY board.b_view_count DESC
+    	 </when>
+    	 <when test="fd == 'review_score'">
+    	  ORDER BY b_review_score DESC
+    	 </when>
+    	 <otherwise>
+    	  ORDER BY board.b_id DESC
+    	 </otherwise>
+    	</choose>
+   		 ) A
+    )
+    WHERE num BETWEEN #{start} AND #{end}
+   </select>
+   <select id="talentFindCount" resultType="int" parameterType="hashmap">
+    SELECT COUNT(*)
+    FROM (
+    	SELECT board.b_id
+    	FROM board,board_option,users_seller,review
+    	WHERE board.b_id=board_option.b_id
+    	AND board.u_s_id=users_seller.u_s_id
+    	AND board.b_id=review.b_id
+    	
+    	<if test="keyword!= null and keyword!=''">
+    	 AND(
+    	 	b_title LIKE '%'||#{keyword}||'%'
+    	 	OR b_content LIKE '%'||#{keyword}||'%'
+    	 )
+    	</if>
+    	
+    	<if test="b_type!= null and b_type!= ''">
+    	 AND b_type=#{b_type}
+    	</if>
+    	GROUP BY board.b_id
+    )
+   </select>
 </mapper>

@@ -1,9 +1,13 @@
 package com.eum.main.model;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import java.util.List;
 import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.Board_OptionVO;
@@ -74,5 +78,77 @@ public class TalentModel {
 	   request.setAttribute("main_jsp", "../talent/detail.jsp");
 	   return "../main/main.jsp";
    }
-   
+   @RequestMapping("talent/find_ajax.eum")
+   public void talent_find_ajax(HttpServletRequest request,
+		   HttpServletResponse response)
+   {
+	   try
+	   {
+	   String page=request.getParameter("page");
+	   if(page==null)
+		   page="1";
+	   int curpage=Integer.parseInt(page);
+	   
+	   String keyword=request.getParameter("keyword");
+	   String b_type=request.getParameter("b_type");
+	   String fd=request.getParameter("fd");
+	   
+	   int rowSize=12;
+	   int start=(curpage-1)*rowSize+1;
+	   int end=curpage*rowSize;
+	   
+	   Map map=new HashMap();
+	   map.put("start", start);
+	   map.put("end", end);
+	   map.put("keyword", keyword);
+	   map.put("b_type", b_type);
+	   map.put("fd", fd);
+	   
+	   List<BoardVO> list=TalentDAO.talentFindData(map);
+	   int count=TalentDAO.talentFindCount(map);
+	   
+	   final int BLOCK=10;
+	   int totalpage=(int)(Math.ceil(count/12.0));
+	   int startpage=((curpage-1)/BLOCK*BLOCK)+1;
+	   int endpage=startpage+BLOCK+1;
+	   if(endpage>totalpage)
+		   endpage=totalpage;
+	   
+	   JSONArray arr=new JSONArray();
+	   int i=0;
+	   
+	   for(BoardVO vo:list)
+	   {
+		   JSONObject obj=new JSONObject();
+		   obj.put("b_id", vo.getB_id());
+		   obj.put("b_title", vo.getB_title());
+		   obj.put("b_thumbnail", vo.getB_thumbnail());
+		   obj.put("b_review_score", vo.getRvo().getB_review_score());
+		   obj.put("review_count", vo.getRvo().getReview_count());
+		   obj.put("b_op_price", vo.getBovo().getB_op_price());
+		   obj.put("u_s_com", vo.getUsvo().getU_s_com());
+		   obj.put("b_type", vo.getB_type());
+		   obj.put("b_view_count", vo.getB_view_count());
+		   
+		   if(i==0)
+		   {
+			   obj.put("curpage", curpage);
+			   obj.put("totalpage", totalpage);
+			   obj.put("startpage", startpage);
+			   obj.put("endpage", endpage);
+			   obj.put("count", count);
+		   }
+		   arr.add(obj);
+		   i++;
+		   
+		   response.setContentType("text/plain;charset=UTF-8");
+		   PrintWriter out=response.getWriter();
+		   out.write(arr.toJSONString());
+	   }
+	   
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+   }
 }

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Controller
 public class Admin_Notice_Model {
 	
-	// ✅ 공지사항 목록
+	// 공지사항 목록
 	@RequestMapping("admin/admin_notice_list.eum")
 	public String notice_list(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -29,7 +29,7 @@ public class Admin_Notice_Model {
 	    map.put("start", start);
 	    map.put("end", end);
 
-	    List<NoticeVO> list = NoticeDAO.noticeListData(map); // ✅ DAO와 일치
+	    List<NoticeVO> list = NoticeDAO.noticeListData(map); 
 	    int totalpage = NoticeDAO.noticeTotalPage();
 
 	    String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());

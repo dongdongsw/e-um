@@ -53,6 +53,48 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+$(function(){
+	$(".search").on("submit",function(e){
+		e.preventDefault();
+		
+		let keyword=$(".search_input").val().trim();
+		if(keyword=="")
+		{
+			alert("검색어를 입력해주세요");
+			return;
+		}
+		talent_search(keyword,1);
+	});
+	function talent_search(keyword,page)
+	{
+		$.ajax({
+			url:"../talent/find_ajax.eum",
+			type:"GET",
+			data:{"keyword":keyword,"page":page},
+			success:function(result)
+			{
+				let json=JSON.parse(result);
+				
+				$(".row").empty();
+				
+				json.forEach((vo,idx)=>{
+					let html='<div class="col-md-3">
+					           <div clas="temporary_storage" style="border:none">
+							    <div class="list-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
+							     <div class="image">
+							      <img src="${vo.b_thumbnail}" width="200" height="160" style="border-radius:15px;">
+							     <div>
+							     
+							     <div class="content">
+							      <span class="stream_title">${vo.b_title}</span>
+							      <div class="content_body">
+							       <span style="font-size:10px">⭐️${vo.b_review_score}
+					'
+				})
+			}
+		})
+	}
+})
 </script>
 </head>
 <body>

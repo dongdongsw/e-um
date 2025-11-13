@@ -10,6 +10,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.eum.commons.CreateSqlSessionFactory;
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.Board_OptionVO;
+import com.eum.main.vo.NoticeVO;
+
+import oracle.net.ns.SessionAtts;
 
 /*
  * <select id="lifeListData" resultMap="boardMap" parameterType="hashmap">
@@ -204,6 +207,34 @@ import com.eum.main.vo.Board_OptionVO;
 			   ex.printStackTrace();
 		   }
 		   return list;
+	   }
+	   public static List<BoardVO> talentFindData(Map map)
+	   {
+		   List<BoardVO> list=null;
+		   try
+		   {
+			   SqlSession session=ssf.openSession();
+			   list=session.selectList("talentFindData",map);
+			   session.close();
+		   }catch(Exception ex) 
+		   {
+			   ex.printStackTrace();
+		   }
+		   return list;
+	   }
+	   public static int talentFindCount(Map map)
+	   {
+		   int count=0;
+		   try
+		   {
+			   SqlSession session=ssf.openSession();
+			   count=session.selectOne("talentFindCount",map);
+			   session.close();
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+		   }
+		   return count;
 	   }
 	   
 	}
