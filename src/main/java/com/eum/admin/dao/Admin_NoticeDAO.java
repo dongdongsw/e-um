@@ -10,7 +10,6 @@ import com.eum.main.vo.NoticeVO;
 
 public class Admin_NoticeDAO {
 
-	public class NoticeDAO {
 		private static SqlSessionFactory ssf;
 		static
 		{
@@ -106,4 +105,4 @@ public class Admin_NoticeDAO {
 			return vo;
 		}
 	}
-}
+

@@ -41,11 +41,7 @@
             <input type="hidden" name="n_id" value="${vo.n_id}">
             
             <div class="card shadow mb-4">
-              <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                  <h4 class="mb-0">공지사항 수정하기</h4>
-                </div>
-              </div>
+              
 
               <div class="card-body">
                 <!-- 제목 -->
@@ -58,7 +54,7 @@
                 <!-- 내용 -->
                 <div class="form-group mt-4">
                   <label for="n_content"><strong>내용</strong></label>
-                  <textarea id="n_content" name="n_content" class="form-control" rows="20" required>${vo.n_content}</textarea>
+                  <textarea id="n_content" name="n_content" class="form-control" rows="22" required>${vo.n_content}</textarea>
                 </div>
 
 

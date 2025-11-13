@@ -248,7 +248,6 @@
         const checkedBoxes = $("input[type='checkbox'][id^='check']:checked");
         if (checkedBoxes.length > 0) {
           const ids = checkedBoxes.map(function() { return $(this).val(); }).get();
-          // 단일 or 다중 삭제 가능
           location.href = 'admin_notice_delete_ok.eum?n_id=' + ids.join(',');
         }
       });

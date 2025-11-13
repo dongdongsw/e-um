@@ -66,4 +66,5 @@
 	  DELETE FROM notice_board
 	  WHERE n_id=#{n_id}
 	 </delete>
+	 
 </mapper>

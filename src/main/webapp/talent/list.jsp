@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title></title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
 <link rel="stylesheet" href="../css/list.css">
 <script>
 window.addEventListener('DOMContentLoaded', function () {
@@ -43,59 +44,96 @@ window.addEventListener('DOMContentLoaded', function () {
           rangeInput[0].value = maxVal - priceGap;
         } else {
           rangeInput[1].value = minVal + priceGap;
-        }  
+        }
       } else {
         priceInput[0].value = minVal;
         priceInput[1].value = maxVal;
-        range.style.left  = (minVal / rangeInput[0].max) * 100 + "%";
+        range.style.left = (minVal / rangeInput[0].max) * 100 + "%";
         range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
       }
     });
   });
 });
-$(function(){
-	$(".search").on("submit",function(e){
-		e.preventDefault();
-		
-		let keyword=$(".search_input").val().trim();
-		if(keyword=="")
-		{
-			alert("검색어를 입력해주세요");
-			return;
-		}
-		talent_search(keyword,1);
+
+$(function (){
+	  $(".search").on("submit", function (e) {
+	    e.preventDefault();
+
+	    let keyword = $(".search_input").val().trim();
+	    if (keyword === "") {
+	      alert("검색어를 입력해주세요");
+	      return;
+	    }
+	    talent_search(keyword, 1);
+	  });
+	  
+	  $(".reset").on("click", function () {
+	      $(".card-area").empty();
+	      $(".search_input").val("");  
+	      $("#default-list").show();          
+	      $("#pagination-area").show();       
+	  });
+	  
+	  function talent_search(keyword, page) {
+	    $.ajax({
+	      url: "../talent/find_ajax.eum",
+	      type: "GET",
+	      data: { "keyword": keyword, "page": page },
+	      success: function (result) {
+	        let json = JSON.parse(result);
+	        console.log(json);   
+	        
+	        $("#default-list").hide();
+	        $(".card-area").empty(); 
+	        
+	        if (json.length === 0) {
+	          $(".card-area").html('<div class="col-md-12"><p style="text-align:center; padding:50px 0;">검색 결과가 없습니다.</p></div>');
+	          return;
+	        }
+	        json.forEach((vo, idx) => {
+	          let reviewScore = vo.b_review_score != null ? vo.b_review_score : 0;
+	          let reviewCount = vo.review_count != null ? vo.review_count : 0;
+	          let price = vo.b_op_price ? Number(vo.b_op_price).toLocaleString() : 0;
+	          let company = vo.u_s_com || '';
+	          let html = 
+	            '<div class="col-md-3">' +
+	              '<div class="temporary__storage" style="border:none">' +
+	                '<div class="list-card" onclick="location.href=\'../talent/detail.eum?b_id=' + vo.b_id + '\'">' +
+	                  '<div class="image">' +
+	                    '<img src="' + vo.b_thumbnail + '" width="200" height="160" style="border-radius: 15px;">' +
+	                  '</div>' +
+	                  '<div class="image__overlay"></div>' +
+	                  '<div class="content">' +
+	                    '<div class="avatar"></div>' +
+	                    '<div class="content__text">' +
+	                      '<span class="stream__title">' + vo.b_title + '</span>' +
+	                      '<div class="content__body">' +
+	                        '<span class="event" style="font-size: 10px">' +
+	                          '⭐️ ' + reviewScore + ' (' + reviewCount + ')' +
+	                        '</span>' +
+	                        '<span class="streamer__name" style="font-size: 12px">' +
+	                          price + '원' +
+	                        '</span>' +
+	                        '<span class="streamer__name" style="font-size: 10px">' + company + '</span>' +
+	                      '</div>' +
+	                      '<span class="categories">' +
+	                        '<div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">' +
+	                          vo.b_type +
+	                        '</div>' +
+	                      '</span>' +
+	                    '</div>' +
+	                  '</div>' +
+	                '</div>' +
+	              '</div>' +
+	            '</div>';
+	          $(".card-area").append(html);
+	        });
+	      }
+	    });
+	  }
 	});
-	function talent_search(keyword,page)
-	{
-		$.ajax({
-			url:"../talent/find_ajax.eum",
-			type:"GET",
-			data:{"keyword":keyword,"page":page},
-			success:function(result)
-			{
-				let json=JSON.parse(result);
-				
-				$(".row").empty();
-				
-				json.forEach((vo,idx)=>{
-					let html='<div class="col-md-3">
-					           <div clas="temporary_storage" style="border:none">
-							    <div class="list-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
-							     <div class="image">
-							      <img src="${vo.b_thumbnail}" width="200" height="160" style="border-radius:15px;">
-							     <div>
-							     
-							     <div class="content">
-							      <span class="stream_title">${vo.b_title}</span>
-							      <div class="content_body">
-							       <span style="font-size:10px">⭐️${vo.b_review_score}
-					'
-				})
-			}
-		})
-	}
-})
 </script>
+
 </head>
 <body>
   <div class="header-text" style="height: 200px;"></div>
@@ -296,73 +334,96 @@ $(function(){
   })();
 </script>
     <!-- 오른쪽 메인 -->
+    <!-- 오른쪽 메인 -->
     <div class="main">
-      <div class="row">
-      <!-- start 검색바 -->
-      <form class="search">
-      <button>
-          <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
-              <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-      </button>
-      <input class="search_input" placeholder="어떤 서비스가 필요하세요?" required="" type="text">
-      <button class="reset" type="reset">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-      </button>
-       </form>
-       <!-- end 검색바 -->
-       <div class="header-text" style="height: 10px;"></div>
-       <c:forEach var="vo" items="${life_list }">
-         <div class="col-md-3">
-		   <div class="temporary__storage" style="border:none">
-			  <div class="list-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
-			    <div class="image">
-			      <img src="${vo.b_thumbnail }" width="200" height="160" style="border-radius: 15px;">
-			    </div>
-			    <div class="image__overlay"></div>
-			    <div class="content">
-			      <div class="avatar"></div>
-			      <div class="content__text">
-			        <span class="stream__title">${vo.b_title}</span>
-			        <div class="content__body">
-			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0} (${vo.rvo.review_count != null ? vo.rvo.review_count : 0})</span>
-			          <span class="streamer__name" id="price" style="font-size: 12px">
-			          <fmt:formatNumber value="${empty vo.bovo.b_op_price ? 0 : vo.bovo.b_op_price}" pattern="#,###" />원</span>
-			          <span class="streamer__name" id="seller" style="font-size: 10px">${vo.usvo.u_s_com }</span>
-			        </div>
-			        <span class="categories">
-			          <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">${vo.b_type}</div>
-			        </span>
-			      </div>
-			    </div>
-			</div>
-		  </div>
+    
+    <!-- 검색바 -->
+    <form class="search">
+          <button type="button">
+              <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                        stroke="currentColor" stroke-width="1.333"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+          </button>
+          <input class="search_input" placeholder="어떤 서비스가 필요하세요?" required="" type="text">
+          <button class="reset" type="reset">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                    fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+          </button>
+        </form>
+        <div class="header-text" style="height: 10px;"></div>
+
+      <!-- 검색 결과 영역 -->
+      <div class="card-area row"></div>
+
+        <!-- 기본 리스트 -->
+        <div id="default-list" class="row">
+
+          <c:forEach var="vo" items="${life_list}">
+            <div class="col-md-3">
+              <div class="temporary__storage" style="border:none">
+                <div class="list-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
+                  <div class="image">
+                    <img src="${vo.b_thumbnail}" width="200" height="160" style="border-radius: 15px;">
+                  </div>
+                  <div class="image__overlay"></div>
+                  <div class="content">
+                    <div class="avatar"></div>
+                    <div class="content__text">
+                      <span class="stream__title">${vo.b_title}</span>
+                      <div class="content__body">
+                        <span class="event" style="font-size: 10px">
+                          ⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0}
+                          (${vo.rvo.review_count != null ? vo.rvo.review_count : 0})
+                        </span>
+                        <span class="streamer__name" style="font-size: 12px">
+                          <fmt:formatNumber value="${empty vo.bovo.b_op_price ? 0 : vo.bovo.b_op_price}"
+                                            pattern="#,###"/>원
+                        </span>
+                        <span class="streamer__name" style="font-size: 10px">
+                          ${vo.usvo.u_s_com}
+                        </span>
+                      </div>
+                      <span class="categories">
+                        <div class="categories__btn"
+                             style="width:55px; text-align: center; font-size: 10px">
+                          ${vo.b_type}
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </c:forEach>
         </div>
-      </c:forEach>
-      <div id="app" class="container">  
-  <ul class="page">
-    <c:if test="${startPage>1}">
-      <li class="page__btn active">
-        <a class="material-icons" href="../talent/list.eum?page=${startPage-1}">&lt;</a>
-      </li>
-    </c:if>
-    <c:forEach var="i" begin="${startPage}" end="${endPage}">
-      <li class="page__numbers ${i==curpage?'active':''}">
-        <a href="../talent/list.eum?page=${i}">${i}</a>
-      </li>
-    </c:forEach>
-    <c:if test="${endPage<totalpage}">
-      <li class="page__btn active">
-        <a class="material-icons" href="../talent/list.eum?page=${endPage+1}">&gt;</a>
-      </li>
-    </c:if>
-  </ul>
-</div>
-      
+        
+    <!-- 페이지네이션 -->
+    <div id="pagination-area" class="container">
+          <ul class="page">
+            <c:if test="${startPage > 1}">
+              <li class="page__btn active">
+                <a href="../talent/list.eum?page=${startPage-1}">&lt;</a>
+              </li>
+            </c:if>
+            <c:forEach var="i" begin="${startPage}" end="${endPage}">
+              <li class="page__numbers ${i==curpage?'active':''}">
+                <a href="../talent/list.eum?page=${i}">${i}</a>
+              </li>
+            </c:forEach>
+            <c:if test="${endPage < totalpage}">
+              <li class="page__btn active">
+                <a href="../talent/list.eum?page=${endPage+1}">&gt;</a>
+              </li>
+            </c:if>
+          </ul>
+        </div>
     </div>
-  </div>
- </div>
+    </div>
 </body>
 </html>
