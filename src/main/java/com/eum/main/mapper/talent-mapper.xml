@@ -10,6 +10,8 @@
 	<result property="rvo.review_count" column="review_count"/>
 	<result property="rvo.root" column="root"/>
 	<result property="rvo.depth" column="depth"/>
+	<result property="rvo.reply" column="reply"/>
+	<result property="rvo.group_id" column="group_id"/>
 	<result property="rivo.r_image_url" column="r_image_url"/>
   	<result property="bovo.b_op_price" column="b_op_price"/>
   	<result property="bivo.b_img_url" column="b_img_url"/>
@@ -82,43 +84,33 @@
 
   <!-- review -->
   <select id="talentDetailreview" resultMap="boardMap" parameterType="string">
-    SELECT 
-    users.u_id,
-    review.b_review_id,
-    review.root,
-    review.depth,
-	board.b_id AS b_id,
-	review.u_s_id AS u_s_id,
-	review.b_review_id AS b_review_id,
-	b_review_createdat,
-	b_review_content,
-	r_image_url,
-    u_nickname,
-    u_profileImg_url
-	FROM review,board,review_image,users
-	WHERE board.b_id = review.b_id
-	AND review.b_review_id = review_image.b_review_id(+)
-    AND review.u_id = users.u_id
-	AND board.b_id=#{b_id}
-	AND review.depth = 1
-  </select>
-  
-  <select id="talentRereview" resultMap="boardMap" parameterType="string">
-    SELECT 
-    users.u_id,
-    review.b_review_id,
-    review.root,
-    review.depth,
-	board.b_id AS b_id,
-	review.u_s_id AS u_s_id,
-	review.b_review_id AS b_review_id,
-	b_review_createdat,
-	b_review_content
-	FROM review,board,review_image,users
-	WHERE board.b_id = review.b_id
-    AND review.u_id = users.u_id
-	AND board.b_id=#{b_id}
-	AND review.depth = 2
+	  SELECT 
+        u.u_id,
+        r.root,
+        r.depth,
+        r.group_id,
+        b.b_id AS b_id,
+        r.u_s_id AS u_s_id,
+        r.b_review_id AS b_review_id,
+        r.b_review_createdat,
+        r.b_review_content,
+        u.u_nickname,
+        u.u_profileimg_url,
+        (
+            SELECT COUNT(*)
+            FROM review r2
+            WHERE r2.group_id = r.group_id
+              AND r2.depth = 2
+        ) AS reply
+    FROM review r
+    JOIN board  b ON b.b_id = r.b_id
+    JOIN users  u ON r.u_id = u.u_id
+    WHERE b.b_id = #{b_id}
+    ORDER BY
+        r.group_id DESC,
+        r.depth ASC,
+        r.b_review_createdat ASC       
+
   </select>
   
   <!-- score -->
@@ -140,4 +132,24 @@
     b_view_count=b_view_count+1 
     WHERE b_id=#{b_id}
    </update>
+   
+   <insert id="reviewInsert" parameterType="ReviewVO">
+     INSERT INTO review 
+     	(b_review_id, u_s_id, b_id, u_id, b_review_createdat, b_review_content,
+      	 b_review_score, depth, group_id)
+     VALUES
+         (re_id_seq.nextval, #{u_s_id}, #{b_id}, #{u_id}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+          #{b_review_content}, #{b_review_score}, 1, re_id_seq.CURRVAL 
+         )
+   </insert>
+   
+    <insert id="replyInsert" parameterType="ReviewVO">
+     INSERT INTO review 
+     	(b_review_id, u_s_id, b_id, u_id, b_review_createdat, b_review_content,
+      	 depth, group_id)
+     VALUES
+         (re_id_seq.nextval, #{u_s_id}, #{b_id}, #{u_id}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+          #{b_review_content}, 2, #{group_id}
+         )
+   </insert>
 </mapper>

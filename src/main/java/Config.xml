@@ -11,6 +11,7 @@
      <typeAlias type="com.eum.main.vo.Board_OptionVO" alias="Board_OptionVO"/>
      <typeAlias type="com.eum.main.vo.NoticeVO" alias="NoticeVO"/>
      <typeAlias type="com.eum.main.vo.UsersVO" alias="UsersVO"/>
+     <typeAlias type="com.eum.main.vo.ReviewVO" alias="ReviewVO"/>
      <typeAlias type="com.eum.main.vo.Users_SellerVO" alias="Users_SellerVO"/>
 
    </typeAliases>

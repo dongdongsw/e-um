@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.eum.commons.CreateSqlSessionFactory;
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.Board_OptionVO;
+import com.eum.main.vo.ReviewVO;
 
 /*
  * <select id="lifeListData" resultMap="boardMap" parameterType="hashmap">
@@ -206,38 +207,26 @@ import com.eum.main.vo.Board_OptionVO;
 		   return list;
 	   }
 	   
-		/*
-		 *   <select id="talentRereview" resultMap="boardMap" parameterType="string">
-			    SELECT 
-			    users.u_id,
-			    review.b_review_id,
-			    review.root,
-			    review.depth,
-				board.b_id AS b_id,
-				review.u_s_id AS u_s_id,
-				review.b_review_id AS b_review_id,
-				b_review_createdat,
-				b_review_content
-				FROM review,board,review_image,users
-				WHERE board.b_id = review.b_id
-			    AND review.u_id = users.u_id
-				AND board.b_id=#{b_id}
-				AND review.depth = 2
-			  </select>
-		 */
-	   public static List<BoardVO> talentRereview(String b_id)
-	   {
-		   List<BoardVO> list=null;
-		   try
-		   {
-			   SqlSession session=ssf.openSession();
-			   list=session.selectList("talentRereview", b_id);
+	   public static void reviewInsert(ReviewVO vo) {
+		   
+		   try {
+			   SqlSession session=ssf.openSession(true);
+			   session.insert("reviewInsert",vo);
 			   session.close();
-		   }catch(Exception ex)
-		   {
+		   } catch (Exception ex) {
 			   ex.printStackTrace();
 		   }
-		   return list;
+	   }
+	   
+	   public static void replyInsert(ReviewVO vo) {
+		   
+		   try {
+			   SqlSession session=ssf.openSession(true);
+			   session.insert("replyInsert",vo);
+			   session.close();
+		   } catch (Exception ex) {
+			   ex.printStackTrace();
+		   }
 	   }
 	   
 	}
