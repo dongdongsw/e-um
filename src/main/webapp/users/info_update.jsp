@@ -6,6 +6,130 @@
 <meta charset="UTF-8">
 <title>정보 수정</title>
 <link rel="stylesheet" href="../css/join.css">
+<style type="text/css">
+body {background-color: #fff !important;}
+.update-container {
+    display: flex;
+    width: 1180px;
+    margin: 0 auto;
+    gap: 20px;
+    background-color: #fff;
+    min-height: 800px;
+}
+.update-container {
+	max-width:1170px;
+	margin:0 auto;
+	padding:48px 16px;
+	display:flex;
+	justify-content:center;
+	font-weight: bold;
+}
+
+/* ===== 좌측 메뉴 ===== */
+.sidebar {
+  border-right: 1px solid #e5e7eb;
+  padding-right: 24px;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu a {
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 8px 0;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.menu a.active {
+  font-weight: 600;
+  color: #8e4dff;
+}
+
+.menu a:hover {
+  background: #f9fafb;
+}
+
+/* ===== 오른쪽 본문 ===== */
+.content {
+  background: #fff;
+}
+
+.content h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+/* 프로필 카드 */
+.profile-card {
+  display: flex;
+  gap: 50px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px 40px;
+  background: #fff;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.info-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.info-title {
+  font-size: 14px;
+  color: #6b7280;
+  flex: 0 0 180px; /* 제목 영역 고정 폭 */
+}
+
+.info-value {
+  font-size: 15px;
+  color: #111;
+  flex: 1; /* 오른쪽 값은 자동 확장 */
+  text-align: left;
+}
+
+.note {
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 4px;
+}
+h2 {margin-bottom:100px}
+</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
@@ -86,10 +210,24 @@ $(function(){
 </script>
 </head>
 <body>
-<div class="header-text" style="height: 150px;  background-color: #fff;"></div>
-  <div class="join-container">
-    <div class="panel">
-      <h1 class="title" style="color:black;  text-align: center"><span style="font-size: 30px;">정보 수정</h1>
+<div class="header-text" style="height: 200px;  background-color: #fff;"></div>
+  <div class="update-container">
+    <!-- 좌측 메뉴 -->
+	<aside class="sidebar">
+	  <h2 style="color:black">마이 페이지</h2>
+	  <nav class="menu">
+	    <a href="../users/info.eum">회원 정보</a>
+	    <a href="../users/review_list.eum">작성한 리뷰</a>
+	    <a href="../users/favorite_list.eum">즐겨찾기한 컨텐츠</a>
+	    <a href="#">결제 내역</a>
+	    <a href="../users/info_update.eum" class="active">정보 수정</a>
+	  </nav>
+	</aside>
+	
+	<!-- 오른쪽 본문 -->
+	<main class="content"></main>
+      <div class="panel">
+      <h2 class="title" style="color: black;">정보 수정</h1>
 	  <div style="height: 30px"></div>
       <form id="frm" name="frm" method="post" action="../users/update_ok.eum">
         <!-- 닉네임 (필수) -->

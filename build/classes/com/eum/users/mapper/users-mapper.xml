@@ -60,4 +60,11 @@
       u_push_noti=#{u_push_noti}, u_email_noti=#{u_email_noti}, u_sms_noti=#{u_sms_noti}
       WHERE u_loginid=#{u_loginid}
     </update>
+    
+    <!-- 프로필 이미지 업로드 -->
+    <update id="profileImgUpload" parameterType="UsersVO">
+      UPDATE users SET
+      u_profileimg_url=#{u_profileimg_url}
+      WHERE u_loginid=#{u_loginid}
+    </update>
 </mapper>

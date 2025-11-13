@@ -134,5 +134,23 @@ public class UsersDAO {
 			ex.printStackTrace();
 		}
 	}
+	
+	// 프로필 이미지 업로드
+	/*
+        <update id="profileImgUpload" parameterType="UsersVO">
+	      UPDATE users SET
+	      u_profileimg_url=#{u_profileimg_url}
+	      WHERE u_loginid=#{u_loginid}
+	    </update>
+	 */
+	public static void profileImgUpload(UsersVO vo) {
+		try {
+			SqlSession session = ssf.openSession(true);
+			session.update("profileImgUpload", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }

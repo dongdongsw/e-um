@@ -1,6 +1,12 @@
 package com.eum.users.model;
 
+import java.io.File;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
@@ -11,7 +17,13 @@ import com.eum.seller.dao.SellerDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 @Controller
+@jakarta.servlet.annotation.MultipartConfig(
+		fileSizeThreshold = 1024*1024,
+		maxFileSize = 5*1024*1024L,
+		maxRequestSize = 20*1024*1024L
+)
 public class usersModel {
 	
 	// 회원가입 페이지
@@ -225,4 +237,66 @@ public class usersModel {
 	    
 		return "redirect:../users/info.eum";
     }
+	
+	// 프로필 이미지 업로드
+	@RequestMapping("users/profile_upload.eum")
+	public String users_profile_upload(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		String loginid = (String)session.getAttribute("loginid");
+		
+		if(loginid==null) {
+			request.setAttribute("msg", "로그인이 필요한 서비스입니다.");
+			request.setAttribute("url", "../users/login.eum");
+			return "../commons/alert.jsp";
+		}
+		
+		String uploadDir = "/upload/profile";
+		String path = request.getServletContext().getRealPath(uploadDir);
+		
+		File dir = new File(path);
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		
+		String newFilePath = null;
+		
+		try {
+			Part filePart = request.getPart("profile_img");
+			String originalFileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+			
+			if(filePart.getSize() > 0 && originalFileName != null && !originalFileName.isEmpty()) {
+				String oldProFileUrl = (String)session.getAttribute("profile");
+				
+				String uniqueFileName = System.currentTimeMillis() + "-" + originalFileName;
+				Path filePath = Paths.get(path, uniqueFileName);
+				try(InputStream input = filePart.getInputStream()) {
+					Files.copy(input, filePath, StandardCopyOption.REPLACE_EXISTING);
+				}
+				newFilePath = request.getContextPath() + uploadDir + "/" + uniqueFileName;
+				
+				UsersVO vo = new UsersVO();
+				vo.setU_loginid(loginid);
+				vo.setU_profileimg_url(newFilePath);
+				UsersDAO.profileImgUpload(vo);
+				
+				if(oldProFileUrl != null && !oldProFileUrl.contains("profile.jpg")) {
+					try {
+						String oldFileName = oldProFileUrl.substring(oldProFileUrl.lastIndexOf("/")+1);
+						File oldFile = new File(path + File.separator + oldFileName);
+						if(oldFile.exists()) {
+							oldFile.delete();
+						}
+					} catch(Exception ignore) {
+					}
+				}
+				session.setAttribute("profile", newFilePath);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			request.setAttribute("msg", "파일 업로드 처리 중 오류가 발생했습니다.");
+			request.setAttribute("url", "../users/info.eum");
+			return "../commons/alert.jsp";
+		}
+		return "redirect:../users/info.eum";
+	}
 }
