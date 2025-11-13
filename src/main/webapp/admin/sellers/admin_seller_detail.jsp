@@ -10,6 +10,17 @@
   #home .container-fluid {
     max-height: 700px;   /* 원하는 높이 */
   }
+  
+  #profile {
+    height: 650px;  /* 고정 높이 */
+}
+	
+	.profile-header {
+    min-height: 150px;   /* 원하는 높이로 조절 가능 */
+    display: flex;
+    align-items: center;
+}
+
 
   /* 카드 높이 일정하게 맞추기 (선택사항) */
   #home .card {
@@ -24,22 +35,20 @@
   
 .td-title {
     white-space: nowrap;
-    max-width: 70px;
+    max-width: 180px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 </style>
 
-<main role="main" class="main-content">
+	<main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12">
-             
                 <div class="col-md-15 mb-13">
                   <div class="card shadow">
-                    <div class="card-body">
+                    <div class="card-body ">
                       <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
-                        
                         <li class="nav-item">
                           <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
                         </li>
@@ -48,11 +57,14 @@
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        
                         <!-- 프로필 정보 -->
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"> 
-                        	
-			                  <div class="row mt-5 align-items-center">
+                        	<div class="d-flex justify-content-end">
+							    <a href="../admin/admin_users_detail.eum?u_id=${seller_vo.u_id }" class="btn mb-2 btn-info">회원 정보</a>
+							    
+							</div>
+			                  <div class="row mt-5 align-items-center profile-header">
+
 			                    <div class="col-md-3 text-center mb-5">
 			                      <div class="avatar avatar-xl">
 			                        <img src="${seller_vo.u_s_profileimg_url }" alt="..." class="avatar-img rounded-circle">
@@ -63,64 +75,55 @@
 			                        <div class="col-md-7">
 			                          <h4 class="mb-1">일련변호  : ${seller_vo.u_s_id }</h4>
 			                          <h4 class="mb-1">닉네임   : ${seller_vo.u_s_com }</h4>
-			                       
 			                        </div>
 			                      </div>
-			                      
 			                    </div>
 			                  </div>
 			                  <hr class="my-4">
 			                  <div class="card-deck">
+			                  
+			                  	  <!-- 기본 정보 -->
 					              <div class="col-md-4">
 					                <div class="card shadow mb-6">
 					                  <div class="card-header">
-					                    <strong class="card-title">기본 정보</strong>
+					                    <strong class="card-title">셀러 기본 정보</strong>
 					                  </div>
 					                  <div class="card-body">
 					                    <form>
 					                      <div class="form-row">
-					                        <div class="form-group col-md-8">
-					                          <label for="inputEmail4">사업자 번호</label>
-					                          <c:if test="${seller_vo.u_s_biz_no == null}">
-					                          	<p class="form-control-plaintext">없음</p>
-					                          </c:if>
-					                          <c:if test="${seller_vo.u_s_biz_no != null}">
-					                          	<p class="form-control-plaintext">${seller_vo.u_s_biz_no}</p>
-					                          </c:if>
-					                        </div>
 					                        <div class="form-group col-md-6">
-					                        	<label for="inputAddress">활동 지역</label>
-						                        <p class="form-control-plaintext">${seller_vo.u_s_zone}</p>
-					                          
+						                        <label for="inputEmail4">사업자 번호</label>
+						                        <c:if test="${seller_vo.u_s_biz_no == null}">
+						                        	<p class="form-control-plaintext">없음</p>
+						                        </c:if>
+						                        <c:if test="${seller_vo.u_s_biz_no != null}">
+						                          	<p class="form-control-plaintext">${seller_vo.u_s_biz_no}</p>
+						                        </c:if>
+						                        </div>
+						                        <div class="form-group col-md-6">
+						                        	<label for="inputAddress">활동 지역</label>
+							                        <p class="form-control-plaintext">${seller_vo.u_s_zone}</p>
+						                        </div>
 					                        </div>
-					                      </div>
 					                      
-					                      <!-- 주소 & 성별 -->
-					                      <div class="form-row">
-						                      <div class="form-group col-md-6">
-						                        <label for="inputPassword4">phone</label>
-					                          <p class="form-control-plaintext"></p>
-						                      </div>
-					                        
-								         </div>
-								         
-								         <!-- 활동 상태&생년월일 -->
-					                      <div class="form-row">
-					                      	<div class="form-group col-md-6">
-						                        <label for="inputAddress">활동 상태</label>
-						                        <p class="form-control-plaintext"></p>
-						                    </div>
-						                    <div class="form-group col-md-6">
-						                        <label for="inputAddress">경력</label>
-						                        <p class="form-control-plaintext">
-						                        	<c:if test="${seller_vo.u_s_carrer > 0 }">
-						                        		${seller_vo.u_s_carrer}년
-						                        	</c:if>	
-						                        	<c:if test="${seller_vo.u_s_carrer <= 0 }">
-						                        		0년
-						                        	</c:if>
-												</p>
-						                    </div>
+									         <!-- 활동 상태&생년월일 -->
+						                      <div class="form-row">
+						                      	<div class="form-group col-md-6">
+							                        <label for="inputAddress">경력</label>
+							                        <p class="form-control-plaintext">
+							                        	<c:if test="${seller_vo.u_s_carrer > 0 }">
+							                        		${seller_vo.u_s_carrer}년
+							                        	</c:if>	
+							                        	<c:if test="${seller_vo.u_s_carrer <= 0 }">
+							                        		0년
+							                        	</c:if>
+													</p>
+							                    </div>
+						                      	<div class="form-group col-md-6">
+							                        <label for="inputAddress"></label>
+							                        <p class="form-control-plaintext"></p>
+							                    </div>
+							                    
 					                      </div>
 					                      
 					                      <!-- 가입일&수정일 -->
@@ -138,51 +141,86 @@
 												</p>
 						                    </div>
 					                      </div>
-					                      
 					                    </form>
 					                  </div>
 					                </div>
 				                </div>
 				                
-				          		<div class="col-md-8">
-				       			<div class="card shadow mb-8 my-10">
-				                    <div class="card-body">
-				                      <h5 class="card-title">컨텐츠 목록</h5>
-				                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					                      <table class="table table-hover">
-					                        <thead>
-					                          <tr >
-					                            <th>ID</th>
-					                            <th>title</th>
-					                            <th>카테고리</th>
-					                            <th>수업방식</th>
-					                            <th>Date</th>
-					                            <th>Status</th>
-					                          </tr>
-					                        </thead>
-					                       
-					                        <tbody>
-					                          <c:forEach var="board_list" items="${board_list }">
-						                          <tr>
-						                            <td class="td-title">${board_list.b_id }</td>
-						                            <td class="td-title">${board_list.b_title }</td>
-						                            <td class="td-title">${board_list.b_type }</td>
-						                            <td class="td-title">${board_list.b_prod_on_off}</td>
-						                            <td class="td-title">Apr 24, 2019</td>
-						                            <td><span class="badge badge-pill badge-warning">Hold</span></td>
-						                            <!-- <td><span class="badge badge-pill badge-success">Success</span></td> -->
-						                            <!-- <td><span class="badge badge-pill badge-danger">Danger</span></td> -->
+				                <!-- 컨텐츠 목록 -->
+				          		<div class="col-md-8 d-flex" >
+					       			<div class="card shadow mb-8 my-10">
+					                    <div class="card-body d-flex flex-column">
+					                      <h5 class="card-title">컨텐츠 목록</h5>
+						                      <table class="table table-hover">
+						                        <thead>
+						                          <tr >
+						                            <th>ID</th>
+						                            <th>title</th>
+						                            <th>카테고리</th>
+						                            <th>수업방식</th>
+						                            <th>생성일</th>
+						                            <th>Status</th>
+						                            <th></th>
 						                          </tr>
-						                       </c:forEach>
-					                        </tbody>
-					                      </table>
-					                    </div>
-					                  </div>
-				                  </div>
-					                      
-                        	</div>
-                        </div>
-                        
+						                        </thead>
+						                        <tbody>
+						                          <c:forEach var="board_list" items="${board_list }">
+							                          <tr>
+							                            <td class="td-title">${board_list.b_id }</td>
+							                            <td class="td-title">${board_list.b_title }</td>
+							                            <td class="td-title">${board_list.b_type }</td>
+							                            <td class="td-title">${board_list.b_prod_on_off}</td>
+							                            <td class="td-title">
+							                            	<fmt:formatDate value="${board_list.b_createdat }" pattern="yyyy-MM-dd" />
+							                            </td>
+							                            <td>
+														    <span class="badge badge-pill badge-warning"
+														          style="font-size: 12px; padding: 4px 8px;">
+														        <c:if test="${board_list.b_status == active}">
+														            활동중
+														        </c:if>
+														        <c:if test="${board_list.b_status != active}">
+														            비활동
+														        </c:if>
+														    </span>
+														</td>
+							                            <!-- <td><span class="badge badge-pill badge-success">Success</span></td> -->
+							                            <!-- <td><span class="badge badge-pill badge-danger">Danger</span></td> -->
+							                            <td> 
+							                            	<a href="../admin/admin_contents_detail?b_id=${board_list.b_id }" class="btn btn-danger" 
+															   style="padding: 2px 6px; font-size: 12px;">
+															    바로가기
+															</a>
+							                            </td>
+							                          </tr>
+							                       </c:forEach>
+						                        </tbody>
+						                      </table>
+						                      <nav aria-label="Table Paging" class="mb-0 text-muted mt-auto">
+							                     <ul class="pagination justify-content-end mb-0">
+							                        <c:if test="${startPage > 1 }">
+							                          <li class="page-item">
+							                          	<a class="page-link" href="../admin/admin_sellers_list.eum?page=${startPage-1 }">&lt;</a>
+							                          </li>
+							                        </c:if>
+							                        <c:forEach var="i" begin="${startPage }" end="${endPage }">
+							                          <li class="page-item ${i==curpage?'active':'' }" >
+							                          	<a class="page-link" href="../admin/admin_sellers_list.eum?page=${i }">${i }</a>
+							                          </li>
+							                        </c:forEach>  
+							                        <c:if test="${endPage < totalpage }">
+							                          <li class="page-item">
+							                          <a class="page-link" href="../admin/admin_sellers_list.eum?page=${endPage+1 }">&gt;</a>
+							                          </li>
+							                        </c:if>
+							                     </ul>
+							                   </nav>
+						                    </div>
+						                  </div>
+					                  </div>    
+		                        	</div>
+		                        </div>
+	                        
                         <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab"> 
 						        <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
 						          <div class="modal-dialog modal-sm" role="document">

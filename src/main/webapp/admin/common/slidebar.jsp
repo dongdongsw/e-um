@@ -3,6 +3,7 @@
 
 <body class="vertical  light  ">
     <div class="wrapper">
+      <!-- 상단 헤더 -->
       <nav class="topnav navbar navbar-light">
         <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
           <i class="fe fe-menu navbar-toggler-icon"></i>
@@ -14,11 +15,6 @@
           <li class="nav-item">
             <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="light">
               <i class="fe fe-sun fe-16"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-shortcut">
-              <span class="fe fe-grid fe-16"></span>
             </a>
           </li>
           <li class="nav-item nav-notif">
@@ -81,36 +77,11 @@
               </a>
             </li>
             
-            <!-- 관리자 사용자 상세 페이지 수정(임시) -->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="../admin/admin_users_modify.eum">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">사용자 상세 수정(임시)</span>
-              </a>
-            </li>
-            
-            
             <!-- 관리자 셀러 리스트 -->
             <li class="nav-item w-100">
               <a class="nav-link" href="../admin/admin_sellers_list.eum">
                 <i class="fe fe-users fe-16"></i>
                 <span class="ml-3 item-text">SELLERS</span>
-              </a>
-            </li>
-            
-            <!-- 관리자 셀러 상세(임시) -->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="../admin/admin_sellers_detail.eum">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">셀러 상세(임시)</span>
-              </a>
-            </li>
-            
-            <!-- 관리자 셀러 상세 수정(임시) -->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="../admin/admin_sellers_modify.eum">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">셀러 상세 수정(임시)</span>
               </a>
             </li>
             
@@ -127,6 +98,14 @@
               <a class="nav-link" href="../admin/admin_contents_detail.eum">
                 <i class="fe fe-shopping-bag fe-16"></i>
                 <span class="ml-3 item-text">컨텐츠 상세(임시)</span>
+              </a>
+            </li>
+            
+            <!-- 리뷰 리스트 -->
+            <li class="nav-item w-100">
+              <a class="nav-link" href="../admin/admin_review_list.eum">
+                <i class="fe fe-edit fe-16"></i>
+                <span class="ml-3 item-text">REVIEW</span>
               </a>
             </li>
             

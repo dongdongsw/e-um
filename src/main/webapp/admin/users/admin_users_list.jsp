@@ -17,6 +17,10 @@
   display: block;
 }
 
+.text-normal {
+    color: #4a4a4a !important;
+}
+
 </style>
 	 <main role="main" class="main-content">
         <div class="container-fluid">
@@ -25,9 +29,9 @@
               <div class="row">
               
                 <!-- Small table -->
-                <div class="col-md-12 my-4">
+                <div class="col-md-12 my-1">
                   <h2 class="h4 mb-1">사용자 리스트</h2>
-                  <p class="mb-3">Additional table rendering with vertical border, rich content formatting for cell</p>
+                  <p class="mb-3"> </p>
                   <div class="card shadow">
                     <div class="card-body">
                       <div class="toolbar row mb-3">
@@ -53,7 +57,6 @@
                         </div>
                         <div class="col ml-auto">
                           <div class="dropdown float-right">
-                            <button class="btn btn-primary float-right ml-3" type="button">Add more +</button>
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
                             <div class="dropdown-menu" aria-labelledby="actionMenuButton">
                               <a class="dropdown-item" href="#">Export</a>
@@ -75,13 +78,13 @@
                               </div>
                             </td>
                             <th></th>
-                            <th>닉네임</th>
-                            <th>주소</th>
-                            <th>연락처</th>
-                            <th class="w-24">email</th>
-                            <th>수정 날짜</th>
-                            <th>회원 상태</th>
-                            <th>Action</th>
+                            <th><strong>닉네임</strong></th>
+                            <th><strong>주소</strong></th>
+                            <th><strong>연락처</strong></th>
+                            <th class="w-24"><strong>email</strong></th>
+                            <th><strong>수정 날짜</strong></th>
+                            <th><strong>회원 상태</strong></th>
+                            <th><strong>Action</strong></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -102,32 +105,43 @@
                             </td>
                             <td>
                             	<a href="../admin/admin_users_detail.eum?u_id=${users.u_id }">
-                              		<p class="mb-0 text-muted"><strong>${users.u_nickname }</strong></p>
-                              		<small class="mb-0 text-muted">id:${users.u_loginid }</small>
+                              		<p class="mb-0 text-normal">${users.u_nickname }</p>
+                              		<small class="mb-0 text-normal">id:${users.u_loginid }</small>
                               	</a>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted">${users.u_loc }</p>
-                              <small class="mb-0 text-muted"></small>
+                              <p class="mb-0 text-normal">${users.u_loc }</p>
+                              <small class="mb-0 text-normal"></small>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><a href="#" class="text-muted">(+82)${users.u_phone }</a></p>
-                              <small class="mb-0 text-muted"></small>
+                              <p class="mb-0 text-normal"><a href="#" class="text-normal">(+82)${users.u_phone }</a></p>
+                              <small class="mb-0 text-normal"></small>
                             </td>
-                            <td class="w-24"><small class="text-muted">${users.u_email }</small></td>
-                            <td class="text-muted">
+                            <td class="w-24"><small class="text-normal">${users.u_email }</small></td>
+                            <td class="text-normal">
                             	<fmt:formatDate value="${users.u_updateat}" pattern="yyyy-MM-dd" />
 							</td>
 							<td>
-                              <div class="form-group mb-3">
-		                        <select class="form-control" id="example-select">
-		                          <option>활동</option>
-		                          <option>경고 처리</option>
-		                          <option>정지 처리</option>
-		                          <option>탈퇴 처리</option>
-		                        </select>
-		                      </div>
-                            </td>
+							    <c:choose>
+							        <c:when test="${users.u_status == 'active'}">
+							            <span class="badge badge-primary p-2" style="font-size:14px;">활동</span>
+							        </c:when>
+							
+							        <c:when test="${users.u_status == 'warning'}">
+							            <span class="badge badge-warning p-2" style="font-size:14px;">경고</span>
+							        </c:when>
+							
+							        <c:when test="${users.u_status == 'stop'}">
+							            <span class="badge badge-danger p-2" style="font-size:14px;">정지</span>
+							        </c:when>
+							
+							        <c:otherwise>
+							            <span class="badge badge-secondary p-2" style="font-size:14px;">알수없음</span>
+							        </c:otherwise>
+							    </c:choose>
+							</td>
+
+
                             <td>
                               <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>

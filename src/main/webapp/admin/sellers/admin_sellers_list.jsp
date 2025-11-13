@@ -18,6 +18,11 @@
   display: block;
 }
 
+.text-normal {
+    color: #4a4a4a !important;
+}
+
+
 </style>
 	 <main role="main" class="main-content">
         <div class="container-fluid">
@@ -25,9 +30,9 @@
             <div class="col-12">
               <div class="row">
                 <!-- Small table -->
-                <div class="col-md-12 my-4">
+                <div class="col-md-12 my-1">
                   <h2 class="h4 mb-1">셀러 리스트</h2>
-                  <p class="mb-3">Additional table rendering with vertical border, rich content formatting for cell</p>
+                  <p class="mb-3"> </p>
                   <div class="card shadow">
                     <div class="card-body">
                       <div class="toolbar row mb-3">
@@ -74,12 +79,12 @@
                               </div>
                             </td>
                             <th></th>
-                            <th>셀러 이름</th>
-                            <th>사업자번호</th>
-                            <th>연락처</th>
-                            <th class="w-24">email</th>
-                            <th>가입일</th>
-                            <th>셀러 상태</th>
+                            <th class="text-dark"><strong>셀러 이름</strong></th>
+                            <th class="text-normal"><strong>사업자번호</strong></th>
+                            <th class="text-normal"><strong>연락처</strong></th>
+                            <th class="w-24 text-normal"><strong>email</strong></th>
+                            <th class="text-normal"><strong>가입일</strong></th>
+                            <th class="text-normal"><strong>셀러 상태</strong></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -106,34 +111,43 @@
 						      </c:choose>
                               </div>
                               
-                            </td>
+                            </td> 
                             <td>
                             	<a href="../admin/admin_seller_detail.eum?u_s_id=${sellers_list.u_s_id}">
-                              		<p class="mb-0 text-muted"><strong>${sellers_list.u_s_com }</strong></p>
-                              		<small class="mb-0 text-muted">${sellers_list.u_s_id }</small>
+                              		<p class="mb-0 text-normal">${sellers_list.u_s_com }</p>
+                              		<small class="mb-0 text-normal">${sellers_list.u_s_id }</small>
                               	</a>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted">${sellers_list.u_s_biz_no}</p>
+                              <p class="mb-0 text-normal">${sellers_list.u_s_biz_no}</p>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><a href="#" class="text-muted">${sellers_list.user.u_phone }</a></p>
+                              <p class="mb-0 text-normal"><a href="#" class="text-normal">${sellers_list.user.u_phone }</a></p>
                             </td>
-                            <td class="w-24"><small class="text-muted">${sellers_list.user.u_email }</small></td>
-                            <td class="text-muted">
+                            <td class="w-24"><small class="text-normal">${sellers_list.user.u_email }</small></td>
+                            <td class="text-normal">
 							  <fmt:formatDate value="${sellers_list.u_createat}" pattern="yyyy-MM-dd" />
 							</td>
-                            <td>
-							  <div class="form-group mb-3">
-							    <select class="form-control" id="example-select">
-							      <option value="active" ${sellers_list.user.u_status eq 'active' ? 'selected' : ''}>활동</option>
-							      <option value="warning">경고 처리</option>
-							      <option value="inactive" ${sellers_list.user.u_status eq 'inactive' ? 'selected' : ''}>정지 처리</option>
-							      <option value="deleted">탈퇴 처리</option>
-							    </select>
-							  </div>
+                            
+							<td>
+							    <c:choose>
+							        <c:when test="${sellers_list.user.u_status == 'active'}">
+							            <span class="badge badge-primary p-2" style="font-size:14px;">활동</span>
+							        </c:when>
+							
+							        <c:when test="${sellers_list.user.u_status == 'warning'}">
+							            <span class="badge badge-warning p-2" style="font-size:14px;">경고</span>
+							        </c:when>
+							
+							        <c:when test="${sellers_list.user.u_status == 'stop'}">
+							            <span class="badge badge-danger p-2" style="font-size:14px;">정지</span>
+							        </c:when>
+							
+							        <c:otherwise>
+							            <span class="badge badge-secondary p-2" style="font-size:14px;">알수없음</span>
+							        </c:otherwise>
+							    </c:choose>
 							</td>
-
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
                               </button>

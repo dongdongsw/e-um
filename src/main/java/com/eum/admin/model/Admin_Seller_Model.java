@@ -64,7 +64,7 @@ public class Admin_Seller_Model {
 		
 		Users_SellerVO seller_vo = Admin_SellerDAO.sellerDetailData(Integer.parseInt(u_s_id));
 		
-		int rowSize=8;
+		int rowSize=4;
 		int curpage = Integer.parseInt(page);
 		int start = (rowSize*curpage)-(rowSize-1);
 		int end = rowSize*curpage;

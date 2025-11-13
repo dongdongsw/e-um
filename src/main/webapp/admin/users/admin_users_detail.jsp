@@ -165,7 +165,12 @@ function toggleContent(el) {
                         
                         <!-- 프로필 정보 -->
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"> 
-                        	
+                        	<div class="d-flex justify-content-end">
+							    <button type="button" class="btn mb-2 btn-info mr-2">회원 활동</button>
+							    <button type="button" class="btn mb-2 btn-warning mr-2">회원 경고</button>
+							    <button type="button" class="btn mb-2 btn-secondary mr-2">회원 정지</button>
+							    <button type="button" class="btn mb-2 btn-danger">회원 삭제</button>
+							</div>
 			                  <div class="row mt-5 align-items-center">
 			                    <div class="col-md-3 text-center mb-5">
 			                      <div class="avatar avatar-xl">

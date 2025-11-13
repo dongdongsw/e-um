@@ -60,10 +60,10 @@
 	</select>
 	
 	<select id="usersReviewImageData" resultType="Review_ImageVO" parameterType="hashmap">
-	SELECT b_review_id, r_image_url
-	FROM review_image
-	WHERE b_review_id = #{b_review_id}
-</select>
+		SELECT b_review_id, r_image_url
+		FROM review_image
+		WHERE b_review_id = #{b_review_id}
+	</select>
 	
 	
 	<!-- <유저> 리뷰 페이징 -->

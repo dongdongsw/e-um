@@ -1,46 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.admin.mapper.review-mapper">
-<resultMap type="com.eum.main.vo.BoardVO" id="boardMap">
-  	<result property="rvo.b_review_score" column="b_review_score"/>
-  	<result property="rvo.u_s_id" column="u_s_id"/>
-	<result property="rvo.b_review_id" column="b_review_id"/>
-	<result property="rvo.b_review_createdat" column="b_review_createdat"/>
-	<result property="rvo.b_review_content" column="b_review_content"/>
-	<result property="rvo.review_count" column="review_count"/>
-	<result property="rivo.r_image_url" column="r_image_url"/>
-  	<result property="bovo.b_op_price" column="b_op_price"/>
-  	<result property="bivo.b_img_url" column="b_img_url"/>
-  	<result property="usvo.u_s_com" column="u_s_com"/>
-	<result property="usvo.u_s_profileimg_url" column="u_s_profileimg_url"/>
-	<result property="usvo.u_s_carrer" column="u_s_carrer"/>
-	<result property="usvo.u_s_zone" column="u_s_zone"/>
-	<result property="uvo.u_nickname" column="u_nickname"/>
-	<result property="uvo.u_profileimg_url" column="u_profileImg_url"/>
-  </resultMap>
-	<!-- <유저> 리뷰 리스트 -->
-	<select id="ReviewListData" resultType="ReviewVO" parameterType="hashmap">
-		SELECT u_id, b_review_id, b_review_createdat, 
+
+	
+	
+	<!-- 리뷰 리스트 -->
+	<!-- <select id="reviewListData" resultType="ReviewVO" parameterType="hashmap">
+		SELECT u_id, b_review_id, b_review_createdat, u_s_id, b_id, 
 			b_review_content, b_review_score, num
 		FROM (
-			SELECT u_id, b_review_id, b_review_createdat, 
+			SELECT u_id, b_review_id, b_review_createdat, u_s_id, b_id, 
 				b_review_content, b_review_score, rownum as num
 			FROM review
-		)
+			ORDER BY b_review_id DESC
+			)
 		WHERE num BETWEEN #{start} AND #{end}
-	</select> 
+	</select> -->
 	
-	<!-- <유저> 리뷰 페이징 -->
-	<select id="ReviewTotalData" resultType="int">
+	<!-- 리뷰 페이징 -->
+	<select id="reviewTotalData" resultType="int">
 		SELECT CEIL(COUNT(*)/12.0)
 		FROM review
 	</select>
 	
-	<!-- <유저> 리뷰 상세 -->
-	<select id="ReviewDetailData" resultType="ReviewVO" parameterType="int">
-		SELECT u_id, b_review_id, b_review_createdat, b_review_content, b_review_score
-		FROM review
-		WHERE b_review_id=#{b_review_id}
+	<resultMap id="reviewMap" type="ReviewVO">
+		<result property="u_s_id" column="u_s_id"/>
+		<result property="b_review_id" column="b_review_id"/>
+		<result property="b_id" column="b_id"/>
+		<result property="u_id" column="u_id"/>
+		<result property="b_review_createdat" column="b_review_createdat"/>
+		<result property="b_review_content" column="b_review_content"/>
+		<result property="b_review_score" column="b_review_score"/>
+	
+		<!-- review 이미지 매핑 -->
+		<collection property="imageList"
+					ofType="com.eum.main.vo.Review_ImageVO"
+					column="b_review_id"
+					select="selectReviewImages"/>
+	</resultMap>
+
+	
+	<select id="reviewListData" resultMap="reviewMap" parameterType="hashmap">
+		SELECT *
+		FROM (
+			SELECT rownum AS num, r.*
+			FROM (
+				SELECT u_id, b_review_id, b_review_createdat,
+				       u_s_id, b_id, b_review_content, b_review_score
+				FROM review
+				ORDER BY b_review_id DESC
+			) r
+		)
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+
+	
+	<select id="selectReviewImages" parameterType="string" resultType="Review_ImageVO">
+	    SELECT r_image_id, b_review_id, r_image_url
+		FROM review_image
+		WHERE b_review_id = #{value}
+		ORDER BY r_image_id
 	</select>
 	
 </mapper>

@@ -47,8 +47,16 @@
 	
 	
 	
-	<select id="sellerContentsListData" resultType="BoardVO" parameterType="hashmap">
+	<!-- <select id="sellerContentsListData" resultType="BoardVO" parameterType="hashmap">
 	    SELECT b.b_id, b.u_s_id, b.b_title, b.b_type, b.b_prod_on_off, b.b_createdat
+	    FROM board b
+	    WHERE b.u_s_id = #{u_s_id}
+	    ORDER BY b.b_id DESC
+	    OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select> -->
+	
+	<select id="sellerContentsListData" resultType="BoardVO" parameterType="hashmap">
+	    SELECT b.b_id, b.u_s_id, b.b_title, b.b_type, b.b_prod_on_off, b.b_createdat, b_status
 	    FROM board b
 	    WHERE b.u_s_id = #{u_s_id}
 	    ORDER BY b.b_id DESC
