@@ -181,13 +181,17 @@ public class usersModel {
 		String sms_noti=request.getParameter("sms_noti");
 		
 		HttpSession session = request.getSession();
-		String loginid = (String)session.getAttribute("u_loginid");
+		String loginid = (String)session.getAttribute("loginid");
+		if (loginid == null) {
+	        request.setAttribute("msg", "로그인을 다시 진행해주세요.");
+	        request.setAttribute("url", "../users/login.eum");
+	        return "../commons/alert.jsp"; 
+	    }
 		
 		UsersVO uvo = UsersDAO.usersInfoUpdateData(loginid);
 		String cPhone = uvo.getU_phone();
 		String cPwd = uvo.getU_pwd();
 		
-		// 전화번호 중복 체크: 본인 번호와 다를 때만 체크
 		if (!phone.equals(cPhone) && UsersDAO.usersPhoneCheck(phone.trim())==1) {
 	        request.setAttribute("msg", "이미 가입된 전화번호입니다.");
 			return "redirect:../users/info_update.eum";
@@ -212,9 +216,12 @@ public class usersModel {
 	    
 		UsersDAO.usersInfoUpdate(uvo2);
 		
-		session.setAttribute("nickname", nickname);
+		session.setAttribute("name", nickname);
 	    session.setAttribute("phone", phone);
 	    session.setAttribute("loc", loc);
+	    session.setAttribute("push_noti", uvo2.getU_push_noti());
+		session.setAttribute("email_noti", uvo2.getU_email_noti());
+		session.setAttribute("sms_noti", uvo2.getU_sms_noti());
 	    
 		return "redirect:../users/info.eum";
     }

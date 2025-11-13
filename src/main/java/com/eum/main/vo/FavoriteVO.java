@@ -11,6 +11,8 @@ import lombok.Data;
 @Data
 public class FavoriteVO {
 	private int fv_id;
-	private String u_id,b_id;
+	private String u_id,b_id,dbday;
 	private Date fv_pushat;
+	private UsersVO uvo = new UsersVO();
+	private BoardVO bvo = new BoardVO();
 }

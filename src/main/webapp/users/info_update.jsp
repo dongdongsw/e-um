@@ -10,15 +10,16 @@
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('#nickBtn').click(function(){
-		let nickname=$('#nickname').val()
-		if(nickname.trim()==="") {
+	$('#nickBtn').click(function() {
+		let nickname = $('#nickname').val().trim();
+		if(nickname==="") {
 			$('#nick_msg').text("닉네임 입력하세요")
 			$('#nick_msg').attr("class","message error")
 			$('#nick_msg').css('color', 'red')
 			$('#nick_msg').show()
 			return
 		}
+		
 		$.ajax({
 			type:'post',
 			url:'../users/nickcheck_ok.eum',
@@ -42,34 +43,44 @@ $(function(){
 		})
 	})
 	
-	$('#locBtn').on('click',function(){
+	$('#locBtn').on('click',function() {
 		new daum.Postcode({
-			oncomplete:function(data){
+			oncomplete:function(data) {
 				$('#loc').val(data.address)
 			}
 		}).open()
 	})
 	
-	$('#joinBtn').click(function(){
-		let pwd1=$('#pwd1').val()
-		if(pwd1.trim()==="") {
-			$('#pwd1').focus()
-			return
+	$('#joinBtn').click(function() {
+		let pwd1 = $('#pwd1').val().trim();
+		let pwd2 = $('#pwd2').val().trim();
+		let nickname = $('#nickname').val().trim();
+
+		if(nickname==="") {
+			alert("닉네임을 입력하세요");
+			$('#nickname').focus();
+			return;
 		}
-		let pwd2=$('#pwd2').val()
-		if(pwd1!==pwd2) {
-			alert("비밀번호가 틀립니다")
-			$('#pwd2').val("")
-			$('#pwd2').focus()
-			return
-		}
-		let nickname=$('#nickname').val()
-		if(nickname.trim()==="") {
-			alert("닉네임을 입력하세요")
-			$('#nickname').focus()
-			return
-		}
-		$('#frm').submit()
+
+		if(pwd1 !== "") { 
+            if(pwd2 === "") {
+                 alert("비밀번호 확인을 입력하세요");
+                 $('#pwd2').focus();
+                 return;
+            }
+			if(pwd1 !== pwd2) {
+				alert("비밀번호가 서로 일치하지 않습니다");
+				$('#pwd2').val("");
+				$('#pwd2').focus();
+				return;
+			}
+		} else if (pwd2 !== "") {
+            alert("비밀번호를 입력하세요");
+            $('#pwd1').focus();
+            return;
+        }
+        
+		$('#frm').submit();
 	})
 })
 </script>

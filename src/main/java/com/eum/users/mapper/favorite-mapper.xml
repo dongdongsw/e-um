@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.users.mapper.favorite-mapper">
+  <select id="favoriteCheckCount" resultType="int" parameterType="FavoriteVO">
+    SELECT COUNT(*)
+    FROM favorite
+    WHERE fv_id=#{fv_id}
+  </select>
+  
+  <insert id="favoriteInsert" parameterType="FavoriteVO">
+    INSERT INTO favorite
+    VALUES(fv_id_seq.nextval, #{u_id}, #{b_id}, SYSDATE)
+  </insert>
+  
+  <resultMap type="FavoriteVO" id="favoriteMap">
+    <result property="uvo.u_id" column="u_id"/>
+    <result property="bvo.b_id" column="b_id"/>
+  </resultMap>
+  
+  <select id="favoriteListData" resultMap="favoriteMap" parameterType="int">
+    SELECT fv_id, f.u_id, f.b_id, TO_CHAR(fv_pushat, 'YYYY-MM-DD') AS dbday
+    FROM favorite f, users u, board b
+    WHERE f.u_id=u.u_id
+    AND f.b_id=b.b_id
+    AND fv_id=#{fv_id}
+    ORDER BY fv_id DESC
+  </select>
+  
+  <delete id="favoriteDelete" parameterType="int">
+    DELETE FROM favorite
+    WHERE fv_id=#{fv_id}
+  </delete>
+</mapper>
