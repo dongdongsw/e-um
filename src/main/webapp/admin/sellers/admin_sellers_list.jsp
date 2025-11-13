@@ -108,8 +108,10 @@
                               
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><strong>${sellers_list.u_s_com }</strong></p>
-                              <small class="mb-0 text-muted">${sellers_list.u_s_id }</small>
+                            	<a href="../admin/admin_seller_detail.eum?u_s_id=${sellers_list.u_s_id}">
+                              		<p class="mb-0 text-muted"><strong>${sellers_list.u_s_com }</strong></p>
+                              		<small class="mb-0 text-muted">${sellers_list.u_s_id }</small>
+                              	</a>
                             </td>
                             <td>
                               <p class="mb-0 text-muted">${sellers_list.u_s_biz_no}</p>
@@ -136,7 +138,7 @@
                                 <span class="text-muted sr-only">Action</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">상세보기</a>
+                                <a class="dropdown-item" href="../admin/admin_seller_detail.eum?u_s_id=${sellers_list.u_s_id}">상세보기</a>
                                 <a class="dropdown-item" href="#">삭제</a>
                               </div>
                             </td>

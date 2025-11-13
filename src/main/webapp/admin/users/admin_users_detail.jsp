@@ -38,7 +38,7 @@
 /* 본문 텍스트 */
 .review-content {
   display: -webkit-box;
-  -webkit-line-clamp: 3;            /* 기본 표시 줄 수 */
+  -webkit-line-clamp: 4;            /* 기본 표시 줄 수 */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -95,19 +95,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hasImages = imageContainer?.dataset.hasImg === "true";
 
-    // ✅ 실제로 텍스트가 잘렸는지 체크
+
     const isOverflowing = text.scrollHeight > text.clientHeight;
 
-    // ✅ 조건 정리
-    // - 글이 실제로 잘렸거나
-    // - 이미지가 존재하면 → 더보기 표시
     if (isOverflowing || hasImages) {
       toggle.style.display = "inline-block";
     } else {
       toggle.style.display = "none";
     }
 
-    // ✅ 초기 상태에서 이미지 숨기기
+
     if (!wrapper.classList.contains("expanded") && imageContainer) {
       imageContainer.style.display = "none";
     }
@@ -334,10 +331,6 @@ function toggleContent(el) {
 						                <div class="col">
 						                  <h2 class="h3 mb-0 page-title">Review</h2>
 						                </div>
-						                <div class="col-auto">
-						                  <button type="button" class="btn btn-secondary"><span class="fe fe-trash fe-12 mr-2"></span>Delete</button>
-						                  <button type="button" class="btn btn-primary"><span class="fe fe-filter fe-12 mr-2"></span>Create</button>
-						                </div>
 						              </div>
 						              <div class="row">
 						              <!-- 리뷰 가데이터 -->
@@ -348,18 +341,21 @@ function toggleContent(el) {
 										        <strong class="card-title d-block mb-2">⭐ 리뷰 점수 ${r_list.b_review_score}</strong>
 										        <div class="review-content-wrapper">
 										          <p class="review-content">${r_list.b_review_content}</p>
-										           <c:if test="${r_list.imageList ne null 
-													             and fn:length(r_list.imageList) gt 0 
-													             and r_list.imageList[0].r_image_url ne null}">
-													  <div class="review-images" data-has-img="true" style="display:none;">
-													    <c:forEach var="img" items="${r_list.imageList}">
-													      <c:if test="${img.r_image_url ne null and img.r_image_url ne ''}">
-													        <img src="${img.r_image_url}" alt="리뷰 이미지">
-													      </c:if>
-													    </c:forEach>
-													  </div>
-													</c:if>
-
+										           <c:set var="hasImage" value="false" />
+														<c:forEach var="img" items="${r_list.imageList}">
+														  <c:if test="${img.r_image_url ne null and img.r_image_url ne ''}">
+														    <c:set var="hasImage" value="true" />
+														  </c:if>
+														</c:forEach>
+														<c:if test="${hasImage eq true}">
+														  <div class="review-images" data-has-img="true" style="display:none;">
+														    <c:forEach var="img" items="${r_list.imageList}">
+														      <c:if test="${img.r_image_url ne null and img.r_image_url ne ''}">
+														        <img src="${img.r_image_url}" alt="리뷰 이미지">
+														      </c:if>
+														    </c:forEach>
+														  </div>
+														</c:if>
 										          <span class="more-toggle" onclick="toggleContent(this)">더보기</span>
 										        </div>
 										      </div>
@@ -370,7 +366,6 @@ function toggleContent(el) {
 												      <i class="fe fe-more-vertical"></i>
 												    </button>
 												    <div class="dropdown-menu dropdown-menu-right m-2">
-												      <a class="dropdown-item" href="#"><i class="fe fe-edit fe-12 mr-2"></i>Edit</a>
 												      <a class="dropdown-item" href="#"><i class="fe fe-delete fe-12 mr-2"></i>Delete</a>
 												    </div>
 												  </div>
@@ -398,13 +393,7 @@ function toggleContent(el) {
 					                          </li>
 					                        </c:if>
 					                      </ul>
-						                <!-- <ul class="pagination justify-content-end mb-0">
-						                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-						                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-						                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-						                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-						                </ul> -->
+						               
 						              </nav>
 						              
 						            </div> <!-- .col-12 -->
@@ -477,62 +466,7 @@ function toggleContent(el) {
 						            </div>
 						          </div>
 						        </div>
-						        <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-						          <div class="modal-dialog" role="document">
-						            <div class="modal-content">
-						              <div class="modal-header">
-						                <h5 class="modal-title" id="defaultModalLabel">Shortcuts</h5>
-						                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						                  <span aria-hidden="true">&times;</span>
-						                </button>
-						              </div>
-						              <div class="modal-body px-5">
-						                <div class="row align-items-center">
-						                  <div class="col-6 text-center">
-						                    <div class="squircle bg-success justify-content-center">
-						                      <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
-						                    </div>
-						                    <p>Control area</p>
-						                  </div>
-						                  <div class="col-6 text-center">
-						                    <div class="squircle bg-primary justify-content-center">
-						                      <i class="fe fe-activity fe-32 align-self-center text-white"></i>
-						                    </div>
-						                    <p>Activity</p>
-						                  </div>
-						                </div>
-						                <div class="row align-items-center">
-						                  <div class="col-6 text-center">
-						                    <div class="squircle bg-primary justify-content-center">
-						                      <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
-						                    </div>
-						                    <p>Droplet</p>
-						                  </div>
-						                  <div class="col-6 text-center">
-						                    <div class="squircle bg-primary justify-content-center">
-						                      <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
-						                    </div>
-						                    <p>Upload</p>
-						                  </div>
-						                </div>
-						                <div class="row align-items-center">
-						                  <div class="col-6 text-center">
-						                    <div class="squircle bg-primary justify-content-center">
-						                      <i class="fe fe-users fe-32 align-self-center text-white"></i>
-						                    </div>
-						                    <p>Users</p>
-						                  </div>
-						                  <div class="col-6 text-center">
-						                    <div class="squircle bg-primary justify-content-center">
-						                      <i class="fe fe-settings fe-32 align-self-center text-white"></i>
-						                    </div>
-						                    <p>Settings</p>
-						                  </div>
-						                </div>
-						              </div>
-						            </div>
-						          </div>
-						        </div>
+						        
 						        </div>
 						        
                         

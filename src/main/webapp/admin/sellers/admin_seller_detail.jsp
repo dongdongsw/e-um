@@ -1,12 +1,387 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-</body>
-</html>
+<style>
+
+ /* 리뷰 탭 내용 높이 고정 + 내부 스크롤 */
+  #home .container-fluid {
+    max-height: 700px;   /* 원하는 높이 */
+  }
+
+  /* 카드 높이 일정하게 맞추기 (선택사항) */
+  #home .card {
+  	min-height: 230px;
+    height: auto;       /* 카드 높이 고정 */
+    
+  }
+
+  #home .card-body {
+    overflow: hidden;
+  }
+  
+.td-title {
+    white-space: nowrap;
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
+
+<main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+             
+                <div class="col-md-15 mb-13">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        
+                        <li class="nav-item">
+                          <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Order</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        
+                        <!-- 프로필 정보 -->
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"> 
+                        	
+			                  <div class="row mt-5 align-items-center">
+			                    <div class="col-md-3 text-center mb-5">
+			                      <div class="avatar avatar-xl">
+			                        <img src="${seller_vo.u_s_profileimg_url }" alt="..." class="avatar-img rounded-circle">
+			                      </div>
+			                    </div>
+			                    <div class="col">
+			                      <div class="row align-items-center">
+			                        <div class="col-md-7">
+			                          <h4 class="mb-1">일련변호  : ${seller_vo.u_s_id }</h4>
+			                          <h4 class="mb-1">닉네임   : ${seller_vo.u_s_com }</h4>
+			                       
+			                        </div>
+			                      </div>
+			                      
+			                    </div>
+			                  </div>
+			                  <hr class="my-4">
+			                  <div class="card-deck">
+					              <div class="col-md-4">
+					                <div class="card shadow mb-6">
+					                  <div class="card-header">
+					                    <strong class="card-title">기본 정보</strong>
+					                  </div>
+					                  <div class="card-body">
+					                    <form>
+					                      <div class="form-row">
+					                        <div class="form-group col-md-8">
+					                          <label for="inputEmail4">사업자 번호</label>
+					                          <c:if test="${seller_vo.u_s_biz_no == null}">
+					                          	<p class="form-control-plaintext">없음</p>
+					                          </c:if>
+					                          <c:if test="${seller_vo.u_s_biz_no != null}">
+					                          	<p class="form-control-plaintext">${seller_vo.u_s_biz_no}</p>
+					                          </c:if>
+					                        </div>
+					                        <div class="form-group col-md-6">
+					                        	<label for="inputAddress">활동 지역</label>
+						                        <p class="form-control-plaintext">${seller_vo.u_s_zone}</p>
+					                          
+					                        </div>
+					                      </div>
+					                      
+					                      <!-- 주소 & 성별 -->
+					                      <div class="form-row">
+						                      <div class="form-group col-md-6">
+						                        <label for="inputPassword4">phone</label>
+					                          <p class="form-control-plaintext"></p>
+						                      </div>
+					                        
+								         </div>
+								         
+								         <!-- 활동 상태&생년월일 -->
+					                      <div class="form-row">
+					                      	<div class="form-group col-md-6">
+						                        <label for="inputAddress">활동 상태</label>
+						                        <p class="form-control-plaintext"></p>
+						                    </div>
+						                    <div class="form-group col-md-6">
+						                        <label for="inputAddress">경력</label>
+						                        <p class="form-control-plaintext">
+						                        	<c:if test="${seller_vo.u_s_carrer > 0 }">
+						                        		${seller_vo.u_s_carrer}년
+						                        	</c:if>	
+						                        	<c:if test="${seller_vo.u_s_carrer <= 0 }">
+						                        		0년
+						                        	</c:if>
+												</p>
+						                    </div>
+					                      </div>
+					                      
+					                      <!-- 가입일&수정일 -->
+					                      <div class="form-row">
+					                      	<div class="form-group col-md-6">
+						                        <label for="inputAddress">가입일</label>
+						                        <p class="form-control-plaintext">
+													<fmt:formatDate value="${seller_vo.u_createat}" pattern="yyyy-MM-dd" />
+												</p>
+						                    </div>
+						                    <div class="form-group col-md-6">
+						                        <label for="inputAddress">수정일</label>
+						                        <p class="form-control-plaintext">
+													<fmt:formatDate value="${seller_vo.u_updateat}" pattern="yyyy-MM-dd" />
+												</p>
+						                    </div>
+					                      </div>
+					                      
+					                    </form>
+					                  </div>
+					                </div>
+				                </div>
+				                
+				          		<div class="col-md-8">
+				       			<div class="card shadow mb-8 my-10">
+				                    <div class="card-body">
+				                      <h5 class="card-title">컨텐츠 목록</h5>
+				                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+					                      <table class="table table-hover">
+					                        <thead>
+					                          <tr >
+					                            <th>ID</th>
+					                            <th>title</th>
+					                            <th>카테고리</th>
+					                            <th>수업방식</th>
+					                            <th>Date</th>
+					                            <th>Status</th>
+					                          </tr>
+					                        </thead>
+					                       
+					                        <tbody>
+					                          <c:forEach var="board_list" items="${board_list }">
+						                          <tr>
+						                            <td class="td-title">${board_list.b_id }</td>
+						                            <td class="td-title">${board_list.b_title }</td>
+						                            <td class="td-title">${board_list.b_type }</td>
+						                            <td class="td-title">${board_list.b_prod_on_off}</td>
+						                            <td class="td-title">Apr 24, 2019</td>
+						                            <td><span class="badge badge-pill badge-warning">Hold</span></td>
+						                            <!-- <td><span class="badge badge-pill badge-success">Success</span></td> -->
+						                            <!-- <td><span class="badge badge-pill badge-danger">Danger</span></td> -->
+						                          </tr>
+						                       </c:forEach>
+					                        </tbody>
+					                      </table>
+					                    </div>
+					                  </div>
+				                  </div>
+					                      
+                        	</div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab"> 
+						        <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+						          <div class="modal-dialog modal-sm" role="document">
+						            <div class="modal-content">
+						              <div class="modal-header">
+						                <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+						                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						                  <span aria-hidden="true">&times;</span>
+						                </button>
+						              </div>
+						              <div class="modal-body">
+						                <div class="list-group list-group-flush my-n3">
+						                  <div class="list-group-item bg-transparent">
+						                    <div class="row align-items-center">
+						                      <div class="col-auto">
+						                        <span class="fe fe-box fe-24"></span>
+						                      </div>
+						                      <div class="col">
+						                        <small><strong>Package has uploaded successfull</strong></small>
+						                        <div class="my-0 text-muted small">Package is zipped and uploaded</div>
+						                        <small class="badge badge-pill badge-light text-muted">1m ago</small>
+						                      </div>
+						                    </div>
+						                  </div>
+						                  <div class="list-group-item bg-transparent">
+						                    <div class="row align-items-center">
+						                      <div class="col-auto">
+						                        <span class="fe fe-download fe-24"></span>
+						                      </div>
+						                      <div class="col">
+						                        <small><strong>Widgets are updated successfull</strong></small>
+						                        <div class="my-0 text-muted small">Just create new layout Index, form, table</div>
+						                        <small class="badge badge-pill badge-light text-muted">2m ago</small>
+						                      </div>
+						                    </div>
+						                  </div>
+						                  <div class="list-group-item bg-transparent">
+						                    <div class="row align-items-center">
+						                      <div class="col-auto">
+						                        <span class="fe fe-inbox fe-24"></span>
+						                      </div>
+						                      <div class="col">
+						                        <small><strong>Notifications have been sent</strong></small>
+						                        <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo</div>
+						                        <small class="badge badge-pill badge-light text-muted">30m ago</small>
+						                      </div>
+						                    </div> <!-- / .row -->
+						                  </div>
+						                  <div class="list-group-item bg-transparent">
+						                    <div class="row align-items-center">
+						                      <div class="col-auto">
+						                        <span class="fe fe-link fe-24"></span>
+						                      </div>
+						                      <div class="col">
+						                        <small><strong>Link was attached to menu</strong></small>
+						                        <div class="my-0 text-muted small">New layout has been attached to the menu</div>
+						                        <small class="badge badge-pill badge-light text-muted">1h ago</small>
+						                      </div>
+						                    </div>
+						                  </div> <!-- / .row -->
+						                </div> <!-- / .list-group -->
+						              </div>
+						              <div class="modal-footer">
+						                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
+						              </div>
+						            </div>
+						          </div>
+						        </div>
+						        
+						        </div>
+						        
+                        
+                        <!-- 결제 내역 탭 -->
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> 
+                        <h6 class="mb-3">Last payment</h6>
+			              <table class="table table-borderless table-striped">
+			                <thead>
+			                  <tr role="row">
+			                    <th>ID</th>
+			                    <th>Purchase Date</th>
+			                    <th>Total</th>
+			                    <th>Payment</th>
+			                    <th>Status</th>
+			                    <th>결제상태 변경</th>
+			                    <th>Action</th>
+			                  </tr>
+			                </thead>
+			                <tbody>
+				                <c:forEach begin="1" end="14">
+				                  <tr>
+				                    <th scope="col">1331</th>
+				                    <td>2020-12-26 01:32:21</td>
+				                    <td>$16.9</td>
+				                    <td>Paypal</td>
+				                    <td><span class="dot dot-lg bg-warning mr-2"></span>Due</td>
+				                    <td>
+		                              <div class="form-group mb-3">
+				                        <select class="form-control" id="example-select">
+				                          <option>결제완료</option>
+				                          <option>결제중</option>
+				                          <option>결제취소</option>
+				                          <option>환불완료</option>
+				                        </select>
+				                      </div>
+		                            </td>
+				                    <td>
+				                      <div class="dropdown">
+				                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				                          <span class="text-muted sr-only">Action</span>
+				                        </button>
+				                        <div class="dropdown-menu dropdown-menu-right">
+				                          <a class="dropdown-item" href="#">Edit</a>
+				                          <a class="dropdown-item" href="#">Remove</a>
+				                          <a class="dropdown-item" href="#">Assign</a>
+				                        </div>
+				                      </div>
+				                    </td>
+				                  </tr>
+				                </c:forEach>
+			                </tbody>
+			              </table>
+              			</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- .row-->
+              
+              
+            
+              
+            </div> <!-- /.col-12 -->
+          </div> <!-- .row -->
+        <!-- .container-fluid -->
+        <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="list-group list-group-flush my-n3">
+                  <div class="list-group-item bg-transparent">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <span class="fe fe-box fe-24"></span>
+                      </div>
+                      <div class="col">
+                        <small><strong>Package has uploaded successfull</strong></small>
+                        <div class="my-0 text-muted small">Package is zipped and uploaded</div>
+                        <small class="badge badge-pill badge-light text-muted">1m ago</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-group-item bg-transparent">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <span class="fe fe-download fe-24"></span>
+                      </div>
+                      <div class="col">
+                        <small><strong>Widgets are updated successfull</strong></small>
+                        <div class="my-0 text-muted small">Just create new layout Index, form, table</div>
+                        <small class="badge badge-pill badge-light text-muted">2m ago</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-group-item bg-transparent">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <span class="fe fe-inbox fe-24"></span>
+                      </div>
+                      <div class="col">
+                        <small><strong>Notifications have been sent</strong></small>
+                        <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo</div>
+                        <small class="badge badge-pill badge-light text-muted">30m ago</small>
+                      </div>
+                    </div> <!-- / .row -->
+                  </div>
+                  <div class="list-group-item bg-transparent">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <span class="fe fe-link fe-24"></span>
+                      </div>
+                      <div class="col">
+                        <small><strong>Link was attached to menu</strong></small>
+                        <div class="my-0 text-muted small">New layout has been attached to the menu</div>
+                        <small class="badge badge-pill badge-light text-muted">1h ago</small>
+                      </div>
+                    </div>
+                  </div> <!-- / .row -->
+                </div> <!-- / .list-group -->
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        

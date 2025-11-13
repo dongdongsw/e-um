@@ -17,8 +17,8 @@
 		<result property="b_updatedat" column="b_updatedat"/>
 		
 		<association property="usvo" javaType="Users_SellerVO">
-		<id property="u_s_id" column="us_u_s_id"/>
-		<result property="u_s_com" column="u_s_com" />
+			<id property="u_s_id" column="us_u_s_id"/>
+			<result property="u_s_com" column="u_s_com" />
 		
 		</association>
 	</resultMap>

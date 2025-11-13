@@ -37,5 +37,30 @@
 		FROM users_seller
 	</select>
 	
+	<!-- <셀러> 디테일 -->
+	<select id="sellerDetailData" resultType="Users_SellerVO" parameterType="int">
+		SELECT u_s_id, u_id, u_s_carrer, u_s_zone, u_s_biz_no,
+			u_s_com, u_s_profileimg_url, u_createat, u_updateat
+		FROM users_seller
+		WHERE u_s_id = #{u_s_id}
+	</select>
+	
+	
+	
+	<select id="sellerContentsListData" resultType="BoardVO" parameterType="hashmap">
+	    SELECT b.b_id, b.u_s_id, b.b_title, b.b_type, b.b_prod_on_off, b.b_createdat
+	    FROM board b
+	    WHERE b.u_s_id = #{u_s_id}
+	    ORDER BY b.b_id DESC
+	    OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+
+	
+	<!-- <셀러> 컨텐츠 리스트 페이징 -->
+	<select id="sellerContentsTotalData" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM board
+		WHERE u_s_id = #{u_s_id}
+	</select>
 
 </mapper>
