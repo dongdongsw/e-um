@@ -18,6 +18,10 @@
   display: block;
 }
 
+.text-normal {
+    color: #4a4a4a !important;
+}
+
 </style>
 	 <main role="main" class="main-content">
         <div class="container-fluid">
@@ -74,12 +78,12 @@
                               </div>
                             </td>
                             <th></th>
-                            <th>셀러 KEY</th>
-                            <th>카테고리</th>
-                            <th>셀러 이름</th>
-                            <th class="w-25">title</th>
-                            <th>가입일</th>
-                            <th>셀러 상태</th>
+                            <th><strong>셀러 KEY</strong></th>
+                            <th><strong>카테고리</strong></th>
+                            <th><strong>셀러 이름</strong></th>
+                            <th class="w-25"><strong>title</strong></th>
+                            <th><strong>가입일</strong></th>
+                            <th><strong>셀러 상태</strong></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -108,26 +112,26 @@
                               
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><strong>${contents_list.b_id }</strong></p>
+                              <p class="mb-0 text-normal">${contents_list.b_id }</p>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted">${contents_list.b_type}</p>
+                              <p class="mb-0 text-normal">${contents_list.b_type}</p>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><a href="#" class="text-muted">${contents_list.usvo.u_s_com }</a></p>
+                              <p class="mb-0 text-normal"><a href="../admin/admin_contents_detail.eum?b_id=${contents_list.b_id }" class="text-normal">${contents_list.usvo.u_s_com }</a></p>
                             </td>
-                            <td class="w-25"><small class="text-muted">${contents_list.b_title }</small></td>
-                            <td class="text-muted">
+                            <td class="w-25"><small class="text-normal">${contents_list.b_title }</small></td>
+                            <td class="text-normal">
 							  <fmt:formatDate value="${contents_list.b_createdat}" pattern="yyyy-MM-dd" />
 							</td>
 							<td>
 							    <c:choose>
 							        <c:when test="${contents_list.b_status == 'active'}">
-							            <span class="badge badge-primary p-2" style="font-size:14px;">활성화</span>
+							            <a href="" class="badge badge-primary p-2" style="font-size:14px;">활성화</a>
 							        </c:when>
 							
 							        <c:when test="${contents_list.b_status == 'inactive'}">
-							            <span class="badge badge-warning p-2" style="font-size:14px;">비활성화</span>
+							            <a href="" class="badge badge-warning p-2" style="font-size:14px;">비활성화</a>
 							        </c:when>
 							
 							        <c:otherwise>
@@ -139,7 +143,7 @@
                                 <span class="text-muted sr-only">Action</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">상세보기</a>
+                                <a class="dropdown-item" href="../admin/admin_contents_detail.eum?b_id=${contents_list.b_id }">상세보기</a>
                                 <a class="dropdown-item" href="#">삭제</a>
                               </div>
                             </td>

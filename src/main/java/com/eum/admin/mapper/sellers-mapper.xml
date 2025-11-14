@@ -96,8 +96,8 @@
 	
 	
 	<!-- <셀러> 리뷰 리스트 페이징 -->
-	<select id="sellerReviewTotalData" resultType="int" >
-		SELECT CEIL(COUNT(*)/12.0)
+	<select id="sellerReviewTotalData" resultType="int" parameterType="int">
+		SELECT CEIL(COUNT(*)/8.0)
 		FROM review
 		WHERE u_s_id = #{u_s_id}
 	</select>

@@ -6,29 +6,26 @@
 
 <style>
 
- /* 리뷰 탭 내용 높이 고정 + 내부 스크롤 */
-  #home .container-fluid {
-    max-height: 1000px;   /* 원하는 높이 */
+#home .container-fluid {
+    max-height: 1000px;  
   }
   
-  #profile {
-    height: 650px;  /* 고정 높이 */
+#profile {
+    height: 650px;
 }
 	
-	.profile-header {
-    min-height: 150px;   /* 원하는 높이로 조절 가능 */
+.profile-header {
+    min-height: 150px; 
     display: flex;
     align-items: center;
 }
 
-
-  /* 카드 높이 일정하게 맞추기 (선택사항) */
-  #home .card {
-    height: auto;       /* 카드 높이 고정 */
-    
+#home .card {
+  	min-height: 230px;
+    height: auto;     
   }
 
-  #home .card-body {
+#home .card-body {
     overflow: hidden;
   }
   
@@ -39,24 +36,21 @@
     text-overflow: ellipsis;
 }
 
-/* 리뷰 내용 영역 (기본: 3줄만 보이기) */
 .review-content-wrapper {
-  max-height: 120px;                /* 기본 표시 높이 */
+  max-height: 120px;       
   overflow: hidden;
   position: relative;
   transition: max-height 0.4s ease;
 }
 
-/* 펼쳐진 상태 */
 .review-content-wrapper.expanded {
-  max-height: 1000px;               /* 충분히 큰 높이 */
+  max-height: 1000px;        
   overflow: visible;
 }
 
-/* 본문 텍스트 */
 .review-content {
   display: -webkit-box;
-  -webkit-line-clamp: 4;            /* 기본 표시 줄 수 */
+  -webkit-line-clamp: 4;          
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,18 +58,17 @@
   cursor: pointer;
 }
 
-/* 펼쳐진 상태에서는 줄 제한 해제 */
 .review-content.expanded {
   -webkit-line-clamp: unset;
 }
 
-/* 이미지 영역 */
 .review-images {
   display: none;
   margin-top: 10px;
   flex-wrap: wrap;
   gap: 5px;
 }
+
 .review-images img {
   width: 80px;
   height: 80px;
@@ -84,12 +77,10 @@
   border: 1px solid #eee;
 }
 
-/* 펼쳐진 상태일 때만 표시 */
 .review-content-wrapper.expanded .review-images {
   display: flex;
 }
 
-/* 더보기 버튼 */
 .more-toggle {
   color: #007bff;
   font-size: 13px;
@@ -100,6 +91,8 @@
 .more-toggle:hover {
   text-decoration: underline;
 }
+
+
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -164,7 +157,7 @@ function toggleContent(el) {
                           <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
                         </li>
                          <li class="nav-item">
-                          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Order</a>
+                          <a class="nav-link " id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Order</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Review</a>
@@ -177,7 +170,7 @@ function toggleContent(el) {
                         <!-- 프로필 정보 -->
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"> 
                         	<div class="d-flex justify-content-end">
-							    <a href="../admin/admin_users_detail.eum?u_id=${seller_vo.u_id }" class="btn mb-2 btn-info">회원 정보</a>
+							    <a href="../admin/admin_users_detail.eum?u_id=${seller_vo.u_id }" class="btn mb-2 btn-lavender">회원 정보</a>
 							    
 							</div>
 			                  <div class="row mt-5 align-items-center profile-header">
@@ -286,25 +279,36 @@ function toggleContent(el) {
 							                            <td class="td-title">${board_list.b_id }</td>
 							                            <td class="td-title">${board_list.b_title }</td>
 							                            <td class="td-title">${board_list.b_type }</td>
-							                            <td class="td-title">${board_list.b_prod_on_off}</td>
+							                            <td class="td-title">
+							                            	<c:if test="${board_list.b_prod_on_off == 'OFFLINE' }">
+											                	<span class="badge-mode badge-online">비대면</span>
+											                </c:if>
+											                <c:if test="${ board_list.b_prod_on_off == 'ONLINE'}">
+											                	<span class="badge-mode badge-offline">대면</span>
+											                </c:if>
+							                            </td>
 							                            <td class="td-title">
 							                            	<fmt:formatDate value="${board_list.b_createdat }" pattern="yyyy-MM-dd" />
 							                            </td>
 							                            <td>
-														    <span class="badge badge-pill badge-warning"
-														          style="font-size: 12px; padding: 4px 8px;">
-														        <c:if test="${board_list.b_status == active}">
-														            활동중
-														        </c:if>
-														        <c:if test="${board_list.b_status != active}">
-														            비활동
-														        </c:if>
-														    </span>
+														    
+														        <c:if test="${fn:toLowerCase(board_list.b_status) == 'active'}">
+																    <span class="badge badge-pill badge-info" style="font-size: 12px; padding: 4px 8px;">
+																    	활동중
+																    </span>
+																</c:if>
+																
+																<c:if test="${fn:toLowerCase(board_list.b_status) != 'active'}">
+																    <span class="badge badge-pill badge-warning" style="font-size: 12px; padding: 4px 8px;">	
+																    	비활동
+																    </span>
+																</c:if>
+														    
 														</td>
 							                            <!-- <td><span class="badge badge-pill badge-success">Success</span></td> -->
 							                            <!-- <td><span class="badge badge-pill badge-danger">Danger</span></td> -->
 							                            <td> 
-							                            	<a href="../admin/admin_contents_detail?b_id=${board_list.b_id }" class="btn btn-danger" 
+							                            	<a href="../admin/admin_contents_detail.eum?b_id=${board_list.b_id }" class="btn btn-lavender" 
 															   style="padding: 2px 6px; font-size: 12px;">
 															    바로가기
 															</a>
@@ -393,25 +397,32 @@ function toggleContent(el) {
 										
 						              </div> <!-- .row -->
 						              <nav aria-label="Table Paging" class="my-3">
-					                     <ul class="pagination justify-content-end mb-0">
-					                        <c:if test="${startPage_r > 1 }">
-					                          <li class="page-item">
-					                          	<a class="page-link" href="../admin/admin_users_detail.eum?page=${startPage_r-1 }&u_s_id=${seller_vo.u_s_id}#home">&lt;</a>
-					                          </li>
-					                        </c:if>
-					                        <c:forEach var="i" begin="${startPage_r }" end="${endPage_r }">
-					                          <li class="page-item ${i==curpage_r?'active':'' }" >
-					                          	<a class="page-link" href="../admin/admin_seller_detail.eum?page_r=${i }&u_s_id=${seller_vo.u_s_id}#home">${i }</a>
-					                          </li>
-					                        </c:forEach>  
-					                        <c:if test="${endPage_r < totalpage_r }">
-					                          <li class="page-item">
-					                          <a class="page-link" href="../admin/admin_seller_detail.eum?page_r=${endPage_r+1 }&u_s_id=${seller_vo.u_s_id}#home">&gt;</a>
-					                          </li>
-					                        </c:if>
-					                      </ul>
-						               
-						              </nav>
+										  <ul class="pagination justify-content-end mb-0">
+										
+										    <c:if test="${startPage_r > 1}">
+										      <li class="page-item">
+										        <a class="page-link"
+										           href="../admin/admin_seller_detail.eum?page_r=${startPage_r-1}&u_s_id=${seller_vo.u_s_id}#home">&lt;</a>
+										      </li>
+										    </c:if>
+										
+										    <c:forEach var="i" begin="${startPage_r}" end="${endPage_r}">
+										      <li class="page-item ${i==curpage_r?'active':''}">
+										        <a class="page-link"
+										           href="../admin/admin_seller_detail.eum?page_r=${i}&u_s_id=${seller_vo.u_s_id}#home">${i}</a>
+										      </li>
+										    </c:forEach>
+										
+										    <c:if test="${endPage_r < totalpage_r}">
+										      <li class="page-item">
+										        <a class="page-link"
+										           href="../admin/admin_seller_detail.eum?page_r=${endPage_r+1}&u_s_id=${seller_vo.u_s_id}#home">&gt;</a>
+										      </li>
+										    </c:if>
+										
+										  </ul>
+										</nav>
+
 						              
 						            </div> <!-- .col-12 -->
 						          </div> <!-- .row -->
@@ -616,4 +627,22 @@ function toggleContent(el) {
             </div>
           </div>
         </div>
+        
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // URL에 #home 이 있다면
+    if (window.location.hash === "#home") {
+        // home 탭 강제 활성화
+        $('#home-tab').tab('show');
+    }
+
+    // URL에 #contact 가 있다면 (Order 탭)
+    if (window.location.hash === "#contact") {
+        $('#contact-tab').tab('show');
+    }
+
+});
+</script>
+        
         

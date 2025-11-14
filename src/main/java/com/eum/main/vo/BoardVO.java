@@ -18,12 +18,15 @@ import lombok.Data;
  */
 @Data
 public class BoardVO {
-	private int u_s_id,b_view_count;
+	private int u_s_id,b_view_count, l_count, r_count;
 	private String b_id,b_filter,b_title,b_content,b_thumbnail,b_prod_on_off,b_status,b_type;
 	private Date b_createdat,b_updatedat;
+	private Double b_review_score;
+	
 	private Board_OptionVO bovo=new Board_OptionVO();
 	private Users_SellerVO usvo=new Users_SellerVO();
 	private ReviewVO rvo;
+	private List<Board_ImageVO> bbivo;
 	private Review_ImageVO rivo=new Review_ImageVO();
 	private Board_ImageVO bivo=new Board_ImageVO();
 	private UsersVO uvo=new UsersVO();

@@ -6,39 +6,37 @@
 
 <style>
 
- /* 리뷰 탭 내용 높이 고정 + 내부 스크롤 */
-  #home .container-fluid {
-    max-height: 1000px;   /* 원하는 높이 */
+
+#home .container-fluid {
+    max-height: 1000px;  
   }
 
-  /* 카드 높이 일정하게 맞추기 (선택사항) */
-  #home .card {
+
+#home .card {
   	min-height: 230px;
-    height: auto;       /* 카드 높이 고정 */
+    height: auto;     
     
   }
 
-  #home .card-body {
+#home .card-body {
     overflow: hidden;
   }
- /* 리뷰 내용 영역 (기본: 3줄만 보이기) */
+  
 .review-content-wrapper {
-  max-height: 120px;                /* 기본 표시 높이 */
+  max-height: 120px;             
   overflow: hidden;
   position: relative;
   transition: max-height 0.4s ease;
 }
 
-/* 펼쳐진 상태 */
 .review-content-wrapper.expanded {
-  max-height: 1000px;               /* 충분히 큰 높이 */
+  max-height: 1000px;          
   overflow: visible;
 }
 
-/* 본문 텍스트 */
 .review-content {
   display: -webkit-box;
-  -webkit-line-clamp: 4;            /* 기본 표시 줄 수 */
+  -webkit-line-clamp: 4;       
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -46,12 +44,10 @@
   cursor: pointer;
 }
 
-/* 펼쳐진 상태에서는 줄 제한 해제 */
 .review-content.expanded {
   -webkit-line-clamp: unset;
 }
 
-/* 이미지 영역 */
 .review-images {
   display: none;
   margin-top: 10px;
@@ -66,12 +62,10 @@
   border: 1px solid #eee;
 }
 
-/* 펼쳐진 상태일 때만 표시 */
 .review-content-wrapper.expanded .review-images {
   display: flex;
 }
 
-/* 더보기 버튼 */
 .more-toggle {
   color: #007bff;
   font-size: 13px;
@@ -79,6 +73,7 @@
   display: inline-block;
   margin-top: 5px;
 }
+
 .more-toggle:hover {
   text-decoration: underline;
 }
@@ -166,7 +161,7 @@ function toggleContent(el) {
                         <!-- 프로필 정보 -->
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"> 
                         	<div class="d-flex justify-content-end">
-							    <button type="button" class="btn mb-2 btn-info mr-2">회원 활동</button>
+							    <button type="button" class="btn mb-2 btn-lavender mr-2">회원 활동</button>
 							    <button type="button" class="btn mb-2 btn-warning mr-2">회원 경고</button>
 							    <button type="button" class="btn mb-2 btn-secondary mr-2">회원 정지</button>
 							    <button type="button" class="btn mb-2 btn-danger">회원 삭제</button>
@@ -188,7 +183,7 @@ function toggleContent(el) {
 			                      
 			                    </div>
 			                  </div>
-			                  <hr class="my-4">
+			                  <hr class="my-4 ">
 			                  <div class="card-deck">
 				                <!--  -->
 				                <div class="card shadow mb-4">
@@ -389,7 +384,7 @@ function toggleContent(el) {
 					                        </c:if>
 					                        <c:forEach var="i" begin="${startPage }" end="${endPage }">
 					                          <li class="page-item ${i==curpage?'active':'' }" >
-					                          	<a class="page-link" href="../admin/admin_users_detail.eum?page=${i }&u_id=${users_vo.u_id}#home">${i }</a>
+					                          	<a class="page-link " href="../admin/admin_users_detail.eum?page=${i }&u_id=${users_vo.u_id}#home">${i }</a>
 					                          </li>
 					                        </c:forEach>  
 					                        <c:if test="${endPage < totalpage }">

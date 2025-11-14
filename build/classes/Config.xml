@@ -37,5 +37,6 @@
     <mapper resource="com/eum/admin/mapper/users-mapper.xml"/>
     <mapper resource="com/eum/admin/mapper/sellers-mapper.xml"/>
     <mapper resource="com/eum/admin/mapper/contents-mapper.xml"/>
+    <mapper resource="com/eum/list/mapper/life-mapper.xml"/>
   </mappers>
 </configuration>

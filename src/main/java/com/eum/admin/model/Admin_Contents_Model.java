@@ -6,6 +6,9 @@ import java.util.Map;
 
 import com.eum.admin.dao.Admin_ContentsDAO;
 import com.eum.admin.dao.Admin_SellerDAO;
+import com.eum.main.vo.BoardVO;
+import com.eum.main.vo.Board_ImageVO;
+import com.eum.main.vo.Board_OptionVO;
 import com.eum.main.vo.ContentVO;
 import com.eum.main.vo.UsersVO;
 import com.sist.controller.Controller;
@@ -34,7 +37,7 @@ public class Admin_Contents_Model {
 		map.put("start", (start-1));
 		map.put("rowSize", rowSize);
 		
-		List<ContentVO> contents_list = Admin_ContentsDAO.contentsListData(map);
+		List<BoardVO> contents_list = Admin_ContentsDAO.contentsListData(map);
 		int totalpage = Admin_ContentsDAO.contentsTotalData();
 		
 		final int BLOCK = 10;
@@ -52,10 +55,20 @@ public class Admin_Contents_Model {
 		return "../admin/common/admin_main.jsp";
 	}
 				
-	// 관리자 컨텐츠 리스트
+	// 관리자 컨텐츠 디테일
 	@RequestMapping("admin/admin_contents_detail.eum")
 	public String admin_contents_detail(HttpServletRequest request, HttpServletResponse response) {
-									
+							
+		String b_id = request.getParameter("b_id");
+		BoardVO board_vo = Admin_ContentsDAO.contentsDetailboard(b_id);
+		List<Board_ImageVO> b_img_vo = Admin_ContentsDAO.contentsDetailboardImage(b_id);
+		BoardVO board_avg = Admin_ContentsDAO.contentsDetailscore(b_id);
+		List<Board_OptionVO> bo = Admin_ContentsDAO.contentsDetailprice(b_id);
+		
+		request.setAttribute("board_vo", board_vo);
+		request.setAttribute("b_img_vo", b_img_vo);
+		request.setAttribute("board_avg", board_avg);
+		request.setAttribute("bo", bo);
 		request.setAttribute("admin_main_jsp", "../contents/admin_contents_detail.jsp");
 		return "../admin/common/admin_main.jsp";
 	}

@@ -165,7 +165,7 @@
           
           <!-- 홈으로 돌아가는 버튼 -->
           <div class="btn-box w-100 mt-4 mb-1">
-            <a href="../main/main.eum" target="_blank" class="btn mb-2 btn-primary btn-lg btn-block">
+            <a href="../main/main.eum" target="_blank" class="btn mb-2 btn-lavender btn-lg btn-block">
               <i class="fe fe-home fe-12 mx-2"></i><span class="small">홈으로</span>
             </a>
           </div>

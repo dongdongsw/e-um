@@ -20,6 +20,10 @@
   display: block;
 }
 
+.text-normal {
+    color: #4a4a4a !important;
+}
+
 </style>
 	 <main role="main" class="main-content">
         <div class="container-fluid">
@@ -75,12 +79,12 @@
                                 <label class="custom-control-label" for="all2"></label>
                               </div>
                             </td>
-                            <th>NO</th>
-                            <th>리뷰 점수</th>
-                            <th>작성자</th>
-                            <th>카테고리</th>
-                            <th class="w-25">content</th>
-                            <th>작성일</th>
+                            <th><strong>NO</th>
+                            <th><strong>리뷰 점수</strong></th>
+                            <th><strong>작성자</strong></th>
+                            <th><strong>카테고리</strong></th>
+                            <th class="w-25"><strong>content</strong></th>
+                            <th><strong>작성일</strong></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -96,24 +100,32 @@
                             </td>
                             
                             <td>
-                              <p class="mb-0 text-muted"><strong>${review_list.b_review_id }</strong></p>
+                              <p class="mb-0 text-normal">${review_list.b_review_id }</p>
                             </td>
                             
                             <td>
-                              <p class="mb-0 text-muted">⭐${review_list.b_review_score}</p>
+                              <p class="mb-0 text-normal">⭐${review_list.b_review_score}</p>
                             </td>
                             
                             <td>
-                             <p class="mb-0 text-muted"><a href="#" class="text-muted">${review_list.uvo.u_nickname }</a></p>
+	                             <p class="mb-0 text-normal">
+	                             	<a class="btn-detail" style="cursor: pointer;"
+									   data-id="${review_list.b_review_id}"
+									   data-score="${review_list.b_review_score}"
+									   data-content="${fn:replace(review_list.b_review_content, '"', '&quot;')}"
+									   data-date="${review_list.b_review_createdat}">
+									        ${review_list.uvo.u_nickname }
+									</a>
+								</p>
                             </td>
                             
 							<td>
-							  <p class="mb-0 text-muted">${review_list.bvo.b_type }</p>
+							  <p class="mb-0 text-normal">${review_list.bvo.b_type }</p>
 							</td>
 							
                             <td class="w-25">
-							  <small class="text-muted">
-							  	<a class="dropdown-item btn-detail" style="cursor: pointer;"
+							  <small class="text-normal">
+							  	<a class="btn-detail" style="cursor: pointer;"
 								   data-id="${review_list.b_review_id}"
 								   data-score="${review_list.b_review_score}"
 								   data-content="${fn:replace(review_list.b_review_content, '"', '&quot;')}"
@@ -131,12 +143,12 @@
 							</td>
 
 							
-                            <td class="text-muted">
+                            <td class="text-normal">
 							  ${review_list.b_review_createdat}
 							</td>
                             
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="text-muted sr-only">Action</span>
+                                <span class="text-normal sr-only">Action</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item btn-detail"
@@ -205,7 +217,7 @@
 
         <hr>
         <p><strong>리뷰 이미지</strong></p>
-        <div id="modal-images"></div>   <!-- ★ 반드시 modal-body 안에 있어야 함 -->
+        <div id="modal-images"></div>
       </div>
 
       <div class="modal-footer">
