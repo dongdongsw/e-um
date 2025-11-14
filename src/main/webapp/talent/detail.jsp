@@ -18,7 +18,7 @@
     // jQuery UI tabs
     $("#tabs").tabs();
 
-    // ▼ 드롭다운 (민석님 기존 코드 유지)
+
     const root    = document.getElementById('sortDropdown');
     const current = root?.querySelector('.current');
     const menu    = root?.querySelector('.menu');
@@ -64,59 +64,129 @@
       if (checked && current) current.textContent = checked.textContent.trim();
     }
 
-    // ▼ 좋아요 버튼: 클릭 바인딩 + 토글
+
     function toggleLike(e){
-      const el = e.currentTarget;                          // 클릭된 버튼
+      const el = e.currentTarget;
       const countEl = el.querySelector(".like-count");
       let count = parseInt(countEl.textContent.replace(/,/g, "")) || 0;
-      const liked = el.classList.toggle("liked");          // 클래스 토글 (색상 변경)
-
+      const liked = el.classList.toggle("liked");
       countEl.textContent = (liked ? count + 1 : count - 1).toLocaleString();
     }
 
-    // 버튼 여러 개도 대응
     document.querySelectorAll('.like-button').forEach(btn=>{
       btn.addEventListener('click', toggleLike);
     });
     
     $(".count").on("click", function() {
-    	  $("#tabs").tabs("option", "active", 2); // 0=상세, 1=셀러, 2=리뷰
-    	  $("html, body").animate({
-    	    scrollTop: $("#tabs").offset().top - 100 // 살짝 위로 위치 조정
-    	  }, 400);
+      $("#tabs").tabs("option", "active", 2);
+      $("html, body").animate({
+        scrollTop: $("#tabs").offset().top - 100
+      }, 400);
+    });
+
+
+    function loadReview() {
+      $.ajax({
+        url: "../talent/review.eum",
+        type: "get",
+        data: { b_id: "${detail_vo.b_id}" },
+        success: function(result){
+          $("#tabs-3").html(result);
+
+          $('.re-reply').hide();
+        }
+      });
+    }
+    
+    loadReview();
+
+
+    $(document).on('click', '.rw-star', function(){
+      let score = $(this).data('score');  
+      $('#score').val(score);        
+
+      $('.rw-star').css('color', '#ccc');
+
+      for(let i = 1; i <= score; i++) {
+        $('.rw-star[data-score="'+i+'"]').css('color', '#facc15');
+      }
     });
     
-    $('.re-reply').hide()
-    let u=0
-    $('.ansBtn').click(function(){
-		let data=$(this).attr("data-uid")
-		if(u==0) {
-			$('#re'+data).show()
-			$(this).text("취소")
-			u=1
-		} else {
-			$('#re'+data).hide()
-			$(this).text("답변")
-			u=0
-		}
+    // 셀러 답글 
+    $(document).on('click', '.ansBtn', function(){
+      let data = $(this).attr("data-uid");
+      let $target = $('#re' + data);
+
+      if ($target.is(':visible')) {
+        $target.hide();
+        $(this).text("답변");
+      } else {
+        $target.show();
+        $(this).text("취소");
+      }
+    });
+
+    // 리뷰 등록
+     $(document).on('submit', '#reviewIn', function(e){
+    	 e.preventDefault();
+      $.ajax({
+        url: "../review/insert_ok.eum",
+        type : "post",
+        data : {
+          "b_id"   : $('#b_id').val(),
+          "u_s_id" : $('#u_s_id').val(),
+          "content": $('#content').val(),
+          "score"  : $('#score').val()
+        },
+        success: function(res) {
+          if (res.trim() === 'YES') {
+            $('#content').val('');
+
+            loadReview();
+          } else {
+            alert('리뷰 등록에 실패했습니다.');
+          }
+        },
+        error: function() {
+          alert('서버 오류가 발생했습니다.');
+        }
+      });
+    });
+    
+    
+    
+    // 답변 등록
+    $(document).on('submit', '#replyIn', function(e){
+    	e.preventDefault();
+    	alert($('#ru_s_id').val())
+		 $.ajax({
+		        url: "../reply/insert_ok.eum",
+		        type : "post",
+		        data : {
+		          "b_id"   : $('#rb_id').val(),
+		          "u_s_id" : $('#ru_s_id').val(),
+		          "content": $('#recontent').val(),
+		          "group_id": $('#group_id').val(),
+		        },
+		        success: function(res) {
+		          if (res.trim() === 'YES') {
+		            $('#content').val('');
+
+		            loadReview();
+		            
+		          } else {
+		            alert('리뷰 등록에 실패했습니다.');
+		          }
+		        },
+		        error: function() {
+		          alert('서버 오류가 발생했습니다.');
+		        }
+		      });
     })
 
-    $(function(){
-    	  $('.rw-star').click(function(){
-    	    let score = $(this).data('score');  
-    	    $('#score').val(score);        
-
-    	    $('.rw-star').css('color', '#ccc');
-
-    	    for(let i = 1; i <= score; i++) {
-    	      $('.rw-star[data-score="'+i+'"]').css('color', '#facc15');
-    	    }
-    	  });
-    	});
-})
-  
-  
+  });
 </script>
+
 <style type="text/css">
 
 </style>
@@ -230,181 +300,7 @@
 
         </div>
 		<!-- 리뷰 -->
-		<div id="tabs-3">
-		  <aside class="side-sticky">
-	
-		    <!----------------------------- 리뷰 작성 폼 start ----------------------------------->
-		    <c:if test="${sessionScope.id!=null }">
-		      <div class="review-write form-box">
-		        <form action="../review/insert_ok.eum" method="post">
-		          <input type="hidden" name="b_id" value="${detail_vo.b_id}">
-		          <input type="hidden" name="u_s_id" value="${detail_vo.u_s_id }">
-		          
-		
-		          <!-- 헤더 -->
-		          <div class="rw-row rw-head">
-		            <div class="avatar">
-		              <img src="${empty sessionScope.profile ? '../images/profile.jpg' : sessionScope.profile}">
-		            </div>
-		            <div class="seller-name">${sessionScope.name }</div>
-		          </div>
-		
-		          <!-- 별점 -->
-		          <div class="rw-row">
-		            <label class="rw-label">별점</label>
-		            <div class="rw-rate" id="rw-rate">
-		              <span class="rw-star on" data-score="1">★</span>
-		              <span class="rw-star on" data-score="2">★</span>
-		              <span class="rw-star on" data-score="3">★</span>
-		              <span class="rw-star on" data-score="4">★</span>
-		              <span class="rw-star on" data-score="5">★</span>
-		              <input type="hidden" name="score" id="score" value="5">
-		            </div>
-		          </div>
-		
-		          <!-- 내용 -->
-		          <div class="rw-row">
-		            <label class="rw-label">내용</label>
-		            <div class="rw-field">
-		              <textarea name="content" id="rw-content" maxlength="1000"></textarea>
-		            </div>
-		          </div>
-		
-		          <!-- 이미지 -->
-		          <div class="rw-row">
-		            <label class="rw-label">이미지</label>
-		            <div class="rw-field">
-		              <input type="file" id="rw-images" name="images" accept="image/*" multiple>
-		              <div class="rw-thumbs" id="rw-thumbs"></div>
-		              <div class="rw-sub">
-		                <span class="rw-helper">최대 5장 (JPG/PNG 권장)</span>
-		              </div>
-		            </div>
-		          </div>
-		
-		          <!-- 제출 -->
-		          <div class="rw-actions">
-		            <button type="submit" class="reBtn">등록</button>
-		          </div>
-		        </form>
-		      </div>
-		      <hr>
-		    </c:if>
-		    <!------------------------------- 리뷰 작성 폼 end ------------------------------->
-		
-		    <div style="height: 20px;"></div>
-		
-		    <!--------------------------- 리뷰 목록 start -------------------------------->
-		    <c:set var="groupId" value="" />
-		
-		    <c:forEach var="rvo" items="${review_vo}" varStatus="st">
-		      <c:if test="${not st.first and groupId != rvo.rvo.group_id}">
-		        <hr style="background-color: gray; margin:8px;">
-		      </c:if>
-		      <c:if test="${rvo.rvo.depth == 1}">
-		        <div style="height: 10px;"></div>
-		        <div class="re-card">
-		          <div class="review">
-		            <div style="display: flex;">
-		              <!-- 리뷰 프로필 -->
-		              <div class="avatar" style="margin-right: 10px;">
-		                 <img src="${empty rvo.uvo.u_profileimg_url ? '../images/profile.jpg' : rvo.uvo.u_profileimg_url}">
-		              </div>
-		
-		              <div>
-		                <div class="stars-sm" aria-hidden="true">
-		                  <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z" /></svg>
-		                  <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z" /></svg>
-		                  <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z" /></svg>
-		                  <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z" /></svg>
-		                  <svg class="star-sm" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z" /></svg>
-		                </div>
-		                <div class="name">${rvo.uvo.u_nickname}</div>
-		              </div>
-		
-		              <!-- 리뷰 날짜 -->
-		              <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;">
-		                ${rvo.rvo.b_review_createdat}
-		              </div>
-		            </div>
-		          </div>
-		
-		          <c:if test="${not empty rvo.rivo.r_image_url}">
-		            <div class="review-img" style="margin-bottom: 10px;">
-		              <img src="${rvo.rivo.r_image_url}">
-		            </div>
-		          </c:if>
-		
-		          <!-- 리뷰 내용 -->
-		          <p style="margin:7px 0 0 10px; color:var(--muted)">${rvo.rvo.b_review_content}</p>
-		
-		          <div class="review-footer">
-		            <c:if test="${sessionScope.id eq rvo.uvo.u_id }">
-		              <button type="button" class="review-btn">수정</button>
-		              <button type="button" class="review-btn">삭제</button>
-		            </c:if>
-		            <c:if test="${(sessionScope.sid eq detail_vo.u_s_id) and (rvo.rvo.reply eq 0)}">
-		              <button type="button" class="review-btn ansBtn" data-uid="${rvo.uvo.u_id}">답변</button>
-		            </c:if>
-		          </div>
-		          <!-- ---------------------- 답글 작성 start -------------------------------->
-				 <form method="post" action="../reply/insert_ok.eum">
-		          <div class="re-reply" id="re${rvo.uvo.u_id}">
-		          
-		            <div class="re-reply-head">
-		              <div class="avatar">
-		                <img src="${empty board_vo.usvo.u_s_profileimg_url ? '../images/profile.jpg' : board_vo.usvo.u_s_profileimg_url}">
-		              </div>
-		              <div class="seller-name" style="margin-bottom:8px">${board_vo.usvo.u_s_com}</div>
-		            </div>
-		
-		            <div class="re-reply-body">
-		              <textarea class="re-reply-input" name=content style="margin-top:8px"></textarea>
-		            </div>
-		
-		            <div class="re-reply-actions">
-		              <button type="submit" class="reBtn">등록</button>
-		            </div>
-		          </div>
-		          <input type="hidden" name="b_id" value="${detail_vo.b_id}">
-		          <input type="hidden" name="u_s_id" value="${detail_vo.u_s_id }">
-		          <input type="hidden" name="group_id" value="${rvo.rvo.b_review_id}">
-		          </form>
-		          <!--------------------------- 답글 작성 end ----------------------------->
-		
-		        </div> 
-		      </c:if>
-		      <c:if test="${rvo.rvo.depth == 2 }">
-		        <div class="re-review">
-		          <div class="review">
-		            <div style="display: flex; border-bottom: 1px solid var(--line); padding-bottom:8px; margin-bottom: 8px;">
-		              <div class="avatar" style="margin-right: 10px;">
-		                <img src="${board_vo.usvo.u_s_profileimg_url}">
-		              </div>
-		              <div class="seller-name">${board_vo.usvo.u_s_com}</div>
-		              <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;">
-		                ${rvo.rvo.b_review_createdat}
-		              </div>
-		            </div>
-		          </div>
-		
-		          <p style="margin:5px 0 0 10px; color:var(--muted)">${rvo.rvo.b_review_content}</p>
-		
-		          <div class="re-review-footer">
-		            <c:if test="${sessionScope.sid eq detail_vo.u_s_id}">
-		              <button type="button" class="re-review-btn">수정</button>
-		              <button type="button" class="re-review-btn">삭제</button>
-		            </c:if>
-		          </div>
-		        </div>
-		      </c:if>
-		
-		      <c:set var="groupId" value="${rvo.rvo.group_id}" />
-		    </c:forEach>
-		    <!---------------------------- 리뷰 목록 end ---------------------------->
-		
-		  </aside>
-		</div>
+		<div id="tabs-3"></div>
 		</div>
 		</div>
 		<!-- 가격 옵션 -->

@@ -444,7 +444,7 @@ display: flex;
 .rw-star.on{color:var(--accent);}
 
 /* textarea */
-#rw-content{width:100%; min-height:120px; padding:10px; border:1px solid var(--line); border-radius:10px; font-size:14px; resize:vertical;}
+#content{width:100%; min-height:120px; padding:10px; border:1px solid var(--line); border-radius:10px; font-size:14px; resize:vertical;}
 
 /* 썸네일 프리뷰 */
 .rw-thumbs{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}

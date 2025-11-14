@@ -1,5 +1,6 @@
 package com.eum.main.model;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import java.util.List;
@@ -76,63 +77,100 @@ public class TalentModel {
 	   return "../main/main.jsp";
    }
    
+   @RequestMapping("talent/review.eum")
+   public String talent_review(HttpServletRequest request,
+		   HttpServletResponse response)
+   {
+	   String b_id=request.getParameter("b_id");
+	   String page=request.getParameter("page");
+	   
+	   BoardVO detail_vo=TalentDAO.talentDetailData(b_id);
+	   BoardVO board_vo=TalentDAO.talentDetailboard(b_id);
+	   List<BoardVO> review_vo=TalentDAO.talentDetailreview(b_id);
+	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
+	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
+	   
+	   request.setAttribute("page", page);
+	   request.setAttribute("detail_vo", detail_vo);
+	   request.setAttribute("board_vo", board_vo);
+	   request.setAttribute("review_vo", review_vo);
+	   request.setAttribute("score_vo", score_vo);
+	   request.setAttribute("price_vo", price_vo);
+
+	   return "../talent/review.jsp";
+   }
+   
    // 리뷰 작성
    @RequestMapping("review/insert_ok.eum") 
-   public String review_insert(HttpServletRequest request, HttpServletResponse response) {
-	   String b_id=null;
-	   try {
-		   HttpSession session=request.getSession();
-		   String u_id=(String)session.getAttribute("id");
-		   
-		   String u_s_id=request.getParameter("u_s_id");
-		   b_id=request.getParameter("b_id");
-		   String content=request.getParameter("content");
-		   String score=request.getParameter("score");
-		   
-		   ReviewVO vo=new ReviewVO();
-		   
-		   vo.setU_id(u_id);
-		   vo.setU_s_id(Integer.parseInt(u_s_id));
-		   vo.setB_id(b_id);
-		   vo.setB_review_content(content);
-		   vo.setB_review_score(Double.parseDouble(score));
-		   
-		   TalentDAO.reviewInsert(vo);
-		   
-	   } catch (Exception e) {
-		   e.printStackTrace();
-	   }
+   public void review_insert(HttpServletRequest request, HttpServletResponse response) {
 	   
-	   return "redirect:../talent/detail.eum?b_id="+b_id;
+	   try
+	   {
+		   request.setCharacterEncoding("UTF-8");
+	   }catch(Exception ex) {}
+	   
+	   HttpSession session=request.getSession();
+	   String u_id=(String)session.getAttribute("id");
+	   
+	   String u_s_id=request.getParameter("u_s_id");
+	   String b_id=request.getParameter("b_id");
+	   String content=request.getParameter("content");
+	   String score=request.getParameter("score");
+	   
+	   ReviewVO vo=new ReviewVO();
+	   
+	   vo.setU_id(u_id);
+	   vo.setU_s_id(Integer.parseInt(u_s_id));
+	   vo.setB_id(b_id);
+	   vo.setB_review_content(content);
+	   vo.setB_review_score(Double.parseDouble(score));
+	   
+	   String res=TalentDAO.reviewInsert(vo);
+	  
+	   try
+	   {
+		   response.setContentType("text/plain;charset=UTF-8");
+		   PrintWriter out=response.getWriter();
+		   out.write(res); 
+	   }catch(Exception ex) {}
    }
+   
    
    // 답글 작성
    @RequestMapping("reply/insert_ok.eum") 
-   public String reply_insert(HttpServletRequest request, HttpServletResponse response) {
-	   String b_id=null;
-	   try {
-		   HttpSession session=request.getSession();
-		   String u_id=(String)session.getAttribute("id");
-		   
-		   String u_s_id=request.getParameter("u_s_id");
-		   b_id=request.getParameter("b_id");
-		   String content=request.getParameter("content");
-		   String group_id=request.getParameter("group_id");
-		   
-		   ReviewVO vo=new ReviewVO();
-		   
-		   vo.setU_id(u_id);
-		   vo.setU_s_id(Integer.parseInt(u_s_id));
-		   vo.setB_id(b_id);
-		   vo.setB_review_content(content);
-		   vo.setGroup_id(group_id);
-		   
-		   TalentDAO.replyInsert(vo);
-		   
-	   } catch (Exception e) {
-		   e.printStackTrace();
-	   }
+   public void reply_insert(HttpServletRequest request, HttpServletResponse response) {
 	   
-	   return "redirect:../talent/detail.eum?b_id="+b_id;
+	   try
+	   {
+		   request.setCharacterEncoding("UTF-8");
+	   }catch(Exception ex) {}
+	 
+		HttpSession session=request.getSession();
+	    String u_id=(String)session.getAttribute("id");
+		   
+		String u_s_id=request.getParameter("u_s_id");
+		String b_id=request.getParameter("b_id");
+		String content=request.getParameter("content");
+		String group_id=request.getParameter("group_id");
+		   
+		ReviewVO vo=new ReviewVO();
+		   
+		vo.setU_id(u_id);
+		vo.setU_s_id(Integer.parseInt(u_s_id));
+		vo.setB_id(b_id);
+		vo.setB_review_content(content);
+		vo.setGroup_id(group_id);
+		   
+		String res=TalentDAO.replyInsert(vo);
+		
+		try
+		   {
+			   response.setContentType("text/plain;charset=UTF-8");
+			   PrintWriter out=response.getWriter();
+			   out.write(res); 
+		   }catch(Exception ex) {}
+
+	   
+
    }
 }

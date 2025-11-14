@@ -207,26 +207,30 @@ import com.eum.main.vo.ReviewVO;
 		   return list;
 	   }
 	   
-	   public static void reviewInsert(ReviewVO vo) {
-		   
+	   public static String reviewInsert(ReviewVO vo) {
+		   String res="NO";
 		   try {
 			   SqlSession session=ssf.openSession(true);
 			   session.insert("reviewInsert",vo);
 			   session.close();
+			   res="YES";
 		   } catch (Exception ex) {
 			   ex.printStackTrace();
 		   }
+		   return res;
 	   }
 	   
-	   public static void replyInsert(ReviewVO vo) {
-		   
+	   public static String replyInsert(ReviewVO vo) {
+		   String res="NO";
 		   try {
 			   SqlSession session=ssf.openSession(true);
 			   session.insert("replyInsert",vo);
 			   session.close();
+			   res="YES";
 		   } catch (Exception ex) {
 			   ex.printStackTrace();
 		   }
+		   return res;
 	   }
 	   
 	}
