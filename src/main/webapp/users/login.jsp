@@ -92,7 +92,7 @@ $(function() {
 			<label for="password">PASSWORD</label>
 			<input type="password" name="pwd" id="pwd" placeholder="비밀번호 입력">
 			<div class="forgot">
-				<a rel="noopener noreferrer" href="#">아이디 / 비밀번호 찾기</a>
+				<a rel="noopener noreferrer" href="../users/fine_me.eum">아이디 / 비밀번호 찾기</a>
 			</div>
 		</div>
 		<input type="button" class="sign" id="logBtn" value="로그인">

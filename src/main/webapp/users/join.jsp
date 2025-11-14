@@ -135,7 +135,7 @@ $(function(){
   <div class="join-container">
     <div class="panel">
       <h1 class="title" style="color:black;  text-align: center"><span style="font-size: 30px;">회원가입</span>하고<br/>비즈니스 성공을 시작해 보세요!</h1>
-      <p class="subtitle" style=" text-align: center">이미 계정이 있으신가요? <a href="#" style="color: #888;">로그인하기</a></p>
+      <p class="subtitle" style=" text-align: center">이미 계정이 있으신가요? <a href="../users/login.eum" style="color: #888;">로그인하기</a></p>
 	  <div style="height: 30px"></div>
      <form id="frm" name="frm" method="post" action="../users/join_ok.eum">
         <!-- 아이디 (필수) -->

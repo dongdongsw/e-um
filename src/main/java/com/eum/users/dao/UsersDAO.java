@@ -136,13 +136,6 @@ public class UsersDAO {
 	}
 	
 	// 프로필 이미지 업로드
-	/*
-        <update id="profileImgUpload" parameterType="UsersVO">
-	      UPDATE users SET
-	      u_profileimg_url=#{u_profileimg_url}
-	      WHERE u_loginid=#{u_loginid}
-	    </update>
-	 */
 	public static void profileImgUpload(UsersVO vo) {
 		try {
 			SqlSession session = ssf.openSession(true);
@@ -152,5 +145,40 @@ public class UsersDAO {
 			ex.printStackTrace();
 		}
 	}
-
+	
+	// 아이디 찾기
+	public static String findMyId(UsersVO vo) {
+		String u_loginid = "";
+		try {
+			SqlSession session = ssf.openSession();
+			u_loginid = session.selectOne("findMyId", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return u_loginid;
+	}
+	
+	// 비밀번호 찾기_정보확인
+	public static String findMyPwd(UsersVO vo) {
+		String u_id = "";
+		try {
+			SqlSession session = ssf.openSession();
+			u_id = session.selectOne("findMyPwd", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return u_id;
+	}
+	// 비밀번호 재설정
+	public static void pwdChange(UsersVO vo) {
+		try {
+			SqlSession session = ssf.openSession(true);
+			session.update("pwdChange", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }

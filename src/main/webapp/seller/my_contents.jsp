@@ -8,6 +8,7 @@
 <title>내 컨텐츠</title>
 <style>
 body {background-color: #fff !important;}
+
 .seller-container {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -26,6 +27,7 @@ body {background-color: #fff !important;}
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 50px;
+  color: black;
 }
 
 .menu {
@@ -60,71 +62,136 @@ body {background-color: #fff !important;}
 .content h2 {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  color: black;
 }
 
-/* ===== 가로형 컨텐츠 리스트 ===== */
-.content-list {
+/* 리뷰 리스트 */
+.review-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.content-item {
-  display: flex;
-  align-items: center;
+.review-item {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  background: #fafafa;
-  overflow: hidden;
-  transition: box-shadow 0.2s;
-  padding: 16px;
+  padding: 24px;
+  background: #fff;
 }
 
-.content-item:hover {
-  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+.review-header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
 }
 
-.content-thumb {
-  width: 180px;
-  height: 120px;
+.product-thumbnail {
+  width: 80px;
+  height: 80px;
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
-  margin-right: 24px;
+  background: #f3f4f6;
 }
 
-.content-thumb img {
+.product-thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.content-info {
+.product-info {
   flex: 1;
 }
 
-.content-title {
-  font-size: 17px;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 6px;
-}
-
-.content-meta {
+.product-category {
   font-size: 13px;
-  color: #6b7280;
-  margin-bottom: 6px;
-}
-
-.content-stats {
-  margin-bottom: 6px;
-}
-
-.content-price {
-  font-size: 15px;
-  font-weight: 700;
   color: #8e4dff;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.product-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.product-author {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.review-actions {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.btn-edit, .btn-delete {
+  padding: 6px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.review-rating {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: #f59e0b;
+}
+
+.star.empty {
+  color: #e5e7eb;
+}
+
+.review-content {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #9ca3af;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.review-stats {
+  display: flex;
+  gap: 16px;
+}
+
+/* 빈 상태 */
+.empty-state {
+  text-align: center;
+  padding: 100px 20px;
+  color: #9ca3af;
+}
+
+.empty-state div {
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 </style>
 </head>

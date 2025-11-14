@@ -67,4 +67,23 @@
       u_profileimg_url=#{u_profileimg_url}
       WHERE u_loginid=#{u_loginid}
     </update>
+    
+    <!-- 아이디 찾기 -->
+    <select id="findMyId" resultType="string" parameterType="UsersVO">
+      SELECT u_loginid
+      FROM users
+      WHERE u_email=#{u_email} AND u_phone=#{u_phone}
+    </select>
+    
+    <!-- 비밀번호 찾기 -->
+    <select id="findMyPwd" resultType="string" parameterType="UsersVO">
+      SELECT u_id
+      FROM users
+      WHERE u_loginid=#{u_loginid} AND u_email=#{u_email}
+    </select>
+    <update id="pwdChange" parameterType="UsersVO">
+      UPDATE users SET
+      pwd=#{pwd}
+      WHERE u_loginid=#{u_loginid}
+    </update>
 </mapper>

@@ -7,12 +7,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.eum.users.dao.*;
 import com.eum.main.vo.*;
-import com.eum.seller.dao.SellerDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -298,5 +299,78 @@ public class usersModel {
 			return "../commons/alert.jsp";
 		}
 		return "redirect:../users/info.eum";
+	}
+	
+	// 아이디 / 비밀번호 찾기 폼 이동
+	@RequestMapping("users/fine_me.eum")
+	public String users_fine_me(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("main_jsp", "../users/find_me.jsp");
+		return "../main/main.jsp";
+	}
+	
+	// 아이디 찾기
+	@RequestMapping("users/find_id.eum")
+	public void users_find_id(HttpServletRequest request, HttpServletResponse response) {
+		String iEmail = request.getParameter("iEmail");
+		String iPhone = request.getParameter("iPhone");
+		
+		String fLoginId = null;
+		
+		UsersVO vo = new UsersVO();
+		vo.setU_email(iEmail);
+		vo.setU_phone(iPhone);
+		
+		fLoginId = UsersDAO.findMyId(vo);
+		
+		if(fLoginId!=null) {
+			vo.setMsg("OK");
+			vo.setU_loginid(fLoginId);
+		} else {
+			vo.setMsg("NOID");
+		}
+		
+		String responseMsg;
+		
+		if(vo.getMsg().equals("OK")) {
+			responseMsg = vo.getMsg()+":"+vo.getU_loginid();
+		} else {
+			responseMsg = vo.getMsg();
+		}
+		
+		try {
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.write(responseMsg);
+			out.flush();
+			out.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	// 비밀번호 찾기
+	@RequestMapping("users/find_pwd.eum")
+	public String users_find_pwd(HttpServletRequest request, HttpServletResponse response) {
+		String iLoginId = request.getParameter("iLoginId");
+		String iEmail = request.getParameter("iEmail");
+		
+		String fU_id = null;
+		
+		UsersVO vo = new UsersVO();
+		vo.setU_loginid(iLoginId);
+		vo.setU_email(iEmail);
+		
+		fU_id = UsersDAO.findMyPwd(vo);
+		
+		if(fU_id!=null) {
+			request.setAttribute("fU_id", fU_id);
+			request.setAttribute("msg", "OK");
+			request.setAttribute("main_jsp", "../users/pwd_change.jsp");
+		} else {
+			request.setAttribute("msg", "NOID");
+			request.setAttribute("main_jsp", "../users/find_me.jsp");
+		}
+		
+		return "../main/main.jsp";
 	}
 }

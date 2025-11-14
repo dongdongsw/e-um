@@ -16,7 +16,7 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   gap: 40px;
 }
 
-/* ===== 좌측 메뉴 ===== */
+/* ===== 좌측 메뉴 ===== (유지) */
 .sidebar {
   border-right: 1px solid #e5e7eb;
   padding-right: 24px;
@@ -53,7 +53,7 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   background: #f9fafb;
 }
 
-/* ===== 오른쪽 본문 ===== */
+/* ===== 오른쪽 본문 ===== (유지) */
 .content {
   background: #fff;
 }
@@ -65,100 +65,130 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   color: black;
 }
 
-/* 리뷰 리스트 */
+/* 리뷰 리스트 (유지) */
 .review-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .review-item {
-  display: flex;
-  gap: 20px;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 20px;
+  padding: 24px;
   background: #fff;
+  /* 💡 추가: 내부 요소를 세로로 배치합니다. */
+  display: flex;
+  flex-direction: column; 
 }
 
-.item-thumbnail {
-  width: 120px;
-  height: 120px;
+.review-header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+  /* 💡 review-header 내부 요소들을 가로로 배치 (썸네일, 정보, 버튼) */
+  align-items: flex-start; /* 상단 정렬 */
+}
+
+.product-thumbnail {
+  width: 80px;
+  height: 80px;
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
   background: #f3f4f6;
 }
 
-.item-thumbnail img {
+.product-thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.item-info {
+.product-info {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
-.item-category {
+.product-category {
   font-size: 13px;
   color: #8e4dff;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
-.item-title {
+.product-title {
   font-size: 16px;
   font-weight: 600;
   color: #111;
   margin-bottom: 8px;
 }
 
-.item-author {
+.product-author {
   font-size: 14px;
   color: #6b7280;
-  margin-bottom: 12px;
 }
 
-.item-meta {
+.review-actions {
   display: flex;
-  gap: 16px;
-  font-size: 14px;
-  color: #9ca3af;
+  gap: 8px;
+  align-items: flex-start;
+  /* 💡 버튼이 썸네일/정보와 같은 줄에 유지되도록 */
+  flex-shrink: 0;
 }
 
-.item-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.item-price {
-  font-size: 18px;
-  font-weight: 600;
-  color: #111;
-}
-
-.btn-remove {
-  padding: 8px 16px;
+.btn-edit, .btn-delete {
+  padding: 6px 14px;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
   background: #fff;
   color: #6b7280;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.btn-remove:hover {
+.btn-edit:hover, .btn-delete:hover {
   background: #f9fafb;
   border-color: #d1d5db;
 }
 
-/* 빈 상태 */
+.review-rating {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: #f59e0b;
+}
+
+.star.empty {
+  color: #e5e7eb;
+}
+
+.review-content {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #9ca3af;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.review-stats {
+  display: flex;
+  gap: 16px;
+}
+
+/* 빈 상태 (유지) */
 .empty-state {
   text-align: center;
   padding: 100px 20px;
@@ -210,11 +240,11 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
           </div>
         </div>
         <div class="review-rating">
-          <span>★ ${vo.b_review_avg}</span>
+          <span>★ ${vo.b_review_score}</span>
         </div>
         <div class="review-content">${vo.b_review_content}</div>
         <div class="review-footer">
-          <div>${vo.dbday}</div>
+          <div>${vo.b_review_createdat}</div>
           <div class="review-stats">
             <span>💬 답글 ${vo.depth_count}</span>
           </div>
