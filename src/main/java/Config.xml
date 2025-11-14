@@ -31,5 +31,6 @@
     <mapper resource="com/eum/notice/mapper/notice-mapper.xml"/>
     <mapper resource="com/eum/users/mapper/users-mapper.xml"/>
     <mapper resource="com/eum/seller/mapper/seller-mapper.xml"/>
+    <mapper resource="com/eum/pay/mapper/payment-mapper.xml"/>
   </mappers>
 </configuration>
