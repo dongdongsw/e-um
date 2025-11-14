@@ -10,10 +10,9 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
-<link rel="stylesheet" href="css/detail.css">
+<link rel="stylesheet" href="../css/detail.css">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
-
 <script>
   $(function () {
     // jQuery UI tabs
@@ -78,6 +77,13 @@
     // 버튼 여러 개도 대응
     document.querySelectorAll('.like-button').forEach(btn=>{
       btn.addEventListener('click', toggleLike);
+    });
+    
+    $(".count").on("click", function() {
+    	  $("#tabs").tabs("option", "active", 2); // 0=상세, 1=셀러, 2=리뷰
+    	  $("html, body").animate({
+    	    scrollTop: $("#tabs").offset().top - 100 // 살짝 위로 위치 조정
+    	  }, 400);
     });
 </script>
 <style type="text/css">
