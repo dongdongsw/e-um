@@ -8,7 +8,7 @@
 <style>
 body {background-color: #fff !important; margin: 0; padding: 0;}
 
-.seller-container {
+.favorite-container {
   display: grid;
   grid-template-columns: 240px 1fr;
   width: 1180px;
@@ -173,7 +173,7 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
 </head>
 <body>
 <div class="header-text" style="height: 200px; background-color: #fff;"></div>
-<div class="seller-container">
+<div class="favorite-container">
   <!-- 좌측 메뉴 -->
   <aside class="sidebar">
     <h2>마이 페이지</h2>
@@ -195,16 +195,20 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
         <c:forEach var="vo" items="${fList}">
           <div class="favorite-item">
             <div class="item-thumbnail">
-              <img src="${vo.bvo.b_thumbnail}" alt="${vo.bvo.b_title} 썸네일">
+              <a href="../talent/detail.eum?b_id=${vo.b_id}">              
+                <img src="${vo.bvo.b_thumbnail}" alt="${vo.bvo.b_title} 썸네일">
+              </a>
             </div>
             <div class="item-info">
               <div>
                 <div class="item-category">${vo.bvo.b_type}</div>
-                <div class="item-title">${vo.bvo.b_title}</div>
+                <a href="../talent/detail.eum?b_id=${vo.b_id}">
+                  <div class="item-title">${vo.bvo.b_title}</div>
+                </a>
                 <div class="item-author">${vo.usvo.u_s_com}</div>
               </div>
               <div class="item-meta">
-                <span>⭐️ ${vo.rvo.b_review_score} (${vo.rvo.review_count})</span>
+                <span>⭐️ ${vo.rvo.b_review_avg} (${vo.rvo.review_count})</span>
                 <span>${vo.dbday} 저장</span>
               </div>
             </div>

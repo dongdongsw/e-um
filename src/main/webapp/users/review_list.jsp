@@ -8,7 +8,7 @@
 <style>
 body {background-color: #fff !important; margin: 0; padding: 0;}
 
-.seller-container {
+.review-container {
   display: grid;
   grid-template-columns: 240px 1fr;
   width: 1180px;
@@ -65,120 +65,97 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   color: black;
 }
 
-/* 리뷰 리스트 */
-.review-list {
+/* 즐겨찾기 리스트 */
+.favorites-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
-.review-item {
+.favorite-item {
+  display: flex;
+  gap: 20px;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 24px;
+  padding: 20px;
   background: #fff;
 }
 
-.review-header {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.product-thumbnail {
-  width: 80px;
-  height: 80px;
+.item-thumbnail {
+  width: 120px;
+  height: 120px;
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
   background: #f3f4f6;
 }
 
-.product-thumbnail img {
+.item-thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.product-info {
+.item-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.product-category {
+.item-category {
   font-size: 13px;
   color: #8e4dff;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
-.product-title {
+.item-title {
   font-size: 16px;
   font-weight: 600;
   color: #111;
   margin-bottom: 8px;
 }
 
-.product-author {
+.item-author {
   font-size: 14px;
   color: #6b7280;
+  margin-bottom: 12px;
 }
 
-.review-actions {
+.item-meta {
   display: flex;
-  gap: 8px;
-  align-items: flex-start;
+  gap: 16px;
+  font-size: 14px;
+  color: #9ca3af;
 }
 
-.btn-edit, .btn-delete {
-  padding: 6px 14px;
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.item-price {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+}
+
+.btn-remove {
+  padding: 8px 16px;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
   background: #fff;
   color: #6b7280;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.btn-edit:hover, .btn-delete:hover {
+.btn-remove:hover {
   background: #f9fafb;
   border-color: #d1d5db;
-}
-
-.review-rating {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 16px;
-  font-size: 16px;
-  color: #f59e0b;
-}
-
-.star.empty {
-  color: #e5e7eb;
-}
-
-.review-content {
-  font-size: 14px;
-  color: #374151;
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-
-.review-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  color: #9ca3af;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
-}
-
-.review-stats {
-  display: flex;
-  gap: 16px;
 }
 
 /* 빈 상태 */
@@ -196,7 +173,7 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
 </head>
 <body>
 <div class="header-text" style="height: 200px; background-color: #fff;"></div>
-<div class="seller-container">
+<div class="review-container">
   <!-- 좌측 메뉴 -->
   <aside class="sidebar">
     <h2>마이 페이지</h2>
@@ -212,11 +189,12 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   <!-- 오른쪽 본문 -->
   <main class="content">
     <h2>작성한 리뷰</h2>
-    <c:if test="${vo.b_review_id!=null}">
+    <c:if test="${!empty reList}">
     <div class="review-list">
       <!-- 리뷰 -->
+      <%-- <c:forEach var="vo" items="${reList}"> --%>
       <div class="review-item">
-        <div class="review-header">
+        <div class="review-header"> <!-- 여기까지 봄 -->
           <div class="product-thumbnail">
             <img src="#">
           </div>
@@ -249,11 +227,12 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
           </div>
         </div>
       </div>
+      <%-- </c:forEach> --%>
     </div>
 	</c:if>
 	
     <!-- 빈 상태 (리뷰가 없을 때) -->
-    <c:if test="${vo.b_review_id==null}">
+    <c:if test="${empty reList}">
       <div class="empty-state">
         <div>아직 작성한 리뷰가 없습니다.</div>
       </div>
