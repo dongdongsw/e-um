@@ -285,7 +285,7 @@ window.addEventListener('DOMContentLoaded', function () {
 			      <div class="content__text">
 			        <span class="stream__title">${vo.b_title}</span>
 			        <div class="content__body">
-			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0} (${vo.rvo.review_count != null ? vo.rvo.review_count : 0})</span>
+			          <span class="event" id="rating" id="review-count" style="font-size: 10px">⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0} (${vo.rvo.r_count != null ? vo.rvo.r_count : 0})</span>
 			          <span class="streamer__name" id="price" style="font-size: 12px">
 			          <fmt:formatNumber value="${empty vo.bovo.b_op_price ? 0 : vo.bovo.b_op_price}" pattern="#,###" />원</span>
 			          <span class="streamer__name" id="seller" style="font-size: 10px">${vo.usvo.u_s_com }</span>
