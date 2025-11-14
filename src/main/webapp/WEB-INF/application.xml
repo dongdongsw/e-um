@@ -5,4 +5,5 @@
   <context:component-scan basepackage="com.eum.notice.model"/>
   <context:component-scan basepackage="com.eum.users.model"/>
   <context:component-scan basepackage="com.eum.seller.model"/>
+  <context:component-scan basepackage="com.eum.pay.model"/>
 </beans>
