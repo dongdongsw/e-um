@@ -33,7 +33,7 @@
 		   WHERE board.b_id = board_option.b_id
 		   AND board.u_s_id = users_seller.u_s_id
 		   AND board.b_id = review.b_id
-		   AND b_type='비즈니스'
+		   AND b_type=#{b_type}
 		   GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
 		   ORDER BY b_id DESC
 	   ) A
@@ -172,14 +172,12 @@ WHERE num BETWEEN #{start} AND #{end}
     	WHERE board.b_id=board_option.b_id
     	AND board.u_s_id=users_seller.u_s_id
     	AND board.b_id=review.b_id
-    	
     	<if test="keyword != null and keyword !=''">
     	 AND(
     	 	b_title LIKE '%'||#{keyword}||'%'
     	 	OR b_content LIKE '%'||#{keyword}||'%'
     	 )
     	</if>
-    	
     	<if test="b_type != null and b_type != ''">
     	 AND b_type=#{b_type}
     	</if>

@@ -64,7 +64,7 @@ $(function (){
 	      alert("검색어를 입력해주세요");
 	      return;
 	    }
-	    talent_search(keyword, 1);
+	    location.href="../talent/list.eum?keyword="+encodeURIComponent(keyword)+"&page=1"
 	  });
 	  
 	  $(".reset").on("click", function () {
@@ -132,40 +132,45 @@ $(function (){
 	    });
 	  }
 	});
+	$("input[name=fd]").change(function(){
+		let fd=$(this).val()
+		let keyword="${keyword}"
+		let b_type="${b_type}"
+		location.href="../talent/list.eum?page=&keyword="+encodeURIComponent(keyword)+"&b_type="+enCodeURIComponent(b_type)+"&fd"+fd
+	})
 </script>
 
 </head>
 <body>
+  <!-- 사이드바 -->
   <div class="header-text" style="height: 200px;"></div>
-
   <div class="list-container">
-    <!-- 사이드바 -->
-    
+    <!-- 정렬 -->
     <div class="sidebar">
-     <h3>필터 검색</h3>
+     <h3>정렬</h3>
      <div style="height: 10px"></div>
         <ul class="list">
     <li class="list__item">
       <label class="label--radio">
-      	<input type="radio" class="radio" checked  name="foo">
+      	<input type="radio" class="radio" checked  name="fd" value="popular" checked>
           인기순
       </label>
     </li>
     <li class="list__item">
       <label class="label--radio">
-      	<input type="radio" class="radio" name="foo">
+      	<input type="radio" class="radio" name="fd" value="new">
           최신순
       </label>
     </li>
     <li class="list__item">
       <label class="label--radio">
-      	<input type="radio" class="radio" name="foo">
+      	<input type="radio" class="radio" name="fd" value="score">
          평점순
       </label>
     </li>
     <li class="list__item">
       <label class="label--radio">
-      	<input type="radio" class="radio" name="foo">
+      	<input type="radio" class="radio" name="fd" value="review">
           리뷰 많은 순
       </label>
     </li>
@@ -333,20 +338,16 @@ $(function (){
     });
   })();
 </script>
-    <!-- 오른쪽 메인 -->
-    <!-- 오른쪽 메인 -->
     <div class="main">
-    
-    <!-- 검색바 -->
     <form class="search">
-          <button type="button">
+          <button type="submit">
               <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
                         stroke="currentColor" stroke-width="1.333"
                         stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
           </button>
-          <input class="search_input" placeholder="어떤 서비스가 필요하세요?" required="" type="text">
+          <input class="search_input" placeholder="어떤 서비스가 필요하세요?" required type="text">
           <button class="reset" type="reset">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
                     fill="none" viewBox="0 0 24 24"
@@ -357,13 +358,8 @@ $(function (){
           </button>
         </form>
         <div class="header-text" style="height: 10px;"></div>
-
-      <!-- 검색 결과 영역 -->
       <div class="card-area row"></div>
-
-        <!-- 기본 리스트 -->
         <div id="default-list" class="row">
-
           <c:forEach var="vo" items="${life_list}">
             <div class="col-md-3">
               <div class="temporary__storage" style="border:none">
@@ -408,17 +404,17 @@ $(function (){
           <ul class="page">
             <c:if test="${startPage > 1}">
               <li class="page__btn active">
-                <a href="../talent/list.eum?page=${startPage-1}">&lt;</a>
+                <a href="../talent/list.eum?page=${startPage-1}&keyword=${keyword}&b_type=${b_type}">&lt;</a>
               </li>
             </c:if>
             <c:forEach var="i" begin="${startPage}" end="${endPage}">
               <li class="page__numbers ${i==curpage?'active':''}">
-                <a href="../talent/list.eum?page=${i}">${i}</a>
+                <a href="../talent/list.eum?page=${i}&keyword=${keyword}&b_type=${b_type}">${i}</a>
               </li>
             </c:forEach>
             <c:if test="${endPage < totalpage}">
               <li class="page__btn active">
-                <a href="../talent/list.eum?page=${endPage+1}">&gt;</a>
+                <a href="../talent/list.eum?page=${endPage+1}&keyword=${keyword}&b_type=${b_type}">&gt;</a>
               </li>
             </c:if>
           </ul>
