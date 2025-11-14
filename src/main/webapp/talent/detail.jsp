@@ -114,7 +114,23 @@
     	  });
     	});
 })
-  
+    $(function() {
+	  $(".stars").each(function() {
+	    const score = parseFloat($(this).data("score")) || 0;
+	    const fullStars = Math.floor(score); // 소수점 버림
+	    const stars = $(this).find(".star");
+
+	    stars.each(function(i) {
+	      const $path = $(this).find("path");
+
+	      if (i < fullStars) {
+	        $path.css("fill", "var(--accent)"); // 노란 별
+	      } else {
+	        $path.css("fill", "#ddd"); // 회색 빈 별
+	      }
+	    });
+	  });
+	});
   
 </script>
 </head>
@@ -129,7 +145,7 @@
       </div>
 
       <div class="meta" aria-label="별점 및 관심">
-        <div class="stars" aria-hidden="true">
+        <div class="stars"  data-score="${fn:trim(score_vo.rvo.b_review_score)}">
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
@@ -137,12 +153,12 @@
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
         </div>
         <span class="rating">${score_vo.rvo.b_review_score}</span> <!-- 컨텐츠 평점 -->
-        <span class="count">${score_vo.rvo.review_count}</span> <!-- 리뷰 수 -->
+        <span class="count">(${empty board_vo.rvo.r_count ? 0 : board_vo.rvo.r_count})</span> <!-- 리뷰 수 -->
 		<div class="like-button">
 		  <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
 		    <path d="M12 21s-6.7-4.3-9.4-7.1C.7 11.9.4 8.9 2.3 7 4 5.3 6.8 5.6 8.6 7.3L12 10.6l3.4-3.3c1.8-1.7 4.6-2 6.3-.3 1.9 1.9 1.6 4.9-.3 6.8C18.7 16.7 12 21 12 21z"></path>
 		  </svg>
-		  <span class="like-count">1,477</span> <!-- 좋아요 수 -->
+		  <span class="like-count">${empty board_vo.rvo.r_count ? 0 : board_vo.rvo.r_count}</span> <!-- 좋아요 수 -->
 		</div>
 
         <div class="quick">
@@ -172,7 +188,7 @@
 
     <div class="hero-right">
        <!--컨텐츠 메인 이미지 -->
-        <img src="${detail_vo.b_thumbnail }">
+        <img src="${board_vo.b_thumbnail }">
     </div>
   </section>
   <!-- 상세정보 시작 --> 
@@ -191,8 +207,8 @@
    		  <br>
           <p style="font-size: 14px">${detail_vo.b_content}</p>
           <br><br>
-          <c:forEach begin="0" end="7">
-            <img style="width:100%" src="${board_vo.bivo.b_img_url}">
+          <c:forEach var="img" items="${image_vo}">
+            <img style="width:100%" src="${img.bivo.b_img_url}">
           </c:forEach>
         </div>
 		<!-- 셀러 정보 -->
@@ -408,8 +424,15 @@
 		</div>
 
 	<!-- 가격 옵션 -->
-    <div class="hero-right" id="sticky">
+    <div class="hero-right" id="skicky">
       <div class="plans">
+       <form class="price-form" method="post" action="../main/orders.eum">
+         <input type="hidden" name="mimg" value="${board_vo.b_thumbnail }">
+         <input type="hidden" name="title" value="${price_vo[0].b_op_title}">
+         <input type="hidden" name="prof" value="${board_vo.usvo.u_s_profileimg_url}">
+         <input type="hidden" name="com" value="${board_vo.usvo.u_s_com}">
+         <input type="hidden" name="price" value="${price.b_op_price}">
+         
           <span class="dropdown-el" id="sortDropdown">
 		  <c:if test="${not empty price_vo}">
 		    <span class="current">
@@ -419,8 +442,8 @@
 		  </c:if>
 		
 		  <div class="menu">
-		    <c:forEach var="price" items="${price_vo}">
-		      <input type="radio" name="sortType" id="sort-${price.b_op_id}">
+		    <c:forEach var="price" items="${price_vo}" varStatus="st">
+		      <input type="radio" name="b_op_id" value="${price.b_op_id}" id="sort-${price.b_op_id}"  ${st.index == 0 ? "checked" : ""}>
 		      <label for="sort-${price.b_op_id}">
 		        ${price.b_op_title}
 		        (<fmt:formatNumber value="${price.b_op_price}" pattern="#,###" />원)
@@ -430,12 +453,11 @@
 		</span>
             <div class="cta">
               <button class="btn-ghost">전문가에게 문의하기</button>
-              <a href="../main/orderPayment.eum" class="btn-pri">구매하기</a>
+              <button type="submit" class="btn-pri">구매하기</button>
             </div>
           </div>
         </div>
     <div style="height: 100px"></div>
   </section>
 </body>
-</html>
 </html>
