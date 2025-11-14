@@ -30,5 +30,6 @@
     <mapper resource="com/eum/users/mapper/users-mapper.xml"/>
     <mapper resource="com/eum/seller/mapper/seller-mapper.xml"/>
     <mapper resource="com/eum/users/mapper/favorite-mapper.xml"/>
+    <mapper resource="com/eum/users/mapper/review-mapper.xml"/>
   </mappers>
 </configuration>

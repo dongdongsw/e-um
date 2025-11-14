@@ -65,14 +65,14 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   color: black;
 }
 
-/* 즐겨찾기 리스트 */
-.favorites-list {
+/* 리뷰 리스트 */
+.review-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.favorite-item {
+.review-item {
   display: flex;
   gap: 20px;
   border: 1px solid #e5e7eb;
@@ -192,42 +192,35 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
     <c:if test="${!empty reList}">
     <div class="review-list">
       <!-- 리뷰 -->
-      <%-- <c:forEach var="vo" items="${reList}"> --%>
+      <c:forEach var="vo" items="${reList}">
       <div class="review-item">
-        <div class="review-header"> <!-- 여기까지 봄 -->
+        <div class="review-header">
           <div class="product-thumbnail">
-            <img src="#">
+            <img src="${vo.bvo.b_thumbnail}">
           </div>
           <div class="product-info">
-            <div class="product-category">카테고리</div>
-            <div class="product-title">제목</div>
-            <div class="product-author">셀러명</div>
+            <div class="product-category">${vo.bvo.b_type}</div>
+            <div class="product-title">${vo.bvo.b_title}</div>
+            <div class="product-author">${vo.usvo.u_s_com}</div>
           </div>
           <div class="review-actions">
-            <button class="btn-edit">자세히 보기</button>
+            <a href="../talent/detail.eum?b_id=${vo.b_id}">
+              <button class="btn-edit">자세히 보기</button>
+            </a>
           </div>
         </div>
-
         <div class="review-rating">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
+          <span>★ ${vo.b_review_avg}</span>
         </div>
-
-        <div class="review-content">
-          리뷰내용
-        </div>
-
+        <div class="review-content">${vo.b_review_content}</div>
         <div class="review-footer">
-          <div>리뷰작성일</div>
+          <div>${vo.dbday}</div>
           <div class="review-stats">
-            <span>💬 답글 count</span>
+            <span>💬 답글 ${vo.depth_count}</span>
           </div>
         </div>
       </div>
-      <%-- </c:forEach> --%>
+      </c:forEach>
     </div>
 	</c:if>
 	
