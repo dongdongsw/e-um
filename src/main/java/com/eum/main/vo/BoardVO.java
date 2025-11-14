@@ -23,7 +23,7 @@ public class BoardVO {
 	private Date b_createdat,b_updatedat;
 	private Board_OptionVO bovo=new Board_OptionVO();
 	private Users_SellerVO usvo=new Users_SellerVO();
-	private ReviewVO rvo=new ReviewVO();
+	private ReviewVO rvo;
 	private Review_ImageVO rivo=new Review_ImageVO();
 	private Board_ImageVO bivo=new Board_ImageVO();
 	private UsersVO uvo=new UsersVO();

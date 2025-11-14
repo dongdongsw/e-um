@@ -21,4 +21,6 @@ public class ReviewVO {
 
 
 	private List<Review_ImageVO> imageList;
+	private UsersVO uvo;
+	private BoardVO bvo;
 }

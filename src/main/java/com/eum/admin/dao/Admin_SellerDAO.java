@@ -1,5 +1,6 @@
 package com.eum.admin.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
 import com.eum.main.vo.BoardVO;
+import com.eum.main.vo.ReviewVO;
+import com.eum.main.vo.Review_ImageVO;
 import com.eum.main.vo.UsersVO;
 import com.eum.main.vo.Users_SellerVO;
 
@@ -79,6 +82,33 @@ public class Admin_SellerDAO {
 		try {
 			SqlSession session = ssf.openSession();
 			total = session.selectOne("sellerContentsTotalData",u_s_id);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return total;
+	}
+	
+	// 셀러 리뷰 리스트
+	public static List<ReviewVO> sellerReviewListData(Map map){
+		
+		List<ReviewVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("sellerReviewListData",map);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+
+	public static int sellerReviewTotalData(int u_s_id) {
+		int total = 0;
+		try {
+			SqlSession session = ssf.openSession();
+			total = session.selectOne("sellerReviewTotalData",u_s_id);
 			session.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -1,13 +1,19 @@
 package com.eum.admin.model;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.eum.admin.dao.Admin_ReviewDAO;
 import com.eum.admin.dao.Admin_SellerDAO;
 import com.eum.admin.dao.Admin_UsersDAO;
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.ReviewVO;
+import com.eum.main.vo.Review_ImageVO;
 import com.eum.main.vo.UsersVO;
 import com.eum.main.vo.Users_SellerVO;
 import com.sist.controller.Controller;
@@ -59,6 +65,7 @@ public class Admin_Seller_Model {
 	public String admin_seller_detail(HttpServletRequest request, HttpServletResponse response) {
 								
 		String u_s_id = request.getParameter("u_s_id");
+		// 컨텐츠 리스트 출력
 		String page = request.getParameter("page");
 		if(page==null) page ="1";
 		
@@ -86,10 +93,40 @@ public class Admin_Seller_Model {
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("board_list", board_list);
 		request.setAttribute("seller_vo", seller_vo);
+		
+		// 리뷰 리스트 출력
+		String page_r = request.getParameter("page_r");
+		if(page_r==null) page_r ="1";
+				
+		int rowSize_r=8;
+		int curpage_r = Integer.parseInt(page_r);
+		int start_r = (rowSize_r*curpage_r)-(rowSize_r-1);
+		int end_r = rowSize_r*curpage_r;
+		
+		Map map_r = new HashMap();
+		map_r.put("u_s_id",u_s_id);
+		map_r.put("start_r", (start_r-1));
+		map_r.put("rowSize_r", rowSize_r);
+		List<ReviewVO> review_list = Admin_SellerDAO.sellerReviewListData(map_r); 
+		int totalpage_r = Admin_SellerDAO.sellerReviewTotalData(Integer.parseInt(u_s_id));
+		final int BLOCK_r = 10;
+		int startPage_r=((curpage_r-1)/BLOCK_r*BLOCK_r)+1;
+		int endPage_r=((curpage_r-1)/BLOCK_r*BLOCK_r)+BLOCK_r;
+		if(totalpage_r < endPage_r) endPage_r=totalpage_r;
+		
+		request.setAttribute("startPage_r", startPage_r);
+		request.setAttribute("endPage_r", endPage_r);
+		request.setAttribute("curpage_r", curpage_r);
+		request.setAttribute("totalpage_r", totalpage_r);
+		request.setAttribute("review_list", review_list);
+		
+		
+		
 		request.setAttribute("admin_main_jsp", "../sellers/admin_seller_detail.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
-			
+	
+	
 	// 관리자 셀러 수정 페이지
 	@RequestMapping("admin/admin_seller_modify.eum")
 	public String admin_seller_modify(HttpServletRequest request, HttpServletResponse response) {

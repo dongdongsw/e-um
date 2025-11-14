@@ -37,8 +37,8 @@ public class Admin_Review_Model {
 		int start = (rowSize*curpage)-(rowSize-1);
 		int end = rowSize*curpage;
 		
-		map.put("start", start);
-		map.put("end", end);
+		map.put("start", (start-1));
+		map.put("rowSize", rowSize);
 		
 		List<ReviewVO> review_list = Admin_ReviewDAO.reviewListData(map);
 		int totalpage = Admin_ReviewDAO.reviewTotalData();
@@ -81,15 +81,6 @@ public class Admin_Review_Model {
 	}
 
 	
-	// 리뷰 디테일(모달)
-	/*
-	 * @RequestMapping("admin/admin_review_detail") public String
-	 * admin_review_detail(HttpServletRequest request, HttpServletResponse response)
-	 * {
-	 * 
-	 * 
-	 * request.setAttribute("admin_main_jsp", "../sellers/admin_review_detail.jsp");
-	 * return "../admin/common/admin_main.jsp"; }
-	 */
+	
 	
 }

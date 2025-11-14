@@ -8,7 +8,7 @@
 
  /* 리뷰 탭 내용 높이 고정 + 내부 스크롤 */
   #home .container-fluid {
-    max-height: 700px;   /* 원하는 높이 */
+    max-height: 1000px;   /* 원하는 높이 */
   }
 
   /* 카드 높이 일정하게 맞추기 (선택사항) */

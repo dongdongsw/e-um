@@ -75,12 +75,12 @@
                                 <label class="custom-control-label" for="all2"></label>
                               </div>
                             </td>
-                            <th>리뷰 KEY</th>
+                            <th>NO</th>
                             <th>리뷰 점수</th>
                             <th>작성자</th>
+                            <th>카테고리</th>
                             <th class="w-25">content</th>
                             <th>작성일</th>
-                            <th></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -104,9 +104,13 @@
                             </td>
                             
                             <td>
-                             <%--  <p class="mb-0 text-muted"><a href="#" class="text-muted">${review_list.usvo.u_s_com }</a></p> --%>
+                             <p class="mb-0 text-muted"><a href="#" class="text-muted">${review_list.uvo.u_nickname }</a></p>
                             </td>
                             
+							<td>
+							  <p class="mb-0 text-muted">${review_list.bvo.b_type }</p>
+							</td>
+							
                             <td class="w-25">
 							  <small class="text-muted">
 							  	<a class="dropdown-item btn-detail" style="cursor: pointer;"
@@ -126,22 +130,11 @@
 							  </small>
 							</td>
 
+							
                             <td class="text-muted">
-							  <%-- <fmt:formatDate value=" --%>${review_list.b_review_createdat}<!-- " pattern="yyyy-MM-dd" /> -->
+							  ${review_list.b_review_createdat}
 							</td>
-                            <td>
-							  <%-- <div class="form-group mb-3">
-							    <select class="form-control" id="example-select">
-							      <option value="active" ${review_list.b_status eq 'active' ? 'selected' : ''}>활성화</option>
-							      <option value="inactive" ${review_list.b_status eq 'inactive' ? 'selected' : ''}>비활성화</option>
-							    </select>
-							  </div> --%>
-							  <!-- 이미지가 있는지 테스트 용도 -->
-							  <c:forEach var="img" items="${review_list.imageList}">
-					            <span class="img-url">${img.r_image_url}</span>
-					          </c:forEach>
-							</td>
-
+                            
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
                               </button>

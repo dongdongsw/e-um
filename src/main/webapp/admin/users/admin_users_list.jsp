@@ -78,13 +78,15 @@
                               </div>
                             </td>
                             <th></th>
+                            <th><strong>NO</strong></th>
                             <th><strong>닉네임</strong></th>
+                            <th><strong>ID</strong></th>
                             <th><strong>주소</strong></th>
                             <th><strong>연락처</strong></th>
                             <th class="w-24"><strong>email</strong></th>
-                            <th><strong>수정 날짜</strong></th>
+                            <th><strong>최근 수정일</strong></th>
                             <th><strong>회원 상태</strong></th>
-                            <th><strong>Action</strong></th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -98,29 +100,49 @@
                                 <label class="custom-control-label" for="2474"></label>
                               </div>
                             </td>
+                            
                             <td>
                               <div class="avatar avatar-md">
                                 <img src="${users.u_profileimg_url }" alt="..." class="avatar-img rounded-circle">
                               </div>
                             </td>
+                            
+                            <td>
+                            	<a href="../admin/admin_users_detail.eum?u_id=${users.u_id }">
+                              		<p class="mb-0 text-normal">${users.u_id }</p>
+                              	</a>
+                            </td>
+                            
                             <td>
                             	<a href="../admin/admin_users_detail.eum?u_id=${users.u_id }">
                               		<p class="mb-0 text-normal">${users.u_nickname }</p>
-                              		<small class="mb-0 text-normal">id:${users.u_loginid }</small>
                               	</a>
                             </td>
+                            
+                            <td>
+                            	<p class="mb-0 text-normal">${users.u_loginid }</p>
+                            </td>
+                            
                             <td>
                               <p class="mb-0 text-normal">${users.u_loc }</p>
                               <small class="mb-0 text-normal"></small>
                             </td>
+                            
                             <td>
                               <p class="mb-0 text-normal"><a href="#" class="text-normal">(+82)${users.u_phone }</a></p>
                               <small class="mb-0 text-normal"></small>
                             </td>
-                            <td class="w-24"><small class="text-normal">${users.u_email }</small></td>
+                            
+                            <td class="w-24">
+                            	<small class="text-normal">
+                            		${users.u_email }
+                            	</small>
+                            </td>
+                            
                             <td class="text-normal">
                             	<fmt:formatDate value="${users.u_updateat}" pattern="yyyy-MM-dd" />
 							</td>
+							
 							<td>
 							    <c:choose>
 							        <c:when test="${users.u_status == 'active'}">

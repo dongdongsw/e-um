@@ -7560,7 +7560,7 @@ button:focus {
 .vertical.hover .main-content,
 .narrow.open .main-content {
   margin-left: 16rem;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* padding: 1.2rem; */
   padding: 0 1.2rem 0 1.2rem;
   /* min-height: 100vh; */

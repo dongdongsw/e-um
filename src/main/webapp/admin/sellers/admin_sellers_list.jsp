@@ -58,7 +58,6 @@
                         </div>
                         <div class="col ml-auto">
                           <div class="dropdown float-right">
-                            <button class="btn btn-primary float-right ml-3" type="button">Add more +</button>
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
                             <div class="dropdown-menu" aria-labelledby="actionMenuButton">
                               <a class="dropdown-item" href="#">Export</a>
@@ -79,6 +78,7 @@
                               </div>
                             </td>
                             <th></th>
+                            <th class="text-dark"><strong>NO</strong></th>
                             <th class="text-dark"><strong>셀러 이름</strong></th>
                             <th class="text-normal"><strong>사업자번호</strong></th>
                             <th class="text-normal"><strong>연락처</strong></th>
@@ -112,10 +112,14 @@
                               </div>
                               
                             </td> 
+                            
+                            <td>
+                            	<p class="mb-0 text-normal">${sellers_list.u_s_id }</p>
+                            </td>
+                            
                             <td>
                             	<a href="../admin/admin_seller_detail.eum?u_s_id=${sellers_list.u_s_id}">
                               		<p class="mb-0 text-normal">${sellers_list.u_s_com }</p>
-                              		<small class="mb-0 text-normal">${sellers_list.u_s_id }</small>
                               	</a>
                             </td>
                             <td>
