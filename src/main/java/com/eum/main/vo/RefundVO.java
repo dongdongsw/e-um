@@ -14,6 +14,6 @@ import lombok.Data;
 @Data
 public class RefundVO {
 	private int rf_amount;
-	private String rf_id,pay_id,rf_reason,rf_status;
+	private String rf_id,pay_id,rf_reason,rf_status,o_u_id;
 	private Date rf_requestedat,rf_completedat;
 }
