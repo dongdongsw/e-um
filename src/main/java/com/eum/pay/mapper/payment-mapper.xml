@@ -13,7 +13,7 @@
   
   <!-- 주문 상세페이지 데이터 조회 -->
   <select id="ordersData" resultMap="optionMap" parameterType="int">
-    SELECT 
+    SELECT
 	b.b_id,
 	b_thumbnail,
 	us.u_s_id,
@@ -30,14 +30,53 @@
   </select>
   
   <!-- orders table insert -->
-  <insert id="ordersInsert" parameterType="OrdersVO">
-    INSERT INTO orders(o_id,b_op_id,o_status,o_total_price,o_createdat,o_updatedat,o_u_id)
-     VALUES(orders_id_seq.nextval,
-            #{b_op_id},
-            '결제대기',
-            #{o_total_price},
+  <insert id="ordersInsert" parameterType="OrdersVO"
+        useGeneratedKeys="true" 
+        keyProperty="o_id"
+        keyColumn="o_id">
+
+    INSERT INTO orders(
+        o_id,
+        b_op_id,
+        o_status,
+        o_total_price,
+        o_createdat,
+        o_updatedat,
+        o_u_id
+    ) VALUES(
+        orders_id_seq.nextval,
+        #{b_op_id},
+        '결제대기',
+        #{o_total_price},
+        SYSDATE,
+        SYSDATE,
+        #{o_u_id}
+    )
+</insert>
+  <!-- payment table insert -->
+  <insert id="paymentInsert" parameterType="paymentVO">
+   INSERT INTO payment(pay_id,o_id,o_u_id,imp_uid,merchant_uid,amount,status,pay_method,
+   					   pg_provider,receipt_url,paid_at,canceled_at,o_method)
+     VALUES(payment_id_seq.nextval,
+            #{o_id},
+            #{o_u_id},
+            #{imp_uid},
+            #{merchant_uid},
+            #{amount},
+            '결제완료',
+            #{pay_method},
+            #{pg_provider},
+            #{receipt_url},
             SYSDATE,
-            SYSDATE,
-            #{o_u_id})
+            NULL,
+            #{o_method}
+            )
   </insert>
+  <!-- 결제대기 -> 결제완료 변경 -->
+    <update id="updateOrderStatus" parameterType="string">
+    UPDATE orders
+    SET o_status = '결제완료',
+        o_updatedat = SYSDATE
+    WHERE o_id = #{o_id}
+    </update>
 </mapper>
