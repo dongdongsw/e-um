@@ -452,7 +452,7 @@
 		  </div>
 		</span>
             <div class="cta">
-              <button class="btn-ghost">전문가에게 문의하기</button>
+              <button type="button" class="btn-ghost">전문가에게 문의하기</button>
               <button type="submit" class="btn-pri">구매하기</button>
             </div>
           </div>
