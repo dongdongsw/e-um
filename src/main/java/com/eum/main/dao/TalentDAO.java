@@ -1,5 +1,6 @@
 package com.eum.main.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Map;
@@ -154,20 +155,33 @@ import com.eum.main.vo.ReviewVO;
 			AND board.b_id=#{b_id}
 		  </select>
 	    */
-	   public static List<BoardVO> talentDetailreview(String b_id)
-	   {
-		   List<BoardVO> list=null;
-		   try
-		   {
-			   SqlSession session=ssf.openSession();
-			   list=session.selectList("talentDetailreview", b_id);
-			   session.close();
-		   }catch(Exception ex)
-		   {
-			   ex.printStackTrace();
-		   }
-		   return list;
-	   }
+	   
+	   public static List<String> reviewImage(String b_review_id) {
+		    SqlSession session = ssf.openSession();
+		    List<String> list = session.selectList("reviewImage", b_review_id);
+		    session.close();
+		    return list;
+		}
+
+
+		public static List<BoardVO> talentDetailreview(String b_id) {
+		    List<BoardVO> list = null;
+		    try {
+		        SqlSession session = ssf.openSession();
+		        list = session.selectList("talentDetailreview", b_id);
+
+		        if (list != null) {
+		            for (BoardVO r : list) {
+		                String reviewId = r.getRvo().getB_review_id(); 
+		                List<String> imgs = session.selectList("reviewImage", reviewId);
+		                r.getRvo().setImgList(imgs);               
+		            }
+		        }
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    } 
+		    return list;
+		}
 	   /*
 	    *   <select id="lifeDetailscore" resultMap="boardMap" parameterType="string">
 		    SELECT b_id,ROUND(AVG(b_review_score),1) AS b_review_score,
@@ -207,27 +221,89 @@ import com.eum.main.vo.ReviewVO;
 		   return list;
 	   }
 	   
-	   public static String reviewInsert(ReviewVO vo) {
-		   String res="NO";
+	   
+	   
+	   // 리뷰 작성
+	   public static void reviewInsert(ReviewVO vo) {
+		   
 		   try {
 			   SqlSession session=ssf.openSession(true);
 			   session.insert("reviewInsert",vo);
 			   session.close();
+		   } catch (Exception ex) {
+			   ex.printStackTrace();
+		   }
+	   }
+	   
+	   // 답변 작성
+	   public static void replyInsert(ReviewVO vo) {
+		   
+		   try {
+			   SqlSession session=ssf.openSession(true);
+			   session.insert("replyInsert",vo);
+			   session.close();
+		   } catch (Exception ex) {
+			   ex.printStackTrace();
+		   }
+	   }
+	   
+	   // 리뷰 수정
+	   public static String reviewUpdate(ReviewVO vo) {
+		   String res=null;
+		   try {
+			   SqlSession session=ssf.openSession(true);
+			   session.update("reviewUpdate",vo);
+			   session.close();
 			   res="YES";
 		   } catch (Exception ex) {
+			   res="NO";
 			   ex.printStackTrace();
 		   }
 		   return res;
 	   }
 	   
-	   public static String replyInsert(ReviewVO vo) {
-		   String res="NO";
+	   // 답변 수정
+	   public static String replyUpdate(ReviewVO vo) {
+		   String res=null;
 		   try {
 			   SqlSession session=ssf.openSession(true);
-			   session.insert("replyInsert",vo);
+			   session.update("replyUpdate",vo);
 			   session.close();
 			   res="YES";
 		   } catch (Exception ex) {
+			   res="NO";
+			   ex.printStackTrace();
+		   }
+		   return res;
+	   }
+	   
+	   // 답변 삭제
+	   public static String replyDelete(int b_review_id) {
+		   String res=null;
+		   try {
+			   SqlSession session=ssf.openSession(true);
+			   session.delete("replyDelete",b_review_id);
+			   session.close();
+			   res="YES";
+		   } catch (Exception ex) {
+			   res="NO";
+			   ex.printStackTrace();
+		   }
+		   return res;
+	   }
+	   
+	   // 리뷰 삭제
+	   public static String reviewDelete(int b_review_id) {
+		   String res=null;
+		   try {
+			   SqlSession session=ssf.openSession();
+			   session.delete("reviewImageDelete",b_review_id);
+			   session.delete("reviewReplyDelete",b_review_id);
+			   session.commit();
+			   session.close();
+			   res="YES";
+		   } catch (Exception ex) {
+			   res="NO";
 			   ex.printStackTrace();
 		   }
 		   return res;

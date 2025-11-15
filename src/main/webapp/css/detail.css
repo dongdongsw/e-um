@@ -440,11 +440,11 @@ display: flex;
 .rw-helper{font-size:12px; color:var(--muted);}
 
 .rw-rate{display:flex; gap:6px; align-items:center;}
-.rw-star{font-size:22px; cursor:pointer; user-select:none; color:#d1d5db; line-height:1;}
+.rw-star , .up-star{font-size:22px; cursor:pointer; user-select:none; color:#d1d5db; line-height:1;}
 .rw-star.on{color:var(--accent);}
 
 /* textarea */
-#content{width:100%; min-height:120px; padding:10px; border:1px solid var(--line); border-radius:10px; font-size:14px; resize:vertical;}
+#rw-content{width:100%; min-height:120px; padding:10px; border:1px solid var(--line); border-radius:10px; font-size:14px; resize:vertical;}
 
 /* 썸네일 프리뷰 */
 .rw-thumbs{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
@@ -481,8 +481,8 @@ display: flex;
   font-size:13px;           /* 글자도 살짝 작게 */
   border-radius:8px;        /* 카드 톤에 맞춰 둥글기 축소 */
 }
-.re-reply {
-  margin: 10px 0 0 10px;
+.re-reply .re-reply-up {
+  margin: 10px 30px 0 30px;
   padding: 15px;
   background-color: #f5f5f5;
   border-radius: 15px;
@@ -496,7 +496,7 @@ display: flex;
   padding-bottom:8px;
 }
 
-.re-reply .avatar {
+ .avatar .re-reply-up{
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -504,11 +504,11 @@ display: flex;
   overflow: hidden;
 }
 
-.re-reply .seller-name {
+.re-reply .seller-name .re-reply-up{
   font-weight: 800;
 }
 
-.re-reply .reply-date {
+.re-reply .reply-date .re-reply-up{
   margin-left: auto;
   font-size: 11px;
   color: #6b7280;

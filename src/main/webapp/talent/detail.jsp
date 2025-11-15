@@ -15,10 +15,12 @@
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
   $(function () {
+	  
+	  loadReviewTab();
     // jQuery UI tabs
     $("#tabs").tabs();
 
-
+    // ▼ 드롭다운 (민석님 기존 코드 유지)
     const root    = document.getElementById('sortDropdown');
     const current = root?.querySelector('.current');
     const menu    = root?.querySelector('.menu');
@@ -64,129 +66,140 @@
       if (checked && current) current.textContent = checked.textContent.trim();
     }
 
-
+    // ▼ 좋아요 버튼: 클릭 바인딩 + 토글
     function toggleLike(e){
-      const el = e.currentTarget;
+      const el = e.currentTarget;                          // 클릭된 버튼
       const countEl = el.querySelector(".like-count");
       let count = parseInt(countEl.textContent.replace(/,/g, "")) || 0;
-      const liked = el.classList.toggle("liked");
+      const liked = el.classList.toggle("liked");          // 클래스 토글 (색상 변경)
+
       countEl.textContent = (liked ? count + 1 : count - 1).toLocaleString();
     }
 
+    // 버튼 여러 개도 대응
     document.querySelectorAll('.like-button').forEach(btn=>{
       btn.addEventListener('click', toggleLike);
     });
     
     $(".count").on("click", function() {
-      $("#tabs").tabs("option", "active", 2);
-      $("html, body").animate({
-        scrollTop: $("#tabs").offset().top - 100
-      }, 400);
+    	  $("#tabs").tabs("option", "active", 2); // 0=상세, 1=셀러, 2=리뷰
+    	  $("html, body").animate({
+    	    scrollTop: $("#tabs").offset().top - 100 // 살짝 위로 위치 조정
+    	  }, 400);
     });
-
-
-    function loadReview() {
-      $.ajax({
+    function loadReviewTab() {
+    $.ajax({
         url: "../talent/review.eum",
-        type: "get",
+        type: "post",
         data: { b_id: "${detail_vo.b_id}" },
         success: function(result){
           $("#tabs-3").html(result);
 
-          $('.re-reply').hide();
         }
-      });
-    }
-    
-    loadReview();
-
-
-    $(document).on('click', '.rw-star', function(){
-      let score = $(this).data('score');  
-      $('#score').val(score);        
-
-      $('.rw-star').css('color', '#ccc');
-
-      for(let i = 1; i <= score; i++) {
-        $('.rw-star[data-score="'+i+'"]').css('color', '#facc15');
-      }
-    });
-    
-    // 셀러 답글 
-    $(document).on('click', '.ansBtn', function(){
-      let data = $(this).attr("data-uid");
-      let $target = $('#re' + data);
-
-      if ($target.is(':visible')) {
-        $target.hide();
-        $(this).text("답변");
-      } else {
-        $target.show();
-        $(this).text("취소");
-      }
-    });
-
-    // 리뷰 등록
-     $(document).on('submit', '#reviewIn', function(e){
-    	 e.preventDefault();
-      $.ajax({
-        url: "../review/insert_ok.eum",
-        type : "post",
-        data : {
-          "b_id"   : $('#b_id').val(),
-          "u_s_id" : $('#u_s_id').val(),
-          "content": $('#content').val(),
-          "score"  : $('#score').val()
-        },
-        success: function(res) {
-          if (res.trim() === 'YES') {
-            $('#content').val('');
-
-            loadReview();
-          } else {
-            alert('리뷰 등록에 실패했습니다.');
-          }
-        },
-        error: function() {
-          alert('서버 오류가 발생했습니다.');
-        }
-      });
-    });
-    
-    
-    
-    // 답변 등록
-    $(document).on('submit', '#replyIn', function(e){
-    	e.preventDefault();
-    	alert($('#ru_s_id').val())
-		 $.ajax({
-		        url: "../reply/insert_ok.eum",
-		        type : "post",
-		        data : {
-		          "b_id"   : $('#rb_id').val(),
-		          "u_s_id" : $('#ru_s_id').val(),
-		          "content": $('#recontent').val(),
-		          "group_id": $('#group_id').val(),
-		        },
-		        success: function(res) {
-		          if (res.trim() === 'YES') {
-		            $('#content').val('');
-
-		            loadReview();
-		            
-		          } else {
-		            alert('리뷰 등록에 실패했습니다.');
-		          }
-		        },
-		        error: function() {
-		          alert('서버 오류가 발생했습니다.');
-		        }
-		      });
     })
+   }
 
-  });
+    $(document).on('click', '.reUpBtn', function(){
+
+		  let $box = $(this).closest('.re-up');      
+		  let rid  = $box.attr('id').replace('re-up',''); 
+		  let score   = $box.find('input[name="upscore"]').val();
+		  let content = $box.find('textarea[name="content"]').val();
+		  if (!content.trim()) {
+		    alert('내용을 입력해주세요.');   
+		    return;
+		  }
+
+		  $.ajax({
+		    type : 'post',
+		    url  : '../review/update_ok.eum',
+		    data : {
+		      rid     : rid,
+		      score   : score,
+		      content : content
+		    },
+		    success: function(res){
+
+		    	loadReviewTab(); 
+		    },
+		    error: function(xhr){
+		      console.log(xhr.responseText);
+		      alert('수정 중 오류 발생');
+		    }
+		  });
+
+		});
+    
+    $(document).on('click', '.repUpBtn', function(){
+
+		  let $box = $(this).closest('.rep-up');      
+		  let rid  = $box.attr('id').replace('rep-up',''); 
+		  let content = $box.find('textarea[name="reupcon"]').val();
+		  if (!content.trim()) {
+		    alert('내용을 입력해주세요.');   
+		    return;
+		  }
+
+		  $.ajax({
+		    type : 'post',
+		    url  : '../reply/update_ok.eum',
+		    data : {
+		      rid     : rid,
+		      content : content
+		    },
+		    success: function(res){
+
+		    	loadReviewTab(); 
+		    },
+		    error: function(xhr){
+		      console.log(xhr.responseText);
+		      alert('수정 중 오류 발생');
+		    }
+		  });
+
+		});
+	
+    $(document).on('click', '.repDelBtn', function(){
+
+		  let $box = $(this).closest('.re-review');      
+		  let rid  = $box.attr('id').replace('rep-read',''); 
+		  alert(rid);   
+		  if (!confirm("정말로 삭제하시겠습니까?")) {
+		        return;  
+		    }
+
+		    $.ajax({
+		        type: "post",
+		        url: "../reply/delete_ok.eum",
+		        data: { 'rid': rid },
+		        success: function(res) {
+		            loadReviewTab();
+		        }
+		    });
+		});
+    
+    $(document).on('click', '.delBtn', function(){
+
+    	  let rid = $(this).data('del');
+			  if (!confirm("정말로 삭제하시겠습니까?")) {
+		        return;  
+		    }
+
+		    $.ajax({
+		        type: "post",
+		        url: "../review/delete_ok.eum",
+		        data: { 'rid': rid },
+		        success: function(res) {
+		            loadReviewTab();
+		        }
+		    });
+		});
+	
+  
+})
+  
+  
 </script>
-
 <style type="text/css">
 
 </style>
@@ -300,7 +313,9 @@
 
         </div>
 		<!-- 리뷰 -->
-		<div id="tabs-3"></div>
+		<div id="tabs-3">
+		  
+		</div>
 		</div>
 		</div>
 		<!-- 가격 옵션 -->

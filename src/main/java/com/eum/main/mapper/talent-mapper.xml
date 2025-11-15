@@ -89,6 +89,7 @@
         r.root,
         r.depth,
         r.group_id,
+        r.b_review_score,
         b.b_id AS b_id,
         r.u_s_id AS u_s_id,
         r.b_review_id AS b_review_id,
@@ -113,6 +114,14 @@
 
   </select>
   
+  <!-- 리뷰 이미지 -->
+	<select id="reviewImage" resultType="string" parameterType="string">
+	   SELECT r_image_url
+	    FROM review_image
+	    WHERE b_review_id = #{b_review_id}
+	    ORDER BY r_image_id ASC
+	</select>
+     
   <!-- score -->
   <select id="talentDetailscore" resultMap="boardMap" parameterType="string">
     SELECT b_id,ROUND(AVG(b_review_score),1) AS b_review_score,
@@ -133,6 +142,7 @@
     WHERE b_id=#{b_id}
    </update>
    
+   <!-- 리뷰 작성 -->
    <insert id="reviewInsert" parameterType="ReviewVO">
      INSERT INTO review 
      	(b_review_id, u_s_id, b_id, u_id, b_review_createdat, b_review_content,
@@ -143,6 +153,7 @@
          )
    </insert>
    
+   <!-- 답변 작성 --> 
     <insert id="replyInsert" parameterType="ReviewVO">
      INSERT INTO review 
      	(b_review_id, u_s_id, b_id, u_id, b_review_createdat, b_review_content,
@@ -152,4 +163,40 @@
           #{b_review_content}, 2, #{group_id}
          )
    </insert>
+   
+   <!-- 리뷰 수정 -->
+   <insert id="reviewUpdate" parameterType="ReviewVO">
+     UPDATE review SET 
+     b_review_content=#{b_review_content},
+     b_review_score=#{b_review_score}
+     WHERE
+     b_review_id=#{b_review_id}
+   </insert>
+   
+   <!-- 답변 수정 --> 
+   <insert id="replyUpdate" parameterType="ReviewVO">
+     UPDATE review SET 
+     b_review_content=#{b_review_content}
+     WHERE
+     b_review_id=#{b_review_id}
+   </insert>
+   
+   <!-- 리뷰 이미지 삭제 -->
+   <delete id="reviewImageDelete" parameterType="int">
+     DELETE FROM review_image
+     WHERE b_review_id = #{b_review_id}
+   </delete>
+   
+   <!-- 리뷰와 리뷰의 대한 답변 삭제 -->
+   <delete id="reviewReplyDelete" parameterType="int">
+     DELETE FROM review
+     WHERE group_id = #{b_review_id}
+   </delete>
+   
+   <!-- 답변 삭제 -->
+   <delete id="replyDelete" parameterType="int">
+     DELETE FROM review
+     WHERE
+     b_review_id=#{b_review_id}
+   </delete>
 </mapper>

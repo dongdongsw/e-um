@@ -102,31 +102,84 @@ public class TalentModel {
    
    // 리뷰 작성
    @RequestMapping("review/insert_ok.eum") 
-   public void review_insert(HttpServletRequest request, HttpServletResponse response) {
+   public String review_insert(HttpServletRequest request, HttpServletResponse response) {
+	   String b_id=null;
+	   try {
+		   HttpSession session=request.getSession();
+		   String u_id=(String)session.getAttribute("id");
+		   
+		   String u_s_id=request.getParameter("u_s_id");
+		   b_id=request.getParameter("b_id");
+		   String content=request.getParameter("content");
+		   String score=request.getParameter("score");
+		   
+		   ReviewVO vo=new ReviewVO();
+		   
+		   vo.setU_id(u_id);
+		   vo.setU_s_id(Integer.parseInt(u_s_id));
+		   vo.setB_id(b_id);
+		   vo.setB_review_content(content);
+		   vo.setB_review_score(Double.parseDouble(score));
+		   
+		   TalentDAO.reviewInsert(vo);
+		   
+	   } catch (Exception e) {
+		   e.printStackTrace();
+	   }
 	   
+	   return "redirect:../talent/detail.eum?b_id="+b_id;
+   }
+   
+   // 답글 작성
+   @RequestMapping("reply/insert_ok.eum") 
+   public String reply_insert(HttpServletRequest request, HttpServletResponse response) {
+	   String b_id=null;
+	   try {
+		   HttpSession session=request.getSession();
+		   String u_id=(String)session.getAttribute("id");
+		   
+		   String u_s_id=request.getParameter("u_s_id");
+		   b_id=request.getParameter("b_id");
+		   String content=request.getParameter("content");
+		   String group_id=request.getParameter("group_id");
+		   
+		   ReviewVO vo=new ReviewVO();
+		   
+		   vo.setU_id(u_id);
+		   vo.setU_s_id(Integer.parseInt(u_s_id));
+		   vo.setB_id(b_id);
+		   vo.setB_review_content(content);
+		   vo.setGroup_id(group_id);
+		   
+		   TalentDAO.replyInsert(vo);
+		   
+	   } catch (Exception e) {
+		   e.printStackTrace();
+	   }
+	   
+	   return "redirect:../talent/detail.eum?b_id="+b_id;
+   }
+   
+   // 리뷰 수정
+   @RequestMapping("review/update_ok.eum")
+   public void review_udpate_ok(HttpServletRequest request, HttpServletResponse response) {
 	   try
 	   {
 		   request.setCharacterEncoding("UTF-8");
 	   }catch(Exception ex) {}
 	   
-	   HttpSession session=request.getSession();
-	   String u_id=(String)session.getAttribute("id");
-	   
-	   String u_s_id=request.getParameter("u_s_id");
-	   String b_id=request.getParameter("b_id");
-	   String content=request.getParameter("content");
+	   String rid=request.getParameter("rid");
 	   String score=request.getParameter("score");
+	   String content=request.getParameter("content");
 	   
 	   ReviewVO vo=new ReviewVO();
 	   
-	   vo.setU_id(u_id);
-	   vo.setU_s_id(Integer.parseInt(u_s_id));
-	   vo.setB_id(b_id);
-	   vo.setB_review_content(content);
+	   vo.setB_review_id(rid);
 	   vo.setB_review_score(Double.parseDouble(score));
+	   vo.setB_review_content(content);
 	   
-	   String res=TalentDAO.reviewInsert(vo);
-	  
+	   String res=TalentDAO.reviewUpdate(vo);
+	   
 	   try
 	   {
 		   response.setContentType("text/plain;charset=UTF-8");
@@ -135,42 +188,71 @@ public class TalentModel {
 	   }catch(Exception ex) {}
    }
    
-   
-   // 답글 작성
-   @RequestMapping("reply/insert_ok.eum") 
-   public void reply_insert(HttpServletRequest request, HttpServletResponse response) {
-	   
+   // 답변 수정
+   @RequestMapping("reply/update_ok.eum")
+   public void reply_udpate_ok(HttpServletRequest request, HttpServletResponse response) {
 	   try
 	   {
 		   request.setCharacterEncoding("UTF-8");
 	   }catch(Exception ex) {}
-	 
-		HttpSession session=request.getSession();
-	    String u_id=(String)session.getAttribute("id");
-		   
-		String u_s_id=request.getParameter("u_s_id");
-		String b_id=request.getParameter("b_id");
-		String content=request.getParameter("content");
-		String group_id=request.getParameter("group_id");
-		   
-		ReviewVO vo=new ReviewVO();
-		   
-		vo.setU_id(u_id);
-		vo.setU_s_id(Integer.parseInt(u_s_id));
-		vo.setB_id(b_id);
-		vo.setB_review_content(content);
-		vo.setGroup_id(group_id);
-		   
-		String res=TalentDAO.replyInsert(vo);
-		
-		try
-		   {
-			   response.setContentType("text/plain;charset=UTF-8");
-			   PrintWriter out=response.getWriter();
-			   out.write(res); 
-		   }catch(Exception ex) {}
-
 	   
-
+	   String rid=request.getParameter("rid");
+	   String score=request.getParameter("score");
+	   String content=request.getParameter("content");
+	   
+	   ReviewVO vo=new ReviewVO();
+	   
+	   vo.setB_review_id(rid);
+	   vo.setB_review_content(content);
+	   
+	   String res=TalentDAO.replyUpdate(vo);
+	   
+	   try
+	   {
+		   response.setContentType("text/plain;charset=UTF-8");
+		   PrintWriter out=response.getWriter();
+		   out.write(res); 
+	   }catch(Exception ex) {}
    }
+   
+   // 답변 삭제
+   @RequestMapping("reply/delete_ok.eum")
+   public void reply_delete_ok(HttpServletRequest request, HttpServletResponse response) {
+	   try
+	   {
+		   request.setCharacterEncoding("UTF-8");
+	   }catch(Exception ex) {}
+	   
+	   String rid=request.getParameter("rid");
+	   
+	   String res=TalentDAO.replyDelete(Integer.parseInt(rid));
+	   
+	   try
+	   {
+		   response.setContentType("text/plain;charset=UTF-8");
+		   PrintWriter out=response.getWriter();
+		   out.write(res); 
+	   }catch(Exception ex) {}
+   }
+   
+   // 리뷰 삭제
+   @RequestMapping("review/delete_ok.eum")
+   public void rreview_delete_ok(HttpServletRequest request, HttpServletResponse response) {
+	   try
+	   {
+		   request.setCharacterEncoding("UTF-8");
+	   }catch(Exception ex) {}
+	   
+	   String rid=request.getParameter("rid");
+	   
+	   String res=TalentDAO.reviewDelete(Integer.parseInt(rid));
+	   
+	   try
+	   {
+		   response.setContentType("text/plain;charset=UTF-8");
+		   PrintWriter out=response.getWriter();
+		   out.write(res); 
+	   }catch(Exception ex) {}
+   }
+   
 }
