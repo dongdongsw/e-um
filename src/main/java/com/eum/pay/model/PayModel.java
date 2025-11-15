@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class PayModel {
-	@RequestMapping("main/orders.eum")
+	@RequestMapping("pay/orders.eum")
    public String ordersData(HttpServletRequest request,
 		   HttpServletResponse response)
    {
