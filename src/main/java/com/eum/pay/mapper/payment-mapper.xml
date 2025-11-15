@@ -9,6 +9,8 @@
     <result property="bovo.b_op_title" column="b_op_title"/>
     <result property="bovo.b_op_price" column="b_op_price"/>
     <result property="bovo.b_op_detail" column="b_op_detail"/>
+    <result property="ovo.o_createdat" column="o_createdat"/>
+    <result property="ovo.o_total_price" column="o_total_price"/>
   </resultMap>
   
   <!-- 주문 상세페이지 데이터 조회 -->
@@ -79,4 +81,22 @@
         o_updatedat = SYSDATE
     WHERE o_id = #{o_id}
     </update>
+    
+   <!-- mypage payment -->
+   <select id="mypagePayment" resultMap="optionMap" parameterType="string">
+    SELECT
+	o.o_id AS o_id,
+	o.b_op_id AS b_op_id,
+	o.o_createdat AS o_createdat,
+	o.o_total_price AS o_total_price,
+	bo.b_op_title AS b_op_title,
+	bo.b_op_detail AS b_op_detail,
+	b.b_thumbnail AS b_thumbnail,
+	us.u_s_com AS u_s_com
+	FROM orders o
+	JOIN board_option bo ON o.b_op_id = bo.b_op_id
+	JOIN board b ON b.b_id = bo.b_id
+	JOIN users_seller us ON b.u_s_id = us.u_s_id
+	WHERE o.o_id = #{o_id}
+   </select>
 </mapper>
