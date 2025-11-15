@@ -1,11 +1,93 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문 상세 | e-um</title>
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="../css/detail.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script>
+  $(function () {
+    // jQuery UI tabs
+    $("#tabs").tabs();
 
+    // ▼ 드롭다운 (민석님 기존 코드 유지)
+    const root    = document.getElementById('sortDropdown');
+    const current = root?.querySelector('.current');
+    const menu    = root?.querySelector('.menu');
+
+    if (root && menu) {
+      root.addEventListener('click', function(e){
+        if (e.target.closest('.menu')) return;
+        e.stopPropagation();
+        root.classList.toggle('expanded');
+      });
+
+      menu.addEventListener('click', function(e){
+        let input, labelText;
+        const label = e.target.closest('label[for]');
+        if (label) {
+          e.preventDefault();
+          const id = label.getAttribute('for');
+          input = document.getElementById(id);
+          labelText = label.textContent.trim();
+        } else {
+          input = e.target.closest('input[type="radio"]');
+          if (input) {
+            const assocLabel = menu.querySelector(`label[for="${input.id}"]`);
+            labelText = assocLabel ? assocLabel.textContent.trim() : input.value;
+          }
+        }
+        if (!input) return;
+        input.checked = true;
+        if (current) current.textContent = labelText;
+        root.classList.remove('expanded');
+        e.stopPropagation();
+      });
+
+      document.addEventListener('click', function(){
+        root.classList.remove('expanded');
+      });
+
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') root.classList.remove('expanded');
+      });
+
+      const checked = menu.querySelector('input:checked + label');
+      if (checked && current) current.textContent = checked.textContent.trim();
+    }
+
+    // ▼ 좋아요 버튼: 클릭 바인딩 + 토글
+    function toggleLike(e){
+      const el = e.currentTarget;                          // 클릭된 버튼
+      const countEl = el.querySelector(".like-count");
+      let count = parseInt(countEl.textContent.replace(/,/g, "")) || 0;
+      const liked = el.classList.toggle("liked");          // 클래스 토글 (색상 변경)
+
+      countEl.textContent = (liked ? count + 1 : count - 1).toLocaleString();
+    }
+
+    // 버튼 여러 개도 대응
+    document.querySelectorAll('.like-button').forEach(btn=>{
+      btn.addEventListener('click', toggleLike);
+    });
+    
+    $(".count").on("click", function() {
+    	  $("#tabs").tabs("option", "active", 2); // 0=상세, 1=셀러, 2=리뷰
+    	  $("html, body").animate({
+    	    scrollTop: $("#tabs").offset().top - 100 // 살짝 위로 위치 조정
+    	  }, 400);
+    });
+  });
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
@@ -19,19 +101,10 @@
   --highlight:#ffe600; /* 버튼색 */
 }
 
-body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background-color: #fff;
-  margin: 0;
-  color: var(--text);
-}
-
-.container {
-  max-width: 900px;
-  margin: 60px auto 100px;
-  padding: 0 20px;
-}
-
+#main-section.hero {
+       display: block !important;
+       grid-template-columns: none !important;
+   }
 /* ===== 상단 필터 ===== */
 .filter-bar {
   display: flex;
@@ -231,25 +304,21 @@ body {
   <div class="order-info">
     <div class="row">
       <div class="label">주문번호</div>
-      <div class="value">#${orderVO.order_id}</div>
+      <div class="value">#${orders_vo.bovo.b_op_id}</div>
     </div>
     <div class="row">
       <div class="label">주문일시</div>
-      <div class="value">${orderVO.order_date}</div>
-    </div>
-    <div class="row">
-      <div class="label">작업 도착 예정</div>
-      <div class="value">${orderVO.work_date}</div>
+      <div class="value"><fmt:formatDate value="${orders_vo.ovo.o_createdat}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
     </div>
   </div>
 
   <!-- 상품 정보 -->
   <div class="product-box">
-    <img src="${orderVO.product_img}" alt="상품 이미지">
+    <img src="${orders_vo.b_thumbnail}" alt="상품 이미지">
     <div class="product-text">
-      <h4>${orderVO.product_name}</h4>
-      <p>${orderVO.seller_name} | ${orderVO.seller_tel}</p>
-      <span class="inquiry">문의하기</span>
+      <h4 style="color:black;">${orders_vo.bovo.b_op_title}</h4>
+      <p>${orders_vo.usvo.u_s_com}</p>
+      <button type="button" class="btn btn-light-sm" style="padding:4px 10px; font-size:12px;">문의하기</button>
     </div>
   </div>
 
@@ -259,17 +328,13 @@ body {
       <thead>
         <tr>
           <th>항목명</th>
-          <th>작업일</th>
-          <th>수량</th>
-          <th>금액 (VAT 포함)</th>
+          <th>금액</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>${orderVO.item_name}</td>
-          <td>${orderVO.work_day}</td>
-          <td>${orderVO.quantity}</td>
-          <td><fmt:formatNumber value="${orderVO.item_price}" pattern="#,###원"/></td>
+          <td>${orders_vo.bovo.b_op_detail}</td>
+          <td><fmt:formatNumber value="${orders_vo.ovo.o_total_price}" pattern="#,###원"/></td>
         </tr>
       </tbody>
     </table>
@@ -279,15 +344,11 @@ body {
   <div class="payment-info">
     <div class="row">
       <span>상품 금액</span>
-      <span><fmt:formatNumber value="${orderVO.item_price}" pattern="#,###원"/></span>
-    </div>
-    <div class="row">
-      <span>수수료</span>
-      <span><fmt:formatNumber value="${orderVO.fee}" pattern="#,###원"/></span>
+      <span><fmt:formatNumber value="${orders_vo.ovo.o_total_price}" pattern="#,###원"/></span>
     </div>
     <div class="total">
       총 결제 금액 
-      <span style="float:right"><fmt:formatNumber value="${orderVO.total_price}" pattern="#,###원"/></span>
+      <span style="float:right"><fmt:formatNumber value="${orders_vo.ovo.o_total_price}" pattern="#,###원"/></span>
     </div>
   </div>
 
