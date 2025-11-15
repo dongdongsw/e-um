@@ -169,6 +169,15 @@
                     <td>$3.64</td>
                     <td> Paypal</td>
                     <td><span class="dot dot-lg bg-success mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-primary mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-warning mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-danger mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-secondary mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-info mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-light mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-dark mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-white mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-transparent mr-2"></span></td>
                     <td>
                       <div class="dropdown">
                         <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

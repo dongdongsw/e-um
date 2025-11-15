@@ -85,7 +85,7 @@
                             <th><strong>연락처</strong></th>
                             <th class="w-24"><strong>email</strong></th>
                             <th><strong>최근 수정일</strong></th>
-                            <th><strong>회원 상태</strong></th>
+                            <th><strong></strong></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -103,7 +103,14 @@
                             
                             <td>
                               <div class="avatar avatar-md">
-                                <img src="${users.u_profileimg_url }" alt="..." class="avatar-img rounded-circle">
+                                 <c:choose>
+							        <c:when test="${not empty users.u_profileimg_url}">
+							           <img src="${users.u_profileimg_url }" alt="..." class="avatar-img rounded-circle">
+							        </c:when>
+							        <c:otherwise>
+										<img src="/e-umProject/admin/img/defaut_profile.png" alt="준비중" class="avatar-img rounded-circle">
+							        </c:otherwise>
+							      </c:choose>
                               </div>
                             </td>
                             
@@ -129,7 +136,7 @@
                             </td>
                             
                             <td>
-                              <p class="mb-0 text-normal"><a href="#" class="text-normal">(+82)${users.u_phone }</a></p>
+                              <p class="mb-0 text-normal"><a href="../admin/admin_users_detail.eum?u_id=${users.u_id }" class="text-normal">(+82)${users.u_phone }</a></p>
                               <small class="mb-0 text-normal"></small>
                             </td>
                             
@@ -146,15 +153,15 @@
 							<td>
 							    <c:choose>
 							        <c:when test="${users.u_status == 'active'}">
-							            <span class="badge badge-primary p-2" style="font-size:14px;">활동</span>
+							        	<span class="dot dot-lg bg-primary mr-2"></span>
 							        </c:when>
 							
 							        <c:when test="${users.u_status == 'warning'}">
-							            <span class="badge badge-warning p-2" style="font-size:14px;">경고</span>
+							        	<span class="dot dot-lg bg-warning mr-2"></span>
 							        </c:when>
 							
-							        <c:when test="${users.u_status == 'stop'}">
-							            <span class="badge badge-danger p-2" style="font-size:14px;">정지</span>
+							        <c:when test="${users.u_status == 'inactive'}">
+							        	<span class="dot dot-lg bg-danger mr-2"></span>
 							        </c:when>
 							
 							        <c:otherwise>

@@ -93,14 +93,6 @@
               </a>
             </li>
             
-             <!-- 관리자 컨텐츠 상세 (임시) -->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="../admin/admin_contents_detail.eum">
-                <i class="fe fe-shopping-bag fe-16"></i>
-                <span class="ml-3 item-text">컨텐츠 상세(임시)</span>
-              </a>
-            </li>
-            
             <!-- 리뷰 리스트 -->
             <li class="nav-item w-100">
               <a class="nav-link" href="../admin/admin_review_list.eum">

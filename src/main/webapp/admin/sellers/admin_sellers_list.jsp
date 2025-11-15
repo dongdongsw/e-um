@@ -84,7 +84,7 @@
                             <th class="text-normal"><strong>연락처</strong></th>
                             <th class="w-24 text-normal"><strong>email</strong></th>
                             <th class="text-normal"><strong>가입일</strong></th>
-                            <th class="text-normal"><strong>셀러 상태</strong></th>
+                            <th class="text-normal"><strong></strong></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -106,7 +106,7 @@
 						          <img src="${sellers_list.u_s_profileimg_url}"  alt="프로필 이미지" class="avatar-img rounded-circle">
 						        </c:when>
 						        <c:otherwise>
-									<img src="/e-umProject/admin/img/defaut_profile.jpg" alt="준비중" class="avatar-img rounded-circle">
+									<img src="/e-umProject/admin/img/defaut_profile.png" alt="준비중" class="avatar-img rounded-circle">
 						        </c:otherwise>
 						      </c:choose>
                               </div>
@@ -126,7 +126,7 @@
                               <p class="mb-0 text-normal">${sellers_list.u_s_biz_no}</p>
                             </td>
                             <td>
-                              <p class="mb-0 text-normal"><a href="#" class="text-normal">${sellers_list.user.u_phone }</a></p>
+                              <p class="mb-0 text-normal"><a href="../admin/admin_seller_detail.eum?u_s_id=${sellers_list.u_s_id}" class="text-normal">${sellers_list.user.u_phone }</a></p>
                             </td>
                             <td class="w-24"><small class="text-normal">${sellers_list.user.u_email }</small></td>
                             <td class="text-normal">
@@ -136,15 +136,15 @@
 							<td>
 							    <c:choose>
 							        <c:when test="${sellers_list.user.u_status == 'active'}">
-							            <span class="badge badge-primary p-2" style="font-size:14px;">활동</span>
+							        	<span class="dot dot-lg bg-primary mr-2"></span>
 							        </c:when>
 							
 							        <c:when test="${sellers_list.user.u_status == 'warning'}">
-							            <span class="badge badge-warning p-2" style="font-size:14px;">경고</span>
+							        	<span class="dot dot-lg bg-warning mr-2"></span>
 							        </c:when>
 							
-							        <c:when test="${sellers_list.user.u_status == 'stop'}">
-							            <span class="badge badge-danger p-2" style="font-size:14px;">정지</span>
+							        <c:when test="${sellers_list.user.u_status == 'inactive'}">
+							        	<span class="dot dot-lg bg-danger mr-2"></span>
 							        </c:when>
 							
 							        <c:otherwise>

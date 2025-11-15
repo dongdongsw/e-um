@@ -82,11 +82,21 @@ public class Admin_Users_Model {
 	}
 			
 	// 관리자 사용자 상세 페이지 수정
-	@RequestMapping("admin/admin_users_modify.eum")
-	public String admin_users_modify(HttpServletRequest request, HttpServletResponse response) {
-				
-		request.setAttribute("admin_main_jsp", "../users/admin_users_modify.jsp");
-		return "../admin/common/admin_main.jsp";
+	@RequestMapping("admin/admin_users_status.eum")
+	public String admin_users_status(HttpServletRequest request, HttpServletResponse response) {
+
+		String u_id = request.getParameter("u_id");
+		String u_status = request.getParameter("status");
+		
+		
+		Map map = new HashMap();
+		map.put("u_id", u_id);
+		map.put("u_status", u_status);	
+	
+		Admin_UsersDAO.usersStatusUpdate(map);
+		
+		
+		return "redirect:../admin/admin_users_detail.eum?u_id="+u_id;
 	}	
 	
 	

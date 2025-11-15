@@ -77,6 +77,46 @@
 .more-toggle:hover {
   text-decoration: underline;
 }
+.status-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 왼쪽 정렬 유지 */
+}
+
+.status-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 2px 14px;   /* 👈 세로만 줄이고 가로는 넉넉하게 */
+    line-height: 1.1;    /* 👈 세로 높이 줄이는 핵심 */
+    font-size: 13px;
+    font-weight: 600;
+
+    border-radius: 8px;
+    user-select: none;
+    cursor: default;
+}
+
+.status-warning {
+    background-color: #ffd77a;
+    color: #6d4a00;
+}
+
+.status-active {
+    background-color: #cfe6ff;
+    color: #0d47a1;
+}
+
+.status-inactive {
+    background-color: #ffc9c9;
+    color: #b30000;
+}
+
+.status-unknown {
+    background-color: #e0e0e0;
+    color: #4f4f4f;
+}
 
 </style>
 <script>
@@ -161,15 +201,84 @@ function toggleContent(el) {
                         <!-- 프로필 정보 -->
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"> 
                         	<div class="d-flex justify-content-end">
-							    <button type="button" class="btn mb-2 btn-lavender mr-2">회원 활동</button>
-							    <button type="button" class="btn mb-2 btn-warning mr-2">회원 경고</button>
-							    <button type="button" class="btn mb-2 btn-secondary mr-2">회원 정지</button>
-							    <button type="button" class="btn mb-2 btn-danger">회원 삭제</button>
+                        				
+                        	 <c:choose>
+						        <c:when test="${users_vo.u_status == 'active'}">
+						            <span class="status-label status-active mr-3">회원 활동</span>
+						        </c:when>
+						
+						        <c:when test="${users_vo.u_status == 'warning'}">
+						        	<span class="status-label status-warning  mr-3">회원 경고</span>
+
+						            
+						        </c:when>
+						
+						        <c:when test="${users_vo.u_status == 'inactive'}">
+						            <span class="status-label status-inactive  mr-3" style="font-size:14px;">회원 정지</span>
+						        </c:when>
+						
+						        <c:otherwise>
+						            <span class="status-label tatus-active mr-3" style="font-size:14px;">알수없음</span>
+						        </c:otherwise>
+						    </c:choose>
+							    <div class="dropdown">
+								    <button class="btn btn-light mb-1 dropdown-toggle" type="button" id="userActionMenu"
+								            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								        더보기
+								    </button>
+								
+								    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userActionMenu">
+								
+								        <!-- 회원 활동 상태로 변경 -->
+								        <c:if test="${users_vo.u_status ne 'active'}">
+								            <a class="dropdown-item" 
+								               href="admin_users_status.eum?u_id=${users_vo.u_id}&status=active">
+								               회원 활동
+								            </a>
+								        </c:if>
+								
+								        <!-- 회원 정지 상태로 변경 -->
+								        <c:if test="${users_vo.u_status ne 'inactive'}">
+								            <a class="dropdown-item" 
+								               href="admin_users_status.eum?u_id=${users_vo.u_id}&status=inactive">
+								               회원 정지
+								            </a>
+								        </c:if>
+								
+								        <!-- 회원 경고 상태로 변경 -->
+								        <c:if test="${users_vo.u_status ne 'warning'}">
+								            <a class="dropdown-item" 
+								               href="admin_users_status.eum?u_id=${users_vo.u_id}&status=warning">
+								               회원 경고
+								            </a>
+								        </c:if>
+								
+								        <div class="dropdown-divider"></div>
+								
+								        <!-- 회원 삭제 (항상 표시) -->
+								        <a class="dropdown-item text-danger" href="#">
+								            회원 삭제
+								        </a>
+								
+								    </div>
+								</div>
+
 							</div>
+
 			                  <div class="row mt-5 align-items-center">
 			                    <div class="col-md-3 text-center mb-5">
 			                      <div class="avatar avatar-xl">
-			                        <img src="${users_vo.u_profileimg_url }" alt="..." class="avatar-img rounded-circle">
+			                        
+			                        
+			                        <c:choose>
+							        <c:when test="${not empty users_vo.u_profileimg_url }">
+							          <img src="${users_vo.u_profileimg_url }" alt="..." class="avatar-img rounded-circle">
+							        </c:when>
+							        <c:otherwise>
+										<img src="/e-umProject/admin/img/defaut_profile.png" alt="준비중" class="avatar-img rounded-circle">
+							        </c:otherwise>
+							      </c:choose>
+			                        
 			                      </div>
 			                    </div>
 			                    <div class="col">
@@ -228,10 +337,11 @@ function toggleContent(el) {
 							         
 							         <!-- 활동 상태&생년월일 -->
 				                      <div class="form-row">
-				                      	<div class="form-group col-md-6">
-					                        <label for="inputAddress">활동 상태</label>
-					                        <p class="form-control-plaintext">${users_vo.u_status}</p>
-					                    </div>
+				                      <div class="form-group col-md-6 status-field">
+									
+									    
+									</div>
+
 					                    <div class="form-group col-md-6">
 					                        <label for="inputAddress">생년월일</label>
 					                        <p class="form-control-plaintext">

@@ -46,6 +46,7 @@
 	    <id property="b_id" column="b_id"/>
 	    <result property="b_thumbnail" column="b_thumbnail"/>
 	    <result property="b_title" column="b_title"/>
+	    <result property="b_status" column="b_status"/>
 	    <result property="b_type" column="b_type"/>
 	    <result property="b_view_count" column="b_view_count"/>
 	    <result property="b_content" column="b_content"/>
@@ -75,6 +76,7 @@
 	   b.b_thumbnail,
 	   b.b_title,
 	   b.b_type,
+	   b.b_status,
 	   b.b_view_count,
 	   b.b_content,
 	   b.b_prod_on_off,
@@ -118,4 +120,11 @@
     WHERE b_id=#{b_id}
   </select>
 	
+	
+	<!-- 컨텐츠 상태 수정 -->
+	<update id="contentsStatusUpdate" parameterType="hashmap">
+	    UPDATE board
+	    SET b_status = #{b_status}
+	    WHERE b_id = #{b_id}
+	</update>
 </mapper>

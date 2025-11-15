@@ -73,4 +73,13 @@
 		WHERE u_id = #{u_id}
 	</select>
 	
+	<!-- 유저 상태 수정 -->
+	<update id="usersStatusUpdate" parameterType="hashmap">
+	    UPDATE users
+	    SET u_status = #{u_status}
+	    WHERE u_id = #{u_id}
+	</update>
+
+	
+	
 </mapper>

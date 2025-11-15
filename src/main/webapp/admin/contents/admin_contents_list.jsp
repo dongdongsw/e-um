@@ -83,7 +83,7 @@
                             <th><strong>셀러 이름</strong></th>
                             <th class="w-25"><strong>title</strong></th>
                             <th><strong>가입일</strong></th>
-                            <th><strong>셀러 상태</strong></th>
+                            <th><strong></strong></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -127,11 +127,12 @@
 							<td>
 							    <c:choose>
 							        <c:when test="${contents_list.b_status == 'active'}">
-							            <a href="" class="badge badge-primary p-2" style="font-size:14px;">활성화</a>
+							        	<span class="dot dot-lg bg-primary mr-2"></span>
+							            
 							        </c:when>
 							
 							        <c:when test="${contents_list.b_status == 'inactive'}">
-							            <a href="" class="badge badge-warning p-2" style="font-size:14px;">비활성화</a>
+							        	<span class="dot dot-lg bg-danger mr-2"></span>
 							        </c:when>
 							
 							        <c:otherwise>

@@ -177,7 +177,15 @@ function toggleContent(el) {
 
 			                    <div class="col-md-3 text-center mb-5">
 			                      <div class="avatar avatar-xl">
-			                        <img src="${seller_vo.u_s_profileimg_url }" alt="..." class="avatar-img rounded-circle">
+				                      <c:choose>
+								        <c:when test="${not empty seller_vo.u_s_profileimg_url}">
+								          <img src="${seller_vo.u_s_profileimg_url }" alt="..." class="avatar-img rounded-circle">
+								        </c:when>
+								        <c:otherwise>
+											<img src="/e-umProject/admin/img/defaut_profile.png" alt="준비중" class="avatar-img rounded-circle">
+								        </c:otherwise>
+								      </c:choose>
+			                        
 			                      </div>
 			                    </div>
 			                    <div class="col">
@@ -272,8 +280,20 @@ function toggleContent(el) {
 						                            <th>Status</th>
 						                            <th></th>
 						                          </tr>
+						                          
 						                        </thead>
+						                        
 						                        <tbody>
+						                          <c:if test="${empty board_list}">
+												        <tr>
+												            <td colspan="7" class="text-center py-5">
+												                <p class="text-muted" style="font-size:16px; margin:0;">
+												                    <strong>📂 등록된 컨텐츠가 없습니다.</strong>
+												                </p>
+												            </td>
+												        </tr>
+												    </c:if>
+						                        
 						                          <c:forEach var="board_list" items="${board_list }">
 							                          <tr>
 							                            <td class="td-title">${board_list.b_id }</td>
@@ -305,8 +325,7 @@ function toggleContent(el) {
 																</c:if>
 														    
 														</td>
-							                            <!-- <td><span class="badge badge-pill badge-success">Success</span></td> -->
-							                            <!-- <td><span class="badge badge-pill badge-danger">Danger</span></td> -->
+														
 							                            <td> 
 							                            	<a href="../admin/admin_contents_detail.eum?b_id=${board_list.b_id }" class="btn btn-lavender" 
 															   style="padding: 2px 6px; font-size: 12px;">
@@ -316,6 +335,7 @@ function toggleContent(el) {
 							                          </tr>
 							                       </c:forEach>
 						                        </tbody>
+						                        
 						                      </table>
 						                      <nav aria-label="Table Paging" class="mb-0 text-muted mt-auto">
 							                     <ul class="pagination justify-content-end mb-0">
@@ -354,7 +374,14 @@ function toggleContent(el) {
 						                </div>
 						              </div>
 						              <div class="row">
-						              <!-- 리뷰 가데이터 -->
+						              
+										 <!-- 리뷰 없을 때 -->
+									    <c:if test="${empty review_list}">
+									        <div class="col-12 text-center py-5">
+									            <p class="text-muted" style="font-size:16px;"><strong>📭 리뷰가 없습니다.</strong></p>
+									        </div>
+									    </c:if>
+
 						              <c:forEach var="r_list" items="${review_list}">
 										  <div class="col-md-3">
 										    <div class="card shadow mb-4">

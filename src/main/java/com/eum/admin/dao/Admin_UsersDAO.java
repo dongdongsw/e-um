@@ -66,6 +66,18 @@ public class Admin_UsersDAO {
 	// 컨텐츠 삭제
 			
 	// 컨텐츠 수정
+	public static void usersStatusUpdate(Map map){
+		
+		try {
+			SqlSession session = ssf.openSession(true);
+			session.update("usersStatusUpdate",map);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+	
 	
 	// 리뷰 리스트 & 이미지
 	public static List<ReviewVO> usersReviewListData(Map map){

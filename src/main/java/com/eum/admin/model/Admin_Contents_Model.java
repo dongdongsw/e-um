@@ -73,5 +73,20 @@ public class Admin_Contents_Model {
 		return "../admin/common/admin_main.jsp";
 	}
 				
-				
+	// 관리자 컨텐츠 디테일 상태 수정
+	@RequestMapping("admin/admin_contents_status.eum")
+	public String admin_contents_status(HttpServletRequest request, HttpServletResponse response) {
+	
+		String b_id = request.getParameter("b_id");
+		String b_status = request.getParameter("b_status");
+		
+		Map map = new HashMap();
+		map.put("b_id", b_id);
+		map.put("b_status", b_status);
+		Admin_ContentsDAO.contentsStatusUpdate(map);
+		
+		
+		
+		return "redirect:../admin/admin_contents_detail.eum?b_id="+b_id;
+	}
 }

@@ -5,7 +5,7 @@
 
 <style>
     .content-area {
-        margin-left: 260px; /* 사이드바 폭 */
+        margin-left: 260px; 
         padding: 20px;
     }
 
@@ -14,9 +14,6 @@
         gap: 20px;
     }
 
-    /* ----------------------
-       LEFT : 상품 정보 카드
-       ---------------------- */
     .product-card {
         flex: 1;
         background: #fff;
@@ -29,26 +26,25 @@
           overflow-y: auto;
     }
 
-/* 공통 스크롤 디자인 */
+
 .product-card::-webkit-scrollbar,
 .image-viewer-card::-webkit-scrollbar {
-    width: 4px;        /* ⭐ 스크롤바 굵기 (초극세) */
+    width: 4px;   
 }
 
-/* 스크롤바 트랙(배경) */
 .product-card::-webkit-scrollbar-track,
 .image-viewer-card::-webkit-scrollbar-track {
-    background: transparent;        /* 트랙 안보이게 */
+    background: transparent; 
 }
 
-/* 스크롤바 손잡이(바) */
+
 .product-card::-webkit-scrollbar-thumb,
 .image-viewer-card::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);  /* 연한 회색 투명 */
+    background: rgba(0, 0, 0, 0.2); 
     border-radius: 10px;
 }
 
-/* 스크롤바 hover 시 손잡이 강조 */
+
 .product-card::-webkit-scrollbar-thumb:hover,
 .image-viewer-card::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.35);
@@ -158,11 +154,24 @@
         margin-bottom: 20px;
         display: block;
     }
-    .title-buttons {
+
+.seller-profile {
     display: flex;
-    justify-content: space-between; /* 제목 왼쪽, 버튼 오른쪽 */
     align-items: center;
-    margin-bottom: 8px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.seller-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    flex: 1; /* 이미지와 버튼 사이 공간 채움 */
+}
+
+.title-buttons {
+    display: flex;
+    gap: 6px;
 }
 
 .detail-title {
@@ -189,6 +198,26 @@
 .title-buttons button {
     margin-left: 8px;
 }
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+.status-active {
+    background: #17a2b8;   /* btn-info 비슷한 색 */
+    color: #ffffff;
+}
+
+.status-inactive {
+    background: #dc3545;  /* btn-danger 색상 */
+    color: #ffffff;
+}
+
+
 </style>
 
 
@@ -202,28 +231,59 @@
     
     <div style="flex:1;">
         <div class="title-row">
-            <h4 class="product-title">${board_vo.b_title}</h4>
+            <h4 class="product-title">${board_vo.b_title}
+            	 <c:choose>
+            <c:when test="${fn:toLowerCase(board_vo.b_status) == 'active'}">
+                <span class="status-badge status-active">판매중</span>
+            </c:when>
+            <c:otherwise>
+                <span class="status-badge status-inactive">판매중지</span>
+            </c:otherwise>
+        </c:choose>
+            </h4>
 
-            <div class="title-buttons">
-                <c:if test="${fn:toLowerCase(board_vo.b_status) == 'active'}">
-				    <a href="" class="btn btn-info btn-sm mr-1">활성화</a>
-				</c:if>
-				
-				<c:if test="${fn:toLowerCase(board_vo.b_status) != 'active'}">
-				    <a href="" class="btn btn-danger btn-sm mr-1">비활성화</a>
-				</c:if>
-
-                <a href="" class="btn btn-danger btn-sm">삭제</a>
-            </div>
+            
         </div>
 
         <div class="seller-profile">
-            <img src="${board_vo.usvo.u_s_profileimg_url }" class="seller-img">
-            <div>
-                <div class="info-value">홍길동 (판매자)</div>
-                <div class="info-label">경력 5년</div>
-            </div>
+    
+    <!-- 프로필 이미지 -->
+    <img src="${board_vo.usvo.u_s_profileimg_url }" class="seller-img">
+
+    <!-- 회사명 + 경력 -->
+    <div class="seller-info">
+        <div class="info-value">${board_vo.usvo.u_s_com}</div>
+        <div class="info-label">
+            <c:if test="${board_vo.usvo.u_s_carrer > 0}">
+                경력 ${board_vo.usvo.u_s_carrer}년
+            </c:if>
+            <c:if test="${board_vo.usvo.u_s_carrer <= 0}">
+                경력 0년
+            </c:if>
         </div>
+    </div>
+
+    <!-- 오른쪽 버튼들 -->
+    <div class="title-buttons">
+        <c:choose>
+		    <c:when test="${board_vo.b_status == 'active'}">
+		        <!-- active 상태 -->
+		        <a href="../admin/admin_contents_status.eum?b_id=${board_vo.b_id}&b_status=inactive"
+		           class="btn btn-danger btn-sm mr-1">비활성화</a>
+		    </c:when>
+		
+		    <c:otherwise>
+		        <!-- inactive 상태 -->
+		        <a href="../admin/admin_contents_status.eum?b_id=${board_vo.b_id}&b_status=active"
+		           class="btn btn-info btn-sm mr-1">활성화</a>
+		    </c:otherwise>
+		</c:choose>
+
+        <a href="" class="btn btn-danger btn-sm">삭제</a>
+    </div>
+
+</div>
+
     </div>
 </div>
 			
