@@ -122,4 +122,37 @@ public class PayDAO {
 	        ex.printStackTrace();
 	    }
 	}
+	/*
+	 * <select id="mypagePayment" resultType="BoardVO" parameterType="string">
+	    SELECT
+		o.o_id AS o_id,
+		o.b_op_id AS b_op_id,
+		o.o_createdat AS o_createdat,
+		o.o_total_price AS o_total_price,
+		bo.b_op_title AS b_op_title,
+		bo.b_op_detail AS b_op_detail,
+		b.b_thumbnail AS b_thumbnail,
+		us.u_s_com AS u_s_com
+		FROM orders o
+		JOIN board_option bo ON o.b_op_id = bo.b_op_id
+		JOIN board b ON b.b_id = bo.b_id
+		JOIN users_seller us ON b.u_s_id = us.u_s_id
+		WHERE o.o_id = #{o_id}
+	   </select>
+	 */
+	// mypage payment
+	public static BoardVO mypagePayment(String o_id)
+	{
+		BoardVO vo=null;
+		try
+		{
+			SqlSession session=ssf.openSession();
+			vo=session.selectOne("mypagePayment",o_id);
+			session.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return vo;
+	}
 }
