@@ -1,10 +1,12 @@
-package com.eum.list.dao;
+package com.eum.pay.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
-import com.eum.list.vo.BoardVO;
+import com.eum.main.vo.BoardVO;
+import com.eum.main.vo.OrdersVO;
+import com.sist.controller.RequestMapping;
 
 public class PayDAO {
 	private static SqlSessionFactory ssf;
@@ -30,6 +32,7 @@ public class PayDAO {
 			AND bo.b_op_id = #{b_op_id}
 		  </select>
 	 */
+	// 주문 상세페이지 데이터 조회
 	public static BoardVO ordersData(int b_op_id)
 	{
 		BoardVO vo=null;
@@ -43,5 +46,30 @@ public class PayDAO {
 			ex.printStackTrace();
 		}
 		return vo;
+	}
+	/*
+	 * <insert id="ordersInsert" parameterType="OrdersVO">
+	    INSERT INTO orders(o_id,b_op_id,o_status,o_total_price,o_createdat,o_updatedat)
+	     VALUES(orders_id_seq.nextval,
+	            '#{b_op_id}',
+	            '#{o_status}',
+	            '#{o_total_price}',
+	            SYSDATE,
+	            SYSDATE)
+	  </insert>
+	 */
+	// orders table insert
+	public static void ordersInsert (OrdersVO vo)
+	{
+		try
+		{
+			SqlSession session=ssf.openSession();
+			session.insert("ordersInsert",vo);
+			session.commit();
+			session.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 }
