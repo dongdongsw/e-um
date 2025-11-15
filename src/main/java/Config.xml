@@ -12,6 +12,7 @@
      <typeAlias type="com.eum.main.vo.NoticeVO" alias="NoticeVO"/>
      <typeAlias type="com.eum.main.vo.UsersVO" alias="UsersVO"/>
      <typeAlias type="com.eum.main.vo.Users_SellerVO" alias="Users_SellerVO"/>
+     <typeAlias type="com.eum.main.vo.OrdersVO" alias="OrdersVO"/>
 
    </typeAliases>
   <environments default="development">
