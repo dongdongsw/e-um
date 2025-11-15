@@ -315,7 +315,7 @@
 </style>
 <script type="text/javascript">
 var o_u_id = "${o_u_id}";
-
+var o_id = "${o_id}";
 let sel=0;
 var IMP = window.IMP; 
 IMP.init("imp65483433"); 
@@ -331,33 +331,83 @@ function requestPay() {
             "o_total_price": price,
             "o_u_id": o_u_id
         },
-        success: function(res){
-            if(res === "OK"){
-                //location.href="../main/order_complete.eum";
-                
+        success: function(o_id){
+            	console.log("생성된 o_id:", o_id);
+
+                if(o_id && o_id !== "null") {
+                    requestPayment(o_id);
+                } else {
+                    alert("주문 번호 생성 실패! 다시 시도해주세요.");
+                  return;
             }
           },
           error: function(err){
               console.log(err);
           }
     });
-    
+}
+function requestPayment(o_id){
     IMP.request_pay({
         pg: "html5_inicis",
         pay_method: "card",
-        merchant_uid: "ORD20180131-0000011",   // 주문번호
-        name: '홍길동',
-        amount: 10000,         // 숫자 타입
-        buyer_email: 'email',
-        buyer_name: 'buyer_name',
-        buyer_tel:'1111-1111',
-        buyer_addr: '서울',
-        buyer_postcode: '000-111'
+        merchant_uid: "ORD-"+new Date().getTime(),   // 주문번호
+        name: "${orders_vo.bovo.b_op_title}",
+        amount: ${orders_vo.bovo.b_op_price}         // 숫자 타입
     }, function (rsp) { // callback
     	if (rsp.success) {
+    		let b_op_id = $(".pay-btn").data("id");
+            let price   = $(".pay-btn").data("price");
+            
+            let paymentMethod = "";   // 결제 수단 최종 문자열
 
-    	}
-	});
+            if (rsp.pay_method === "card") {
+                paymentMethod = rsp.card_name ? rsp.card_name + " (카드)" : "카드 결제";
+            }
+            else if (rsp.pay_method === "vbank") {
+                paymentMethod = rsp.vbank_name ? rsp.vbank_name + " (가상계좌)" : "가상계좌";
+            }
+            else if (rsp.pay_method === "trans") {
+                paymentMethod = rsp.bank_name ? rsp.bank_name + " (계좌이체)" : "계좌이체";
+            }
+            else if (rsp.pay_method === "kakaopay") {
+                paymentMethod = "카카오페이";
+            }
+            else if (rsp.pay_method === "tosspay") {
+                paymentMethod = "토스페이";
+            }
+            else {
+                paymentMethod = rsp.pay_method;  
+            }
+            $.ajax({
+                type: "post",
+                url: "../pay/payment_insert.eum",
+                data: {
+                    "b_op_id": b_op_id,
+                    "o_total_price": price,
+					"o_id":o_id,
+                    "imp_uid": rsp.imp_uid,
+                    "merchant_uid": rsp.merchant_uid,
+                    "amount":price,
+                    "pay_method": rsp.pay_method,
+                    "pg_provider": rsp.pg_provider,
+                    "receipt_url": rsp.receipt_url,
+                    "status": rsp.status,   // "paid" 들어옴
+                    "o_method": paymentMethod
+                },
+                success: function(res){
+                    if(res === "OK"){
+                    	location.href="../pay/payment_complete.eum?o_id="+o_id+"&price="+price;
+                    }
+                },
+                error: function(err){
+                    console.log("AJAX ERROR:", err);
+                }
+            });
+
+        } else {
+            alert("결제 실패! \n에러: " + rsp.error_msg);
+        }
+    });
 }
 </script>
 </head>
