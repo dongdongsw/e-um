@@ -337,7 +337,7 @@ function requestPay() {
                 if(o_id && o_id !== "null") {
                     requestPayment(o_id);
                 } else {
-                    alert("결제가 취소되었습니다!");
+                    alert("주문 번호 생성 실패! 다시 시도해주세요.");
                   return;
             }
           },
@@ -405,7 +405,7 @@ function requestPayment(o_id){
             });
 
         } else {
-            alert("결제 실패! \n에러: " + rsp.error_msg);
+            alert("결제가 취소되었습니다!");
         }
     });
 }
