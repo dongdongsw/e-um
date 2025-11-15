@@ -124,5 +124,17 @@ public class PayModel {
 	    request.setAttribute("main_jsp", "../pay/payment_complete.jsp");
 	    return "../main/main.jsp";
 	}
-
+	@RequestMapping("pay/mypage_payment.eum")
+	public String mypage_payment(HttpServletRequest request,
+			HttpServletResponse response)
+	{
+		String o_id=request.getParameter("o_id");
+		
+		BoardVO orders_vo=PayDAO.mypagePayment(o_id);
+		
+		request.setAttribute("orders_vo", orders_vo);
+		
+		request.setAttribute("main_jsp", "../pay/my_order.jsp");
+		return "../main/main.jsp";
+	}
 }
