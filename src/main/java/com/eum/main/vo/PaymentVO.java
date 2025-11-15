@@ -19,6 +19,6 @@ import lombok.Data;
 @Data
 public class PaymentVO {
 	private int amount;
-	private String pay_id,o_id,imp_uid,merchant_uid,status,pay_method,pg_provider,receipt_url,o_method;
+	private String pay_id,o_id,imp_uid,merchant_uid,status,pay_method,pg_provider,receipt_url,o_method,o_u_id;
 	private Date paid_at,canceled_at;
 }
