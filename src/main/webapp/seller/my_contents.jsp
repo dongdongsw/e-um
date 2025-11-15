@@ -141,7 +141,7 @@ html {
     <h2 style="color:black">셀러 페이지</h2>
     <nav class="menu">
       <a href="../seller/info.eum">셀러 정보</a>
-      <a href="../seller/create.eum">컨텐츠 작성</a>
+      <a href="../seller/create_contents.eum">컨텐츠 작성</a>
       <a href="../seller/my_contents.eum" class="active">내 컨텐츠</a>
       <a href="../seller/review.eum">구매자 리뷰</a>
       <a href="../seller/chat.eum">채팅 문의</a>

@@ -277,8 +277,8 @@
    		  <br>
           <p style="font-size: 14px">${detail_vo.b_content}</p>
           <br><br>
-          <c:forEach begin="0" end="7">
-            <img style="width:100%" src="${board_vo.bivo.b_img_url}">
+          <c:forEach var="img" items="${list}">
+            <img style="width:100%" src="${img}">
           </c:forEach>
         </div>
 		<!-- 셀러 정보 -->

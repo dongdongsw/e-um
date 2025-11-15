@@ -1,0 +1,481 @@
+body {background-color: #fff !important;}
+.seller-container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  width: 1180px;
+  margin: 60px auto;
+  gap: 40px;
+}
+
+/* ===== 좌측 메뉴 ===== */
+.sidebar {
+  border-right: 1px solid #e5e7eb;
+  padding-right: 24px;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu a {
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 8px 0;
+  border-radius: 6px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.menu a.active {
+  font-weight: 600;
+  color: #8e4dff;
+}
+
+.menu a:hover {
+  background: #f9fafb;
+}
+
+/* ===== 오른쪽 본문 ===== */
+.content {
+  background: #fff;
+}
+
+.content h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #111;
+}
+
+/* ★★★ 큰 박스 스타일 ★★★ */
+.step-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 40px 40px 80px;
+  min-height: 500px;
+  background: #fff;
+  position: relative;
+}
+
+/* ===== 단계별 영역 ===== */
+.step {
+  display: none;
+}
+.step.active {
+  display: block;
+}
+
+/* 각 step 제목 살짝 줄이기 */
+.step h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* 이미지 step 살짝 위로 당김 */
+#step-2 {
+  margin-top: -10px;
+}
+#step-3 {
+  margin-top: -30px;
+  margin-bottom: 20px
+}
+
+/* 하단 네비 버튼 */
+.wizard-footer {
+  position: absolute;
+  right: 40px;
+  bottom: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.nav-btn {
+  min-width: 90px;
+  height: 40px;
+  border-radius: 999px;
+  padding: 0 18px;
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nav-btn.secondary {
+  background: #fff;
+  color: #111;
+}
+
+/* ===== 공통 폼 ===== */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+/* 상세 설명만 살짝 위로 */
+#step-1 .form-row {
+  margin-top: -70px;
+}
+
+
+
+.field-label {
+  flex: 0 0 130px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  padding-top: 8px;
+}
+
+.field-input {
+  flex: 1;
+}
+
+.field-input input,
+.field-input select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field-input input:focus,
+.field-input select:focus {
+  border-color: #8e4dff;
+  box-shadow: 0 0 0 1px rgba(142,77,255,0.15);
+  background-color: #faf5ff;
+}
+
+.field-input input::placeholder {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.field-hint {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.field-input textarea {
+  width: 100%;
+  min-height: 260px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field-input textarea:focus {
+  border-color: #8e4dff;
+  box-shadow: 0 0 0 1px rgba(142,77,255,0.15);
+  background-color: #faf5ff;
+}
+
+.textarea-hint {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* ===== 이미지 업로드 영역 ===== */
+.image-upload-box {
+  border: 1px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 16px 14px;
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.upload-text {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.upload-text strong {
+  display: block;
+  font-size: 14px;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #8e4dff;
+  background-color: #faf5ff;
+  color: #6d28d9;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.upload-btn input[type="file"] {
+  display: none;
+}
+
+/* 미리보기 그리드 */
+.image-preview-grid {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.preview-item {
+  width: 110px;
+  height: 110px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  position: relative;
+  background-color: #f3f4f6;
+}
+
+.preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-badge {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  padding: 2px 6px;
+  font-size: 10px;
+  border-radius: 999px;
+  background-color: rgba(17,24,39,0.85);
+  color: #fff;
+}
+/* 가격 옵션 카드 */
+.option-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px 14px 12px;   /* 패딩 줄여서 전체 높이 축소 */
+  background-color: #f9fafb;
+}
+
+/* 옵션 카드들 간 간격 */
+.option-card + .option-card {
+  margin-top: 14px;
+}
+
+/* 옵션 카드 제목 */
+.option-header {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 6px;
+}
+
+/* step-3 안에서는 전반적으로 조금 더 컴팩트하게 */
+#step-3 .form-grid {
+  gap: 16px;
+}
+#step-2 .form-grid {
+  gap:24px;
+}
+/* 옵션 카드 안에서 라벨/입력 세로 정렬 (2단 → 1단 구조로) */
+#step-3 .option-card .form-row {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;                    /* 라벨과 입력 사이 살짝 간격 */
+}
+
+/* 옵션 카드 안 라벨 스타일 */
+#step-3 .option-card .field-label {
+  flex: 0 0 auto;
+  padding-top: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* 옵션 카드 안 입력/텍스트 영역 */
+#step-3 .option-card .field-input input,
+#step-3 .option-card .field-input textarea {
+  padding: 9px 10px;           /* 공통 인풋보다 살짝만 작게 */
+  font-size: 13px;
+}
+
+/* 가격 설명 textarea는 더 작게 + 카드 높이 줄이기 */
+#step-3 .option-card .field-input textarea {
+  min-height: 80px;            /* 기존 260/120 → 80으로 축소 */
+  margin-top: 2px;
+}
+
+/* 카드 안에서 행 간격 약간씩 */
+#step-3 .option-card .form-row + .form-row {
+  margin-top: 6px;
+}
+#step-2 .image-main-row {
+  margin-top: 8px;
+}
+
+/* 대표/서브 두 파트 사이 여백 */
+#step-2 .image-main-row + .form-row {
+  margin-top: 150px;   /* 대표와 서브 사이 간격 */
+}
+
+/* 대표 업로드박스 + 미리보기 가로 배치 */
+.image-flex {
+  display: flex;
+  align-items: flex-start;
+  gap: 150px;
+}
+
+/* 대표 미리보기는 오른쪽에, 위쪽 여백 없이 */
+.image-flex .image-preview-grid {
+  margin-top: 0;
+  min-width: 120px;
+}
+/* === 이미지 삽입 레이아웃 정리 === */
+#step-2 .form-grid {
+  gap: 24px;   /* 대표/서브 사이 적당한 간격 */
+}
+
+/* 업로드 박스 + 미리보기 한 줄 정렬 */
+.image-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* 미리보기 박스는 고정 폭/높이 안에서만 스크롤 */
+.image-preview-box {
+  width: 260px;
+  max-height: 140px;
+  overflow-y: auto;
+  margin-top: 0;
+  flex-shrink: 0;   /* 줄어들지 않게 */
+}
+.meet-select {
+  display: flex;
+  gap: 12px;
+}
+
+.meet-option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.meet-option:hover {
+  background: #faf5ff;
+  border-color: #c4b5fd;
+}
+
+.meet-option input {
+  display: none;
+}
+
+.meet-option.active {
+  background: #8e4dff;
+  color: #fff;
+  border-color: #8e4dff;
+}
+.choice-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #374151;
+  background: #fff;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.choice-btn input {
+  display: none;
+}
+
+.choice-btn input:checked + span {
+  background: #8e4dff;
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 20px;
+  border: none;
+}
+.choice-row {
+  display: flex;
+  gap: 12px;
+}
+
+.choice-btn {
+  position: relative;
+  cursor: pointer;
+}
+
+.choice-btn input {
+  display: none;   /* 기본 라디오 숨김 */
+}
+
+/* 버튼 기본 상태 */
+.choice-btn span {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  color: #374151;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  transition: 0.2s;
+}
+
+/* hover 효과 */
+.choice-btn:hover span {
+  border-color: #8e4dff;
+  background: #faf5ff;
+}
+
+/* 선택된 버튼 (보라색 버전) */
+.choice-btn input:checked + span {
+  background: #8e4dff;
+  border-color: #8e4dff;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px rgba(142, 77, 255, 0.3);
+}
