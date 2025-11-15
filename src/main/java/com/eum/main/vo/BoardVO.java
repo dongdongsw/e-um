@@ -27,4 +27,5 @@ public class BoardVO {
 	private Review_ImageVO rivo=new Review_ImageVO();
 	private Board_ImageVO bivo=new Board_ImageVO();
 	private UsersVO uvo=new UsersVO();
+	private OrdersVO ovo=new OrdersVO();
 }
