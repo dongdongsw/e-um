@@ -13,6 +13,6 @@ import lombok.Data;
 @Data
 public class OrdersVO {
 	private int b_op_id,o_total_price;
-	private String o_id,o_status;
+	private String o_id,o_status,,o_u_id;
 	private Date o_createdat,o_updatedat;
 }
