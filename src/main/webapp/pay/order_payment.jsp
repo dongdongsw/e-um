@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="../css/detail.css">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script>
   $(function () {
     // jQuery UI tabs
@@ -85,6 +86,7 @@
     	    scrollTop: $("#tabs").offset().top - 100 // 살짝 위로 위치 조정
     	  }, 400);
     });
+  });
 </script>
 <style type="text/css">
    #main-section.hero {
@@ -311,6 +313,53 @@
     margin-bottom: 8px; /* 아코디언 사이 간격 */
 }
 </style>
+<script type="text/javascript">
+var o_u_id = "${o_u_id}";
+
+let sel=0;
+var IMP = window.IMP; 
+IMP.init("imp65483433"); 
+function requestPay() {
+    let b_op_id = $(".pay-btn").data("id");
+    let price   = $(".pay-btn").data("price");
+    
+    $.ajax({
+        type: "post",
+        url: "../pay/orders_insert.eum",
+        data: {
+            "b_op_id": b_op_id,
+            "o_total_price": price,
+            "o_u_id": o_u_id
+        },
+        success: function(res){
+            if(res === "OK"){
+                //location.href="../main/order_complete.eum";
+                
+            }
+          },
+          error: function(err){
+              console.log(err);
+          }
+    });
+    
+    IMP.request_pay({
+        pg: "html5_inicis",
+        pay_method: "card",
+        merchant_uid: "ORD20180131-0000011",   // 주문번호
+        name: '홍길동',
+        amount: 10000,         // 숫자 타입
+        buyer_email: 'email',
+        buyer_name: 'buyer_name',
+        buyer_tel:'1111-1111',
+        buyer_addr: '서울',
+        buyer_postcode: '000-111'
+    }, function (rsp) { // callback
+    	if (rsp.success) {
+
+    	}
+	});
+}
+</script>
 </head>
 <body>
   <div class="header-text" style="height: 0px;"></div>
@@ -401,7 +450,8 @@
         <div class="accordion-body">
            위 내용을 확인하였고, 결제에 동의하실 경우 결제하기 버튼을 눌러주세요.
          </div>
-        <button type="submit" class="pay-btn">결제하기</button>
+        <input type=button value="결제하기" onclick="requestPay()" class="pay-btn" 
+        data-id="${orders_vo.bovo.b_op_id }" data-price="${orders_vo.bovo.b_op_price}">
       </form>
     </div>
     
