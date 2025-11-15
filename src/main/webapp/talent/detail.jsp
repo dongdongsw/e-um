@@ -131,7 +131,19 @@
 	    });
 	  });
 	});
-  
+  let loginUser = "<c:out value='${sessionScope.id}'/>";
+
+  $(document).on("click", ".btn-pri", function (e) {
+    e.preventDefault();
+
+    if (!loginUser || loginUser === "null" || loginUser.trim() === "") {
+      alert("로그인 후 이용해주세요!");
+      location.href = "../users/login.eum";
+      return;
+    }
+
+    $(this).closest("form").submit();
+  });
 </script>
 </head>
 <body>
