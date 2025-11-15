@@ -426,7 +426,7 @@
 	<!-- 가격 옵션 -->
     <div class="hero-right" id="skicky">
       <div class="plans">
-       <form class="price-form" method="post" action="../main/orders.eum">
+       <form class="price-form" method="post" action="../pay/orders.eum">
          <input type="hidden" name="mimg" value="${board_vo.b_thumbnail }">
          <input type="hidden" name="title" value="${price_vo[0].b_op_title}">
          <input type="hidden" name="prof" value="${board_vo.usvo.u_s_profileimg_url}">
