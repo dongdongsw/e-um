@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.eum.commons.CreateSqlSessionFactory;
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.OrdersVO;
+import com.eum.main.vo.PaymentVO;
 import com.sist.controller.RequestMapping;
 
 public class PayDAO {
@@ -59,17 +60,66 @@ public class PayDAO {
 	  </insert>
 	 */
 	// orders table insert
-	public static void ordersInsert (OrdersVO vo)
-	{
+	public static String ordersInsert(OrdersVO vo)
+	{	String o_id = null;
 		try
 		{
 			SqlSession session=ssf.openSession();
 			session.insert("ordersInsert",vo);
 			session.commit();
 			session.close();
+			
+			o_id = vo.getO_id();
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
+		return o_id;
+	}
+	/*
+	 *   <insert id="paymentInsert" parameterType="paymentVO">
+		   INSERT INTO payment(pay_id,o_id,o_u_id,imp_uid,merchant_uid,amount,status,pay_method,
+		   					   pg_provider,receipt_url,paid_at,canceled_at,o_method,p_u_id)
+		     VALUES(payment_id_seq.nextval,
+		            #{o_id},
+		            #{o_u_id},
+		            #{imp_uid},
+		            #{merchant_uid},
+		            #{amount},
+		            '결제완료',
+		            #{pay_method},
+		            #{pg_provider},
+		            #{receipt_url},
+		            SYSDATE,
+		            NULL,
+		            #{o_method},
+		            #{p_u_id}
+		            );
+		  </insert>
+	 */
+	// paymant table insert
+	public static void paymentInsert (PaymentVO vo)
+	{
+		try
+		{
+			SqlSession session=ssf.openSession();
+			session.insert("paymentInsert",vo);
+			session.commit();
+			session.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	// 결제대기 -> 결제완료 변경
+	public static void updateOrderStatus(String o_id) {
+	    try {
+	        SqlSession session = ssf.openSession();
+	        session.update("updateOrderStatus", o_id);
+	        session.commit();
+	        session.close();
+	    } catch(Exception ex) {
+	        ex.printStackTrace();
+	    }
 	}
 }
