@@ -235,12 +235,12 @@ let loginUser = "<c:out value='${sessionScope.id}'/>";
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
         </div>
         <span class="rating">${score_vo.rvo.b_review_score}</span> <!-- 컨텐츠 평점 -->
-        <span class="count">(${empty board_vo.rvo.r_count ? 0 : board_vo.rvo.r_count})</span> <!-- 리뷰 수 -->
+        <span class="count">(${empty board_vo.rvo.review_count ? 0 : board_vo.rvo.review_count})</span> <!-- 리뷰 수 -->
 		<div class="like-button">
 		  <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
 		    <path d="M12 21s-6.7-4.3-9.4-7.1C.7 11.9.4 8.9 2.3 7 4 5.3 6.8 5.6 8.6 7.3L12 10.6l3.4-3.3c1.8-1.7 4.6-2 6.3-.3 1.9 1.9 1.6 4.9-.3 6.8C18.7 16.7 12 21 12 21z"></path>
 		  </svg>
-		  <span class="like-count">${empty board_vo.rvo.r_count ? 0 : board_vo.rvo.r_count}</span> <!-- 좋아요 수 -->
+		  <span class="like-count">${empty board_vo.rvo.review_count ? 0 : board_vo.rvo.review_count}</span> <!-- 좋아요 수 -->
 		</div>
 
         <div class="quick">

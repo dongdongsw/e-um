@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.seller.mapper.contents-mapper">
+
+	<!-- 컨텐츠 등록 -->
+  <insert id="contentsBoardInsert" parameterType="BoardVO">
+    INSERT INTO board 
+    	( 
+    	  b_id, u_s_id, b_type, b_title, b_content, 
+    	  b_thumbnail, b_createdat, b_prod_on_off, b_status
+    	)
+    VALUES
+    	(
+    	  TO_CHAR(b_id_seq.nextval), #{u_s_id}, #{b_type}, #{b_title}, 
+    	  #{b_content}, #{b_thumbnail}, SYSDATE, #{b_prod_on_off}, 'active'
+    	)
+  </insert>
+  <insert id="contentsImageInsert" parameterType="com.eum.main.vo.Board_ImageVO">
+    INSERT INTO board_image
+        (b_img_id, b_id, b_img_url)
+    VALUES
+    	(
+    	  img_id_seq.nextval, TO_CHAR(b_id_seq.currval), #{b_img_url}
+    	)
+  </insert>
+  <insert id="contentsOptionInsert" parameterType="Board_OptionVO">
+    INSERT INTO board_option
+        (b_op_id, b_id, b_op_title, b_op_price, b_op_detail)
+    VALUES
+     	(
+     	  op_id_seq.nextval, TO_CHAR(b_id_seq.currval), #{b_op_title}, #{b_op_price}, #{b_op_detail}
+     	)
+  </insert>
+  <select id="getB_id" resultType="string">
+    SELECT TO_CHAR(b_id_seq.currval)
+    FROM dual
+  </select>
+  
+  
+  <!-- 컨첸츠 수정 -->
+  <select id="contentsDetail" parameterType="string" resultType="BoardVO">
+    SELECT *
+    FROM board
+    WHERE b_id = #{b_id}
+  </select>
+  
+  <select id="contentsOptionList" parameterType="string" resultType="Board_OptionVO">
+    SELECT *
+    FROM board_option
+    WHERE b_id = #{b_id}
+    ORDER BY b_op_id
+  </select>
+
+  
+  <update id="contentsBoardUpdate" parameterType="BoardVO">
+    UPDATE board
+    SET 
+    	b_type = #{b_type},
+    	b_title = #{b_title},
+    	b_content = #{b_content},
+    	b_thumbnail = #{b_thumbnail},
+    	b_prod_on_off = #{b_prod_on_off}
+    WHERE 
+    	b_id = #{b_id}
+  </update>
+  <update id="contentsOptionUpdate" parameterType="Board_OptionVO">
+    UPDATE board_option
+    SET 
+    	b_op_title = #{b_op_title}, 
+    	b_op_price = #{b_op_price}, 
+    	b_op_detail = #{b_op_detail}
+    WHERE
+    	b_op_id = #{b_op_id}
+    	
+  </update>
+  
+</mapper>

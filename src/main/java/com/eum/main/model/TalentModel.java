@@ -59,21 +59,27 @@ public class TalentModel {
    public String talent_detail(HttpServletRequest request,
 		   HttpServletResponse response)
    {
-	   String b_id=request.getParameter("b_id");
+	    try {
+	    	String b_id=request.getParameter("b_id");
+	 	   
+	 	   BoardVO detail_vo=TalentDAO.talentDetailData(b_id);
+	 	   BoardVO board_vo=TalentDAO.talentDetailboard(b_id);
+	 	   List<BoardVO> image_vo=TalentDAO.talentDetailboardImage(b_id);
+	 	   List<BoardVO> review_vo=TalentDAO.talentDetailreview(b_id);
+	 	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
+	 	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
+	 	   
+	 	   request.setAttribute("detail_vo", detail_vo);
+	 	   request.setAttribute("board_vo", board_vo);
+	 	   request.setAttribute("image_vo", image_vo);
+	 	   request.setAttribute("review_vo", review_vo);
+	 	   request.setAttribute("score_vo", score_vo);
+	 	   request.setAttribute("price_vo", price_vo);
+	 	   
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	   
-	   BoardVO detail_vo=TalentDAO.talentDetailData(b_id);
-	   BoardVO board_vo=TalentDAO.talentDetailboard(b_id);
-	   List<BoardVO> image_vo=TalentDAO.talentDetailboardImage(b_id);
-	   List<BoardVO> review_vo=TalentDAO.talentDetailreview(b_id);
-	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
-	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
-	   
-	   request.setAttribute("detail_vo", detail_vo);
-	   request.setAttribute("board_vo", board_vo);
-	   request.setAttribute("image_vo", image_vo);
-	   request.setAttribute("review_vo", review_vo);
-	   request.setAttribute("score_vo", score_vo);
-	   request.setAttribute("price_vo", price_vo);
 	   
 	   request.setAttribute("main_jsp", "../talent/detail.jsp");
 	   return "../main/main.jsp";

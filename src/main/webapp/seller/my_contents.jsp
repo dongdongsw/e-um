@@ -196,11 +196,16 @@ html {
 			    </div>
 			
 			    <!-- 오른쪽 버튼 영역 -->
-			    <div class="content-actions">
-			      <button type="button" class="btn view">보기</button>
-			      <button type="button" class="btn edit">수정</button>
-			      <button type="button" class="btn delete">삭제</button>
-			    </div>
+			     <div class="content-actions">
+				    <a href="../talent/detail.eum?b_id=${vo.b_id }" type="button" class="btn view">보기</a>
+				
+				    <button type="button" class="btn edit"
+				            onclick="location.href='../seller/update_contents.eum?b_id=${vo.b_id}'">
+				        수정
+				    </button>
+				
+				    <button type="button" class="btn delete">삭제</button>
+				</div>
 			  </div>
 			</c:forEach>
 		  </c:otherwise>
