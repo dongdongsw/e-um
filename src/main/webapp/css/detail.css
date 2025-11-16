@@ -107,7 +107,7 @@
     /* 본문 2열 레이아웃 */
     .main{display:grid; grid-template-columns: 1.5fr .8fr; gap:28px; margin-top:18px}
 
-    .re-card{background:var(--card); border-bottom:1px solid var(--line); padding:10px; width: 100%}
+    .re-card{background:var(--card); padding:10px; width: 100%}
     .re-card h3{margin:0 0 12px}
 
     .review{display:grid; grid-template-columns: 1fr; gap:12px}
@@ -440,7 +440,7 @@ display: flex;
 .rw-helper{font-size:12px; color:var(--muted);}
 
 .rw-rate{display:flex; gap:6px; align-items:center;}
-.rw-star{font-size:22px; cursor:pointer; user-select:none; color:#d1d5db; line-height:1;}
+.rw-star , .up-star{font-size:22px; cursor:pointer; user-select:none; color:#d1d5db; line-height:1;}
 .rw-star.on{color:var(--accent);}
 
 /* textarea */
@@ -481,8 +481,8 @@ display: flex;
   font-size:13px;           /* 글자도 살짝 작게 */
   border-radius:8px;        /* 카드 톤에 맞춰 둥글기 축소 */
 }
-.re-reply {
-  margin: 10px 0 0 10px;
+.re-reply .re-reply-up {
+  margin: 10px 30px 0 30px;
   padding: 15px;
   background-color: #f5f5f5;
   border-radius: 15px;
@@ -496,7 +496,7 @@ display: flex;
   padding-bottom:8px;
 }
 
-.re-reply .avatar {
+ .avatar .re-reply-up{
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -504,11 +504,11 @@ display: flex;
   overflow: hidden;
 }
 
-.re-reply .seller-name {
+.re-reply .seller-name .re-reply-up{
   font-weight: 800;
 }
 
-.re-reply .reply-date {
+.re-reply .reply-date .re-reply-up{
   margin-left: auto;
   font-size: 11px;
   color: #6b7280;
@@ -543,7 +543,7 @@ display: flex;
   margin-top: 10px;
 }
 /* 답변 카드 하단 우측 액션 */
-.re-review { position: relative; }  /* 필요 시 하단 고정용 */
+.re-review { position: relative; margin: 0 10px 0 25px}  /* 필요 시 하단 고정용 */
 .re-review-footer{
   display:flex;
   justify-content:flex-end;

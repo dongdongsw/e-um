@@ -15,6 +15,8 @@
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
   $(function () {
+	  
+	  loadReviewTab();
     // jQuery UI tabs
     $("#tabs").tabs();
 
@@ -85,53 +87,116 @@
     	    scrollTop: $("#tabs").offset().top - 100 // 살짝 위로 위치 조정
     	  }, 400);
     });
-    
-    $('.re-reply').hide()
-    let u=0
-    $('.ansBtn').click(function(){
-		let data=$(this).attr("data-nick")
-		if(u==0) {
-			$('#re'+data).show()
-			$(this).text("취소")
-			u=1
-		} else {
-			$('#re'+data).hide()
-			$(this).text("답변")
-			u=0
-		}
+    function loadReviewTab() {
+    $.ajax({
+        url: "../talent/review.eum",
+        type: "post",
+        data: { b_id: "${detail_vo.b_id}" },
+        success: function(result){
+          $("#tabs-3").html(result);
+
+        }
     })
+   }
 
-    $(function(){
-    	  $('.rw-star').click(function(){
-    	    let score = $(this).data('score');  
-    	    $('#score').val(score);        
+    $(document).on('click', '.reUpBtn', function(){
 
-    	    $('.rw-star').css('color', '#ccc');
+		  let $box = $(this).closest('.re-up');      
+		  let rid  = $box.attr('id').replace('re-up',''); 
+		  let score   = $box.find('input[name="upscore"]').val();
+		  let content = $box.find('textarea[name="content"]').val();
+		  if (!content.trim()) {
+		    alert('내용을 입력해주세요.');   
+		    return;
+		  }
 
-    	    for(let i = 1; i <= score; i++) {
-    	      $('.rw-star[data-score="'+i+'"]').css('color', '#facc15');
-    	    }
-    	  });
-    	});
+		  $.ajax({
+		    type : 'post',
+		    url  : '../review/update_ok.eum',
+		    data : {
+		      rid     : rid,
+		      score   : score,
+		      content : content
+		    },
+		    success: function(res){
+
+		    	loadReviewTab(); 
+		    },
+		    error: function(xhr){
+		      console.log(xhr.responseText);
+		      alert('수정 중 오류 발생');
+		    }
+		  });
+
+		});
+    
+    $(document).on('click', '.repUpBtn', function(){
+
+		  let $box = $(this).closest('.rep-up');      
+		  let rid  = $box.attr('id').replace('rep-up',''); 
+		  let content = $box.find('textarea[name="reupcon"]').val();
+		  if (!content.trim()) {
+		    alert('내용을 입력해주세요.');   
+		    return;
+		  }
+
+		  $.ajax({
+		    type : 'post',
+		    url  : '../reply/update_ok.eum',
+		    data : {
+		      rid     : rid,
+		      content : content
+		    },
+		    success: function(res){
+
+		    	loadReviewTab(); 
+		    },
+		    error: function(xhr){
+		      console.log(xhr.responseText);
+		      alert('수정 중 오류 발생');
+		    }
+		  });
+
+		});
+	
+    $(document).on('click', '.repDelBtn', function(){
+
+		  let $box = $(this).closest('.re-review');      
+		  let rid  = $box.attr('id').replace('rep-read',''); 
+		  alert(rid);   
+		  if (!confirm("정말로 삭제하시겠습니까?")) {
+		        return;  
+		    }
+
+		    $.ajax({
+		        type: "post",
+		        url: "../reply/delete_ok.eum",
+		        data: { 'rid': rid },
+		        success: function(res) {
+		            loadReviewTab();
+		        }
+		    });
+		});
+    
+    $(document).on('click', '.delBtn', function(){
+
+    	  let rid = $(this).data('del');
+			  if (!confirm("정말로 삭제하시겠습니까?")) {
+		        return;  
+		    }
+
+		    $.ajax({
+		        type: "post",
+		        url: "../review/delete_ok.eum",
+		        data: { 'rid': rid },
+		        success: function(res) {
+		            loadReviewTab();
+		        }
+		    });
+		});
+
 })
-    $(function() {
-	  $(".stars").each(function() {
-	    const score = parseFloat($(this).data("score")) || 0;
-	    const fullStars = Math.floor(score); // 소수점 버림
-	    const stars = $(this).find(".star");
-
-	    stars.each(function(i) {
-	      const $path = $(this).find("path");
-
-	      if (i < fullStars) {
-	        $path.css("fill", "var(--accent)"); // 노란 별
-	      } else {
-	        $path.css("fill", "#ddd"); // 회색 빈 별
-	      }
-	    });
-	  });
-	});
-  let loginUser = "<c:out value='${sessionScope.id}'/>";
+let loginUser = "<c:out value='${sessionScope.id}'/>";
 
   $(document).on("click", ".btn-pri", function (e) {
     e.preventDefault();
@@ -144,7 +209,12 @@
 
     $(this).closest("form").submit();
   });
+  
+  
 </script>
+<style type="text/css">
+
+</style>
 </head>
 <body>
   <div class="header-text" style="height: 200px;"></div>
@@ -157,7 +227,7 @@
       </div>
 
       <div class="meta" aria-label="별점 및 관심">
-        <div class="stars"  data-score="${fn:trim(score_vo.rvo.b_review_score)}">
+        <div class="stars" aria-hidden="true">
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
@@ -165,12 +235,12 @@
           <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L10 16l-5.8 3.4 1.1-6.5L.6 8.3l6.5-.9L10 1.5z"/></svg>
         </div>
         <span class="rating">${score_vo.rvo.b_review_score}</span> <!-- 컨텐츠 평점 -->
-        <span class="count">(${empty board_vo.rvo.r_count ? 0 : board_vo.rvo.r_count})</span> <!-- 리뷰 수 -->
+        <span class="count">(${score_vo.rvo.review_count})</span> <!-- 리뷰 수 -->
 		<div class="like-button">
 		  <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
 		    <path d="M12 21s-6.7-4.3-9.4-7.1C.7 11.9.4 8.9 2.3 7 4 5.3 6.8 5.6 8.6 7.3L12 10.6l3.4-3.3c1.8-1.7 4.6-2 6.3-.3 1.9 1.9 1.6 4.9-.3 6.8C18.7 16.7 12 21 12 21z"></path>
 		  </svg>
-		  <span class="like-count">${empty board_vo.rvo.r_count ? 0 : board_vo.rvo.r_count}</span> <!-- 좋아요 수 -->
+		  <span class="like-count">1,477</span> <!-- 좋아요 수 -->
 		</div>
 
         <div class="quick">
@@ -200,7 +270,7 @@
 
     <div class="hero-right">
        <!--컨텐츠 메인 이미지 -->
-        <img src="${board_vo.b_thumbnail }">
+        <img src="${detail_vo.b_thumbnail }">
     </div>
   </section>
   <!-- 상세정보 시작 --> 
@@ -219,13 +289,13 @@
    		  <br>
           <p style="font-size: 14px">${detail_vo.b_content}</p>
           <br><br>
-          <c:forEach var="img" items="${image_vo}">
-            <img style="width:100%" src="${img.bivo.b_img_url}">
+          <c:forEach var="img" items="${list}">
+            <img style="width:100%" src="${img}">
           </c:forEach>
         </div>
 		<!-- 셀러 정보 -->
         <div id="tabs-2">
-           <div id="tabs-2" style="max-width:700px; margin:auto; font-family:'Noto Sans KR', sans-serif;">
+           <div style="max-width:700px; margin:auto; font-family:'Noto Sans KR', sans-serif;">
 			  <div style="height: 30px;"></div>
 			
 			  <!-- 셀러 프로필 -->
@@ -256,46 +326,38 @@
         </div>
 		<!-- 리뷰 -->
 		<div id="tabs-3">
-		 
+		  
 		</div>
 		</div>
 		</div>
-
-	<!-- 가격 옵션 -->
-    <div class="hero-right" id="skicky">
-      <div class="plans">
-       <form class="price-form" method="post" action="../pay/orders.eum">
-         <input type="hidden" name="thumbnail" value="${board_vo.b_thumbnail }">
-         <input type="hidden" name="title" value="${price_vo[0].b_op_title}">
-         <input type="hidden" name="profileimg_url" value="${board_vo.usvo.u_s_profileimg_url}">
-         <input type="hidden" name="com" value="${board_vo.usvo.u_s_com}">
-         <input type="hidden" name="price" value="${price.b_op_price}">
-         
-          <span class="dropdown-el" id="sortDropdown">
-		  <c:if test="${not empty price_vo}">
-		    <span class="current">
-		      ${price_vo[0].b_op_title}
-		      (<fmt:formatNumber value="${price_vo[0].b_op_price}" pattern="#,###" />원)
-		    </span>
-		  </c:if>
-		
-		  <div class="menu">
-		    <c:forEach var="price" items="${price_vo}" varStatus="st">
-		      <input type="radio" name="b_op_id" value="${price.b_op_id}" id="sort-${price.b_op_id}"  ${st.index == 0 ? "checked" : ""}>
-		      <label for="sort-${price.b_op_id}">
-		        ${price.b_op_title}
-		        (<fmt:formatNumber value="${price.b_op_price}" pattern="#,###" />원)
-		      </label>
-		    </c:forEach>
-		  </div>
-		</span>
-            <div class="cta">
-              <button type="button" class="btn-ghost">전문가에게 문의하기</button>
-              <button type="submit" class="btn-pri">구매하기</button>
-            </div>
-          </div>
-        </div>
-    <div style="height: 100px"></div>
-  </section>
-</body>
+		<!-- 가격 옵션 -->
+	    <div class="hero-right" id="sticky">
+	      <div class="plans">
+	          <span class="dropdown-el" id="sortDropdown">
+			  <c:if test="${not empty price_vo}">
+			    <span class="current">
+			      ${price_vo[0].b_op_title}
+			      (<fmt:formatNumber value="${price_vo[0].b_op_price}" pattern="#,###" />원)
+			    </span>
+			  </c:if>
+			
+			  <div class="menu">
+			    <c:forEach var="price" items="${price_vo}">
+			      <input type="radio" name="sortType" id="sort-${price.b_op_id}">
+			      <label for="sort-${price.b_op_id}">
+			        ${price.b_op_title}
+			        (<fmt:formatNumber value="${price.b_op_price}" pattern="#,###" />원)
+			      </label>
+			    </c:forEach>
+			  </div>
+			</span>
+	            <div class="cta">
+	              <button class="btn-ghost">전문가에게 문의하기</button>
+	              <a href="../main/orderPayment.eum" class="btn-pri">구매하기</a>
+	            </div>
+	          </div>
+	        </div>
+	    <div style="height: 100px"></div>
+	  </section>
+	</body>
 </html>

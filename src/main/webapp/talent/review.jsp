@@ -223,7 +223,6 @@ $(function(){
 		
 		          <!-- 리뷰 내용 -->
 		          <p style="margin:7px 0 0 10px; color:var(--muted)">${rvo.rvo.b_review_content}</p>
-		
 		          <div class="review-footer">
 		            <c:if test="${sessionScope.id eq rvo.uvo.u_id }">
 		              <button type="button" class="review-btn upBtn" data-up="${rvo.rvo.b_review_id}">수정</button>
