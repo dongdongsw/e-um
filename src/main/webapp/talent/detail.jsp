@@ -330,34 +330,41 @@ let loginUser = "<c:out value='${sessionScope.id}'/>";
 		</div>
 		</div>
 		</div>
-		<!-- 가격 옵션 -->
-	    <div class="hero-right" id="sticky">
-	      <div class="plans">
-	          <span class="dropdown-el" id="sortDropdown">
-			  <c:if test="${not empty price_vo}">
-			    <span class="current">
-			      ${price_vo[0].b_op_title}
-			      (<fmt:formatNumber value="${price_vo[0].b_op_price}" pattern="#,###" />원)
-			    </span>
-			  </c:if>
-			
-			  <div class="menu">
-			    <c:forEach var="price" items="${price_vo}">
-			      <input type="radio" name="sortType" id="sort-${price.b_op_id}">
-			      <label for="sort-${price.b_op_id}">
-			        ${price.b_op_title}
-			        (<fmt:formatNumber value="${price.b_op_price}" pattern="#,###" />원)
-			      </label>
-			    </c:forEach>
-			  </div>
-			</span>
-	            <div class="cta">
-	              <button class="btn-ghost">전문가에게 문의하기</button>
-	              <a href="../main/orderPayment.eum" class="btn-pri">구매하기</a>
-	            </div>
-	          </div>
-	        </div>
-	    <div style="height: 100px"></div>
-	  </section>
-	</body>
+	<!-- 가격 옵션 -->
+    <div class="hero-right" id="skicky">
+      <div class="plans">
+       <form class="price-form" method="post" action="../pay/orders.eum">
+         <input type="hidden" name="thumbnail" value="${board_vo.b_thumbnail }">
+         <input type="hidden" name="title" value="${price_vo[0].b_op_title}">
+         <input type="hidden" name="profileimg_url" value="${board_vo.usvo.u_s_profileimg_url}">
+         <input type="hidden" name="com" value="${board_vo.usvo.u_s_com}">
+         <input type="hidden" name="price" value="${price.b_op_price}">
+         
+          <span class="dropdown-el" id="sortDropdown">
+		  <c:if test="${not empty price_vo}">
+		    <span class="current">
+		      ${price_vo[0].b_op_title}
+		      (<fmt:formatNumber value="${price_vo[0].b_op_price}" pattern="#,###" />원)
+		    </span>
+		  </c:if>
+		
+		  <div class="menu">
+		    <c:forEach var="price" items="${price_vo}" varStatus="st">
+		      <input type="radio" name="b_op_id" value="${price.b_op_id}" id="sort-${price.b_op_id}"  ${st.index == 0 ? "checked" : ""}>
+		      <label for="sort-${price.b_op_id}">
+		        ${price.b_op_title}
+		        (<fmt:formatNumber value="${price.b_op_price}" pattern="#,###" />원)
+		      </label>
+		    </c:forEach>
+		  </div>
+		</span>
+            <div class="cta">
+              <button type="button" class="btn-ghost">전문가에게 문의하기</button>
+              <button type="submit" class="btn-pri">구매하기</button>
+            </div>
+          </div>
+        </div>
+    <div style="height: 100px"></div>
+  </section>
+</body>
 </html>
