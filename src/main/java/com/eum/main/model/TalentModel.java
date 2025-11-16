@@ -22,67 +22,94 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class TalentModel {
-	@RequestMapping("talent/list.eum")
-	public String talent_list(HttpServletRequest request,
-	      HttpServletResponse response)
-	{
-	    String page = request.getParameter("page");
-	    if(page == null) page = "1";
-	    int curpage = Integer.parseInt(page);
+	
+	    // 키워드 검색 
+	    @RequestMapping("talent/keyword_list.eum")
+	    public String talent_search(HttpServletRequest request, HttpServletResponse response) {
+	        
+	        String keyword = request.getParameter("keyword");
+	        if (keyword == null) keyword = "";
 
-	    int rowSize = 12;
-	    int start = (rowSize*curpage)-(rowSize-1);
-	    int end = rowSize*curpage;
+	        String page = request.getParameter("page");
+	        int curpage = (page == null) ? 1 : Integer.parseInt(page);
 
-	    String keyword = request.getParameter("keyword");
-	    if(keyword == null) keyword = "";
+	        int rowSize = 12;
+	        int start = (curpage - 1) * rowSize + 1;
+	        int end = curpage * rowSize;
 
-	    Map map = new HashMap();
-	    map.put("start", start);
-	    map.put("end", end);
-	    map.put("keyword", keyword);
-	    String b_type=request.getParameter("b_type");
-	    map.put("b_type", b_type);
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("keyword", keyword);
+	        map.put("start", start);
+	        map.put("end", end);
 
-	    String fd=request.getParameter("fd");
-	    if(fd==null)
-	    	fd="";
-	    
-	    List<BoardVO> life_list;
-	    int totalpage;
+	        // DAO 호출
+	        List<BoardVO> list = TalentDAO.talentSearchKeywordData(map);
+	        int totalpage = TalentDAO.talentSearchKeywordTotalPage(map);
+	        
+	        final int BLOCK = 10;
+		    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+		    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		    if(endPage > totalpage)
+		    {
+		        endPage = totalpage;
+		    }
 
-	    if(keyword.equals("")) 
-	    {
-	        life_list = TalentDAO.talentListData(map);
-	        totalpage = TalentDAO.talentTotalPage();
-	    } else 
-	    {
-	        life_list = TalentDAO.talentFindData(map);
-	        int count = TalentDAO.talentFindCount(map);
-	        totalpage = (int)Math.ceil(count/12.0);
+		    request.setAttribute("startPage", startPage);
+		    request.setAttribute("endPage", endPage);
+	        request.setAttribute("list", list);
+	        request.setAttribute("curpage", curpage);
+	        request.setAttribute("totalpage", totalpage);
+
+	        request.setAttribute("keyword", keyword);
+
+	        // 검색 전용 JSP 파일 연결
+	        request.setAttribute("main_jsp", "../talent/keyword_list.jsp");
+
+	        return "../main/main.jsp";
 	    }
+	    // 타입 검색
+	    @RequestMapping("talent/b_type_list.eum")
+	    public String talent_category(HttpServletRequest request, HttpServletResponse response) {
+	        
+	        String b_type = request.getParameter("b_type");
+	        if (b_type == null) b_type = "";
 
-	    final int BLOCK = 10;
-	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
-	    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
-	    if(endPage > totalpage)
-	    {
-	        endPage = totalpage;
+	        String page = request.getParameter("page");
+	        int curpage = (page == null) ? 1 : Integer.parseInt(page);
+
+	        int rowSize = 12;
+	        int start = (curpage - 1) * rowSize + 1;
+	        int end = curpage * rowSize;
+
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("b_type", b_type);
+	        map.put("start", start);
+	        map.put("end", end);
+
+	        List<BoardVO> list = TalentDAO.talentSearchTypeData(map);
+	        int totalpage = TalentDAO.talentSearchTypeTotalPage(map);
+
+	        final int BLOCK = 10;
+		    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+		    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		    if(endPage > totalpage)
+		    {
+		        endPage = totalpage;
+		    }
+
+		    request.setAttribute("startPage", startPage);
+		    request.setAttribute("endPage", endPage);
+	        request.setAttribute("list", list);
+	        request.setAttribute("curpage", curpage);
+	        request.setAttribute("totalpage", totalpage);
+	        
+	        request.setAttribute("b_type", b_type);
+
+	        // 카테고리 전용 JSP 파일 연결
+	        request.setAttribute("main_jsp", "../talent/b_type_list.jsp");
+
+	        return "../main/main.jsp";
 	    }
-
-	    request.setAttribute("fd", fd);
-	    request.setAttribute("life_list", life_list);
-	    request.setAttribute("curpage", curpage);
-	    request.setAttribute("totalpage", totalpage);
-	    request.setAttribute("startPage", startPage);
-	    request.setAttribute("endPage", endPage);
-	    request.setAttribute("keyword", keyword); // 필요하면 사용
-	    request.setAttribute("b_type", b_type);
-
-	    request.setAttribute("main_jsp", "../talent/list.jsp");
-	    return "../main/main.jsp";
-	 
-	}
 
    @RequestMapping("talent/detail.eum")
    public String talent_detail(HttpServletRequest request,
@@ -107,82 +134,144 @@ public class TalentModel {
 	   request.setAttribute("main_jsp", "../talent/detail.jsp");
 	   return "../main/main.jsp";
    }
-   @RequestMapping("talent/find_ajax.eum")
-   public void talent_find_ajax(HttpServletRequest request, HttpServletResponse response)
-   {
-       try
-       {
-           String page=request.getParameter("page");
-           if(page == null) page = "1";
-           int curpage=Integer.parseInt(page);
+   // 키워드
+   @RequestMapping("talent/keyword_ajax.eum")
+   public void talent_search_ajax(HttpServletRequest request, HttpServletResponse response) {
 
-           String keyword=request.getParameter("keyword");
-           String b_type=request.getParameter("b_type");
-           String fd=request.getParameter("fd");
+       try {
+           String keyword = request.getParameter("keyword");
+           String fd = request.getParameter("fd");
+           String page = request.getParameter("page");
 
-           if(keyword == null) keyword = "";
-           if(b_type == null) b_type = "";
-           if(fd == null) fd = "";
+           int curpage = (page == null) ? 1 : Integer.parseInt(page);
 
-           int rowSize = 12;
-           int start = (curpage-1)*rowSize + 1;
-           int end = curpage*rowSize;
-
-           Map map=new HashMap();
-           map.put("start", start);
-           map.put("end", end);
+           Map map = new HashMap();
            map.put("keyword", keyword);
-           map.put("b_type", b_type);
            map.put("fd", fd);
+           map.put("start", (curpage - 1) * 12 + 1);
+           map.put("end", curpage * 12);
 
-           List<BoardVO> list = TalentDAO.talentFindData(map);
-           int count = TalentDAO.talentFindCount(map);
+           List<BoardVO> list = TalentDAO.talentSearchKeywordData(map);
+           int totalpage = TalentDAO.talentSearchKeywordTotalPage(map);
 
-           final int BLOCK = 10;
-           int totalpage = (int)(Math.ceil(count/12.0));
-           int startpage = ((curpage-1)/BLOCK * BLOCK) + 1;
+           int BLOCK = 10;
+           int startpage = ((curpage - 1) / BLOCK * BLOCK) + 1;
            int endpage = startpage + BLOCK - 1;
+           if (endpage > totalpage) endpage = totalpage;
 
-           if(endpage > totalpage)
-              endpage = totalpage;
-
+           JSONObject root = new JSONObject();
            JSONArray arr = new JSONArray();
-           int i = 0;
 
-           for(BoardVO vo : list)
-           {
+        // TalentModel.java (keyword_ajax.eum 및 b_type_ajax.eum)
+
+           for (BoardVO vo : list) {
                JSONObject obj = new JSONObject();
                obj.put("b_id", vo.getB_id());
                obj.put("b_title", vo.getB_title());
                obj.put("b_thumbnail", vo.getB_thumbnail());
-               obj.put("b_review_score", vo.getRvo().getB_review_score());
-               obj.put("review_count", vo.getRvo().getReview_count());
-               obj.put("b_op_price", vo.getBovo().getB_op_price());
-               obj.put("u_s_com", vo.getUsvo().getU_s_com());
+
+               // ★ null 체크 추가: ReviewVO (Rvo)가 null일 경우 0 또는 기본값 설정
+               obj.put("b_review_score", (vo.getRvo() != null) ? vo.getRvo().getB_review_score() : 0.0);
+               obj.put("review_count", (vo.getRvo() != null) ? vo.getRvo().getReview_count() : 0);
+
+               // ★ null 체크 추가: Board_OptionVO (Bovo)가 null일 경우 0 또는 기본값 설정
+               obj.put("b_op_price", (vo.getBovo() != null) ? vo.getBovo().getB_op_price() : 0);
+
+               // ★ null 체크 추가: Users_SellerVO (Usvo)가 null일 경우 빈 문자열 설정
+               obj.put("u_s_com", (vo.getUsvo() != null) ? vo.getUsvo().getU_s_com() : "");
+
                obj.put("b_type", vo.getB_type());
                obj.put("b_view_count", vo.getB_view_count());
-
-               if(i == 0)
-               {
-                   obj.put("curpage", curpage);
-                   obj.put("totalpage", totalpage);
-                   obj.put("startpage", startpage);
-                   obj.put("endpage", endpage);
-                   obj.put("count", count);
-               }
                arr.add(obj);
-               i++;
            }
 
-           // ❗ 여기서 응답을 단 한 번만 출력해야 함
-           response.setContentType("text/plain;charset=UTF-8");
-           PrintWriter out = response.getWriter();
-           out.write(arr.toJSONString());
+           // JSON 객체 형태로 전달
+           root.put("list", arr);
+           root.put("curpage", curpage);
+           root.put("totalpage", totalpage);
+           root.put("startpage", startpage);
+           root.put("endpage", endpage);
 
-       } catch(Exception ex)
-       {
+           response.setContentType("application/json;charset=UTF-8");
+           PrintWriter out = response.getWriter();
+           out.print(root.toJSONString());
+           out.close();
+
+       } catch (Exception ex) {
            ex.printStackTrace();
        }
    }
+
+
+
+   // 타입
+   @RequestMapping("talent/b_type_ajax.eum")
+   public void talent_category_ajax(HttpServletRequest request, HttpServletResponse response) {
+
+       try {
+           String b_type = request.getParameter("b_type");
+           String fd = request.getParameter("fd");
+           String page = request.getParameter("page");
+
+           int curpage = (page == null) ? 1 : Integer.parseInt(page);
+
+           Map<String, Object> map = new HashMap<>();
+           map.put("b_type", b_type);
+           map.put("fd", fd);
+           map.put("start", (curpage - 1) * 12 + 1);
+           map.put("end", curpage * 12);
+
+           List<BoardVO> list = TalentDAO.talentSearchTypeData(map);
+           int totalpage = TalentDAO.talentSearchTypeTotalPage(map);
+
+           int BLOCK = 10;
+           int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
+           int endPage = startPage + BLOCK - 1;
+           if (endPage > totalpage) endPage = totalpage;
+
+           JSONArray arr = new JSONArray();
+        // TalentModel.java (keyword_ajax.eum 및 b_type_ajax.eum)
+
+           for (BoardVO vo : list) {
+               JSONObject obj = new JSONObject();
+               obj.put("b_id", vo.getB_id());
+               obj.put("b_title", vo.getB_title());
+               obj.put("b_thumbnail", vo.getB_thumbnail());
+
+               // ★ null 체크 추가: ReviewVO (Rvo)가 null일 경우 0 또는 기본값 설정
+               obj.put("b_review_score", (vo.getRvo() != null) ? vo.getRvo().getB_review_score() : 0.0);
+               obj.put("review_count", (vo.getRvo() != null) ? vo.getRvo().getReview_count() : 0);
+
+               // ★ null 체크 추가: Board_OptionVO (Bovo)가 null일 경우 0 또는 기본값 설정
+               obj.put("b_op_price", (vo.getBovo() != null) ? vo.getBovo().getB_op_price() : 0);
+
+               // ★ null 체크 추가: Users_SellerVO (Usvo)가 null일 경우 빈 문자열 설정
+               obj.put("u_s_com", (vo.getUsvo() != null) ? vo.getUsvo().getU_s_com() : "");
+
+               obj.put("b_type", vo.getB_type());
+               obj.put("b_view_count", vo.getB_view_count());
+               arr.add(obj);
+           }
+
+           JSONObject root = new JSONObject();
+           root.put("list", arr);
+           root.put("curpage", curpage);
+           root.put("totalpage", totalpage);
+           root.put("startpage", startPage);
+           root.put("endpage", endPage);
+
+           response.reset();
+           response.setContentType("application/json;charset=UTF-8");
+           PrintWriter out = response.getWriter();
+           out.print(root.toJSONString());
+           out.close();
+
+       } catch (Exception ex) {
+           ex.printStackTrace();
+       }
+   }
+
+
+
 
 }

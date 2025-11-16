@@ -208,33 +208,50 @@ import oracle.net.ns.SessionAtts;
 		   }
 		   return list;
 	   }
-	   public static List<BoardVO> talentFindData(Map map)
-	   {
-		   List<BoardVO> list=null;
-		   try
-		   {
-			   SqlSession session=ssf.openSession();
-			   list=session.selectList("talentFindData",map);
-			   session.close();
-		   }catch(Exception ex) 
-		   {
-			   ex.printStackTrace();
-		   }
-		   return list;
-	   }
-	   public static int talentFindCount(Map map)
-	   {
-		   int count=0;
-		   try
-		   {
-			   SqlSession session=ssf.openSession();
-			   count=session.selectOne("talentFindCount",map);
-			   session.close();
-		   }catch(Exception ex)
-		   {
-			   ex.printStackTrace();
-		   }
-		   return count;
-	   }
-	   
+	   public static List<BoardVO> talentSearchKeywordData(Map map) {
+		    List<BoardVO> list = null;
+		    try {
+		    	
+		        SqlSession session = ssf.openSession();
+		        list = session.selectList("talentSearchKeywordData", map);
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    } 
+		    return list;
+		}
+
+		public static int talentSearchKeywordTotalPage(Map map) {
+		    int total = 0;
+		    try {
+		    	
+		        SqlSession session = ssf.openSession();
+		        total = session.selectOne("talentSearchKeywordTotalPage", map);
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    } 
+		    return total;
+		}
+
+		public static List<BoardVO> talentSearchTypeData(Map map) {
+		    List<BoardVO> list = null;
+		    try {
+		        SqlSession session = ssf.openSession();
+		        list = session.selectList("talentSearchTypeData", map);
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    } 
+		    return list;
+		}
+
+		public static int talentSearchTypeTotalPage(Map map) {
+		    int total = 0;
+		    try {
+		        SqlSession session = ssf.openSession();
+		        total = session.selectOne("talentSearchTypeTotalPage", map);
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    } 
+		    return total;
+		}
+
 	}

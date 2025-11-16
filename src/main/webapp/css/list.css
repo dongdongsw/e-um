@@ -204,10 +204,6 @@ label {
   gap: 5px;
 }
 
-.content__body {
-  display: flex;
-  flex-direction: column;
-}
 
 .stream__title {
   font-weight: 900;
@@ -366,6 +362,14 @@ label {
   background: #fff;
   border: 2px solid #f2f2f2;
   cursor: pointer;
+}
+.label--radio {
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+.radio {
+    pointer-events: auto !important;
 }
 
 .radio {
