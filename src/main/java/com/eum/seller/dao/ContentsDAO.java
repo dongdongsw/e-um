@@ -50,7 +50,8 @@ public class ContentsDAO {
 	}
 	
 	// 컨텐츠 작성
-	public static void contentsInsert(BoardVO bvo, List<Board_ImageVO> imgList, List<Board_OptionVO> opList) {
+	public static String contentsInsert(BoardVO bvo, List<Board_ImageVO> imgList, List<Board_OptionVO> opList) {
+		String b_id=null;
 		try {
 			SqlSession session=ssf.openSession();
 			
@@ -65,11 +66,71 @@ public class ContentsDAO {
 				session.insert("contentsOptionInsert",ovo);
 			}
 			
+			b_id=session.selectOne("getB_id");
+			
 			session.commit();
 			session.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		return b_id;
 	}
+	
+	 // 컨텐츠 기본 정보
+    public static BoardVO contentsDetail(String b_id) {
+    	
+        BoardVO vo=null;
+        SqlSession session=null;
+        
+        try {
+            session=ssf.openSession();
+            vo=session.selectOne("contentsDetail", b_id);
+            session.close();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        return vo;
+    }
+
+    // 옵션 목록 (있는 만큼)
+    public static List<Board_OptionVO> contentsOptionList(String b_id) {
+    	
+        List<Board_OptionVO>list= null;
+        SqlSession session=null;
+        
+        try {
+            session=ssf.openSession();
+            list=session.selectList("contentsOptionList", b_id);
+            session.close();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        
+        return list; 
+        
+    }
+	
+	// 컨텐츠 수정
+	public static void contentsUpdate(BoardVO bvo, List<Board_OptionVO> opList) {
+        try {
+            SqlSession session = ssf.openSession();
+
+            session.update("contentsBoardUpdate", bvo);
+
+            if (opList != null) {
+                for (Board_OptionVO ovo : opList) {
+                    session.update("contentsOptionUpdate", ovo);
+                }
+            }
+
+            session.commit();
+            session.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 		
 }

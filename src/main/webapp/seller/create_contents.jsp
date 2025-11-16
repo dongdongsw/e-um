@@ -173,7 +173,7 @@
           <div class="form-grid">
             <!-- 옵션 1 (필수) -->
             <div class="option-card">
-              <div class="option-header">옵션 1</div>
+              <div class="option-header">옵션 1 (필수)</div>
 
               <div class="form-row">
                 <div class="field-label">가격 제목</div> <!-- b_op_title -->
@@ -212,7 +212,7 @@
                 <div class="field-label">가격 제목</div>
                 <div class="field-input">
                   <input type="text" name="priceTitle2"
-                         placeholder="예: 프리미엄 패키지 (선택)" required/>
+                         placeholder="예: 프리미엄 패키지 (선택)"/>
                 </div>
               </div>
 
@@ -229,7 +229,7 @@
                 <div class="field-label">가격 설명</div>
                 <div class="field-input">
                   <textarea name="priceDesc2"
-                            placeholder="예: 기본 서비스 + 추가 코칭 1회 포함" required></textarea>
+                            placeholder="예: 기본 서비스 + 추가 코칭 1회 포함"></textarea>
                 </div>
               </div>
             </div>
@@ -242,7 +242,7 @@
                 <div class="field-label">가격 제목</div>
                 <div class="field-input">
                   <input type="text" name="priceTitle3"
-                         placeholder="예: VIP 패키지 (선택)" required />
+                         placeholder="예: VIP 패키지 (선택)" />
                 </div>
               </div>
 
@@ -332,11 +332,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 다음 / 완료 버튼
   nextBtn.addEventListener('click', function () {
-    if (currentStep < lastStep) {
-      goToStep(currentStep + 1);
-    } else {
-      form.submit();
-    }
+	  if (currentStep < lastStep) {
+	    goToStep(currentStep + 1);
+	  } else {
+	    if (form.checkValidity()) {
+	      form.submit();        // 모두 유효하면 전송
+	    } else {
+	      form.reportValidity(); // required 안 채운 곳 브라우저가 경고 표시
+	    }
+	  }
   });
 
   // 초기 0단계로 세팅

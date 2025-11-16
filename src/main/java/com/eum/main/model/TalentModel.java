@@ -73,6 +73,9 @@ public class TalentModel {
 	   request.setAttribute("score_vo", score_vo);
 	   request.setAttribute("price_vo", price_vo);
 	   
+	   System.out.println(board_vo.getU_s_id());
+	   System.out.println(detail_vo.getUsvo().getU_s_com());
+	   
 	   request.setAttribute("main_jsp", "../talent/detail.jsp");
 	   return "../main/main.jsp";
    }
