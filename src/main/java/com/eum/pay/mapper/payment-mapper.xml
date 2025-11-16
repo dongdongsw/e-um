@@ -114,4 +114,17 @@
 	) A )
 	WHERE num BETWEEN #{start} AND #{end}
    </select>
+
+	<!-- 환불 인서트 -->
+   <insert id="refundInsert" parameterType="RefundVO">
+    INSERT INTO refund(rf_id,pay_id,o_u_id,rf_reason,rf_amount,rf_status,rf_requestedat,rf_completedat)
+     VALUES(refund_id_seq.nextval,
+            #{pay_id},
+            #{o_u_id},
+            #{rf_reason},
+            #{rf_amount},
+            '환불대기',
+            SYSDATE,
+            NULL)
+   </insert>
 </mapper>
