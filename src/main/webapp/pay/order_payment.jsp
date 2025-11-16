@@ -337,17 +337,10 @@ function requestPay() {
                 if(o_id && o_id !== "null") {
                     requestPayment(o_id);
                 } else {
-                    $.ajax({
-                        type: "post",
-                        url: "../pay/orders_cancel.eum",
-                        data: {"o_id": o_id},
-                        success: function(res){
-                            console.log("취소변경 결과:", res);
-                        }
-                    });
-                    alert("결제가 취소 또는 실패했습니다.");
-          		}
-            },
+                    alert("주문 번호 생성 실패! 다시 시도해주세요.");
+                  return;
+            }
+          },
           error: function(err){
               console.log(err);
           }
@@ -359,7 +352,7 @@ function requestPayment(o_id){
         pay_method: "card",
         merchant_uid: "ORD-"+new Date().getTime(),   // 주문번호
         name: "${orders_vo.bovo.b_op_title}",
-        amount: ${orders_vo.bovo.b_op_price}         // 숫자 타입
+        amount: 1         // 숫자 타입
     }, function (rsp) { // callback
     	if (rsp.success) {
     		let b_op_id = $(".pay-btn").data("id");
@@ -413,6 +406,14 @@ function requestPayment(o_id){
 
         } else {
             alert("결제가 취소되었습니다!");
+            $.ajax({
+                type: "post",
+                url: "../pay/orders_cancel.eum",
+                data: {"o_id": o_id},
+                success: function(res){
+                    console.log("취소변경 결과:", res);
+                }
+            });
         }
     });
 }
