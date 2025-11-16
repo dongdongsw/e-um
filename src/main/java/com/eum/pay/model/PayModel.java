@@ -45,14 +45,29 @@ public class PayModel {
 		vo.setO_total_price(Integer.parseInt(price));
 		vo.setO_u_id(o_u_id);
 
-		PayDAO.ordersInsert(vo);
+		int o_id = PayDAO.ordersInsert(vo);
 		try
 		{
 			response.setContentType("text/plain;charset=UTF-8");
-			String o_id = PayDAO.ordersInsert(vo);   
-
 			response.getWriter().print(o_id);
 		}catch(Exception ex){}
+	}
+	
+	//orders 결제대기 -> 결제취소
+	@RequestMapping("pay/orders_cancel.eum")
+	public void orders_cancel(HttpServletRequest request,
+	              HttpServletResponse response) {
+
+	    String o_id = request.getParameter("o_id");
+
+	    try {
+	        PayDAO.ordersCancel(o_id);
+
+	        response.setContentType("text/plain;charset=UTF-8");
+	        response.getWriter().print("OK");
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
 	}
 	
 	// payment table insert
