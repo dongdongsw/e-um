@@ -14,6 +14,7 @@
      <typeAlias type="com.eum.main.vo.Users_SellerVO" alias="Users_SellerVO"/>
      <typeAlias type="com.eum.main.vo.OrdersVO" alias="OrdersVO"/>
      <typeAlias type="com.eum.main.vo.PaymentVO" alias="PaymentVO"/>
+     <typeAlias type="com.eum.main.vo.RefundVO" alias="RefundVO"/>
 
    </typeAliases>
   <environments default="development">
