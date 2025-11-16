@@ -289,8 +289,8 @@ let loginUser = "<c:out value='${sessionScope.id}'/>";
    		  <br>
           <p style="font-size: 14px">${detail_vo.b_content}</p>
           <br><br>
-          <c:forEach var="img" items="${list}">
-            <img style="width:100%" src="${img}">
+          <c:forEach var="img" items="${image_vo}">
+            <img style="width:100%" src="${img.bivo.b_img_url}">
           </c:forEach>
         </div>
 		<!-- 셀러 정보 -->
