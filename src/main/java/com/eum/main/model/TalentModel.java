@@ -164,34 +164,39 @@ public class TalentModel {
 
         // TalentModel.java (keyword_ajax.eum 및 b_type_ajax.eum)
 
-           for (BoardVO vo : list) {
-               JSONObject obj = new JSONObject();
-               obj.put("b_id", vo.getB_id());
-               obj.put("b_title", vo.getB_title());
-               obj.put("b_thumbnail", vo.getB_thumbnail());
+           if (list == null || list.isEmpty()) {
+               root.put("list", new JSONArray()); // 빈 리스트를 보내도록 수정
+               root.put("curpage", curpage);
+               root.put("totalpage", totalpage);
+               root.put("startpage", startpage);
+               root.put("endpage", endpage);
+           } else {
+               // 데이터가 있을 경우 처리
+               for (BoardVO vo : list) {
+                   JSONObject obj = new JSONObject();
+                   obj.put("b_id", vo.getB_id());
+                   obj.put("b_title", vo.getB_title());
+                   obj.put("b_thumbnail", vo.getB_thumbnail());
 
-               // ★ null 체크 추가: ReviewVO (Rvo)가 null일 경우 0 또는 기본값 설정
-               obj.put("b_review_score", (vo.getRvo() != null) ? vo.getRvo().getB_review_score() : 0.0);
-               obj.put("review_count", (vo.getRvo() != null) ? vo.getRvo().getReview_count() : 0);
+                   // null 체크 추가
+                   obj.put("b_review_score", (vo.getRvo() != null) ? vo.getRvo().getB_review_score() : 0.0);
+                   obj.put("review_count", (vo.getRvo() != null) ? vo.getRvo().getReview_count() : 0);
+                   obj.put("b_op_price", (vo.getBovo() != null) ? vo.getBovo().getB_op_price() : 0);
+                   obj.put("u_s_com", (vo.getUsvo() != null) ? vo.getUsvo().getU_s_com() : "");
 
-               // ★ null 체크 추가: Board_OptionVO (Bovo)가 null일 경우 0 또는 기본값 설정
-               obj.put("b_op_price", (vo.getBovo() != null) ? vo.getBovo().getB_op_price() : 0);
+                   obj.put("b_type", vo.getB_type());
+                   obj.put("b_view_count", vo.getB_view_count());
+                   arr.add(obj);
+               }
 
-               // ★ null 체크 추가: Users_SellerVO (Usvo)가 null일 경우 빈 문자열 설정
-               obj.put("u_s_com", (vo.getUsvo() != null) ? vo.getUsvo().getU_s_com() : "");
-
-               obj.put("b_type", vo.getB_type());
-               obj.put("b_view_count", vo.getB_view_count());
-               arr.add(obj);
+               root.put("list", arr);
+               root.put("curpage", curpage);
+               root.put("totalpage", totalpage);
+               root.put("startpage", startpage);
+               root.put("endpage", endpage);
            }
 
-           // JSON 객체 형태로 전달
-           root.put("list", arr);
-           root.put("curpage", curpage);
-           root.put("totalpage", totalpage);
-           root.put("startpage", startpage);
-           root.put("endpage", endpage);
-
+           // JSON 데이터 응답
            response.setContentType("application/json;charset=UTF-8");
            PrintWriter out = response.getWriter();
            out.print(root.toJSONString());

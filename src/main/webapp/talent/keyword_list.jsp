@@ -324,7 +324,7 @@ $(document).ready(function() {
     <div class="popular-tags">
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=개발'">개발</button>
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=마케팅'">마케팅</button>
-        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=퍼스널트레이닝'">퍼스널트레이닝</button>
+        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=골프'">골프</button>
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button>
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=시공'">시공</button>
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button>
@@ -349,7 +349,7 @@ $(document).ready(function() {
         <ul class="list">
     <li class="list__item">
       <label class="label--radio">
-        <input type="radio" class="radio" name="fd" value="view" checked>
+        <input type="radio" class="radio" name="fd" value="view">
           조회수
       </label>
     </li>   
@@ -696,17 +696,17 @@ $(function (){
           <ul class="page">
             <c:if test="${startPage > 1}">
               <li class="page__btn active">
-                <a href="../talent/b_type_list.eum?page=${startPage-1}&b_type=${keyword}">&lt;</a>
+                <a href="../talent/keyword_list.eum?page=${startPage-1}&keyword=${keyword}">&lt;</a>
               </li>
             </c:if>
             <c:forEach var="i" begin="${startPage}" end="${endPage}">
               <li class="page__numbers ${i==curpage?'active':''}">
-                <a href="../talent/b_type_list.eum?page=${i}&b_type=${keyword}">${i}</a>
+                <a href="../talent/keyword_list.eum?page=${i}&keyword=${keyword}">${i}</a>
               </li>
             </c:forEach>
             <c:if test="${endPage < totalpage}">
               <li class="page__btn active">
-                <a href="../talent/b_type_list.eum?page=${endPage+1}&b_type=${keyword}">&gt;</a>
+                <a href="../talent/keyword_list.eum?page=${endPage+1}&keyword=${keyword}">&gt;</a>
               </li>
             </c:if>
           </ul>

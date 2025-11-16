@@ -163,7 +163,7 @@ function loadList(page, fd) {
     if (!b_type) b_type = "";
     if (!fd) fd = $("input[name=fd]:checked").val() || "view";
 
-    let ajaxUrl = "";
+    let ajaxUrl = "../main/main.jsp";
     if (keyword !== "") ajaxUrl = "../talent/keyword_ajax.eum";
     else if (b_type !== "") ajaxUrl = "../talent/b_type_ajax.eum";
     else return;
@@ -202,40 +202,39 @@ function loadList(page, fd) {
                 return;
             }
             list.forEach(vo => {
-                let reviewScore = vo.b_review_score ?? 0;
-                let reviewCount = vo.review_count ?? 0;
-                let price = vo.b_op_price ? Number(vo.b_op_price).toLocaleString() : 0;
-                let company = vo.u_s_com || "";
-                
+            	 let reviewScore = vo.rvo && vo.rvo.b_review_score ? vo.rvo.b_review_score : 0;
+            	    let reviewCount = vo.rvo && vo.rvo.review_count ? vo.rvo.review_count : 0;
+            	    let price = vo.bovo && vo.bovo.b_op_price ? Number(vo.bovo.b_op_price).toLocaleString() : 0;
+            	    let company = vo.usvo && vo.usvo.u_s_com ? vo.usvo.u_s_com : "";
+
                 let html = `
-                <div class="col-md-3">
-                  <div class="temporary__storage" style="border:none">
-                    <div class="list-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
-                      <div class="image">
-                        <img src="${vo.b_thumbnail}" width="200" height="160" style="border-radius: 15px;">
-                      </div>
-                      <div class="content">
-                        <div class="content__text">
-                          <span class="stream__title">${vo.b_title}</span>
-                          <span class="event" style="font-size: 10px">
-                             ⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0}
-                             (${vo.rvo.review_count != null ? vo.rvo.review_count : 0})
-                           </span>
-                           <span class="streamer__name" style="font-size: 12px">
-                             <fmt:formatNumber value="${empty vo.bovo.b_op_price ? 0 : vo.bovo.b_op_price}"
-                                               pattern="#,###"/>원
-                           </span>
-                           <span class="streamer__name" style="font-size: 10px">
-                             ${vo.usvo.u_s_com}
-                           </span>
+                    <div class="col-md-3">
+                      <div class="temporary__storage" style="border:none">
+                        <div class="list-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
+                          <div class="image">
+                            <img src="${vo.b_thumbnail}" width="200" height="160" style="border-radius: 15px;">
+                          </div>
+                          <div class="content">
+                            <div class="content__text">
+                              <span class="stream__title">${vo.b_title}</span>
+                              <span class="event" style="font-size: 10px">
+                                 ⭐️ ${reviewScore} (${reviewCount})
+                               </span>
+                               <span class="streamer__name" style="font-size: 12px">
+                                 ${price}원
+                               </span>
+                               <span class="streamer__name" style="font-size: 10px">
+                                 ${company}
+                               </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>`;
-                
+                    </div>`;
+                    
                 $(".card-area").append(html);
             });
+
 
             let cur = json.curpage;
             let total = json.totalpage;
@@ -259,6 +258,8 @@ function loadList(page, fd) {
                 p_html += `<li class="page__btn"><a href="#" class="page-link" data-page="${ep + 1}" data-fd="${fdParam}">&gt;</a></li>`;
 
             $("#pagination-area .page").html(p_html);
+            console.log("Start Page:", sp, "End Page:", ep, "Total Pages:", total);
+
         }
     });
 }
@@ -332,7 +333,7 @@ $(document).ready(function() {
     <div class="popular-tags" style="display: inline-flex; gap: 20px;">
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=개발'">개발</button>
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=마케팅'">마케팅</button>
-        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=퍼스널트레이닝'">퍼스널트레이닝</button>
+        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=골프'">골프</button>
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button>
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=시공'">시공</button>
         <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button>
@@ -358,7 +359,7 @@ $(document).ready(function() {
         <ul class="list">
     <li class="list__item">
       <label class="label--radio">
-        <input type="radio" class="radio" name="fd" value="view" checked>
+        <input type="radio" class="radio" name="fd" value="view">
           조회수
       </label>
     </li>   
