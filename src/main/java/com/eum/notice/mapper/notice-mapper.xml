@@ -3,11 +3,11 @@
 <mapper namespace="com.eum.notice.mapper.notice-mapper">
 <!-- 리스트 -->
 <select id="noticeListData" resultType="NoticeVO" parameterType="map">
-  SELECT n_id, u_id, n_title, n_createdAt, n_updatedAt
+  SELECT n_id, n_title, n_createdAt, n_updatedAt
   FROM (
-      SELECT n_id, u_id, n_title, n_createdAt, n_updatedAt, ROWNUM AS num
+      SELECT n_id, n_title, n_createdAt, n_updatedAt, ROWNUM AS num
       FROM (
-          SELECT n_id, u_id, n_title, n_createdAt, n_updatedAt
+          SELECT n_id, n_title, n_createdAt, n_updatedAt
           FROM notice_board
           ORDER BY TO_NUMBER(n_id) DESC
       )
@@ -18,7 +18,7 @@
 
 <!-- 디테일 -->
  <select id="noticeDetailData" resultType="NoticeVO" parameterType="string">
-  SELECT n_id,u_id,n_title,n_createdAt,n_updatedAt,n_content
+  SELECT n_id, ,n_title,n_createdAt,n_updatedAt,n_content
   FROM notice_board
   WHERE n_id=#{n_id}
  </select>
@@ -30,11 +30,10 @@
  <!-- 추가 -->
  <insert id="noticeInsert" parameterType="NoticeVO">
   INSERT INTO notice_board (
-    n_id, u_id, n_title, n_content, n_createdAt, n_updatedAt
+    n_id, n_title, n_content, n_createdAt, n_updatedAt
   )
   VALUES (
     NOTICE_BOARD_SEQ.NEXTVAL,
-    #{u_id, jdbcType=INTEGER},
     #{n_title, jdbcType=VARCHAR},
     #{n_content, jdbcType=VARCHAR},
     SYSDATE,

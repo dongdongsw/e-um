@@ -32,6 +32,7 @@ public class NoticeDAO {
 	
 	public static NoticeVO noticeDetailData(String n_id)
 	{
+		System.out.println("Fetching detail for n_id: " + n_id);
 		SqlSession session=ssf.openSession();
 		NoticeVO vo=session.selectOne("noticeDetailData",n_id);
 		session.close();

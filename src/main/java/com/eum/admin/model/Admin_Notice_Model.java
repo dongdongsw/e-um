@@ -33,11 +33,13 @@ public class Admin_Notice_Model {
 	    int totalpage = NoticeDAO.noticeTotalPage();
 
 	    String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	    String n_id=request.getParameter("n_id");
 
 	    final int BLOCK = 10;
 	    int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
 	    int endPage   = Math.min(startPage + BLOCK - 1, totalpage);
-
+	    
+	    request.setAttribute("n_id", n_id);
 	    request.setAttribute("list", list);
 	    request.setAttribute("curpage", curpage);
 	    request.setAttribute("totalpage", totalpage);
@@ -57,6 +59,14 @@ public class Admin_Notice_Model {
 		String n_id=request.getParameter("n_id");
 		NoticeVO vo=NoticeDAO.noticeDetailData(n_id);
 		
+		System.out.println("Received n_id: " + n_id);
+		if (vo == null) {
+	        System.out.println("No data found for n_id: " + n_id);  // vo가 null인 경우
+	    } else {
+	        System.out.println("Notice found: " + vo.getN_title());  // vo가 정상인 경우
+	    }
+		
+		request.setAttribute("n_id", n_id);
 		request.setAttribute("vo", vo);
 		request.setAttribute("admin_main_jsp","admin_notice_detail.jsp");
 		return "../admin/common/admin_main.jsp";
@@ -78,12 +88,10 @@ public class Admin_Notice_Model {
 			request.setCharacterEncoding("UTF-8");
 		} catch(Exception ex) {}
 		
-		/* String u_id=request.getParameter("u_id"); */
 		String n_title=request.getParameter("n_title");
 		String n_content=request.getParameter("n_content");
 		
 		NoticeVO vo=new NoticeVO();
-		vo.setU_id("eaujmrkw"); 
 		vo.setN_title(n_title);
 		vo.setN_content(n_content);
 		
@@ -99,7 +107,7 @@ public class Admin_Notice_Model {
 		String n_id=request.getParameter("n_id");
 		NoticeVO vo=NoticeDAO.noticeDetailData(n_id);
 		
-		
+		request.setAttribute("n_id", n_id);
 		request.setAttribute("vo", vo);
 		request.setAttribute("admin_main_jsp", "admin_notice_update.jsp");
 		return "../admin/common/admin_main.jsp";

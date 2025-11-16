@@ -78,12 +78,10 @@ public class NoticeModel {
 			request.setCharacterEncoding("UTF-8");
 		} catch(Exception ex) {}
 		
-		/* String u_id=request.getParameter("u_id"); */
 		String n_title=request.getParameter("n_title");
 		String n_content=request.getParameter("n_content");
 		
 		NoticeVO vo=new NoticeVO();
-		vo.setU_id("eaujmrkw"); 
 		vo.setN_title(n_title);
 		vo.setN_content(n_content);
 		
