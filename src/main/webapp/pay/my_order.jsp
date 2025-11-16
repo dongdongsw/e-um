@@ -87,6 +87,34 @@
     	  }, 400);
     });
   });
+	  function openModal() {
+      document.getElementById("cancelModal").style.display = "flex";
+  }
+
+  function closeModal() {
+      document.getElementById("cancelModal").style.display = "none";
+  }
+
+  function submitCancel() {
+      const reason = document.getElementById("selectedReason").value;
+      const msg = document.getElementById("cancelMsg").value;
+
+      if (msg.trim() === "") {
+          alert("메시지를 입력해주세요.");
+          return;
+      }
+
+      $.post("refundInsert.eum", {
+    	  imp_uid:"${orders_vo.pvo.imp_uid}",
+    	  pay_id:"${pay_id}",
+    	  o_u_id:"${o_u_id}",
+    	  rf_reason: rf_reason,
+    	  rf_amount: "${orders_vo.ovo.o_total_price}"
+      }, function(res){    
+          alert("거래 취소 요청이 완료되었습니다!");
+          closeModal();
+      });
+  }
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -148,7 +176,6 @@
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 25px;
-  border-bottom: 2px solid var(--text);
   padding-bottom: 8px;
 }
 
@@ -266,6 +293,181 @@
   margin-top: 12px;
   padding-top: 12px;
 }
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(2px);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* 모달 박스 */
+.modal-container {
+    width: 420px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 22px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    animation: fadeIn 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 모달 헤더 */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+}
+
+.modal-close {
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #555;
+}
+
+/* Step UI */
+.step-box {
+    background: #f6f7fb;
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.step-item {
+    text-align: center;
+    color: #c4c4c4;
+}
+
+.step-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #e5e6ef;
+    color: #a8a8b9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 5px;
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.step-item.active .step-circle {
+    background: #9a85ed;
+    color: #333;
+}
+
+.step-item.active .step-text {
+    color: #333;
+}
+
+/* Section */
+.modal-section {
+    margin-bottom: 8px !important;
+    padding-bottom: 0 !important;
+}
+
+.section-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.modal-textarea {
+    width: 100%;
+    height: 250px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 12px;
+    resize: none;
+    background: #ffffff;
+    font-size: 14px;
+}
+
+/* Notice */
+.notice-box {
+    font-size: 13px;
+    background: #fff7e6;
+    border: 1px solid #ffe8c2;
+    padding: 8px 10px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.required {
+    color: red;
+}
+
+/* Footer buttons */
+.modal-footer {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.btn-gray {
+    width: 48%;
+    padding: 8px;
+    border-radius: 10px;
+    background: #efefef;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn-yellow {
+    width: 48%;
+    padding: 8px;
+    border-radius: 10px;
+    background: #9a85ed;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+    color: #fff;
+}
+.btn-gray, .btn-yellow {
+    width: 50% !important;
+}
+.btn-yellow:hover {
+    opacity: 0.9;
+}
+.modal-footer button {
+    width: 50% !important;
+    display: inline-flex !important;
+    justify-content: center;
+    flex: 1 1 auto !important;
+}
+.modal-container hr {
+    display: none !important;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 
@@ -310,6 +512,7 @@
       <div class="label">주문일시</div>
       <div class="value"><fmt:formatDate value="${orders_vo.ovo.o_createdat}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
     </div>
+    <button onclick="openModal()" class="btn btn-light-sm" style="padding:4px 10px; font-size:12px;">취소 하기</button>
   </div>
 
   <!-- 상품 정보 -->
@@ -352,6 +555,28 @@
     </div>
   </div>
 
+</div>
+<div id="cancelModal" class="modal-overlay">
+  <div class="modal-container">
+    
+    <div class="modal-header">
+      <span class="modal-title">거래 취소 요청</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <!-- 메시지 -->
+    <div class="modal-section">
+      <div class="section-title">취소 요청 사유</div>
+      <textarea id="cancelMsg" class="modal-textarea" placeholder="메시지를 입력해주세요"></textarea>
+    </div>
+
+    <!-- 버튼들 -->
+    <div class="modal-footer">
+      <button class="btn-gray" onclick="closeModal()">이전</button>
+      <button class="btn-yellow" onclick="submitCancel()">요청</button>
+    </div>
+
+  </div>
 </div>
 </body>
 </html>
