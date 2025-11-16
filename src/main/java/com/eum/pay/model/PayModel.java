@@ -137,12 +137,10 @@ public class PayModel {
 	          HttpServletResponse response)
 	{
 	    String o_id = request.getParameter("o_id");
-	    String price = request.getParameter("price");
 	    
 	    PayDAO.updateOrderStatus(o_id);
 
 	    request.setAttribute("o_id", o_id);
-	    request.setAttribute("price", price);
 
 	    request.setAttribute("main_jsp", "../pay/payment_complete.jsp");
 	    return "../main/main.jsp";
