@@ -77,6 +77,7 @@ public class PayDAO {
 			ex.printStackTrace();
 		}
 	}
+	
 	// 결제대기 -> 결제완료 변경
 	public static void updateOrderStatus(String o_id) {
 	    try {
