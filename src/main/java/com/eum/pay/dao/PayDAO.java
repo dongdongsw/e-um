@@ -90,19 +90,24 @@ public class PayDAO {
 	}
 
 	// mypage payment
-	public static BoardVO mypagePayment(String o_id)
+	public static List<BoardVO> mypagePayment(Map map)
 	{
-		BoardVO vo=null;
-		try
-		{
-			SqlSession session=ssf.openSession();
-			vo=session.selectOne("mypagePayment",o_id);
-			session.close();
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-		return vo;
+		   List<BoardVO> list=null;
+		   SqlSession session=null;
+		   try
+		   {
+			   session=ssf.openSession();
+			   list=session.selectList("mypagePayment",map);
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+		   }
+		   finally
+		   {
+			   if(session!=null)
+				   session.close();
+		   }
+		   return list;
 	}
 
 	// 환불 인서트
