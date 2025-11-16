@@ -32,10 +32,10 @@
   </select>
   
   <!-- orders table insert -->
-  <insert id="ordersInsert" parameterType="OrdersVO"
-        useGeneratedKeys="true" 
-        keyProperty="o_id"
-        keyColumn="o_id">
+	<insert id="ordersInsert" parameterType="OrdersVO">
+    <selectKey keyProperty="o_id" resultType="int" order="BEFORE">
+        SELECT orders_id_seq.nextval FROM dual
+    </selectKey>
 
     INSERT INTO orders(
         o_id,
@@ -46,7 +46,7 @@
         o_updatedat,
         o_u_id
     ) VALUES(
-        orders_id_seq.nextval,
+        #{o_id},
         #{b_op_id},
         '결제대기',
         #{o_total_price},
@@ -54,7 +54,16 @@
         SYSDATE,
         #{o_u_id}
     )
-</insert>
+	</insert>
+
+  <!-- orders 결제대기 -> 결제취소 변경 -->
+  <update id="ordersCancel" parameterType="string">
+    UPDATE orders
+    SET o_status = '결제취소',
+        o_updatedat = SYSDATE
+    WHERE o_id = #{o_id}
+  </update>
+  
   <!-- payment table insert -->
   <insert id="paymentInsert" parameterType="paymentVO">
    INSERT INTO payment(pay_id,o_id,o_u_id,imp_uid,merchant_uid,amount,status,pay_method,
@@ -74,6 +83,7 @@
             #{o_method}
             )
   </insert>
+  
   <!-- 결제대기 -> 결제완료 변경 -->
     <update id="updateOrderStatus" parameterType="string">
     UPDATE orders
