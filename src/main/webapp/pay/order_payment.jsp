@@ -352,7 +352,7 @@ function requestPayment(o_id){
         pay_method: "card",
         merchant_uid: "ORD-"+new Date().getTime(),   // 주문번호
         name: "${orders_vo.bovo.b_op_title}",
-        amount: 1         // 숫자 타입
+        amount: ${orders_vo.bovo.b_op_price}         // 숫자 타입
     }, function (rsp) { // callback
     	if (rsp.success) {
     		let b_op_id = $(".pay-btn").data("id");
