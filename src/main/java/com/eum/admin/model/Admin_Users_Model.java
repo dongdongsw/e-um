@@ -21,6 +21,8 @@ public class Admin_Users_Model {
 	public String admin_users_list(HttpServletRequest request, HttpServletResponse response) {
 		
 		String page = request.getParameter("page");
+		String keyword = request.getParameter("keyword");
+		
 		if(page==null) page ="1";
 		Map map = new HashMap();
 		int rowSize=8;
@@ -30,17 +32,35 @@ public class Admin_Users_Model {
 		
 		map.put("start", start);
 		map.put("end", end);
-		List<UsersVO> users_list = Admin_UsersDAO.usersListData(map);
-		int totalpage = Admin_UsersDAO.usersListTotalData();
+		map.put("keyword", keyword);  
+		
+		List<UsersVO> users_list = null;
+		int totalpage = 0;
+		
+		
+		if (keyword == null || keyword.trim().equals("")) {
+	       
+	        users_list = Admin_UsersDAO.usersListData(map);
+	        totalpage = Admin_UsersDAO.usersListTotalData();
+	    } else {
+	     
+	        users_list = Admin_UsersDAO.usersListSearch(map);
+	        totalpage = Admin_UsersDAO.usersListSearchTotal(keyword);
+	    }
+	    
+	
 		final int BLOCK = 10;
 		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
 		int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
 		if(totalpage < endPage) endPage=totalpage;
+		
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("users_list", users_list);
+		
+		request.setAttribute("keyword", keyword);
 		
 		request.setAttribute("admin_main_jsp", "../users/admin_users_list.jsp");
 		return "../admin/common/admin_main.jsp";
@@ -98,6 +118,25 @@ public class Admin_Users_Model {
 		
 		return "redirect:../admin/admin_users_detail.eum?u_id="+u_id;
 	}	
+	
+	// 관리자 사용자 삭제
+	@RequestMapping("admin/admin_users_delete.eum")
+	public String admin_users_delete(HttpServletRequest request, HttpServletResponse response) {
+		
+		String u_id = request.getParameter("u_id");
+		String type = request.getParameter("type");
+		
+		Admin_UsersDAO.userDel(u_id);
+		
+		if("list".equals(type)) {
+			return "redirect:../admin/admin_users_list.eum";
+		}
+		if("detail".equals(type)) {
+			return "redirect:../admin/admin_users_detail.eum?u_id="+u_id;
+		}
+		// 기본값 (혹시 type이 null일 경우)
+	    return "redirect:../admin/admin_users_list.eum";
+	}
 	
 	
 }

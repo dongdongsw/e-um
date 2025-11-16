@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.seller.mapper.contents-mapper">
+
+	<!-- 컨텐츠 등록 -->
+  <insert id="contentsBoardInsert" parameterType="BoardVO">
+    INSERT INTO board 
+    	( 
+    	  b_id, u_s_id, b_type, b_title, b_content, 
+    	  b_thumbnail, b_createdat, b_prod_on_off, b_status
+    	)
+    VALUES
+    	(
+    	  TO_CHAR(b_id_seq.nextval), #{u_s_id}, #{b_type}, #{b_title}, 
+    	  #{b_content}, #{b_thumbnail}, SYSDATE, #{b_prod_on_off}, 'active'
+    	)
+  </insert>
+  <insert id="contentsImageInsert" parameterType="com.eum.main.vo.Board_ImageVO">
+    INSERT INTO board_image
+        (b_img_id, b_id, b_img_url)
+    VALUES
+    	(
+    	  img_id_seq.nextval, TO_CHAR(b_id_seq.currval), #{b_img_url}
+    	)
+  </insert>
+  <insert id="contentsOptionInsert" parameterType="Board_OptionVO">
+    INSERT INTO board_option
+        (b_op_id, b_id, b_op_title, b_op_price, b_op_detail)
+    VALUES
+     	(
+     	  op_id_seq.nextval, TO_CHAR(b_id_seq.currval), #{b_op_title}, #{b_op_price}, #{b_op_detail}
+     	)
+  </insert>
+  <select id="getB_id" resultType="string">
+    SELECT TO_CHAR(b_id_seq.currval)
+    FROM dual
+  </select>
+  
+  
+  <!-- 컨첸츠 수정 -->
+  <select id="contentsDetail" parameterType="string" resultType="BoardVO">
+    SELECT *
+    FROM board
+    WHERE b_id = #{b_id}
+  </select>
+  
+  <select id="contentsOptionList" parameterType="string" resultType="Board_OptionVO">
+    SELECT *
+    FROM board_option
+    WHERE b_id = #{b_id}
+    ORDER BY b_op_id
+  </select>
+
+  
+  <update id="contentsBoardUpdate" parameterType="BoardVO">
+    UPDATE board
+    SET 
+    	b_type = #{b_type},
+    	b_title = #{b_title},
+    	b_content = #{b_content},
+    	b_thumbnail = #{b_thumbnail},
+    	b_prod_on_off = #{b_prod_on_off}
+    WHERE 
+    	b_id = #{b_id}
+  </update>
+  <update id="contentsOptionUpdate" parameterType="Board_OptionVO">
+    UPDATE board_option
+    SET 
+    	b_op_title = #{b_op_title}, 
+    	b_op_price = #{b_op_price}, 
+    	b_op_detail = #{b_op_detail}
+    WHERE
+    	b_op_id = #{b_op_id}
+    	
+  </update>
+  
+  <!-- 컨텐츠 삭제 -->
+
+  <delete id="reviewImageDel" parameterType="string"> <!-- 리뷰 이미지 삭제 -->
+	DELETE FROM review_image
+	  WHERE b_review_id IN (
+	    SELECT b_review_id
+	    FROM review
+	    WHERE b_id = #{b_id}
+	  )
+  </delete>
+  
+  <delete id="reviewDel" parameterType="string"> <!-- 리뷰 삭제 -->
+    DELETE FROM review
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <select id="findUserReviewIds" resultType="string" parameterType="string"> <!-- 유저가 작성한 리뷰 조회 -->
+    SELECT b_review_id
+    FROM review
+    WHERE u_id = #{u_id}
+  </select>
+  
+  <delete id="deleteReviewImagesByReviewId" parameterType="string"> <!-- 리뷰 ID 기반 리뷰 이미지 삭제 -->
+    DELETE FROM review_image
+    WHERE b_review_id = #{b_review_id}
+  </delete>
+  
+  <delete id="deleteReviewsByUserId" parameterType="string"> <!-- 유저가 작성한 리뷰 삭제 -->
+    DELETE FROM review
+    WHERE u_id = #{u_id}
+  </delete>
+  
+  
+  <delete id="priceOpDel" parameterType="string"> <!-- 가격 옵션 삭제 -->
+    DELETE FROM board_option
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="favoriteDel" parameterType="string"> <!-- 상세이미지 삭제 -->
+    DELETE FROM favorite
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="likeDel" parameterType="string"> <!-- 상세이미지 삭제 -->
+    DELETE FROM board_like
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="detailImgDel" parameterType="string"> <!-- 상세이미지 삭제 -->
+    DELETE FROM board_image
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="boardDel" parameterType="string"> <!-- 컨텐츠 삭제 -->
+    DELETE FROM board
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="users_sellerDel"  parameterType="string">
+  	DELETE FROM users_seller
+  	WHERE u_id=#{u_id}
+  </delete>
+  
+  <delete id="userDel" parameterType="string">
+  	DELETE FROM users
+  	WHERE u_id=#{u_id}
+  </delete>
+  
+  
+  <!-- 유저 삭제를 위한 u_s_id 조회 -->
+  <select id="findUserSellerId" resultType="int" parameterType="string">
+    SELECT u_s_id
+    FROM users_seller
+    WHERE u_id = #{u_id}
+  </select>
+	
+  <!-- 유저 삭제를 위한 b_id 조회 -->
+  <select id="findSellerBoardIds" resultType="string"  parameterType="int">
+    SELECT b_id
+    FROM board
+    WHERE u_s_id = #{u_s_id}
+   </select>
+  
+  
+</mapper>

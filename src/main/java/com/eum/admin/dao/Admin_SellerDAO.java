@@ -22,9 +22,9 @@ public class Admin_SellerDAO {
 	}
 	
 	// 셀러 리스트 조회
-	public static List<UsersVO> sellerListData(Map map){
+	public static List<Users_SellerVO> sellerListData(Map map){
 		
-		List<UsersVO> list = null;
+		List<Users_SellerVO> list = null;
 		try {
 			SqlSession session = ssf.openSession();
 			
@@ -49,6 +49,7 @@ public class Admin_SellerDAO {
 		}
 		return total;
 	}
+	
 	// 셀러 디테일 조회
 	public static Users_SellerVO sellerDetailData(int u_s_id) {
 		Users_SellerVO vo = null;
@@ -119,4 +120,35 @@ public class Admin_SellerDAO {
 	// 셀러 삭제
 			
 	// 셀러 수정
+	
+	// 셀러 검색 + 페이지 목록
+	public static List<Users_SellerVO> sellerSearchListData(Map map){
+		
+		List<Users_SellerVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			
+			list = session.selectList("sellerSearchListData",map);
+			session.close();
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+		
+	// 셀러 검색 총 페이지(페이징 용)
+	public static int sellerSearchTotalPage(String keyword) {
+		int total = 0;
+		try {
+			SqlSession session = ssf.openSession();
+			total = session.selectOne("sellerSearchTotalPage",keyword);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return total;
+	}
+	
 }

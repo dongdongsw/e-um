@@ -57,7 +57,6 @@
                         </div>
                         <div class="col ml-auto">
                           <div class="dropdown float-right">
-                            <button class="btn btn-primary float-right ml-3" type="button">Add more +</button>
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
                             <div class="dropdown-menu" aria-labelledby="actionMenuButton">
                               <a class="dropdown-item" href="#">Export</a>
