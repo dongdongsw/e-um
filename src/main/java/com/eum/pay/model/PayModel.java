@@ -31,6 +31,7 @@ public class PayModel {
 		request.setAttribute("main_jsp", "../pay/order_payment.jsp");
 		return "../main/main.jsp";
    }
+	
 	// orders table insert
 	@RequestMapping("pay/orders_insert.eum")
 	public void orders_insert(HttpServletRequest request,
@@ -124,6 +125,8 @@ public class PayModel {
 	        ex.printStackTrace();
 	    }
 	}
+	
+	// 결제 완료 페이지
 	@RequestMapping("pay/payment_complete.eum")
 	public String pay_complete(HttpServletRequest request,
 	          HttpServletResponse response)
@@ -139,17 +142,43 @@ public class PayModel {
 	    request.setAttribute("main_jsp", "../pay/payment_complete.jsp");
 	    return "../main/main.jsp";
 	}
+	
+	// 결제 내역 페이지
 	@RequestMapping("pay/mypage_payment.eum")
 	public String mypage_payment(HttpServletRequest request,
-			HttpServletResponse response)
-	{
-		String o_id=request.getParameter("o_id");
-		
-		BoardVO orders_vo=PayDAO.mypagePayment(o_id);
-		
-		request.setAttribute("orders_vo", orders_vo);
-		
-		request.setAttribute("main_jsp", "../pay/my_order.jsp");
-		return "../main/main.jsp";
-	}
+	         HttpServletResponse response)
+	   {
+	      String page=request.getParameter("page");
+	      if(page==null)
+	         page="1";
+	      int curpage=Integer.parseInt(page);
+	      Map map=new HashMap();
+	      int rowSize=12;
+	      int start=(rowSize*curpage)-(rowSize-1);
+	      int end=rowSize*curpage;
+	      
+	      map.put("start", start);
+	      map.put("end", end);
+	      
+	      List<BoardVO> payment_list=PayDAO.mypagePayment(map);
+	      int totalpage=TalentDAO.talentTotalPage();
+	      
+	      final int BLOCK=10;
+	      int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+	      
+	      int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	      
+	      if(endPage>totalpage)
+	      {
+	    	  endPage=totalpage;
+	      }
+	      request.setAttribute("payment_list", payment_list);
+	      request.setAttribute("curpage", curpage);
+	      request.setAttribute("totalpage", totalpage);
+	      request.setAttribute("startPage", startPage);
+	      request.setAttribute("endPage", endPage);
+	      
+	      request.setAttribute("main_jsp", "../pay/my_order.jsp");
+	      return "../main/main.jsp";
+	   }
 }
