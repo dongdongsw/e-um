@@ -203,7 +203,7 @@ html {
 				        수정
 				    </button>
 				
-				    <button type="button" class="btn delete">삭제</button>
+				    <a href="../seller/delete_contents_ok.eum?b_id=${vo.b_id }" class="btn delete">삭제</a>
 				</div>
 			  </div>
 			</c:forEach>

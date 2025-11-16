@@ -97,7 +97,7 @@ public class ContentsDAO {
     // 옵션 목록 (있는 만큼)
     public static List<Board_OptionVO> contentsOptionList(String b_id) {
     	
-        List<Board_OptionVO>list= null;
+        List<Board_OptionVO>list=null;
         SqlSession session=null;
         
         try {
@@ -116,7 +116,7 @@ public class ContentsDAO {
 	// 컨텐츠 수정
 	public static void contentsUpdate(BoardVO bvo, List<Board_OptionVO> opList) {
         try {
-            SqlSession session = ssf.openSession();
+            SqlSession session=ssf.openSession();
 
             session.update("contentsBoardUpdate", bvo);
 
@@ -131,6 +131,59 @@ public class ContentsDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
+	}
+
+	
+/*
+ *  <!-- 컨텐츠 삭제 -->
+
+  <delete id="reviewImageDel" parameterType="int"> <!-- 리뷰 이미지 삭제 -->
+	DELETE FROM review_image
+	  WHERE b_review_id IN (
+	    SELECT b_review_id
+	    FROM review
+	    WHERE b_id = #{b_id}
+	  )
+  </delete>
+  
+  <delete id="reviewDel" parameterType="string"> <!-- 리뷰 삭제 -->
+    DELETE FROM review
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="priceOpDel" parameterType="string"> <!-- 가격 옵션 삭제 -->
+    DELETE FROM board_option
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="detailImgDel" parameterType="string"> <!-- 상세이미지 삭제 -->
+    DELETE FROM board_image
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="boardDel" parameterType="string"> <!-- 컨텐츠 삭제 -->
+    DELETE FROM board
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+ */
+	// 컨텐츠 삭제
+	public static void contentsDelete(String b_id) {
+		try {
+			SqlSession session=ssf.openSession();
+			
+			session.delete("reviewImageDel",b_id);
+			session.delete("reviewDel",b_id);
+			session.delete("priceOpDel",b_id);
+			session.delete("detailImgDel",b_id);
+			session.delete("boardDel",b_id);
+			
+			session.commit();
+			session.close();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 		
 }
