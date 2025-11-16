@@ -40,8 +40,17 @@
                           <form class="form-inline">
                             <div class="form-row">
                               <div class="form-group col-auto">
-                                <label for="search" class="sr-only">Search</label>
-                                <input type="text" class="form-control" id="search" value="" placeholder="Search">
+                                <form method="get" action="admin_users_list.eum" class="form-inline">
+								  <div class="form-row">
+								    <div class="form-group col-auto">
+								      <label for="search" class="sr-only">Search</label>
+								      <input type="text" class="form-control" id="search"
+								             name="keyword"  
+								             value="${keyword}"
+								             placeholder="Search">
+								    </div>
+								  </div>
+								</form>
                               </div>
                               <div class="form-group col-auto ml-3">
                                 <label class="my-1 mr-2 sr-only" for="inlineFormCustomSelectPref">Status</label>
@@ -169,17 +178,17 @@
                         <ul class="pagination justify-content-end mb-0">
                         <c:if test="${startPage > 1 }">
                           <li class="page-item">
-                          	<a class="page-link" href="../admin/admin_sellers_list.eum?page=${startPage-1 }">&lt;</a>
+                          	<a class="page-link" href="../admin/admin_sellers_list.eum?page=${startPage-1 }&keyword=${keyword}">&lt;</a>
                           </li>
                         </c:if>
                         <c:forEach var="i" begin="${startPage }" end="${endPage }">
                           <li class="page-item ${i==curpage?'active':'' }" >
-                          	<a class="page-link" href="../admin/admin_sellers_list.eum?page=${i }">${i }</a>
+                          	<a class="page-link" href="../admin/admin_sellers_list.eum?page=${i }&keyword=${keyword}">${i }</a>
                           </li>
                         </c:forEach>  
                         <c:if test="${endPage < totalpage }">
                           <li class="page-item">
-                          <a class="page-link" href="../admin/admin_sellers_list.eum?page=${endPage+1 }">&gt;</a>
+                          <a class="page-link" href="../admin/admin_sellers_list.eum?page=${endPage+1 }&keyword=${keyword}">&gt;</a>
                           </li>
                         </c:if>
                         </ul>

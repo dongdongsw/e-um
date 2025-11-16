@@ -30,6 +30,7 @@ public class Admin_Seller_Model {
 	public String admin_sellers_list(HttpServletRequest request, HttpServletResponse response) {
 							
 		String page = request.getParameter("page");
+		String keyword = request.getParameter("keyword");
 		if(page==null) page ="1";
 		
 		Map map = new HashMap();
@@ -42,8 +43,20 @@ public class Admin_Seller_Model {
 		map.put("start", (start-1));
 		map.put("rowSize", rowSize);
 		
-		List<UsersVO> sellers_list = Admin_SellerDAO.sellerListData(map);
-		int totalpage = Admin_SellerDAO.sellerTotalData();
+		List<Users_SellerVO> sellers_list = null;
+		int totalpage = 0;
+		
+		if(keyword == null || keyword.trim().equals("")) {
+			sellers_list = Admin_SellerDAO.sellerListData(map);
+			totalpage = Admin_SellerDAO.sellerTotalData();
+		}
+		else {
+			map.put("keyword", keyword);  
+			sellers_list = Admin_SellerDAO.sellerSearchListData(map);
+			totalpage = Admin_SellerDAO.sellerSearchTotalPage(keyword);
+		}
+		
+		
 		
 		final int BLOCK = 10;
 		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
@@ -55,6 +68,8 @@ public class Admin_Seller_Model {
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("sellers_list", sellers_list);
+		
+		request.setAttribute("keyword", keyword);
 		
 		request.setAttribute("admin_main_jsp", "../sellers/admin_sellers_list.jsp");
 		return "../admin/common/admin_main.jsp";

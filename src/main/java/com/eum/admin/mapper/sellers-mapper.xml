@@ -103,5 +103,35 @@
 	</select>
 	
 
+	<!-- <셀러> 리스트 검색 -->
+	<select id="sellerSearchListData" resultMap="SellerWithUserMap" parameterType="hashmap">
+	  SELECT 
+	    us.u_s_id, us.u_id, us.u_s_carrer, us.u_s_zone, us.u_s_com, 
+	    us.u_createat, us.u_s_profileimg_url, us.u_s_biz_no, 
+	    u.u_status, u.u_email, u.u_phone
+	  FROM users_seller us
+	  LEFT JOIN users u ON us.u_id = u.u_id
+	  WHERE ( 
+	  		TO_CHAR(us.u_s_id) LIKE '%'||#{keyword}||'%'
+			OR us.u_s_com LIKE '%'||#{keyword}||'%'
+			OR us.u_s_biz_no LIKE '%'||#{keyword}||'%'
+			OR u.u_email LIKE '%'||#{keyword}||'%'
+	  )
+	  ORDER BY us.u_s_id DESC
+	  OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+	
+	<!-- <셀러> 리스트 검색 페이징 조회 -->
+	<select id="sellerSearchTotalPage" resultType="int" parameterType="string">
+		SELECT CEIL(COUNT(*)/10.0)
+		FROM users_seller us
+		LEFT JOIN users u ON u.u_id = us.u_id
+		WHERE (
+			TO_CHAR(us.u_s_id) LIKE '%'||#{keyword}||'%'
+			OR us.u_s_com LIKE '%'||#{keyword}||'%'
+			OR us.u_s_biz_no LIKE '%'||#{keyword}||'%'
+			OR u.u_email LIKE '%'||#{keyword}||'%'
+		)
+	</select>
 	
 </mapper>
