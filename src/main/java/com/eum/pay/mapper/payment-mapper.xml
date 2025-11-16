@@ -94,7 +94,9 @@
     
    <!-- mypage payment -->
    <select id="mypagePayment" resultMap="optionMap" parameterType="string">
-    SELECT
+    SELECT * FROM ( SELECT ROWNUM AS num, A.*
+	FROM ( SELECT
+    o.o_u_id AS o_u_id,
 	o.o_id AS o_id,
 	o.b_op_id AS b_op_id,
 	o.o_createdat AS o_createdat,
@@ -107,6 +109,9 @@
 	JOIN board_option bo ON o.b_op_id = bo.b_op_id
 	JOIN board b ON b.b_id = bo.b_id
 	JOIN users_seller us ON b.u_s_id = us.u_s_id
-	WHERE o.o_id = #{o_id}
+    WHERE o.o_u_id = #{o_u_id}
+    ORDER BY o_id DESC
+	) A )
+	WHERE num BETWEEN #{start} AND #{end}
    </select>
 </mapper>
