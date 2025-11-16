@@ -60,8 +60,9 @@ public class PayDAO {
 	  </insert>
 	 */
 	// orders table insert
-	public static String ordersInsert(OrdersVO vo)
-	{	String o_id = null;
+	public static int ordersInsert(OrdersVO vo)
+	{	
+		int o_id = 0;
 		try
 		{
 			SqlSession session=ssf.openSession();
@@ -75,6 +76,18 @@ public class PayDAO {
 			ex.printStackTrace();
 		}
 		return o_id;
+	}
+	
+	// orders 결제대기 -> 결제취소
+	public static void ordersCancel(String o_id) {
+	    try {
+	        SqlSession session = ssf.openSession();
+	        session.update("ordersCancel", o_id);
+	        session.commit();
+	        session.close();
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
 	}
 	/*
 	 *   <insert id="paymentInsert" parameterType="paymentVO">
