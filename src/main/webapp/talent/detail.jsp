@@ -212,6 +212,38 @@ let loginUser = "<c:out value='${sessionScope.id}'/>";
   
   
 </script>
+<script>
+$(function(){
+  $('.rw-star').click(function(){
+    let score = $(this).data('score');  
+    $('#score').val(score);        
+
+    $('.rw-star').css('color', '#ccc');
+
+    for (let i = 1; i <= score; i++) {
+      $('.rw-star[data-score="'+i+'"]').css('color', '#facc15');
+    }
+  });
+});
+
+$(function() {
+  $(".stars").each(function() {
+    const score = parseFloat($(this).data("score")) || 0;
+    const fullStars = Math.floor(score);
+    const stars = $(this).find(".star");
+
+    stars.each(function(i) {
+      const $path = $(this).find("path");
+
+      if (i < fullStars) {
+        $path.css("fill", "var(--accent)");  // 노란 별
+      } else {
+        $path.css("fill", "#ddd");           // 회색 별
+      }
+    });
+  });
+});
+</script>
 <style type="text/css">
 
 </style>
