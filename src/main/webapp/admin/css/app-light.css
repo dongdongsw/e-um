@@ -7560,9 +7560,10 @@ button:focus {
 .vertical.hover .main-content,
 .narrow.open .main-content {
   margin-left: 16rem;
-  overflow: hidden;
-  padding: 1.2rem;
-  min-height: 100vh;
+  /* overflow: hidden; */
+  /* padding: 1.2rem; */
+  padding: 0 1.2rem 0 1.2rem;
+  /* min-height: 100vh; */
   transition: margin-left .3s ease-in-out,left .3s ease-in-out,margin-right .3s ease-in-out,right .3s ease-in-out; }
 
 .vertical.narrow.hover .sidebar-left {

@@ -18,4 +18,9 @@ public class ReviewVO {
 	private String b_review_id,b_id,u_id,b_review_content,b_review_createdat,group_id;
 	private Double b_review_score;
 	private List<String> imgList;
+	
+	// 관리자 동현 11월 16일 병합 유저쪽 리뷰 이미지 리스트 임시 
+	private List<Review_ImageVO> imageList;
+	private UsersVO uvo;
+	private BoardVO bvo;
 }

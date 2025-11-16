@@ -3,6 +3,7 @@
 
 <body class="vertical  light  ">
     <div class="wrapper">
+      <!-- 상단 헤더 -->
       <nav class="topnav navbar navbar-light">
         <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
           <i class="fe fe-menu navbar-toggler-icon"></i>
@@ -14,11 +15,6 @@
           <li class="nav-item">
             <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="light">
               <i class="fe fe-sun fe-16"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-shortcut">
-              <span class="fe fe-grid fe-16"></span>
             </a>
           </li>
           <li class="nav-item nav-notif">
@@ -61,7 +57,7 @@
             </a>
           </div>
           <li class="nav-item w-100">
-              <a class="nav-link" href="admin_users_list.eum">
+              <a class="nav-link" href="admin_dashboard.eum">
                 <i class="fe fe-home fe-16"></i>
                 <span class="ml-3 item-text">DASHBOARD</span>
               </a>
@@ -75,72 +71,39 @@
             
             <!-- 관리자 사용자 리스트 -->
             <li class="nav-item w-100">
-              <a class="nav-link" href="admin_users_list.eum">
+              <a class="nav-link" href="../admin/admin_users_list.eum">
                 <i class="fe fe-users fe-16"></i>
                 <span class="ml-3 item-text">USERS</span>
               </a>
             </li>
             
-            <!-- 관리자 사용자 상세 페이지(임시) -->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="admin_users_detail.eum">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">사용자 상세(임시)</span>
-              </a>
-            </li>
-            
-            <!-- 관리자 사용자 상세 페이지 수정(임시) -->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="admin_users_modify.eum">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">사용자 상세 수정(임시)</span>
-              </a>
-            </li>
-            
-            
             <!-- 관리자 셀러 리스트 -->
             <li class="nav-item w-100">
-              <a class="nav-link" href="admin_sellers_list.eum">
+              <a class="nav-link" href="../admin/admin_sellers_list.eum">
                 <i class="fe fe-users fe-16"></i>
                 <span class="ml-3 item-text">SELLERS</span>
               </a>
             </li>
             
-            <!-- 관리자 셀러 상세(임시) -->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="admin_sellers_detail.eum">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">셀러 상세(임시)</span>
-              </a>
-            </li>
-            
-            <!-- 관리자 셀러 상세 수정(임시) -->
-            <li class="nav-item w-100">
-              <a class="nav-link" href="admin_sellers_modify.eum">
-                <i class="fe fe-users fe-16"></i>
-                <span class="ml-3 item-text">셀러 상세 수정(임시)</span>
-              </a>
-            </li>
-            
             <!-- 관리자 컨텐츠 리스트 -->
             <li class="nav-item w-100">
-              <a class="nav-link" href="admin_contents_list.eum">
+              <a class="nav-link" href="../admin/admin_contents_list.eum">
                 <i class="fe fe-shopping-bag fe-16"></i>
                 <span class="ml-3 item-text">CONTENTS</span>
               </a>
             </li>
             
-             <!-- 관리자 컨텐츠 상세 (임시) -->
+            <!-- 리뷰 리스트 -->
             <li class="nav-item w-100">
-              <a class="nav-link" href="admin_contents_detail.eum">
-                <i class="fe fe-shopping-bag fe-16"></i>
-                <span class="ml-3 item-text">컨텐츠 상세(임시)</span>
+              <a class="nav-link" href="../admin/admin_review_list.eum">
+                <i class="fe fe-edit fe-16"></i>
+                <span class="ml-3 item-text">REVIEW</span>
               </a>
             </li>
             
             <!-- 관리자 주문 리스트 -->
             <li class="nav-item w-100">
-              <a class="nav-link" href="admin_orders_list.eum">
+              <a class="nav-link" href="../admin/admin_orders_list.eum">
                 <i class="fe fe-clipboard fe-16"></i>
                 <span class="ml-3 item-text">ORDERS</span>
               </a>
@@ -153,7 +116,7 @@
           <ul class="navbar-nav flex-fill w-100 mb-2">
             <!-- 관리자 공지사항 -->
             <li class="nav-item w-100">
-              <a class="nav-link" href="admin_notice_list.eum">
+              <a class="nav-link" href="../admin/admin_notice_list.eum">
                 <i class="fe fe-book fe-16"></i>
                 <span class="ml-3 item-text">공지사항</span>
               </a>
@@ -161,7 +124,7 @@
             
             <!-- 관리자 채팅 -->
             <li class="nav-item w-100">
-              <a class="nav-link" href="admin_chat.eum">
+              <a class="nav-link" href="../admin/admin_chat.eum">
                 <i class="fe fe-message-square fe-16"></i>
                 <span class="ml-3 item-text">채팅</span>
               </a>
@@ -169,7 +132,7 @@
             
             <!-- 사이트 배너 관리 -->
             <li class="nav-item w-100">
-              <a class="nav-link" href="admin_file_manager.eum">
+              <a class="nav-link" href="../admin/admin_file_manager.eum">
                 <i class="fe fe-folder fe-16"></i>
                 <span class="ml-3 item-text">File Manager</span>
               </a>
@@ -194,7 +157,7 @@
           
           <!-- 홈으로 돌아가는 버튼 -->
           <div class="btn-box w-100 mt-4 mb-1">
-            <a href="../main/main.eum" target="_blank" class="btn mb-2 btn-primary btn-lg btn-block">
+            <a href="../main/main.eum" target="_blank" class="btn mb-2 btn-lavender btn-lg btn-block">
               <i class="fe fe-home fe-12 mx-2"></i><span class="small">홈으로</span>
             </a>
           </div>

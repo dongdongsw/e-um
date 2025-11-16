@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.admin.mapper.seller-mapper">
+	<resultMap id="SellerWithUserMap" type="Users_SellerVO">
+	  <!-- users_seller 기본 컬럼 -->
+	  <id property="u_s_id" column="u_s_id"/>
+	  <result property="u_id" column="u_id"/>
+	  <result property="u_s_carrer" column="u_s_carrer"/>
+	  <result property="u_s_zone" column="u_s_zone"/>
+	  <result property="u_s_com" column="u_s_com"/>
+	  <result property="u_createat" column="u_createat"/>
+	  <result property="u_s_profileimg_url" column="u_s_profileimg_url"/>
+	  <result property="u_s_biz_no" column="u_s_biz_no"/>
+	
+	  <!-- nested resultMap : users 테이블 매핑 -->
+	  <association property="user" javaType="UsersVO">
+	    <result property="u_status" column="u_status"/>
+	    <result property="u_phone" column="u_phone"/>
+	    <result property="u_email" column="u_email"/>
+	  </association>
+	</resultMap>
+  
+	<!-- <셀러> 리스트 -->
+	<select id="sellerListData" resultMap="SellerWithUserMap" parameterType="hashmap">
+	  SELECT 
+	    us.u_s_id, us.u_id, us.u_s_carrer, us.u_s_zone, us.u_s_com, 
+	    us.u_createat, us.u_s_profileimg_url, us.u_s_biz_no, 
+	    u.u_status, u.u_email, u.u_phone
+	  FROM users_seller us
+	  LEFT JOIN users u ON us.u_id = u.u_id
+	  ORDER BY us.u_s_id DESC
+	  OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+	<!-- <셀러> 페이징 -->
+	<select id="sellerTotalData" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM users_seller
+	</select>
+	
+	<!-- <셀러> 디테일 -->
+	<select id="sellerDetailData" resultType="Users_SellerVO" parameterType="int">
+		SELECT u_s_id, u_id, u_s_carrer, u_s_zone, u_s_biz_no,
+			u_s_com, u_s_profileimg_url, u_createat, u_updateat
+		FROM users_seller
+		WHERE u_s_id = #{u_s_id}
+	</select>
+	
+	<!-- 셀러 컨텐츠 리스트 -->
+	<select id="sellerContentsListData" resultType="BoardVO" parameterType="hashmap">
+	    SELECT b.b_id, b.u_s_id, b.b_title, b.b_type, b.b_prod_on_off, b.b_createdat, b_status
+	    FROM board b
+	    WHERE b.u_s_id = #{u_s_id}
+	    ORDER BY b.b_id DESC
+	    OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+
+	<!-- <셀러> 컨텐츠 리스트 페이징 -->
+	<select id="sellerContentsTotalData" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM board
+		WHERE u_s_id = #{u_s_id}
+	</select>
+
+
+	<!-- <셀러> 리뷰 리스트 조회 -->
+	<resultMap id="reviewMap" type="ReviewVO">
+		<result property="u_s_id" column="u_s_id"/>
+		<result property="b_review_id" column="b_review_id"/>
+		<result property="b_review_createdat" column="b_review_createdat"/>
+		<result property="b_review_content" column="b_review_content"/>
+		<result property="b_review_score" column="b_review_score"/>
+		
+		<!-- review 이미지 매핑 -->
+		<collection property="imageList"
+					ofType="com.eum.main.vo.Review_ImageVO"
+					column="b_review_id"
+					select="sellerReviewImages"/>
+								
+	</resultMap>
+
+	<select id="sellerReviewListData" resultMap="reviewMap" parameterType="hashmap">
+		SELECT u_s_id, b_review_id, b_review_createdat,
+			b_review_content, b_review_score
+		FROM review r
+		WHERE u_s_id = #{u_s_id}
+		ORDER BY b_review_id DESC
+		OFFSET #{start_r} ROWS FETCH NEXT #{rowSize_r} ROWS ONLY
+	</select>
+	
+	<!-- <셀러> 리뷰 이미지 조회 -->
+	<select id="sellerReviewImages" resultType="Review_ImageVO" parameterType="string">
+	    SELECT r_image_id, b_review_id, r_image_url
+		FROM review_image
+		WHERE b_review_id = #{value}
+	</select>
+	
+	
+	<!-- <셀러> 리뷰 리스트 페이징 -->
+	<select id="sellerReviewTotalData" resultType="int" parameterType="int">
+		SELECT CEIL(COUNT(*)/8.0)
+		FROM review
+		WHERE u_s_id = #{u_s_id}
+	</select>
+	
+
+	
+</mapper>

@@ -1,19 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-	<main role="main" class="main-content">
+
+<main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12">
-              <h2 class="h3 mb-3 page-title">공지사항</h2>
+              <h2 class="h3 mb-3 page-title">Orders</h2>
               <div class="row mb-4 items-align-center">
+                <div class="col-md">
+                  <ul class="nav nav-pills justify-content-start">
+                    <li class="nav-item">
+                      <a class="nav-link active bg-transparent pr-2 pl-0 text-primary" href="#">All <span class="badge badge-pill bg-primary text-white ml-2">164</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-muted px-2" href="#">Pending <span class="badge badge-pill bg-white border text-muted ml-2">64</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-muted px-2" href="#">Processing <span class="badge badge-pill bg-white border text-muted ml-2">48</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-muted px-2" href="#">Completed <span class="badge badge-pill bg-white border text-muted ml-2">52</span></a>
+                    </li>
+                  </ul>
+                </div>
                 <div class="col-md-auto ml-auto text-right">
+                  <span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
+                    <a href="#" class="text-muted"><i class="fe fe-x mx-1"></i></a>
+                    <span class="text-muted">Status : <strong>Pending</strong></span>
+                  </span>
+                  <span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
+                    <a href="#" class="text-muted"><i class="fe fe-x mx-1"></i></a>
+                    <span class="text-muted">April 14, 2020 - May 13, 2020</span>
+                  </span>
                   <button type="button" class="btn" data-toggle="modal" data-target=".modal-slide"><span class="fe fe-filter fe-16 text-muted"></span></button>
                   <button type="button" class="btn"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
                 </div>
               </div>
-              
-              <!-- 필터 -->
+              <!-- Slide Modal -->
               <div class="modal fade modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -31,9 +54,29 @@
                           <select class="form-control select2-multi" id="multi-select2">
                             <optgroup label="Mountain Time Zone">
                               <option value="AZ">Arizona</option>
+                              <option value="CO">Colorado</option>
+                              <option value="ID">Idaho</option>
+                              <option value="MT">Montana</option>
+                              <option value="NE">Nebraska</option>
+                              <option value="NM">New Mexico</option>
+                              <option value="ND">North Dakota</option>
+                              <option value="UT">Utah</option>
                               <option value="WY">Wyoming</option>
                             </optgroup>
                             <optgroup label="Central Time Zone">
+                              <option value="AL">Alabama</option>
+                              <option value="AR">Arkansas</option>
+                              <option value="IL">Illinois</option>
+                              <option value="IA">Iowa</option>
+                              <option value="KS">Kansas</option>
+                              <option value="KY">Kentucky</option>
+                              <option value="LA">Louisiana</option>
+                              <option value="MN">Minnesota</option>
+                              <option value="MS">Mississippi</option>
+                              <option value="MO">Missouri</option>
+                              <option value="OK">Oklahoma</option>
+                              <option value="SD">South Dakota</option>
+                              <option value="TX">Texas</option>
                               <option value="TN">Tennessee</option>
                               <option value="WI">Wisconsin</option>
                             </optgroup>
@@ -88,8 +131,7 @@
                 </div>
               </div>
               
-              
-              <!-- 테이블 컬럼 -->
+              <!-- Table -->
               <table class="table border table-hover bg-white">
                 <thead>
                   <tr role="row">
@@ -111,36 +153,44 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- 테이블 가데이터 -->
-                  <c:forEach var="i" begin="1" end="12">
-	                  <tr>
-	                    <td class="align-center">
-	                      <div class="custom-control custom-checkbox">
-	                        <input type="checkbox" class="custom-control-input">
-	                        <label class="custom-control-label"></label>
-	                      </div>
-	                    </td>
-	                    <td>1331</td>
-	                    <td>2020-12-26 01:32:21</td>
-	                    <td>Kasimir Lindsey</td>
-	                    <td>(697) 486-2101</td>
-	                    <td>996-3523 Et Ave</td>
-	                    <td>$3.64</td>
-	                    <td> Paypal</td>
-	                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-	                    <td>
-	                      <div class="dropdown">
-	                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                          <span class="text-muted sr-only">Action</span>
-	                        </button>
-	                        <div class="dropdown-menu dropdown-menu-right">
-	                          <a class="dropdown-item" href="#">Edit</a>
-	                          <a class="dropdown-item" href="#">Remove</a>
-	                          <a class="dropdown-item" href="#">Assign</a>
-	                        </div>
-	                      </div>
-	                    </td>
-	                  </tr>
+                  <c:forEach begin="1" end="12">
+                  <tr>
+                    <td class="align-center">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input">
+                        <label class="custom-control-label"></label>
+                      </div>
+                    </td>
+                    <td>1331</td>
+                    <td>2020-12-26 01:32:21</td>
+                    <td>Kasimir Lindsey</td>
+                    <td>(697) 486-2101</td>
+                    <td>996-3523 Et Ave</td>
+                    <td>$3.64</td>
+                    <td> Paypal</td>
+                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-primary mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-warning mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-danger mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-secondary mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-info mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-light mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-dark mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-white mr-2"></span></td>
+                    <td><span class="dot dot-lg bg-transparent mr-2"></span></td>
+                    <td>
+                      <div class="dropdown">
+                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="text-muted sr-only">Action</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="#">Edit</a>
+                          <a class="dropdown-item" href="#">Remove</a>
+                          <a class="dropdown-item" href="#">Assign</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                   </c:forEach>
                   <!-- <tr>
                     <td class="align-center">

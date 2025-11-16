@@ -1,16 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<style>
+.avatar-md {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.avatar-md .avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      
+  border-radius: 50%;   
+  display: block;
+}
+
+.text-normal {
+    color: #4a4a4a !important;
+}
+
+
+</style>
 	 <main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12">
               <div class="row">
-              
                 <!-- Small table -->
-                <div class="col-md-12 my-4">
-                  <h2 class="h4 mb-1">Customize table rendering</h2>
-                  <p class="mb-3">Additional table rendering with vertical border, rich content formatting for cell</p>
+                <div class="col-md-12 my-1">
+                  <h2 class="h4 mb-1">셀러 리스트</h2>
+                  <p class="mb-3"> </p>
                   <div class="card shadow">
                     <div class="card-body">
                       <div class="toolbar row mb-3">
@@ -36,7 +58,6 @@
                         </div>
                         <div class="col ml-auto">
                           <div class="dropdown float-right">
-                            <button class="btn btn-primary float-right ml-3" type="button">Add more +</button>
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
                             <div class="dropdown-menu" aria-labelledby="actionMenuButton">
                               <a class="dropdown-item" href="#">Export</a>
@@ -46,7 +67,6 @@
                           </div>
                         </div>
                       </div>
-                      
                       <!-- table -->
                       <table class="table table-borderless table-hover">
                         <thead>
@@ -57,18 +77,20 @@
                                 <label class="custom-control-label" for="all2"></label>
                               </div>
                             </td>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th class="w-25">Bio</th>
-                            <th>Date</th>
-                            <th>Action</th>
+                            <th></th>
+                            <th class="text-dark"><strong>NO</strong></th>
+                            <th class="text-dark"><strong>셀러 이름</strong></th>
+                            <th class="text-normal"><strong>사업자번호</strong></th>
+                            <th class="text-normal"><strong>연락처</strong></th>
+                            <th class="w-24 text-normal"><strong>email</strong></th>
+                            <th class="text-normal"><strong>가입일</strong></th>
+                            <th class="text-normal"><strong></strong></th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
                           <!-- 가데이터 -->
-                          <c:forEach begin="1" end="8">
+                          <c:forEach var="sellers_list" items="${sellers_list }">
                           <tr>
                             <td>
                               <div class="custom-control custom-checkbox">
@@ -76,83 +98,90 @@
                                 <label class="custom-control-label" for="2474"></label>
                               </div>
                             </td>
+                            
                             <td>
                               <div class="avatar avatar-md">
-                                <img src="./assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
+                                <c:choose>
+						        <c:when test="${not empty sellers_list.u_s_profileimg_url}">
+						          <img src="${sellers_list.u_s_profileimg_url}"  alt="프로필 이미지" class="avatar-img rounded-circle">
+						        </c:when>
+						        <c:otherwise>
+									<img src="/e-umProject/admin/img/defaut_profile.png" alt="준비중" class="avatar-img rounded-circle">
+						        </c:otherwise>
+						      </c:choose>
                               </div>
+                              
+                            </td> 
+                            
+                            <td>
+                            	<p class="mb-0 text-normal">${sellers_list.u_s_id }</p>
+                            </td>
+                            
+                            <td>
+                            	<a href="../admin/admin_seller_detail.eum?u_s_id=${sellers_list.u_s_id}">
+                              		<p class="mb-0 text-normal">${sellers_list.u_s_com }</p>
+                              	</a>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted"><strong>Brown, Asher D.</strong></p>
-                              <small class="mb-0 text-muted">2474</small>
+                              <p class="mb-0 text-normal">${sellers_list.u_s_biz_no}</p>
                             </td>
                             <td>
-                              <p class="mb-0 text-muted">Accumsan Consulting</p>
-                              <small class="mb-0 text-muted">Ap #331-7123 Lobortis Avenue</small>
+                              <p class="mb-0 text-normal"><a href="../admin/admin_seller_detail.eum?u_s_id=${sellers_list.u_s_id}" class="text-normal">${sellers_list.user.u_phone }</a></p>
                             </td>
-                            <td>
-                              <p class="mb-0 text-muted"><a href="#" class="text-muted">(958) 421-0798</a></p>
-                              <small class="mb-0 text-muted">Nigeria</small>
-                            </td>
-                            <td class="w-25"><small class="text-muted"> Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus.</small></td>
-                            <td class="text-muted">13/09/2020</td>
+                            <td class="w-24"><small class="text-normal">${sellers_list.user.u_email }</small></td>
+                            <td class="text-normal">
+							  <fmt:formatDate value="${sellers_list.u_createat}" pattern="yyyy-MM-dd" />
+							</td>
+                            
+							<td>
+							    <c:choose>
+							        <c:when test="${sellers_list.user.u_status == 'active'}">
+							        	<span class="dot dot-lg bg-primary mr-2"></span>
+							        </c:when>
+							
+							        <c:when test="${sellers_list.user.u_status == 'warning'}">
+							        	<span class="dot dot-lg bg-warning mr-2"></span>
+							        </c:when>
+							
+							        <c:when test="${sellers_list.user.u_status == 'inactive'}">
+							        	<span class="dot dot-lg bg-danger mr-2"></span>
+							        </c:when>
+							
+							        <c:otherwise>
+							            <span class="badge badge-secondary p-2" style="font-size:14px;">알수없음</span>
+							        </c:otherwise>
+							    </c:choose>
+							</td>
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                                <a class="dropdown-item" href="#">Assign</a>
+                                <a class="dropdown-item" href="../admin/admin_seller_detail.eum?u_s_id=${sellers_list.u_s_id}">상세보기</a>
+                                <a class="dropdown-item" href="#">삭제</a>
                               </div>
                             </td>
                           </tr>
                           </c:forEach>
                           
-                         <!--  <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2786">
-                                <label class="custom-control-label" for="2786"></label>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="avatar avatar-md">
-                                <img src="./assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
-                              </div>
-                            </td>
-                            <td>
-                              <p class="mb-0 text-muted"><strong>Leblanc, Yoshio V.</strong></p>
-                              <small class="mb-0 text-muted">2786</small>
-                            </td>
-                            <td>
-                              <p class="mb-0 text-muted">Fringilla Ornare Placerat Consulting</p>
-                              <small class="mb-0 text-muted">287-8300 Nisl. St</small>
-                            </td>
-                            <td>
-                              <p class="mb-0 text-muted"><a href="#" class="text-muted">(899) 881-3833</a></p>
-                              <small class="mb-0 text-muted">Papua New Guinea</small>
-                            </td>
-                            <td class="w-25"><small class="text-muted"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
-                            <td class="text-muted">04/05/2019</td>
-                            <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="text-muted sr-only">Action</span>
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                                <a class="dropdown-item" href="#">Assign</a>
-                              </div>
-                            </td>
-                          </tr> -->
-                          
                         </tbody>
                       </table>
                       <nav aria-label="Table Paging" class="mb-0 text-muted">
                         <ul class="pagination justify-content-end mb-0">
-                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        <c:if test="${startPage > 1 }">
+                          <li class="page-item">
+                          	<a class="page-link" href="../admin/admin_sellers_list.eum?page=${startPage-1 }">&lt;</a>
+                          </li>
+                        </c:if>
+                        <c:forEach var="i" begin="${startPage }" end="${endPage }">
+                          <li class="page-item ${i==curpage?'active':'' }" >
+                          	<a class="page-link" href="../admin/admin_sellers_list.eum?page=${i }">${i }</a>
+                          </li>
+                        </c:forEach>  
+                        <c:if test="${endPage < totalpage }">
+                          <li class="page-item">
+                          <a class="page-link" href="../admin/admin_sellers_list.eum?page=${endPage+1 }">&gt;</a>
+                          </li>
+                        </c:if>
                         </ul>
                       </nav>
                     </div>

@@ -416,14 +416,12 @@ body {
   }
 }
 
-/* 로그아웃 버튼 form 스타일 */
 .header-area .main-nav .nav li form {
   display: inline !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 
-/* 로그아웃 버튼 스타일 - 회원가입 버튼과 동일하게 */
 button.active2 {
   display: inline-block !important;
   font-weight: 500 !important;
@@ -485,18 +483,23 @@ button.active2:hover {
                     <!-- ***** Menu Start ***** -->
 
                     <ul class="nav">
+                    	<li><a href="../admin/admin_main.eum">관리자</a></li>
                         <li><a href="../talent/list.eum">list</a></li>
                         <li><a href="../main/detail.eum">detail</a></li>
+                        
                         <c:if test="${sessionScope.sid==0 && sessionScope.id!=null}">
-                        <li><a href="../seller/join.eum">셀러 등록</a></li>
+                        	<li><a href="../seller/join.eum">셀러 등록</a></li>
                         </c:if>
-                         <c:if test="${sessionScope.sid!=0 && sessionScope.id!=null}">
-                        <li><a href="../seller/info.eum">셀러페이지</a></li>
+                        
+                        <c:if test="${sessionScope.sid!=0 && sessionScope.id!=null}">
+                        	<li><a href="../seller/info.eum">셀러페이지</a></li>
                         </c:if>
+                        
                         <c:if test="${sessionScope.id==null}">
                         	<li><a href="../users/login.eum">로그인</a></li>
                         	<li><a href="../users/join.eum" class="active">회원가입</a></li>
                         </c:if>
+                        
                         <c:if test="${sessionScope.id!=null}">
                         	<li><a href="../users/info.eum">${sessionScope.name} 님</a></li>
                             <li>

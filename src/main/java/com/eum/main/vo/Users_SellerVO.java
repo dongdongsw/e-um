@@ -19,4 +19,7 @@ public class Users_SellerVO {
 	private int u_s_id;
 	private String u_id,u_s_carrer,u_s_zone,u_s_biz_no,u_s_com,u_s_profileimg_url,u_s_role;
 	private Date u_createat,u_updateat;
+	
+	// 관리자 동현 11월 16일 병합 셀러쪽 임시
+	private UsersVO user;
 }

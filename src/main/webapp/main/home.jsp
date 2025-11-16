@@ -13,11 +13,11 @@
   width: 100%;
 background: #ffffff;  
 border-bottom: 1px solid #e6e6f8;
-  padding: 40px 0 50px 0;  /* ✅ 위 공간 확장 */
+  padding: 40px 0 50px 0; 
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* ✅ 위로 여유 공간 확보 */
-  overflow: visible; /* ✅ hover 시 위쪽 짤림 방지 */
+  align-items: flex-start; 
+  overflow: visible; 
   margin-top: 30px !important;
   margin-bottom: 30px !important;
 }
@@ -29,13 +29,10 @@ border-bottom: 1px solid #e6e6f8;
   gap: 32px;
   overflow-x: auto;
   max-width: 100%;
-  padding: 10px 40px; /* ✅ 좌우 여백 추가 */
+  padding: 10px 40px;
   box-sizing: border-box;
 }
 
-
-
-/* 버튼 스타일 */
 .brutalist-button.button-1 {
   width: 160px;
   height: 160px;
@@ -55,7 +52,6 @@ border-bottom: 1px solid #e6e6f8;
   font-weight: 600;
 }
 
-/* hover 시 효과 */
 .brutalist-button.button-1:hover {
   background: #6c63ff;
   color: #fff;
@@ -64,13 +60,11 @@ border-bottom: 1px solid #e6e6f8;
   box-shadow: 8px 8px 0 #00000033;
 }
 
-/* 클릭 시 */
 .brutalist-button.button-1:active {
   transform: translate(0, 0);
   box-shadow: 3px 3px 0 #00000033;
 }
 
-/* 아이콘 */
 .category-icon {
   width: 60px;
   height: 60px;
@@ -157,39 +151,39 @@ border-bottom: 1px solid #e6e6f8;
                 </div>
               </div>
               <section class="category-section">
-  <div class="category-container">
-    <button class="brutalist-button button-1">
-      <img src="../../main/images/color-pallete.png" alt="디자인" class="category-icon">
-      <span>디자인</span>
-    </button>
-
-    <button class="brutalist-button button-1">
-      <img src="../../main/images/video-camera.png" alt="영상" class="category-icon">
-      <span>영상</span>
-    </button>
-
-    <button class="brutalist-button button-1">
-      <img src="../../main/images/headphones.png" alt="음악" class="category-icon">
-      <span>음악</span>
-    </button>
-
-    <button class="brutalist-button button-1">
-      <img src="../../main/images/graduation.png" alt="교육" class="category-icon">
-      <span>교육</span>
-    </button>
-
-    <button class="brutalist-button button-1">
-      <img src="../../main/images/robot.png" alt="AI/테크" class="category-icon">
-      <span>AI / 테크</span>
-    </button>
-	<a href="../list/etclist.eum">
-    <button class="brutalist-button button-1">
-      <img src="../../main/images/puzzle.png" alt="기타" class="category-icon">
-      <span>기타</span>
-    </button>
-    </a>
-  </div>
-</section>
+				  <div class="category-container">
+				    <button class="brutalist-button button-1">
+				      <img src="../../main/images/color-pallete.png" alt="디자인" class="category-icon">
+				      <span>디자인</span>
+				    </button>
+				
+				    <button class="brutalist-button button-1">
+				      <img src="../../main/images/video-camera.png" alt="영상" class="category-icon">
+				      <span>영상</span>
+				    </button>
+				
+				    <button class="brutalist-button button-1">
+				      <img src="../../main/images/headphones.png" alt="음악" class="category-icon">
+				      <span>음악</span>
+				    </button>
+				
+				    <button class="brutalist-button button-1">
+				      <img src="../../main/images/graduation.png" alt="교육" class="category-icon">
+				      <span>교육</span>
+				    </button>
+				
+				    <button class="brutalist-button button-1">
+				      <img src="../../main/images/robot.png" alt="AI/테크" class="category-icon">
+				      <span>AI / 테크</span>
+				    </button>
+					<a href="../list/etclist.eum">
+				    <button class="brutalist-button button-1">
+				      <img src="../../main/images/puzzle.png" alt="기타" class="category-icon">
+				      <span>기타</span>
+				    </button>
+				    </a>
+				  </div>
+			</section>
               <div class="col-lg-2 col-sm-5">
                 <div class="item">
                   <div class="icon">
