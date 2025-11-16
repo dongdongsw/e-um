@@ -68,34 +68,39 @@ public class Admin_UsersDAO {
 	
 	// 유저 삭제
 	public static void userDel(String u_id) {
-		
-		
-		try {
-			SqlSession session = ssf.openSession();
-			Integer u_s_id = session.selectOne("findUserSellerId",u_id);
-			 
-			
-			if(u_s_id != null) {
-				List<String> bList = session.selectList("findSellerBoardIds",u_s_id);
-				for(String b_id : bList) {
-					session.delete(NS + "reviewImageDel",b_id);
-					session.delete(NS + "reviewDel",b_id);
-					session.delete(NS + "priceOpDel",b_id);
-					session.delete(NS + "favoriteDel",b_id);
-					session.delete(NS + "likeDel",b_id);
-					session.delete(NS + "detailImgDel",b_id);
-					session.delete(NS + "boardDel",b_id);
-				}
-			 }
-			session.delete(NS + "users_sellerDel",u_id);
-			session.delete(NS + "userDel",u_id);		
-			
-			session.commit();
-			session.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		
+	    try {
+	        SqlSession session = ssf.openSession();
+
+	        List<String> reviewIds = session.selectList(NS + "findUserReviewIds", u_id);
+	        for (String rId : reviewIds) {
+	            session.delete(NS + "deleteReviewImagesByReviewId", rId);
+	        }
+	        session.delete(NS + "deleteReviewsByUserId", u_id);
+
+	        Integer u_s_id = session.selectOne(NS + "findUserSellerId", u_id);
+	        if (u_s_id != null) {
+	            List<String> bList = session.selectList(NS + "findSellerBoardIds", u_s_id);
+	            for (String b_id : bList) {
+	                session.delete(NS + "reviewImageDel", b_id);
+	                session.delete(NS + "reviewDel", b_id);
+	                session.delete(NS + "priceOpDel", b_id);
+	                session.delete(NS + "favoriteDel", b_id);
+	                session.delete(NS + "likeDel", b_id);
+	                session.delete(NS + "detailImgDel", b_id);
+	                session.delete(NS + "boardDel", b_id);
+	            }
+
+	            session.delete(NS + "users_sellerDel", u_id);
+	        }
+
+	        session.delete(NS + "userDel", u_id);
+
+	        session.commit();
+	        session.close();
+
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
 	}
 	
 	// 유저 상태 수정

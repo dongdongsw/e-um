@@ -80,19 +80,7 @@
 	    WHERE u_id = #{u_id}
 	</update>
 
-	<!-- 유저 삭제를 위한 u_s_id 조회 -->
-	<select id="findUserSellerId" resultType="int" parameterType="string">
-	    SELECT u_s_id
-	    FROM users_seller
-	    WHERE u_id = #{u_id}
-	</select>
 	
-	<!-- 유저 삭제를 위한 b_id 조회 -->
-	<select id="findSellerBoardIds" resultType="string"  parameterType="int">
-	    SELECT b_id
-	    FROM board
-	    WHERE u_s_id = #{u_s_id}
-	</select>
 	
 	<!-- <유저> 리스트 검색 -->
 	<select id="usersListSearch" resultType="UsersVO" parameterType="hashmap">
