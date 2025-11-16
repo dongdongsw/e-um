@@ -181,4 +181,31 @@ public class PayModel {
 	      request.setAttribute("main_jsp", "../pay/my_order.jsp");
 	      return "../main/main.jsp";
 	   }
+	
+	// refund table insert
+	@RequestMapping("refundInsert.eum")
+    public String refundInsert(HttpServletRequest request, HttpServletResponse response) {
+        try { request.setCharacterEncoding("UTF-8"); } catch (Exception ex) {}
+
+        // AJAX로 받은 값들
+        String payId = request.getParameter("pay_id");      // 결제 고유 ID
+        String userId = request.getParameter("o_u_id");    // 환불 요청자
+        String reason = request.getParameter("rf_reason"); // 환불 사유
+        String amount = request.getParameter("rf_amount");    // 환불 금액
+
+        // RefundVO 구성
+        RefundVO vo = new RefundVO();
+        vo.setPay_id(payId);
+        vo.setO_u_id(userId);
+        vo.setRf_reason(reason);
+        vo.setRf_amount(Integer.parseInt(amount));
+
+        // 1) DB INSERT
+        PayDAO.refundInsert(vo);
+        
+        // 실제 PG 환불 처리
+        PayDAO.refundPay(payId);
+
+        return "ajax:";
+    }
 }
