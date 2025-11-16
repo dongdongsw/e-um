@@ -337,10 +337,17 @@ function requestPay() {
                 if(o_id && o_id !== "null") {
                     requestPayment(o_id);
                 } else {
-                    alert("주문 번호 생성 실패! 다시 시도해주세요.");
-                  return;
-            }
-          },
+                    $.ajax({
+                        type: "post",
+                        url: "../pay/orders_cancel.eum",
+                        data: {"o_id": o_id},
+                        success: function(res){
+                            console.log("취소변경 결과:", res);
+                        }
+                    });
+                    alert("결제가 취소 또는 실패했습니다.");
+          		}
+            },
           error: function(err){
               console.log(err);
           }
