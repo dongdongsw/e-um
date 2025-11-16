@@ -141,12 +141,11 @@ html {
     <h2 style="color:black">셀러 페이지</h2>
     <nav class="menu">
       <a href="../seller/info.eum">셀러 정보</a>
-      <a href="../seller/create.eum">컨텐츠 작성</a>
+      <a href="../seller/create_contents.eum">컨텐츠 작성</a>
       <a href="../seller/my_contents.eum" class="active">내 컨텐츠</a>
       <a href="../seller/review.eum">구매자 리뷰</a>
       <a href="../seller/chat.eum">채팅 문의</a>
       <a href="../seller/sell.eum">판매 내역</a>
-      <a href="../seller/info_update.eum">정보 수정</a>
     </nav>
   </aside>
 
@@ -196,7 +195,7 @@ html {
 			    </div>
 			
 			    <!-- 오른쪽 버튼 영역 -->
-			     <div class="content-actions">
+			    <div class="content-actions">
 				    <a href="../talent/detail.eum?b_id=${vo.b_id }" type="button" class="btn view">보기</a>
 				
 				    <button type="button" class="btn edit"
@@ -204,7 +203,7 @@ html {
 				        수정
 				    </button>
 				
-				    <button type="button" class="btn delete">삭제</button>
+				    <a href="../seller/delete_contents_ok.eum?b_id=${vo.b_id }" class="btn delete">삭제</a>
 				</div>
 			  </div>
 			</c:forEach>

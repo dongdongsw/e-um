@@ -74,4 +74,35 @@
     	
   </update>
   
+  <!-- 컨텐츠 삭제 -->
+
+  <delete id="reviewImageDel" parameterType="string"> <!-- 리뷰 이미지 삭제 -->
+	DELETE FROM review_image
+	  WHERE b_review_id IN (
+	    SELECT b_review_id
+	    FROM review
+	    WHERE b_id = #{b_id}
+	  )
+  </delete>
+  
+  <delete id="reviewDel" parameterType="string"> <!-- 리뷰 삭제 -->
+    DELETE FROM review
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="priceOpDel" parameterType="string"> <!-- 가격 옵션 삭제 -->
+    DELETE FROM board_option
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="detailImgDel" parameterType="string"> <!-- 상세이미지 삭제 -->
+    DELETE FROM board_image
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="boardDel" parameterType="string"> <!-- 컨텐츠 삭제 -->
+    DELETE FROM board
+  	WHERE b_id=#{b_id}
+  </delete>
+  
 </mapper>

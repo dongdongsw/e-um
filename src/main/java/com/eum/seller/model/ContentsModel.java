@@ -250,11 +250,21 @@ import jakarta.servlet.http.Part;
 		        }
 		    }
 		    
-
 		    ContentsDAO.contentsUpdate(bvo, opList);
 		
 		    System.out.println("contents update 완료");
 		    return "redirect:../talent/detail.eum?b_id="+b_id;
+		}
+		
+		// 컨텐츠 삭제
+		@RequestMapping("seller/delete_contents_ok.eum")
+		public String delete_contents_ok(HttpServletRequest request, HttpServletResponse response) {
+			
+			String b_id=request.getParameter("b_id");
+			
+			ContentsDAO.contentsDelete(b_id);
+			
+			return "redirect:../seller/my_contents.eum";
 		}
 		
 }
