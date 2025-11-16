@@ -483,7 +483,9 @@ button.active2:hover {
                     <!-- ***** Menu Start ***** -->
 
                     <ul class="nav">
-                    	<li><a href="../admin/admin_main.eum">관리자</a></li>
+                    	<c:if test="${session.Scope.role == ROLE_ADMIN && sessionScope.id!=null }">
+                    		<li><a href="../admin/admin_main.eum">관리자</a></li>
+                    	</c:if>
                         <li><a href="../talent/list.eum">list</a></li>
                         <li><a href="../main/detail.eum">detail</a></li>
                         

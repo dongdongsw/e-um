@@ -95,6 +95,16 @@
   	WHERE b_id=#{b_id}
   </delete>
   
+  <delete id="favoriteDel" parameterType="string"> <!-- 상세이미지 삭제 -->
+    DELETE FROM favorite
+  	WHERE b_id=#{b_id}
+  </delete>
+  
+  <delete id="likeDel" parameterType="string"> <!-- 상세이미지 삭제 -->
+    DELETE FROM board_like
+  	WHERE b_id=#{b_id}
+  </delete>
+  
   <delete id="detailImgDel" parameterType="string"> <!-- 상세이미지 삭제 -->
     DELETE FROM board_image
   	WHERE b_id=#{b_id}
@@ -104,5 +114,17 @@
     DELETE FROM board
   	WHERE b_id=#{b_id}
   </delete>
+  
+  <delete id="users_sellerDel"  parameterType="string">
+  	DELETE FROM users_seller
+  	WHERE u_id=#{u_id}
+  </delete>
+  
+  <delete id="userDel" parameterType="string">
+  	DELETE FROM users
+  	WHERE u_id=#{u_id}
+  </delete>
+  
+  
   
 </mapper>

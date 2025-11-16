@@ -20,7 +20,9 @@ public class Admin_UsersDAO {
 		
 	}
 	
-	// 컨텐츠 리스트 조회
+	private static final String NS = "com.eum.seller.mapper.contents-mapper.";
+
+	// 유저 리스트 조회
 	public static List<UsersVO> usersListData(Map map){
 		
 		List<UsersVO> list = null;
@@ -37,7 +39,7 @@ public class Admin_UsersDAO {
 		return list;
 	}
 	
-	// 컨텐츠 페이징 조회
+	// 유저 페이징 조회
 	public static int usersListTotalData() {
 		int total = 0;
 		try {
@@ -50,7 +52,7 @@ public class Admin_UsersDAO {
 		return total;
 	}
 	
-	// 컨텐츠 디테일 조회
+	// 유저 디테일 조회
 	public static UsersVO usersDetailData(String u_id) {
 		
 		UsersVO vo = null;
@@ -63,9 +65,40 @@ public class Admin_UsersDAO {
 		}
 		return vo;
 	}
-	// 컨텐츠 삭제
+	
+	// 유저 삭제
+	public static void userDel(String u_id) {
+		
+		
+		try {
+			SqlSession session = ssf.openSession();
+			Integer u_s_id = session.selectOne("findUserSellerId",u_id);
+			 
 			
-	// 컨텐츠 수정
+			if(u_s_id != null) {
+				List<String> bList = session.selectList("findSellerBoardIds",u_s_id);
+				for(String b_id : bList) {
+					session.delete(NS + "reviewImageDel",b_id);
+					session.delete(NS + "reviewDel",b_id);
+					session.delete(NS + "priceOpDel",b_id);
+					session.delete(NS + "favoriteDel",b_id);
+					session.delete(NS + "likeDel",b_id);
+					session.delete(NS + "detailImgDel",b_id);
+					session.delete(NS + "boardDel",b_id);
+				}
+			 }
+			session.delete(NS + "users_sellerDel",u_id);
+			session.delete(NS + "userDel",u_id);		
+			
+			session.commit();
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+	
+	// 유저 상태 수정
 	public static void usersStatusUpdate(Map map){
 		
 		try {
@@ -89,8 +122,8 @@ public class Admin_UsersDAO {
 			for(ReviewVO vo : list) {
 			    Map<String, Object> param = new HashMap();
 			    param.put("b_review_id", vo.getB_review_id());
-			    param.put("start", map.get("start")); // 필요 시
-			    param.put("end", map.get("end"));     // 필요 시
+			    param.put("start", map.get("start")); 
+			    param.put("end", map.get("end"));     
 
 			    List<Review_ImageVO> imglist = session.selectList("usersReviewImageData", param);
 			    vo.setImageList(imglist);
@@ -117,5 +150,35 @@ public class Admin_UsersDAO {
 		return total;
 	}
 	
+	
+	 // 유저 검색 + 페이지 목록
+    public static List<UsersVO> usersListSearch(Map map) {
+        SqlSession session = null;
+        List<UsersVO> list = null;
+        try {
+            session = ssf.openSession();
+            list = session.selectList("usersListSearch", map);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (session != null) session.close();
+        }
+        return list;
+    }
+
+    // 유저 검색 총 페이지 (페이징용)
+    public static int usersListSearchTotal(String keyword) {
+        SqlSession session = null;
+        int total = 0;
+        try {
+            session = ssf.openSession();
+            total = session.selectOne("usersListSearchTotal", keyword);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (session != null) session.close();
+        }
+        return total;
+    }
 	
 }
