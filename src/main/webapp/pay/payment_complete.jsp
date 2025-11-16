@@ -271,7 +271,7 @@
 	
 	    <div class="button-group">
 	      <button class="btn">전문가에게 문의</button>
-	      <button class="btn btn-primary" onclick="location.href='../pay/mypage_payment.eum?o_id=${o_id}'">주문 정보 확인</button>
+	      <button class="btn btn-primary" onclick="location.href='../pay/mypage_payment.eum?o_u_id=${o_u_id}'">주문 정보 확인</button>
 	    </div>
 	
 	    <div class="summary-box">
