@@ -20,15 +20,46 @@ body {
   padding: 120px 20px 40px 20px;
 }
 
+.container-wrapper {
+  display: flex;
+  gap: 24px;
+}
+
 .form-container {
   width: 420px !important;
-  max-width: 90% !important;
   border-radius: 0.75rem !important;
   background-color: #ffffff !important;
   padding: 2rem !important;
   color: #333 !important;
   border: 1px solid #e0e0e0 !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.reset-form-container {
+  width: 420px;
+  border-radius: 0.75rem !important;
+  background-color: #ffffff !important;
+  padding: 2rem !important;
+  color: #333 !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  display: none;
+}
+
+.reset-form-container.show {
+  display: block;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .title {
@@ -154,6 +185,15 @@ body {
   background: #5f3fd9 !important;
 }
 
+.submit.cancel-btn {
+  background: #aaa !important;
+  margin-top: 12px !important;
+}
+
+.submit.cancel-btn:hover {
+  background: #999 !important;
+}
+
 /* 결과 메시지 */
 .result-box {
   margin-top: 20px !important;
@@ -208,6 +248,10 @@ body {
   text-decoration: underline !important;
 }
 
+#pw-reset-area .field {
+	margin-bottom: 22px !important;
+}
+
 /* 반응형 */
 @media (max-width: 768px) {
   .form-container {
@@ -223,69 +267,97 @@ body {
 </head>
 <body>
 <div class="find-wrapper">
-  <div class="form-container">
-    <h2 class="title">계정 찾기</h2>
-    
-    <!-- 탭 버튼 -->
-    <div class="tab-buttons">
-      <button class="tab-btn active" id="btn-id" onclick="switchTab('id')">아이디 찾기</button>
-      <button class="tab-btn" id="btn-pw" onclick="switchTab('pw')">비밀번호 찾기</button>
-    </div>
-
-    <!-- 아이디 찾기 탭 -->
-    <div id="tab-id" class="tab-content active">
-      <form class="form" id="form-id">
-        <div class="field">
-          <label class="label">휴대폰 번호</label>
-          <div class="search">
-            <input type="text" class="search_input" name="iPhone" id="input-id-phone" placeholder="휴대폰 번호를 입력하세요" required>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">이메일</label>
-          <div class="search">
-            <input type="email" class="search_input" name="iEmail" id="input-id-email" placeholder="example@email.com" required>
-          </div>
-        </div>
-
-        <button type="button" class="submit" id="findIdBtn">아이디 찾기</button>
-      </form>
+  <div class="container-wrapper">
+    <div class="form-container">
+      <h2 class="title">계정 찾기</h2>
       
-      <div id="result-id" class="result-box" style="display: none;">
-        <p class="result-text" id="idResultText"></p>
+      <!-- 탭 버튼 -->
+      <div class="tab-buttons">
+        <button class="tab-btn active" id="btn-id" onclick="switchTab('id')">아이디 찾기</button>
+        <button class="tab-btn" id="btn-pw" onclick="switchTab('pw')">비밀번호 찾기</button>
+      </div>
+
+      <!-- 아이디 찾기 탭 -->
+      <div id="tab-id" class="tab-content active">
+        <form class="form" id="form-id">
+          <div class="field">
+            <label class="label">휴대폰 번호</label>
+            <div class="search">
+              <input type="text" class="search_input" name="iPhone" id="input-id-phone" placeholder="휴대폰 번호를 입력하세요" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">이메일</label>
+            <div class="search">
+              <input type="email" class="search_input" name="iEmail" id="input-id-email" placeholder="example@email.com" required>
+            </div>
+          </div>
+
+          <button type="button" class="submit" id="findIdBtn">아이디 찾기</button>
+        </form>
+        
+        <div id="result-id" class="result-box" style="display: none;">
+          <p class="result-text" id="idResultText"></p>
+        </div>
+      </div>
+
+      <!-- 비밀번호 찾기 탭 -->
+      <div id="tab-pw" class="tab-content">
+        <form class="form" id="form-pw">
+          <div class="field">
+            <label class="label">아이디</label>
+            <div class="search">
+              <input type="text" class="search_input" name="iLoginid" id="input-pw-id" placeholder="아이디를 입력하세요" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">이메일</label>
+            <div class="search">
+              <input type="email" class="search_input" name="iEmail" id="input-pw-email" placeholder="example@email.com" required>
+            </div>
+          </div>
+
+          <button type="button" class="submit" id="findPwdBtn">비밀번호 재설정</button>
+        </form>
+        
+        <div id="result-pw" class="result-box" style="display: none;">
+          <p class="result-text" id="pwResultText"></p>
+        </div>
+      </div>
+
+      <div class="back-to-login">
+        <a href="../users/login.eum">로그인으로 돌아가기</a>
       </div>
     </div>
-
-    <!-- 비밀번호 찾기 탭 -->
-    <div id="tab-pw" class="tab-content">
-      <form class="form" id="form-pw" action="../users/find_pwd.eum" method="post">
+    
+    <!-- 우측 비밀번호 재설정 폼 -->
+    <div class="reset-form-container" id="reset-form-container">
+      <h2 class="title">비밀번호 재설정</h2>
+      
+      <div id="pw-reset-area">
         <div class="field">
-          <label class="label">아이디</label>
+          <label class="label">새 비밀번호</label>
           <div class="search">
-            <input type="text" class="search_input" name="iLoginid" id="input-pw-id" placeholder="아이디를 입력하세요" required>
+            <input type="password" class="search_input" id="newPwd" placeholder="새 비밀번호 입력" required="required">
           </div>
         </div>
-
+        
         <div class="field">
-          <label class="label">이메일</label>
+          <label class="label">비밀번호 재입력</label>
           <div class="search">
-            <input type="email" class="search_input" name="iEmail" id="input-pw-email" placeholder="example@email.com" required>
+            <input type="password" class="search_input" id="newPwd2" placeholder="비밀번호 재입력" required="required">
           </div>
         </div>
-
-        <button type="submit" class="submit">비밀번호 재설정</button>
-      </form>
-	  
-	  <c:if test="${!empty requestScope.msg && requestScope.msg eq 'NOID'}">
-        <div id="result-pw" class="result-box error show">
-          <p class="result-text">존재하지 않는 계정 정보입니다.</p>
-        </div>
-      </c:if>
-    </div>
-
-    <div class="back-to-login">
-      <a href="../users/login.eum">로그인으로 돌아가기</a>
+        
+        <button type="button" class="submit" id="changePwdBtn">변경</button>
+        <button type="button" class="submit cancel-btn" id="cancelPwdBtn">취소</button>
+      </div>
+      
+      <div id="result-reset" class="result-box" style="display: none;">
+        <p class="result-text" id="resetResultText"></p>
+      </div>
     </div>
   </div>
 </div>
@@ -311,14 +383,28 @@ function switchTab(tab) {
         box.classList.remove('success', 'error', 'show');
     });
 
+    // 우측 재설정 폼 숨기기
+    $('#reset-form-container').removeClass('show');
+
     // 아이디 찾기 입력폼 초기화 (탭 전환 시)
-    if (tab === 'id') clearIdInputs();
+    if(tab==='id') clearIdInputs();
+    if(tab==='pw') clearPwInputs();
 }
 
 // 아이디 찾기 입력폼 초기화 함수
 function clearIdInputs() {
     $('#input-id-phone').val('');
     $('#input-id-email').val('');
+}
+
+function clearPwInputs() {
+	$('#input-pw-id').val('');
+	$('#input-pw-email').val('');
+	$('#newPwd').val('');
+	$('#newPwd2').val('');
+	$('#reset-form-container').removeClass('show');
+	$('#result-pw').hide().removeClass('success error');
+	$('#result-reset').hide().removeClass('success error');
 }
 
 $(function() {
@@ -337,22 +423,22 @@ $(function() {
             $resultBox.addClass('error')[0].style.setProperty('display', 'block', 'important');
             $resultText.html('휴대폰 번호를 입력해주세요.');
             $('#input-id-phone').focus();
-            return; // 첫 번째 빈 칸 발견 시 바로 종료
+            return;
         }
 
         if (iEmail === "") {
             $resultBox.addClass('error')[0].style.setProperty('display', 'block', 'important');
             $resultText.html('이메일을 입력해주세요.');
             $('#input-id-email').focus();
-            return; // 두 번째 빈 칸 확인
+            return;
         }
 
         $.ajax({
-            type: 'post',
-            url: '${pageContext.request.contextPath}/users/find_id.eum',
-            data: { iPhone: iPhone, iEmail: iEmail },
-            dataType: 'text',
-            success: function(response) {
+            type:'post',
+            url:'${pageContext.request.contextPath}/users/find_id.eum',
+            data:{iPhone:iPhone, iEmail:iEmail},
+            dataType:'text',
+            success:function(response) {
                 $resultBox.removeClass('success error');
                 $resultText.html('');
 
@@ -364,7 +450,7 @@ $(function() {
                     clearIdInputs();
                 } else if (msg === "NOID") {
                     $resultBox.addClass('error')[0].style.setProperty('display', 'block', 'important');
-                    $resultText.html('입력하신 정보와 일치하는 계정을 찾을 수 없습니다.');
+                    $resultText.html('존재하지 않는 계정 정보입니다.');
                     clearIdInputs();
                     $('#input-id-phone').focus();
                 }
@@ -374,6 +460,114 @@ $(function() {
             }
         });
 	});
+    
+    $('#findPwdBtn').click(function() {
+    	const id = $('#input-pw-id').val().trim();
+    	const email = $('#input-pw-email').val().trim();
+    	
+    	const $pwBox = $('#result-pw');
+    	const $pwText = $('#pwResultText');
+    	
+    	$pwBox.removeClass('success error')[0].style.setProperty('display','none','important');
+    	$pwText.text('');
+    	$('#reset-form-container').removeClass('show');
+    	
+    	if(id==="") {
+    		$pwBox.addClass('error')[0].style.setProperty('display','block','important');
+    		$pwText.text("아이디를 입력해주세요.");
+    		$('#input-pw-id').focus();
+    		return;
+    	}
+    	if(email==="") {
+    		$pwBox.addClass('error')[0].style.setProperty('display','block','important');
+    		$pwText.text("이메일을 입력해주세요.");
+    		$('#input-pw-email').focus();
+    		return;
+    	}
+    	
+    	$.ajax({
+    		type:'post',
+    		url:'${pageContext.request.contextPath}/users/find_pwd.eum',
+    		data:{iLoginId:id, iEmail:email},
+    		dataType:'text',
+    		success:function(response) {
+    			const [msg, uid] = response.split(':');
+    			
+    			if(msg==="OK") {
+    				$pwBox.removeClass('error').addClass('success')[0].style.setProperty('display','block','important');
+    				$pwText.html("계정이 확인되었습니다.<br>우측에서 새 비밀번호를 입력해주세요.");
+    				
+    				// 우측 폼 표시
+    				$('#reset-form-container').addClass('show').data('uid', uid);
+    				
+    				setTimeout(function() {
+    					$('#newPwd').focus();
+    				}, 400);
+    				
+    				$('#input-pw-id').val('');
+    				$('#input-pw-email').val('');
+    			} else {
+    				$pwBox.removeClass('success').addClass('error')[0].style.setProperty('display','block','important');
+    				$pwText.html("존재하지 않는 계정 정보입니다.");
+    				$('#input-pw-id').val('');
+    				$('#input-pw-email').val('');
+    				$('#input-pw-id').focus();
+    			}
+    		}
+    	});
+    });
+    
+    $('#changePwdBtn').click(function() {
+    	const newPwd = $('#newPwd').val().trim();
+    	const newPwd2 = $('#newPwd2').val().trim();
+    	const uid = $('#reset-form-container').data('uid');
+    	
+    	const $resetBox = $('#result-reset');
+    	const $resetText = $('#resetResultText');
+    	
+    	$resetBox.removeClass('success error')[0].style.setProperty('display','none','important');
+    	
+    	if(newPwd==="") {
+    		$resetBox.addClass('error')[0].style.setProperty('display','block','important');
+    		$resetText.text("새 비밀번호를 입력해주세요.");
+    		$('#newPwd').focus();
+    		return;
+    	}
+    	if(newPwd!==newPwd2) {
+    		$resetBox.removeClass('success').addClass('error')[0].style.setProperty('display','block','important');
+    		$resetText.html("비밀번호가 일치하지 않습니다.");
+    		$('#newPwd2').val('').focus();
+    		return;
+    	}
+    	
+    	$.ajax({
+    		type:'post',
+    		url:'${pageContext.request.contextPath}/users/pwd_change.eum',
+    		data:{pwd:newPwd,u_id:uid},
+    		success:function(response) {
+    			$resetBox.removeClass('error').addClass('success')[0].style.setProperty('display','block','important');
+    			$resetText.html("비밀번호가 성공적으로 변경되었습니다.<br>잠시 후 로그인 페이지로 이동합니다.");
+    			
+    			$('#newPwd').val('');
+    			$('#newPwd2').val('');
+    			
+    			setTimeout(function() {
+    				location.href = "../users/login.eum";
+    			}, 2000);
+    		},
+    		error:function(xhr, status, error) {
+    			$resetBox.removeClass('success').addClass('error')[0].style.setProperty('display','block','important');
+    	        $resetText.html("비밀번호 변경 실패: "+error);
+    		}
+    	});
+    });
+    
+    $('#cancelPwdBtn').click(function() {
+    	$('#reset-form-container').removeClass('show');
+    	$('#newPwd').val('');
+    	$('#newPwd2').val('');
+    	$('#result-reset').hide().removeClass('success error');
+    });
 });
 </script>
 </body>

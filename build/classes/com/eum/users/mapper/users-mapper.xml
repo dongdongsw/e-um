@@ -83,7 +83,7 @@
     </select>
     <update id="pwdChange" parameterType="UsersVO">
       UPDATE users SET
-      pwd=#{pwd}
-      WHERE u_loginid=#{u_loginid}
+      u_pwd=#{u_pwd}
+      WHERE u_id=#{u_id}
     </update>
 </mapper>

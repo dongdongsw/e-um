@@ -350,27 +350,50 @@ public class usersModel {
 	
 	// 비밀번호 찾기
 	@RequestMapping("users/find_pwd.eum")
-	public String users_find_pwd(HttpServletRequest request, HttpServletResponse response) {
-		String iLoginId = request.getParameter("iLoginId");
-		String iEmail = request.getParameter("iEmail");
-		
-		String fU_id = null;
+	public void users_find_pwd(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/plain;charset=UTF-8");
+			
+			String iLoginId = request.getParameter("iLoginId");
+			String iEmail = request.getParameter("iEmail");
+
+			UsersVO vo = new UsersVO();
+			vo.setU_loginid(iLoginId);
+			vo.setU_email(iEmail);
+			
+			String fU_id = UsersDAO.findMyPwd(vo);
+			
+			if(fU_id!=null) {
+				response.getWriter().write("OK:"+fU_id);
+			} else {
+				response.getWriter().write("NOID");
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	// 비밀번호 재설정 처리
+	@RequestMapping("users/pwd_change.eum")
+	public void pwdChange(HttpServletRequest request, HttpServletResponse response) {
+		String newPwd = request.getParameter("pwd");
+		String uid = request.getParameter("u_id");
 		
 		UsersVO vo = new UsersVO();
-		vo.setU_loginid(iLoginId);
-		vo.setU_email(iEmail);
+		vo.setU_id(uid);
+		vo.setU_pwd(newPwd);
 		
-		fU_id = UsersDAO.findMyPwd(vo);
+		UsersDAO.pwdChange(vo);
 		
-		if(fU_id!=null) {
-			request.setAttribute("fU_id", fU_id);
-			request.setAttribute("msg", "OK");
-			request.setAttribute("main_jsp", "../users/pwd_change.jsp");
-		} else {
-			request.setAttribute("msg", "NOID");
-			request.setAttribute("main_jsp", "../users/find_me.jsp");
+		try {
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.write("OK");
+			out.flush();
+			out.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
 		}
-		
-		return "../main/main.jsp";
 	}
 }
