@@ -8,8 +8,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.eum.seller.dao.SellerDAO;
 import com.eum.main.vo.BoardVO;
@@ -171,20 +176,60 @@ public class SellerModel {
 	}
 	
 	@RequestMapping("seller/review.eum")
-	public String seller_review(HttpServletRequest request, HttpServletResponse response) {
-		
-		List<BoardVO> list=new ArrayList<BoardVO>();
-		
-		HttpSession session=request.getSession();
-		int sid=(int) session.getAttribute("sid");
-		
-		list=SellerDAO.sellerReview(sid);
-		
-		request.setAttribute("list", list);
-		
-		request.setAttribute("main_jsp", "../seller/review.jsp");
-		return "../main/main.jsp";
+	   public String recipe_find(HttpServletRequest request, HttpServletResponse response) {
+		   request.setAttribute("main_jsp", "../seller/review.jsp");
+		   return "../main/main.jsp";
 	}
+	
+	@RequestMapping("seller/review_result.eum")
+	public String seller_review(HttpServletRequest request,HttpServletResponse response) {
+		System.out.println("model 진입");
+	    HttpSession session=request.getSession();
+	    int sid=(int)session.getAttribute("sid");
+	    
+	    String page=request.getParameter("page");
+	    if (page==null)
+	    	page="1";
+	    int curpage=Integer.parseInt(page);
+	    
+	    String sort=request.getParameter("sort");
+	    if (sort == null || sort.equals("")) {
+	        sort="최신순"; 
+	    }
+
+	    Map map=new HashMap();
+	    int rowSize=5;
+	    int start=(rowSize*curpage)-(rowSize-1);
+	    int end=rowSize*curpage;
+
+	    map.put("start", start);
+	    map.put("end", end);
+	    map.put("sort", sort);
+	    map.put("u_s_id", sid); 
+	    System.out.println("Map에 넣어주기");
+	    List<BoardVO> list=SellerDAO.sellerReview(map);
+	    int count=SellerDAO.sReviewTotalPage(map);
+	    System.out.println("dao 실행 완");
+	    final int BLOCK=10;
+	    int totalpage=(int)(Math.ceil(count/5.0));
+	    int startPage=((curpage - 1) / BLOCK * BLOCK) + 1;
+	    int endPage=((curpage - 1) / BLOCK * BLOCK) + BLOCK;
+	    if (endPage > totalpage) 
+	    	endPage=totalpage;
+
+	    // JSP에서 쓸 값들 세팅
+	    request.setAttribute("list", list);
+	    request.setAttribute("curpage", curpage);
+	    request.setAttribute("totalpage", totalpage);
+	    request.setAttribute("startPage", startPage);
+	    request.setAttribute("endPage", endPage);
+	    request.setAttribute("count", count);
+	    request.setAttribute("sort", sort);
+
+	    return "../seller/review_result.jsp";
+	}
+	
+	
 	
 	@RequestMapping("seller/sell.eum")
 	public String seller_sell(HttpServletRequest request, HttpServletResponse response) {
