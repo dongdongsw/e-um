@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.pay.mapper.payment-mapper">
+  <resultMap type="BoardVO" id="optionMap">
+    <result property="usvo.u_s_id" column="u_s_id"/>
+    <result property="usvo.u_s_profileimg_url" column="u_s_profileimg_url"/>
+    <result property="usvo.u_s_com" column="u_s_com"/>
+    <result property="bovo.b_op_id" column="b_op_id"/>
+    <result property="bovo.b_op_title" column="b_op_title"/>
+    <result property="bovo.b_op_price" column="b_op_price"/>
+    <result property="bovo.b_op_detail" column="b_op_detail"/>
+    <result property="ovo.o_createdat" column="o_createdat"/>
+    <result property="ovo.o_total_price" column="o_total_price"/>
+  </resultMap>
+  
+  <!-- 주문 상세페이지 데이터 조회 -->
+  <select id="ordersData" resultMap="optionMap" parameterType="int">
+    SELECT
+	b.b_id,
+	b_thumbnail,
+	us.u_s_id,
+	u_s_profileimg_url,
+	u_s_com,
+	b_op_id,
+	b_op_title,
+	b_op_price,
+	b_op_detail
+	FROM board b, users_seller us, board_option bo
+	WHERE b.u_s_id = us.u_s_id
+	AND b.b_id = bo.b_id
+	AND bo.b_op_id = #{b_op_id}
+  </select>
+  
+  <!-- orders table insert -->
+	<insert id="ordersInsert" parameterType="OrdersVO">
+    <selectKey keyProperty="o_id" resultType="int" order="BEFORE">
+        SELECT orders_id_seq.nextval FROM dual
+    </selectKey>
+
+    INSERT INTO orders(
+        o_id,
+        b_op_id,
+        o_status,
+        o_total_price,
+        o_createdat,
+        o_updatedat,
+        o_u_id
+    ) VALUES(
+        #{o_id},
+        #{b_op_id},
+        '결제대기',
+        #{o_total_price},
+        SYSDATE,
+        SYSDATE,
+        #{o_u_id}
+    )
+	</insert>
+
+  <!-- orders 결제대기 -> 결제취소 변경 -->
+  <update id="ordersCancel" parameterType="string">
+    UPDATE orders
+    SET o_status = '결제취소',
+        o_updatedat = SYSDATE
+    WHERE o_id = #{o_id}
+  </update>
+  
+  <!-- payment table insert -->
+  <insert id="paymentInsert" parameterType="paymentVO">
+   INSERT INTO payment(pay_id,o_id,o_u_id,imp_uid,merchant_uid,amount,status,pay_method,
+   					   pg_provider,receipt_url,paid_at,canceled_at,o_method)
+     VALUES(payment_id_seq.nextval,
+            #{o_id},
+            #{o_u_id},
+            #{imp_uid},
+            #{merchant_uid},
+            #{amount},
+            '결제완료',
+            #{pay_method},
+            #{pg_provider},
+            #{receipt_url},
+            SYSDATE,
+            NULL,
+            #{o_method}
+            )
+  </insert>
+  
+  <!-- 결제대기 -> 결제완료 변경 -->
+    <update id="updateOrderStatus" parameterType="string">
+    UPDATE orders
+    SET o_status = '결제완료',
+        o_updatedat = SYSDATE
+    WHERE o_id = #{o_id}
+    </update>
+    
+   <!-- mypage payment -->
+   <select id="mypagePayment" resultMap="optionMap" parameterType="string">
+    SELECT * FROM ( SELECT ROWNUM AS num, A.*
+	FROM ( SELECT
+    o.o_u_id AS o_u_id,
+	o.o_id AS o_id,
+	o.b_op_id AS b_op_id,
+	o.o_createdat AS o_createdat,
+	o.o_total_price AS o_total_price,
+	bo.b_op_title AS b_op_title,
+	bo.b_op_detail AS b_op_detail,
+	b.b_thumbnail AS b_thumbnail,
+	us.u_s_com AS u_s_com
+	FROM orders o
+	JOIN board_option bo ON o.b_op_id = bo.b_op_id
+	JOIN board b ON b.b_id = bo.b_id
+	JOIN users_seller us ON b.u_s_id = us.u_s_id
+    WHERE o.o_u_id = #{o_u_id}
+    ORDER BY o_id DESC
+	) A )
+	WHERE num BETWEEN #{start} AND #{end}
+   </select>
+
+	<!-- 환불 인서트 -->
+   <insert id="refundInsert" parameterType="RefundVO">
+    INSERT INTO refund(rf_id,pay_id,o_u_id,rf_reason,rf_amount,rf_status,rf_requestedat,rf_completedat)
+     VALUES(refund_id_seq.nextval,
+            #{pay_id},
+            #{o_u_id},
+            #{rf_reason},
+            #{rf_amount},
+            '환불대기',
+            SYSDATE,
+            NULL)
+   </insert>
+</mapper>
