@@ -181,4 +181,114 @@ public class UsersDAO {
 			ex.printStackTrace();
 		}
 	}
+	
+	// 회원탈퇴
+	/*
+	    <delete id="deleteChatMessage" parameterType="String">
+	      DELETE FROM chat_message 
+	      WHERE msg_sender_u_id=#{u_id} 
+	      OR msg_sender_a_id=#{u_id} 
+	      OR msg_sender_s_id IN(SELECT u_s_id
+	      						FROM users_seller
+	      						WHERE u_id=#{u_id})
+	    </delete>
+	    
+	    <delete id="deleteChat" parameterType="String">
+	      DELETE FROM chat 
+	      WHERE u_id=#{u_id} 
+	      OR u_s_id IN(SELECT u_s_id
+	        		   FROM users_seller
+					   WHERE u_id=#{u_id})
+	    </delete>
+	    
+	    <delete id="deleteBoardLike" parameterType="String">
+	      DELETE FROM board_like
+	      WHERE u_id=#{u_id}
+	    </delete>
+	
+	    <delete id="deleteFavorite" parameterType="String">
+	      DELETE FROM favorite
+	      WHERE u_id=#{u_id}
+	    </delete>
+	
+		<delete id="deleteReviewImage" parameterType="string">
+		  DELETE FROM review_image
+		  WHERE b_review_id IN(SELECT b_review_id
+		    				   FROM review
+		    				   WHERE u_id=#{u_id}
+		    				   OR u_s_id IN(SELECT u_s_id
+		    				   				FROM users_seller
+		    				   				WHERE u_id=#{u_id}))
+		  )
+	  	</delete>
+		
+	    <delete id="deleteReview" parameterType="String">
+	      DELETE FROM review 
+	      WHERE u_id=#{u_id} 
+	      OR u_s_id IN(SELECT u_s_id
+	       			   FROM users_seller
+	        		   WHERE u_id=#{u_id})
+	    </delete>
+		
+		<delete id="deleteBoardOption" parameterType="string">
+		  DELETE FROM board_option
+		  WHERE b_id IN(SELECT b_id
+		  				FROM board
+		  				WHERE u_s_id IN(SELECT u_s_id
+		  								FROM users_seller
+		  								WHERE u_id=#{u_id}))
+		</delete>
+	
+	    <delete id="deleteBoardlImage" parameterType="string">
+	      DELETE FROM board_image
+	  	  WHERE b_id IN(SELECT b_id FROM board
+	  	  				WHERE u_s_id IN(SELECT u_s_id
+	  	  				 				FROM users_seller
+	  	  				 				WHERE u_id=#{u_id}))
+	    </delete>
+	  	
+	    <delete id="deleteBoard" parameterType="String">
+	      DELETE FROM board 
+	      WHERE u_s_id IN(SELECT u_s_id
+	        			  FROM users_seller
+	        			  WHERE u_id=#{u_id})
+	    </delete>
+	
+	    <delete id="deleteUsersSeller" parameterType="String">
+	      DELETE FROM users_seller
+	      WHERE u_id=#{u_id}
+	    </delete>
+	
+	    <delete id="deleteUsers" parameterType="String">
+	      DELETE FROM users
+	      WHERE u_id=#{u_id}
+	    </delete>
+	 */
+	public static void users_delete(String u_id) {
+		SqlSession session = null;
+		try {
+			session = ssf.openSession();
+			System.out.println("--- DB 처리 시작: " + u_id + " ---");
+			System.out.println("1. CHAT_MESSAGE 삭제 시도");
+			session.delete("deleteChatMessage", u_id);
+			System.out.println("2. BOARD_LIKE 삭제 시도");
+			session.delete("deleteBoardLike", u_id);
+			System.out.println("3. FAVORITE 삭제 시도");
+			session.delete("deleteFavorite", u_id);
+			
+			session.delete("deleteReviewImage", u_id);
+			session.delete("deleteReview", u_id);
+			session.delete("deleteBoardOption", u_id);
+			session.delete("deleteBoardImage", u_id);
+			session.delete("deleteBoard", u_id);
+			session.delete("deleteChat", u_id);
+			session.delete("deleteUsersSeller", u_id);
+			session.delete("deleteUsers", u_id);
+			session.commit();
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			session.rollback();
+		}
+	}
 }

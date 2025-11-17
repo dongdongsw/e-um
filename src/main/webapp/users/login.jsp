@@ -58,22 +58,44 @@ $(function() {
 })
 </script>
 <style type="text/css">
-.social-icons {
+.team-slider {
+    width: 100%;
+    height: 60px;
+    background: #f8f9fa;
     display: flex;
-    gap: 10px;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
 }
 
-.social-login-link {
+.slider-track {
+    display: flex;
+    animation: scroll 15s linear infinite;
+    white-space: nowrap;
+}
+
+.slide {
+    color: #495057;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 50px;
     display: inline-block;
-    padding: 10px; 
-    text-decoration: none; 
 }
 
-.social-login-link .icon-image {
-    display: block; 
-    width: 30px; 
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 </style>
 </head>
@@ -99,23 +121,19 @@ $(function() {
 	</form>
 	<div class="social-message">
 		<div class="line"></div>
-		<p class="message">소셜 로그인</p>
+		<p class="message">Made by.</p>
 		<div class="line"></div>
 	</div>
-	<div class="social-icons">
-      <a href="#" aria-label="Login with kakao" class="social-login-link">
-        <img src="../images/kakao_login.png" class="icon-image">
-      </a>
-      <a href="#" aria-label="Login with naver" class="social-login-link">
-        <img src="../images/naver_login.png" class="icon-image">
-      </a>
-      <a href="#" aria-label="Login with google" class="social-login-link">
-        <img src="../images/google_login.png" class="icon-image">
-      </a>
-      <a href="#" aria-label="Login with apple" class="social-login-link">
-        <img src="../images/apple_login.png" class="icon-image">
-      </a>
-	</div>
+	<div class="team-slider">
+        <div class="slider-container">
+            <div class="slider-track">
+                <span class="slide">1조 서동현  김민석  이철우  이수현  지은표</span>
+                <span class="slide">1조 서동현  김민석  이철우  이수현  지은표</span>
+                <span class="slide">1조 서동현  김민석  이철우  이수현  지은표</span>
+                <span class="slide">1조 서동현  김민석  이철우  이수현  지은표</span>
+            </div>
+        </div>
+    </div>
 	<p class="signup">아직 회원이 아니신가요?
 		<a rel="noopener noreferrer" href="../users/join.eum" class="">회원가입</a>
 	</p>

@@ -128,7 +128,49 @@ body {background-color: #fff !important;}
   color: #9ca3af;
   margin-top: 4px;
 }
-h2 {margin-bottom:100px}
+
+h2 {
+	margin-bottom:100px;
+}
+
+.subtitle {
+	text-align: right;
+  	margin-top: 5px;
+  	color: #888;
+    cursor: pointer;
+}
+
+.subtitle:hover {
+  color: #555;
+}
+
+.result-box {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f0f9ff;
+  border: 1px solid #3b82f6;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-text {
+  margin: 0;
+  color: #1e40af;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -206,7 +248,27 @@ $(function(){
         
 		$('#frm').submit();
 	})
+	
+ 	document.getElementById('deleteBtn').addEventListener('click', function(e) {
+ 		e.preventDefault();
+    
+		// 확인 대화상자
+    	if (confirm('정말로 회원탈퇴를 하시겠습니까?')) {
+      		// 결과 박스 표시
+      		const resultBox = document.getElementById('result-delete');
+      		const resultText = document.getElementById('deleteResultText');
+      
+      		resultText.innerHTML = '회원탈퇴에 성공하였습니다.<br>잠시 후 홈페이지로 이동합니다.';
+      		resultBox.style.display = 'block';
+      
+      		// 3초 후 폼 제출 (실제 탈퇴 처리)
+      		setTimeout(function() {
+	        document.getElementById('deleteForm').submit();
+      		}, 3000);
+    	}
+  	});
 })
+
 </script>
 </head>
 <body>
@@ -296,7 +358,12 @@ $(function(){
           </div>
           
           <!-- 회원 탈퇴 -->
-            <p class="subtitle" style="text-align: right; margin-top: 5px;"><a href="#" style="color: #888;">회원탈퇴</a></p>
+          <form method="post" action="../users/delete_ok.eum" id="deleteForm">
+            <p class="subtitle" id="deleteBtn">회원탈퇴</p>
+            <div id="result-delete" class="result-box" style="display: none;">
+              <p class="result-text" id="deleteResultText"></p>
+            </div>
+          </form>
         </div>
 		<div class="sub-button">
 		  <button class="cancel" type="button" onclick="history.back()">취소</button>
