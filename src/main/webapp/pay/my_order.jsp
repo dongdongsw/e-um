@@ -87,45 +87,7 @@
     	  }, 400);
     });
   });
-  function openModal() {
-      document.getElementById("cancelModal").style.display = "flex";
-  }
-
-  function closeModal() {
-      document.getElementById("cancelModal").style.display = "none";
-  }
-  $(document).on("click", ".cancelBtn", function() {
-
-	    $("#modal_pay_id").val($(this).data("pay"));
-	    $("#modal_o_u_id").val($(this).data("ouid"));
-	    $("#modal_amount").val($(this).data("amount"));
-	    $("#modal_imp_uid").val($(this).data("imp"));
-
-	    openModal();
-	});
-  function submitCancel() {
-
-	    const msg = document.getElementById("cancelMsg").value;
-
-	    if (msg.trim() === "") {
-	        alert("메시지를 입력해주세요.");
-	        return;
-	    }
-
-	    $.post("pay/refund_insert.eum", {
-
-	        pay_id: $("#modal_pay_id").val(),
-	        o_u_id: $("#modal_o_u_id").val(),
-	        rf_reason: msg,
-	        rf_amount: $("#modal_amount").val()
-
-	    }, function(res) {
-	        alert("거래 취소 요청이 완료되었습니다! 관리자 승인 후 환불이 완료됩니다.");
-	        closeModal();
-	        location.reload();
-	    });
-	}
-
+  
   
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -518,11 +480,11 @@
   <div class="order-info">
     <div class="row">
       <div class="label">주문번호</div>
-      <div class="value">${vo.bovo.b_op_id}</div>
+      <div class="value">${vo.bopvo.b_op_id}</div>
     </div>
     <div class="row">
       <div class="label">주문일시</div>
-      <div class="value"><fmt:formatDate value="${vo.ovo.o_createdat}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+      <div class="value"><fmt:formatDate value="${vo.o_createdat}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
     </div>
     <button 
     type="button"
@@ -538,10 +500,10 @@
 
   <!-- 상품 정보 -->
   <div class="product-box">
-    <img src="${vo.b_thumbnail}" alt="상품 이미지">
+    <img src="${vo.bvo.b_thumbnail}" alt="상품 이미지">
     <div class="product-text">
-      <h4 style="color:black;">${vo.bovo.b_op_title}</h4>
-      <p>${vo.usvo.u_s_com}</p>
+      <h4 style="color:black;">${vo.bopvo.b_op_title}</h4>
+      <p>${vo.bvo.usvo.u_s_com}</p>
       <button type="button" class="btn btn-light-sm" style="padding:4px 10px; font-size:12px;">문의하기</button>
     </div>
   </div>
@@ -557,7 +519,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>${vo.bovo.b_op_detail}</td>
+          <td>${vo.bopvo.b_op_detail}</td>
           <td><fmt:formatNumber value="${vo.pvo.amount}" pattern="#,###"/></td>
         </tr>
       </tbody>
@@ -577,6 +539,9 @@
   </div>
 </c:forEach>
 </div>
+
+
+<!-- 모달 -->
 <div id="cancelModal" class="modal-overlay">
   <div class="modal-container">
     
@@ -602,5 +567,48 @@
 	<input type="hidden" id="modal_imp_uid">
   </div>
 </div>
+
+<script type="text/javascript">
+function openModal() {
+    document.getElementById("cancelModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("cancelModal").style.display = "none";
+}
+$(document).on("click", ".cancelBtn", function() {
+
+	    $("#modal_pay_id").val($(this).data("pay"));
+	    $("#modal_o_u_id").val($(this).data("ouid"));
+	    $("#modal_amount").val($(this).data("amount"));
+	    $("#modal_imp_uid").val($(this).data("imp"));
+
+	    openModal();
+	});
+function submitCancel() {
+
+	    const msg = document.getElementById("cancelMsg").value;
+
+	    if (msg.trim() === "") {
+	        alert("메시지를 입력해주세요.");
+	        return;
+	    }
+
+	    $.post("../pay/refund_insert.eum", {
+
+	    
+	        pay_id: $("#modal_pay_id").val(),
+	        o_u_id: $("#modal_o_u_id").val(),
+	        rf_reason: msg,
+	        rf_amount: $("#modal_amount").val()
+
+	    }, function(res) {
+	        alert("거래 취소 요청이 완료되었습니다! 관리자 승인 후 환불이 완료됩니다.");
+	        closeModal();
+	        location.reload();
+	    });
+	}
+
+</script>
 </body>
 </html>

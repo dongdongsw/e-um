@@ -154,20 +154,17 @@ public class PayModel {
 	public String mypage_payment(HttpServletRequest request,
 	         HttpServletResponse response)
 	   {
-		  try
-		  {
+		 
 			  HttpSession session = request.getSession();
 			  String o_u_id=(String)session.getAttribute("id");
+			  Map map = new HashMap();
+			  map.put("o_u_id", o_u_id);
 			  
-			  List<BoardVO> pay_vo=PayDAO.mypagePayment(o_u_id);
+			  List<OrdersVO> pay_vo=PayDAO.mypagePayment(map);
 			  
 			  request.setAttribute("pay_vo", pay_vo);
 			  
-		  }catch(Exception ex)
-		  {
-			  ex.printStackTrace();
-		  }
-	      
+		
 	      request.setAttribute("main_jsp", "../pay/my_order.jsp");
 	      return "../main/main.jsp";
 	   }
@@ -196,6 +193,7 @@ public class PayModel {
 
         // 1) DB INSERT
         PayDAO.refundInsert(vo);
-        return "redirect:../pay/my_order.jsp";
+        
+        return "redirect:../pay/mypage_payment.eum";
     }
 }

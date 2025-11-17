@@ -98,37 +98,33 @@ public class PayDAO {
 	}
 
 	// mypage payment
-	public static List<BoardVO> mypagePayment(String o_u_id)
+	public static List<OrdersVO> mypagePayment(Map map)
 	{
-		   List<BoardVO> list=null;
-		   SqlSession session=null;
+		   List<OrdersVO> list=null;
+		  
 		   try
 		   {
-			   session=ssf.openSession();
-			   list=session.selectList("mypagePayment",o_u_id);
+			   SqlSession session = ssf.openSession();
+			   list=session.selectList("mypagePayment",map);
+			   session.close();
 		   }catch(Exception ex)
 		   {
 			   ex.printStackTrace();
 		   }
-		   finally
-		   {
-			   if(session!=null)
-				   session.close();
-		   }
+		  
 		   return list;
 	}
 
 	// 환불 인서트
 	public static void refundInsert(RefundVO vo) {
-	    SqlSession session = null;
+	     
 	    try {
-	        session = ssf.openSession();
+	    	SqlSession session = ssf.openSession();
 	        session.insert("refundInsert", vo);
 	        session.commit();
+	        session.close();
 	    } catch (Exception ex) {
 	        ex.printStackTrace();
-	    } finally {
-	        if (session != null) session.close();
 	    }
 	}
 }
