@@ -402,10 +402,9 @@ public class usersModel {
 		String u_id = (String)session.getAttribute("id");
 		
 		if(u_id!=null) {
-			UsersDAO.users_delete(u_id);
-			session.invalidate();
-		}
-		
+				UsersDAO.users_delete(u_id);
+				session.invalidate();
+		} 
 		return "redirect:../main/main.eum";
 	}
 }

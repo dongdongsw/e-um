@@ -268,14 +268,9 @@ public class UsersDAO {
 		SqlSession session = null;
 		try {
 			session = ssf.openSession();
-			System.out.println("--- DB 처리 시작: " + u_id + " ---");
-			System.out.println("1. CHAT_MESSAGE 삭제 시도");
 			session.delete("deleteChatMessage", u_id);
-			System.out.println("2. BOARD_LIKE 삭제 시도");
 			session.delete("deleteBoardLike", u_id);
-			System.out.println("3. FAVORITE 삭제 시도");
 			session.delete("deleteFavorite", u_id);
-			
 			session.delete("deleteReviewImage", u_id);
 			session.delete("deleteReview", u_id);
 			session.delete("deleteBoardOption", u_id);

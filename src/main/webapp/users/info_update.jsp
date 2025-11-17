@@ -289,89 +289,88 @@ $(function(){
 	<!-- 오른쪽 본문 -->
 	<main class="content"></main>
       <div class="panel">
-      <h2 class="title" style="color: black;">정보 수정</h1>
-	  <div style="height: 30px"></div>
-      <form id="frm" name="frm" method="post" action="../users/update_ok.eum">
-        <!-- 닉네임 (필수) -->
-        <div class="field" style="margin-bottom:0px">
-          <label class="label" for="u_nickname">닉네임<sup style="color: #a50021">&nbsp;*</sup></label>
-          <div class="id-inline">
-            <div class="search">
-              <input class="search_input" id="nickname" name="nickname" type="text" value="${sessionScope.name}"/>
+        <h2 class="title" style="color: black;">정보 수정</h1>
+	    <div style="height: 30px"></div>
+        <form id="frm" name="frm" method="post" action="../users/update_ok.eum">
+          <!-- 닉네임 (필수) -->
+          <div class="field" style="margin-bottom:0px">
+            <label class="label" for="u_nickname">닉네임<sup style="color: #a50021">&nbsp;*</sup></label>
+            <div class="id-inline">
+              <div class="search">
+                <input class="search_input" id="nickname" name="nickname" type="text" value="${sessionScope.name}"/>
+              </div>
+              <button type="button" id="nickBtn" class="btn">중복체크</button>
             </div>
-            <button type="button" id="nickBtn" class="btn">중복체크</button>
+            <div id="nick_msg" style="color:black; height: 30px; margin-left:20px"></div>
           </div>
-          <div id="nick_msg" style="color:black; height: 30px; margin-left:20px"></div>
-        </div>
         
-        <!-- 비밀번호 (필수) -->
-        <div class="field">
-          <label class="label" for="u_pwd">비밀번호<sup style="color: #a50021">&nbsp;*</sup></label>
-          <div class="search">
-            <input class="search_input" id="pwd1" name="pwd" type="password"/>
+          <!-- 비밀번호 (필수) -->
+          <div class="field">
+            <label class="label" for="u_pwd">비밀번호<sup style="color: #a50021">&nbsp;*</sup></label>
+            <div class="search">
+              <input class="search_input" id="pwd1" name="pwd" type="password"/>
+            </div>
           </div>
-        </div>
 
-        <!-- 비밀번호 확인 (필수) -->
-        <div class="field">
-          <label class="label" for="u_pwd_check">비밀번호 확인<sup style="color: #a50021">&nbsp;*</sup></label>
-          <div class="search">
-            <input class="search_input" id="pwd2" type="password"/>
+          <!-- 비밀번호 확인 (필수) -->
+          <div class="field">
+            <label class="label" for="u_pwd_check">비밀번호 확인<sup style="color: #a50021">&nbsp;*</sup></label>
+            <div class="search">
+              <input class="search_input" id="pwd2" type="password"/>
+            </div>
           </div>
-        </div>
         
-        <!-- 휴대폰 -->
-        <div class="field">
-          <label class="label" for="u_phone">휴대폰 번호</label>
-          <div class="search">
-            <input class="search_input" id="phone" name="phone" type="text" value="${sessionScope.phone}" />
+          <!-- 휴대폰 -->
+          <div class="field">
+            <label class="label" for="u_phone">휴대폰 번호</label>
+            <div class="search">
+              <input class="search_input" id="phone" name="phone" type="text" value="${sessionScope.phone}" />
+            </div>
           </div>
-        </div>
 
-		<!-- 주소 -->
-        <div class="field">
-		  <label class="label">주소</label>
-		  <div class="id-inline">
-		    <div class="search">
-		      <input class="search_input" type="text" id="loc" name="loc" value="${sessionScope.loc}" readonly>
+		  <!-- 주소 -->
+          <div class="field">
+		    <label class="label">주소</label>
+		    <div class="id-inline">
+		      <div class="search">
+		        <input class="search_input" type="text" id="loc" name="loc" value="${sessionScope.loc}" readonly>
+		      </div>
+			  <button type="button" id="locBtn" class="btn">주소검색</button>
 		    </div>
-			<button type="button" id="locBtn" class="btn">주소검색</button>
 		  </div>
-		</div>
 
-        <!-- 수신동의/철회 -->
-        <div class="field">
-          <label class="label">수신동의/철회</label>
-          <div class="agree-box">
-            <label class="agree-item">
-              <input type="checkbox" id="push_noti" name="push_noti" value="Y" ${sessionScope.push_noti eq 'Y' ? 'checked' : ""}/>
-              <span>푸시 동의 (선택)</span>
-            </label>
-            <label class="agree-item">
-              <input type="checkbox" id="email_noti" name="email_noti" value="Y" ${sessionScope.email_noti eq 'Y' ? 'checked' : ""}/>
-              <span>이메일 수신 동의 (선택)</span>
-            </label>
-            <label class="agree-item">
-              <input type="checkbox" id="sms_noti" name="sms_noti" value="Y" ${sessionScope.sms_noti eq 'Y' ? 'checked' : ""}/>
-              <span>SMS 수신 동의 (선택)</span>
-            </label>
-          </div>
+          <!-- 수신동의/철회 -->
+          <div class="field">
+            <label class="label">수신동의/철회</label>
+            <div class="agree-box">
+              <label class="agree-item">
+                <input type="checkbox" id="push_noti" name="push_noti" value="Y" ${sessionScope.push_noti eq 'Y' ? 'checked' : ""}/>
+                <span>푸시 동의 (선택)</span>
+              </label>
+              <label class="agree-item">
+                <input type="checkbox" id="email_noti" name="email_noti" value="Y" ${sessionScope.email_noti eq 'Y' ? 'checked' : ""}/>
+                <span>이메일 수신 동의 (선택)</span>
+              </label>
+              <label class="agree-item">
+                <input type="checkbox" id="sms_noti" name="sms_noti" value="Y" ${sessionScope.sms_noti eq 'Y' ? 'checked' : ""}/>
+                <span>SMS 수신 동의 (선택)</span>
+              </label>
+            </div>
           
-          <!-- 회원 탈퇴 -->
-          <form method="post" action="../users/delete_ok.eum" id="deleteForm">
+            <!-- 회원 탈퇴 -->
             <p class="subtitle" id="deleteBtn">회원탈퇴</p>
             <div id="result-delete" class="result-box" style="display: none;">
               <p class="result-text" id="deleteResultText"></p>
             </div>
-          </form>
-        </div>
-		<div class="sub-button">
-		  <button class="cancel" type="button" onclick="history.back()">취소</button>
-		  <button class="submit" type="button" id="joinBtn">수정완료</button>
-		</div>
-        <div style="height: 30px;"></div>
-      </form>
-    </div>
+          </div>
+		  <div class="sub-button">
+		    <button class="cancel" type="button" onclick="history.back()">취소</button>
+		    <button class="submit" type="button" id="joinBtn">수정완료</button>
+		  </div>
+          <div style="height: 30px;"></div>
+        </form>
+        <form method="post" action="../users/delete_ok.eum" id="deleteForm"></form>
+      </div>
   </div>
 </body>
 </html>

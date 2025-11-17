@@ -123,7 +123,6 @@
 	    				   OR u_s_id IN(SELECT u_s_id
 	    				   				FROM users_seller
 	    				   				WHERE u_id=#{u_id}))
-	  )
   	</delete>
 	
     <delete id="deleteReview" parameterType="String">
