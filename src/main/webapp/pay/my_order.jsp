@@ -87,34 +87,46 @@
     	  }, 400);
     });
   });
-	  function openModal() {
+  function openModal() {
       document.getElementById("cancelModal").style.display = "flex";
   }
 
   function closeModal() {
       document.getElementById("cancelModal").style.display = "none";
   }
+  $(document).on("click", ".cancelBtn", function() {
 
+	    $("#modal_pay_id").val($(this).data("pay"));
+	    $("#modal_o_u_id").val($(this).data("ouid"));
+	    $("#modal_amount").val($(this).data("amount"));
+	    $("#modal_imp_uid").val($(this).data("imp"));
+
+	    openModal();
+	});
   function submitCancel() {
-      const reason = document.getElementById("selectedReason").value;
-      const msg = document.getElementById("cancelMsg").value;
 
-      if (msg.trim() === "") {
-          alert("메시지를 입력해주세요.");
-          return;
-      }
+	    const msg = document.getElementById("cancelMsg").value;
 
-      $.post("refundInsert.eum", {
-    	  imp_uid:"${orders_vo.pvo.imp_uid}",
-    	  pay_id:"${pay_id}",
-    	  o_u_id:"${o_u_id}",
-    	  rf_reason: rf_reason,
-    	  rf_amount: "${orders_vo.ovo.o_total_price}"
-      }, function(res){    
-          alert("거래 취소 요청이 완료되었습니다!");
-          closeModal();
-      });
-  }
+	    if (msg.trim() === "") {
+	        alert("메시지를 입력해주세요.");
+	        return;
+	    }
+
+	    $.post("pay/refund_insert.eum", {
+
+	        pay_id: $("#modal_pay_id").val(),
+	        o_u_id: $("#modal_o_u_id").val(),
+	        rf_reason: msg,
+	        rf_amount: $("#modal_amount").val()
+
+	    }, function(res) {
+	        alert("거래 취소 요청이 완료되었습니다! 관리자 승인 후 환불이 완료됩니다.");
+	        closeModal();
+	        location.reload();
+	    });
+	}
+
+  
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -501,26 +513,35 @@
 
   <!-- 제목 -->
   <div class="page-title">주문 상세 내역</div>
-
+  <c:forEach var="vo" items="${pay_vo}">
   <!-- 주문 정보 -->
   <div class="order-info">
     <div class="row">
       <div class="label">주문번호</div>
-      <div class="value">#${orders_vo.bovo.b_op_id}</div>
+      <div class="value">${vo.bovo.b_op_id}</div>
     </div>
     <div class="row">
       <div class="label">주문일시</div>
-      <div class="value"><fmt:formatDate value="${orders_vo.ovo.o_createdat}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+      <div class="value"><fmt:formatDate value="${vo.ovo.o_createdat}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
     </div>
-    <button onclick="openModal()" class="btn btn-light-sm" style="padding:4px 10px; font-size:12px;">취소 하기</button>
+    <button 
+    type="button"
+    class="cancelBtn btn btn-light-sm"
+    style="padding:4px 10px; font-size:12px;"
+    data-pay="${vo.pvo.pay_id}"
+    data-ouid="${vo.pvo.o_u_id}"
+    data-amount="${vo.pvo.amount}"
+    data-imp="${vo.pvo.imp_uid}">
+  	취소 하기
+	</button>
   </div>
 
   <!-- 상품 정보 -->
   <div class="product-box">
-    <img src="${orders_vo.b_thumbnail}" alt="상품 이미지">
+    <img src="${vo.b_thumbnail}" alt="상품 이미지">
     <div class="product-text">
-      <h4 style="color:black;">${orders_vo.bovo.b_op_title}</h4>
-      <p>${orders_vo.usvo.u_s_com}</p>
+      <h4 style="color:black;">${vo.bovo.b_op_title}</h4>
+      <p>${vo.usvo.u_s_com}</p>
       <button type="button" class="btn btn-light-sm" style="padding:4px 10px; font-size:12px;">문의하기</button>
     </div>
   </div>
@@ -536,8 +557,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>${orders_vo.bovo.b_op_detail}</td>
-          <td><fmt:formatNumber value="${orders_vo.ovo.o_total_price}" pattern="#,###원"/></td>
+          <td>${vo.bovo.b_op_detail}</td>
+          <td><fmt:formatNumber value="${vo.pvo.amount}" pattern="#,###"/></td>
         </tr>
       </tbody>
     </table>
@@ -547,14 +568,14 @@
   <div class="payment-info">
     <div class="row">
       <span>상품 금액</span>
-      <span><fmt:formatNumber value="${orders_vo.ovo.o_total_price}" pattern="#,###원"/></span>
+      <span><fmt:formatNumber value="${vo.pvo.amount}" pattern="#,###"/></span>
     </div>
     <div class="total">
       총 결제 금액 
-      <span style="float:right"><fmt:formatNumber value="${orders_vo.ovo.o_total_price}" pattern="#,###원"/></span>
+      <span style="float:right"><fmt:formatNumber value="${vo.pvo.amount}" pattern="#,###"/></span>
     </div>
   </div>
-
+</c:forEach>
 </div>
 <div id="cancelModal" class="modal-overlay">
   <div class="modal-container">
@@ -569,13 +590,16 @@
       <div class="section-title">취소 요청 사유</div>
       <textarea id="cancelMsg" class="modal-textarea" placeholder="메시지를 입력해주세요"></textarea>
     </div>
-
+	
     <!-- 버튼들 -->
     <div class="modal-footer">
       <button class="btn-gray" onclick="closeModal()">이전</button>
       <button class="btn-yellow" onclick="submitCancel()">요청</button>
     </div>
-
+	<input type="hidden" id="modal_pay_id">
+	<input type="hidden" id="modal_o_u_id">
+	<input type="hidden" id="modal_amount">
+	<input type="hidden" id="modal_imp_uid">
   </div>
 </div>
 </body>
