@@ -186,11 +186,11 @@ html {
 			     	
 			        <span style="margin-left: 20px">조회수 ${vo.b_view_count}</span>
 			        &nbsp;
-			        <span>리뷰 100</span>
+			        <span>리뷰&nbsp;${vo.rvo.review_count}</span>
 			      </div>
 			     
 			      <div class="content-price">
-			        <fmt:formatNumber value="50000" pattern="#,###" />원
+			        <fmt:formatNumber value="${vo.bovo.b_op_price }" pattern="#,###" />원
 			      </div>
 			    </div>
 			

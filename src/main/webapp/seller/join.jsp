@@ -12,26 +12,7 @@
 <script type="text/javascript">
 
 $(function(){
-  $('#uploadBtn').click(function() {
-    $('#profile_img').click();
-  });
-
-  $('#profile_img').change(function(e) {
-    const file = e.target.files[0];
-    const fileNameSpan = $('#fileName');
-    const preview = $('#previewImg');
-
-    if (file) {
-      fileNameSpan.text(file.name);
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        preview.attr('src', event.target.result);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      preview.attr('src', '../images/default_profile.png');
-    }
-  });
+ 
   $('#sellerBtn').click(function(){
 		let sn=$('#seller_name').val()
 		if(sn.trim()==="") {
@@ -188,23 +169,7 @@ $(function(){
 	  <div style="height: 30px"></div>
      <form id="frm" name="frm" method="post" action="../seller/seller_join_ok.eum">
  		<input type="hidden" id="biz_verified" name="biz_verified" value="N">
-		<!-- 프로필 이미지 업로드 -->
-		<div class="field" style="margin-top:30px;">
-		  <label class="label">프로필 이미지</label>
-		  <div class="profile-upload" style="display:flex; align-items:center; gap:20px;">
-		    
-		    <!-- 미리보기 영역 -->
-		    <div class="preview" style="width:70px; height:70px; border-radius:50%; overflow:hidden; background:#f5f5f5; border:1px solid #ccc;">
-		      <img id="previewImg" src="../images/profile.jpg" alt="프로필 미리보기" style="width:100%; height:100%; object-fit:cover;">
-		    </div>
-		    
-		    <!-- 파일 선택 -->
-		    <div class="upload-btn">
-		      <input type="file" id="profile_img" name="profile_img" accept="image/*" style="display:none;">
-		      <button type="button" id="uploadBtn" class="btn">사진 선택</button>
-		    </div>
-		  </div>
-		</div>
+		
         <!-- 셀러 닉네임 -->
         <div class="field" style="margin-bottom:0px">
           <label class="label">셀러 이름<sup style="color: #a50021">&nbsp;*</sup></label>

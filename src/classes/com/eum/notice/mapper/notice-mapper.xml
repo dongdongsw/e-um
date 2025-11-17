@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.notice.mapper.notice-mapper">
+<!-- 리스트 -->
+<select id="noticeListData" resultType="NoticeVO" parameterType="map">
+  SELECT n_id, u_id, n_title, n_createdAt, n_updatedAt
+  FROM (
+      SELECT n_id, u_id, n_title, n_createdAt, n_updatedAt, ROWNUM AS num
+      FROM (
+          SELECT n_id, u_id, n_title, n_createdAt, n_updatedAt
+          FROM notice_board
+          ORDER BY TO_NUMBER(n_id) DESC
+      )
+  )
+  WHERE num BETWEEN #{start} AND #{end}
+</select>
+
+
+<!-- 디테일 -->
+ <select id="noticeDetailData" resultType="NoticeVO" parameterType="string">
+  SELECT n_id,u_id,n_title,n_createdAt,n_updatedAt,n_content
+  FROM notice_board
+  WHERE n_id=#{n_id}
+ </select>
+<!-- 총 페이지 -->
+ <select id="noticeTotalPage" resultType="int">
+  SELECT CEIL(COUNT(*) / 10.0)
+  FROM notice_board
+ </select>
+ <!-- 추가 -->
+ <insert id="noticeInsert" parameterType="NoticeVO">
+  INSERT INTO notice_board(n_id,u_id,n_title,n_content,n_createdAt,n_updatedAt)
+  VALUES(NOTICE_BOARD_SEQ.NEXTVAL,
+   #{u_id},#{n_title},#{n_content},SYSDATE,NULL
+  )
+ </insert>
+ <!-- 수정 -->
+ <update id="noticeUpdate" parameterType="NoticeVO">
+  UPDATE notice_board
+  SET
+   n_title=#{n_title},
+   n_content=#{n_content},
+   n_updatedAt=SYSDATE
+  WHERE n_id=#{n_id}
+ </update>
+ <!-- 삭제 -->
+ <delete id="noticeDelete" parameterType="string">
+  DELETE FROM notice_board
+  WHERE n_id=#{n_id}
+ </delete>
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.admin.mapper.contents-mapper">
+	<resultMap id="BoardWithSellerMap" type="BoardVO">
+		<!-- contentVO기본 컬럼 -->
+		<id property="b_id" column="b_id"/>
+		<result property="u_s_id" column="b_u_s_id"/>
+		<result property="b_filter" column="b_filter"/>
+		<result property="b_title" column="b_title"/>
+		<result property="b_content" column="b_content"/>
+		<result property="b_thumbnail" column="b_thumbnail"/>
+		<result property="b_prod_on_off" column="b_prod_on_off"/>
+		<result property="b_status" column="b_status"/>
+		<result property="b_type" column="b_type"/>
+		<result property="b_view_count" column="b_view_count"/>
+		<result property="b_createdat" column="b_createdat"/>
+		<result property="b_updatedat" column="b_updatedat"/>
+		
+		<association property="usvo" javaType="Users_SellerVO">
+			<id property="u_s_id" column="us_u_s_id"/>
+			<result property="u_s_com" column="u_s_com" />
+		
+		</association>
+	</resultMap>
+
+	
+	<!-- <컨텐츠> 리스트 -->
+	<select id="contentsListData" resultMap="BoardWithSellerMap" parameterType="hashmap">
+		SELECT b.b_id,  b.u_s_id AS b_u_s_id, b.b_filter, b.b_title, us.u_s_id AS us_u_s_id,
+			b.b_thumbnail, b.b_status, b.b_createdat, b.b_view_count, us.u_s_com, b.b_type
+	  FROM board b
+	  LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
+	  ORDER BY b.b_id DESC
+	  OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+	
+	<!-- <컨텐츠> 페이징 -->
+	<select id="contentsTotalData" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM board
+	</select>
+	
+	
+	<resultMap id="boardDetailMap" type="com.eum.main.vo.BoardVO">
+
+	    <id property="b_id" column="b_id"/>
+	    <result property="b_thumbnail" column="b_thumbnail"/>
+	    <result property="b_title" column="b_title"/>
+	    <result property="b_status" column="b_status"/>
+	    <result property="b_type" column="b_type"/>
+	    <result property="b_view_count" column="b_view_count"/>
+	    <result property="b_content" column="b_content"/>
+	    <result property="b_prod_on_off" column="b_prod_on_off"/>
+	    <result property="r_count" column="r_count"/>
+	    <result property="l_count" column="l_count"/>
+	
+	    <!-- 판매자 정보 매핑 -->
+	    <association property="usvo" javaType="com.eum.main.vo.Users_SellerVO">
+	        <result property="u_s_com" column="u_s_com"/>
+	        <result property="u_s_zone" column="u_s_zone"/>
+	        <result property="u_s_carrer" column="u_s_carrer"/>
+	        <result property="u_s_profileimg_url" column="u_s_profileimg_url"/>
+	    </association>
+	
+	    <!-- 이미지 리스트 매핑 -->
+	    <collection property="bbivo"
+	                ofType="com.eum.main.vo.Board_ImageVO"
+	                column="b_id"
+	                select="contentsDetailboardImage"/>
+	</resultMap>
+	
+	
+	<select id="contentsDetailboard" resultMap="boardDetailMap" parameterType="string">
+	   SELECT 
+	   b.b_id,
+	   b.b_thumbnail,
+	   b.b_title,
+	   b.b_type,
+	   b.b_status,
+	   b.b_view_count,
+	   b.b_content,
+	   b.b_prod_on_off,
+   	   (SELECT COUNT(*) FROM review re WHERE re.b_id = b.b_id) AS r_count,
+	   (SELECT COUNT(*) FROM board_like bl WHERE bl.b_id = b.b_id) AS l_count,
+	   sel.u_s_com,
+	   sel.u_s_zone,
+	   sel.u_s_carrer,
+	   sel.u_s_profileimg_url
+	   FROM board b
+	   LEFT JOIN users_seller sel
+	       ON b.u_s_id = sel.u_s_id
+	   WHERE b.b_id = #{b_id}
+</select>
+	
+	<select id="contentsDetailboardImage"
+        resultType="com.eum.main.vo.Board_ImageVO"
+        parameterType="string">
+    SELECT 
+        b_img_id,
+        b_id,
+        b_img_url
+    FROM board_image
+    WHERE b_id = #{b_id}
+    ORDER BY b_img_id ASC
+</select>
+	
+	
+	
+  <!-- 별점 평균 -->
+  <select id="contentsDetailscore"  resultType="com.eum.main.vo.BoardVO"  parameterType="string">
+    SELECT b_id,ROUND(AVG(b_review_score),1) AS b_review_score
+   FROM review
+   WHERE b_id=#{b_id}
+   GROUP BY b_id
+  </select>
+  
+  <!-- 금액 옵션 -->
+  <select id="contentsDetailprice" resultType="Board_OptionVO" parameterType="string">
+    SELECT * FROM board_option
+    WHERE b_id=#{b_id}
+  </select>
+	
+	
+	<!-- 컨텐츠 상태 수정 -->
+	<update id="contentsStatusUpdate" parameterType="hashmap">
+	    UPDATE board
+	    SET b_status = #{b_status}
+	    WHERE b_id = #{b_id}
+	</update>
+</mapper>

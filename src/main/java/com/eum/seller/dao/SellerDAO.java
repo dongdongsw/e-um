@@ -103,4 +103,15 @@ public class SellerDAO {
 			}
 			return list;
 		}
+		
+		// 프로필 이미지 업로드
+		public static void sellerProfile(Users_SellerVO vo) {
+			try {
+				SqlSession session = ssf.openSession(true);
+				session.update("sellerProfile", vo);
+				session.close();
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 }

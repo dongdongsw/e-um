@@ -1,6 +1,12 @@
 package com.eum.seller.model;
 
+import java.io.File;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -15,6 +21,7 @@ import com.sist.controller.RequestMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 
 @Controller
@@ -192,4 +199,61 @@ public class SellerModel {
 		request.setAttribute("main_jsp", "../seller/chat.jsp");
 		return "../main/main.jsp";
 	}
+	
+	// 프로필 이미지 업로드
+		@RequestMapping("seller/profile_upload.eum")
+		public String users_profile_upload(HttpServletRequest request, HttpServletResponse response) {
+			HttpSession session = request.getSession();
+			int sid = (int)session.getAttribute("sid");
+			
+			
+			String uploadDir = "/upload/profile";
+			String path = request.getServletContext().getRealPath(uploadDir);
+			
+			File dir = new File(path);
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			
+			String newFilePath = null;
+			
+			try {
+				Part filePart = request.getPart("profile_img");
+				String originalFileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+				
+				if(filePart.getSize() > 0 && originalFileName != null && !originalFileName.isEmpty()) {
+					String oldProFileUrl = (String)session.getAttribute("profile");
+					
+					String uniqueFileName = System.currentTimeMillis() + "-" + originalFileName;
+					Path filePath = Paths.get(path, uniqueFileName);
+					try(InputStream input = filePart.getInputStream()) {
+						Files.copy(input, filePath, StandardCopyOption.REPLACE_EXISTING);
+					}
+					newFilePath = request.getContextPath() + uploadDir + "/" + uniqueFileName;
+					
+					Users_SellerVO vo=new Users_SellerVO();
+					vo.setU_s_id(sid);
+					vo.setU_s_profileimg_url(newFilePath);
+					SellerDAO.sellerProfile(vo);
+					
+					if(oldProFileUrl != null && !oldProFileUrl.contains("profile.jpg")) {
+						try {
+							String oldFileName = oldProFileUrl.substring(oldProFileUrl.lastIndexOf("/")+1);
+							File oldFile = new File(path + File.separator + oldFileName);
+							if(oldFile.exists()) {
+								oldFile.delete();
+							}
+						} catch(Exception ignore) {
+						}
+					}
+					session.setAttribute("profile", newFilePath);
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				request.setAttribute("msg", "파일 업로드 처리 중 오류가 발생했습니다.");
+				request.setAttribute("url", "../seller/info.eum");
+				return "../commons/alert.jsp";
+			}
+			return "redirect:../seller/info.eum";
+		}
 }

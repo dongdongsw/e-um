@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.main.mapper.talent-mapper">
+  <resultMap type="com.eum.main.vo.BoardVO" id="boardMap">
+  	<result property="rvo.b_review_score" column="b_review_score"/>
+  	<result property="rvo.u_s_id" column="u_s_id"/>
+	<result property="rvo.b_review_id" column="b_review_id"/>
+	<result property="rvo.b_review_createdat" column="b_review_createdat"/>
+	<result property="rvo.b_review_content" column="b_review_content"/>
+	<result property="rvo.review_count" column="review_count"/>
+	<result property="rvo.group_id" column="group_id"/>
+	<result property="rvo.root" column="root"/>
+	<result property="rvo.depth" column="depth"/>
+	<result property="rvo.reply" column="reply"/>
+  	<result property="bovo.b_op_price" column="b_op_price"/>
+  	<result property="bivo.b_img_url" column="b_img_url"/>
+  	<result property="usvo.u_s_com" column="u_s_com"/>
+	<result property="usvo.u_s_profileimg_url" column="u_s_profileimg_url"/>
+	<result property="usvo.u_s_carrer" column="u_s_carrer"/>
+	<result property="usvo.u_s_zone" column="u_s_zone"/>
+	<result property="uvo.u_id" column="u_id"/>
+	<result property="uvo.u_nickname" column="u_nickname"/>
+	<result property="uvo.u_profileimg_url" column="u_profileImg_url"/>
+  </resultMap>
+  
+  <!-- 리스트 -->
+  <select id="talentListData" resultMap="boardMap" parameterType="hashmap">
+	SELECT * FROM ( SELECT ROWNUM AS num, A.*
+	FROM ( SELECT 
+		   board.b_id AS b_id,
+		   b_title,
+		   b_thumbnail AS b_thumbnail,
+		   ROUND(AVG(b_review_score),1) AS b_review_score,
+		   COUNT(DISTINCT b_review_id) AS review_count,
+		   MIN(b_op_price) AS b_op_price,
+		   u_s_com,
+		   b_type
+		   FROM board,board_option,users_seller,review
+		   WHERE board.b_id = board_option.b_id
+		   AND board.u_s_id = users_seller.u_s_id
+		   AND board.b_id = review.b_id
+		   GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
+		   ORDER BY b_id DESC
+	   ) A
+	)
+	WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <!-- 총페이지 -->
+  <select id="talentTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/12.0) 
+    FROM board
+    WHERE b_type='생활라이프'
+  </select>
+  
+  <!-- 게시판 -->
+  <select id="talentDetailData" resultType="BoardVO" parameterType="string">
+    SELECT * FROM board
+    WHERE b_id=#{b_id}
+  </select>
+  
+  <!-- 디테일 페이지 -->
+  
+  <!-- 상세보기 -->
+  <select id="talentDetailboard" resultMap="boardMap" parameterType="string">
+	SELECT 
+	b.b_id,
+	b.b_thumbnail,
+	b.b_title,
+	b.b_type,
+	b.b_view_count,
+	b.b_content,
+	b.b_prod_on_off,
+	b.u_s_id,
+	(SELECT COUNT(*) FROM review re WHERE re.b_id = b.b_id) AS review_count,
+	(SELECT COUNT(*) FROM board_like bl WHERE bl.b_id = b.b_id) AS l_count,
+	sel.u_s_com,
+	sel.u_s_zone,
+	sel.u_s_carrer,
+	sel.u_s_profileimg_url
+	FROM board b
+	LEFT JOIN users_seller sel
+	ON b.u_s_id = sel.u_s_id
+	WHERE b.b_id = #{b_id}
+  </select>
+  
+  <!-- 상세보기 이미지 -->
+  <select id="talentDetailboardImage" resultMap="boardMap" parameterType="string">
+    SELECT b_img_url 
+	FROM board_image 
+	WHERE b_id = #{b_id}
+	ORDER BY b_img_id ASC
+  </select>
+
+   <!-- review -->
+  <select id="talentDetailreview" resultMap="boardMap" parameterType="string">
+	  SELECT 
+        u.u_id,
+        r.root,
+        r.depth,
+        r.group_id,
+        r.b_review_score,
+        b.b_id AS b_id,
+        r.u_s_id AS u_s_id,
+        r.b_review_id AS b_review_id,
+        r.b_review_createdat,
+        r.b_review_content,
+        u.u_nickname,
+        u.u_profileimg_url,
+        (
+            SELECT COUNT(*)
+            FROM review r2
+            WHERE r2.group_id = r.group_id
+              AND r2.depth = 2
+        ) AS reply
+    FROM review r
+    JOIN board  b ON b.b_id = r.b_id
+    JOIN users  u ON r.u_id = u.u_id
+    WHERE b.b_id = #{b_id}
+    ORDER BY
+        r.group_id DESC,
+        r.depth ASC,
+        r.b_review_createdat ASC       
+
+  </select>
+  
+    <!-- 리뷰 이미지 -->
+	<select id="reviewImage" resultType="string" parameterType="string">
+	   SELECT r_image_url
+	    FROM review_image
+	    WHERE b_review_id = #{b_review_id}
+	    ORDER BY r_image_id ASC
+	</select>
+  
+  <!-- 별점 평균 -->
+  <select id="talentDetailscore" resultMap="boardMap" parameterType="string">
+    SELECT b_id,ROUND(AVG(b_review_score),1) AS b_review_score
+	FROM review
+	WHERE b_id=#{b_id}
+	GROUP BY b_id
+  </select>
+  
+  <!-- 금액 옵션 -->
+  <select id="talentDetailprice" resultType="Board_OptionVO" parameterType="string">
+    SELECT * FROM board_option
+    WHERE b_id=#{b_id}
+  </select>
+  
+  <!-- 조회수 -->
+  <update id="talentHitIncrement" parameterType="string">
+    UPDATE board SET
+    b_view_count=b_view_count+1 
+    WHERE b_id=#{b_id}
+   </update>
+   
+      <!-- 리뷰 작성 -->
+   <insert id="reviewInsert" parameterType="com.eum.main.vo.ReviewVO">
+     INSERT INTO review 
+     	(b_review_id, u_s_id, b_id, u_id, b_review_createdat, b_review_content,
+      	 b_review_score, depth, group_id)
+     VALUES
+         (re_id_seq.nextval, #{u_s_id}, #{b_id}, #{u_id}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+          #{b_review_content}, #{b_review_score}, 1, re_id_seq.CURRVAL 
+         )
+   </insert>
+   
+   <!-- 답변 작성 --> 
+    <insert id="replyInsert" parameterType="com.eum.main.vo.ReviewVO">
+     INSERT INTO review 
+     	(b_review_id, u_s_id, b_id, u_id, b_review_createdat, b_review_content,
+      	 depth, group_id)
+     VALUES
+         (re_id_seq.nextval, #{u_s_id}, #{b_id}, #{u_id}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+          #{b_review_content}, 2, #{group_id}
+         )
+   </insert>
+   
+   <!-- 리뷰 수정 -->
+   <insert id="reviewUpdate" parameterType="com.eum.main.vo.ReviewVO">
+     UPDATE review SET 
+     b_review_content=#{b_review_content},
+     b_review_score=#{b_review_score}
+     WHERE
+     b_review_id=#{b_review_id}
+   </insert>
+   
+   <!-- 답변 수정 --> 
+   <insert id="replyUpdate" parameterType="com.eum.main.vo.ReviewVO">
+     UPDATE review SET 
+     b_review_content=#{b_review_content}
+     WHERE
+     b_review_id=#{b_review_id}
+   </insert>
+   
+   <!-- 리뷰 이미지 삭제 -->
+   <delete id="reviewImageDelete" parameterType="int">
+     DELETE FROM review_image
+     WHERE b_review_id = #{b_review_id}
+   </delete>
+   
+   <!-- 리뷰와 리뷰의 대한 답변 삭제 -->
+   <delete id="reviewReplyDelete" parameterType="int">
+     DELETE FROM review
+     WHERE group_id = #{b_review_id}
+   </delete>
+   
+   <!-- 답변 삭제 -->
+   <delete id="replyDelete" parameterType="int">
+     DELETE FROM review
+     WHERE
+     b_review_id=#{b_review_id}
+   </delete>
+</mapper>
+

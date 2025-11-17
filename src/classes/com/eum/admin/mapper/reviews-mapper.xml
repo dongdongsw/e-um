@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.admin.mapper.reviews-mapper">
+	
+	<!-- 리뷰 페이징 -->
+	<select id="reviewTotalData" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM review
+	</select>
+	
+	<resultMap id="reviewMap" type="ReviewVO">
+		<result property="u_s_id" column="u_s_id"/>
+		<result property="b_review_id" column="b_review_id"/>
+		<result property="b_id" column="b_id"/>
+		<result property="u_id" column="u_id"/>
+		<result property="b_review_createdat" column="b_review_createdat"/>
+		<result property="b_review_content" column="b_review_content"/>
+		<result property="b_review_score" column="b_review_score"/>
+		
+		 <!-- Users 정보 매핑 -->
+	    <association property="uvo" javaType="com.eum.main.vo.UsersVO">
+	        <result property="u_nickname" column="u_nickname"/>
+	    </association>
+	
+	    <!-- Board 정보 매핑 -->
+	    <association property="bvo" javaType="com.eum.main.vo.BoardVO">
+	        <result property="b_type" column="b_type"/>
+	    </association>
+		
+		<!-- review 이미지 매핑 -->
+		<collection property="imageList"
+					ofType="com.eum.main.vo.Review_ImageVO"
+					column="b_review_id"
+					select="selectReviewImages"/>
+								
+	</resultMap>
+
+	<select id="reviewListData" resultMap="reviewMap" parameterType="hashmap">
+		SELECT r.u_id, r.b_review_id, r.b_review_createdat, r.u_s_id, r.b_id,
+				     r.b_review_content, r.b_review_score, u.u_nickname, b.b_type
+		FROM review r
+		LEFT JOIN users u ON r.u_id = u.u_id
+		LEFT JOIN board b ON r.b_id = b.b_id
+		ORDER BY r.b_review_id DESC
+		OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+		
+	<select id="selectReviewImages" parameterType="string" resultType="Review_ImageVO">
+	    SELECT r_image_id, b_review_id, r_image_url
+		FROM review_image
+		WHERE b_review_id = #{value}
+	</select>
+	
+</mapper>

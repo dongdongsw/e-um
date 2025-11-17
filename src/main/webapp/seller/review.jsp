@@ -5,8 +5,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>내 컨텐츠</title>
+<title>구매자 리뷰</title>
+
 <style>
+/* ===================== 기본 레이아웃 ===================== */
 body {background-color: #fff !important;}
 .seller-container {
   display: grid;
@@ -16,7 +18,7 @@ body {background-color: #fff !important;}
   gap: 40px;
 }
 
-/* ===== 좌측 메뉴 ===== */
+/* ===================== 좌측 메뉴 ===================== */
 .sidebar {
   border-right: 1px solid #e5e7eb;
   padding-right: 24px;
@@ -52,135 +54,179 @@ body {background-color: #fff !important;}
   background: #f9fafb;
 }
 
-/* ===== 오른쪽 본문 ===== */
-/* ===== 가로형 컨텐츠 리스트 ===== */
+/* ===================== 오른쪽 컨텐츠 박스 ===================== */
+.content {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px 30px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+/* ===================== 리스트 전체 ===================== */
 .content-list {
   display: flex;
   flex-direction: column;
-  gap: 24px; /* 카드 사이 간격 살짝 늘림 */
+  gap: 18px;
+  margin-top: 32px;
 }
 
+/* ===================== 카드 ===================== */
 .content-item {
   display: flex;
-  align-items: flex-start;
-  border: 1px solid #e5e7eb;
+  align-items: stretch;
   border-radius: 12px;
-  background: #fafafa;
+  background: #f9fafb;
   overflow: hidden;
-  transition: box-shadow 0.2s;
-  padding: 24px 28px; /* 내부 여백 넓힘 */
+  transition: all 0.18s ease;
+  padding: 18px 20px;
+  border: 1px solid #e5e7eb;
 }
 
 .content-item:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.09);
+  transform: translateY(-1px);
+  border-color: #d1d5db;
 }
 
-.content-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* 요소 간 여백 약간 늘림 */
-}
-
-.content-thumb {
-  width: 180px;
-  height: 120px;
-  border-radius: 8px;
+/* ===================== 썸네일 ===================== */
+.product-thumbnail {
+  width: 190px;
+  height: 140px;
+  border-radius: 10px;
   overflow: hidden;
   flex-shrink: 0;
   margin-right: 24px;
+  background: #e5e7eb;
+  align-self: center;
 }
 
-.content-thumb img {
+.product-thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* ===================== 오른쪽 컨텐츠 정보 ===================== */
 .content-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
+/* 제목 */
 .content-title {
-  font-size: 17px;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 4px;
 }
 
+.one-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 작성자 · 날짜 */
 .content-meta {
   font-size: 13px;
   color: #6b7280;
-  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.content-stats {
-  margin-bottom: 6px;
+.dot {
+  margin: 0 4px;
+  color: #d1d5db;
 }
 
-.content-price {
-  font-size: 15px;
-  font-weight: 700;
-  color: #8e4dff;
+/* 아바타 */
+.avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
-/* 추가 유틸 (디자인 유지, 내용 가독성만) */
-.stars {font-size:14px; line-height:1; letter-spacing:1px; margin-bottom:6px}
-.stars .score {font-weight:700; margin-left:6px; color:#111}
-.one-line {overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+/* ===================== 리뷰 영역 ===================== */
+.review-block {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.review-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.review-rating {
+  font-size: 13px;
+  color: #f59e0b;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
 .clamp-2 {
-  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-.badge {display:inline-block; font-size:12px; color:#6b7280; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:999px; padding:2px 8px}
-.dot {margin:0 6px; color:#d1d5db}
-.content-actions .btn {margin-left:8px; padding:8px 12px; border:1px solid #e5e7eb; border-radius:8px; cursor:pointer}
-.content-actions {background:#f9fafb}
-.content-actions {display:flex; align-items:center; gap:8px; margin-left:16px}
-.content-dates {font-size:12px; color:#9ca3af}
-
-/* 닉네임 옆 프로필 아바타 */
-.avatar { width:24px; height:24px; border-radius:50%; object-fit:cover; flex-shrink:0; }
-
-/* 리뷰 이미지 썸네일 (틀만) */
-.review-images { display:flex; gap:8px; margin-top:6px; }
-.review-thumb {
-  width:72px; height:72px; border-radius:8px;
-  background:#f3f4f6; border:1px dashed #d1d5db;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
 }
 
-/* 버튼 공통 (기존 유지) */
+/* ===================== 버튼 ===================== */
 .btn {
-  padding:8px 12px; border:1px solid #e5e7eb; border-radius:8px; background-color: #111111; cursor:pointer; width: 100px; color:#ffffff; font-size: 12px
-}
-.btn:hover { 
-  background-color: #1f1f1f;
-  border-color: #1f1f1f;
-  transform: translateY(-1px);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background-color: #111827;
+  cursor: pointer;
+  width: 110px;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
   transition: all 0.15s ease;
-  color:white;
-	
 }
+
+.btn:hover {
+  background-color: #1f2937;
+  border-color: #1f2937;
+  transform: translateY(-1px);
+}
+
+/* 버튼 세로 정렬 */
 .content-actions.vertical {
   display: flex;
-  flex-direction: column;    /* 세로로 쌓이게 */
+  flex-direction: column;
   gap: 8px;
-  align-items: flex-end;     /* 오른쪽 정렬 */
-  justify-content: center;   /* 가운데 정렬 느낌 */
+  align-items: flex-end;
+  justify-content: flex-end;
   margin-left: 16px;
-}
-h2 {
-  font-size: 20px;
-  font-weight: 700;
-
 }
 </style>
 </head>
+
 <body>
-<div class="header-text" style="height: 200px; background-color: #fff;"></div>
+<div class="header-text" style="height: 200px;"></div>
 
 <div class="seller-container">
-  <!-- 좌측 메뉴 -->
+
+  <!-- ===================== 왼쪽 메뉴 ===================== -->
   <aside class="sidebar">
     <h2 style="color:black">셀러 페이지</h2>
     <nav class="menu">
@@ -193,73 +239,79 @@ h2 {
     </nav>
   </aside>
 
-  <!-- 오른쪽 본문 -->
-  <main class="content">
-    <h2 style="color:black;">구매자 리뷰</h2>
+  <!-- ===================== 오른쪽 본문 ===================== -->
+  <main>
+    <h2>구매자 리뷰</h2>
 
-    <div class="content-list" style="margin-top: 50px">
+    <div class="content-list">
+
       <c:choose>
         <c:when test="${empty list}">
           <div class="content-item">
             <div style="padding:24px;color:#666;">등록된 리뷰가 없습니다.</div>
-          </div>  
+          </div>
         </c:when>
+
         <c:otherwise>
           <c:forEach var="vo" items="${list}">
             <div class="content-item">
-              <!-- 본문 -->
-              <div class="content-info" style="flex:1;">
-                <!-- 제목: 한 줄 말줄임 -->
+
+              <div class="product-thumbnail">
+                <img src="${vo.b_thumbnail}">
+              </div>
+
+              <div class="content-info">
+
                 <div class="content-title one-line">${vo.b_title}</div>
 
-                <!-- 작성자(아바타+닉네임) · 날짜 -->
-                <div class="content-meta" style="display:flex; align-items:center; gap:8px;">
+                <div class="content-meta">
                   <c:choose>
                     <c:when test="${not empty vo.uvo.u_profileimg_url}">
-                      <img class="avatar" src="${vo.uvo.u_profileimg_url}" alt="${vo.uvo.u_nickname}">
+                      <img class="avatar" src="${vo.uvo.u_profileimg_url}">
                     </c:when>
                     <c:otherwise>
-                      <img class="avatar" src="../images/profile.jpg" alt="user">
+                      <img class="avatar" src="../images/profile.jpg">
                     </c:otherwise>
                   </c:choose>
-                  <span style="font-weight:600; color:#111;">${vo.uvo.u_nickname}</span>
+
+                  <span style="font-weight:600;">${vo.uvo.u_nickname}</span>
+                  
+                  <div class="review-rating">★ ${vo.rvo.b_review_score}</div>
                   <span class="dot">·</span>
                   <span>${vo.rvo.b_review_createdat}</span>
+                  
                 </div>
 
-                <!-- 별점 -->
-               <%--  <div class="stars">
-                  <c:forEach begin="1" end="5" var="i">
-                    <c:choose>
-                       <c:when test="${i <= vo.b_review_score}">&#9733;</c:when> 
-                      <c:otherwise>&#9734;</c:otherwise>
-                    </c:choose>
-                  </c:forEach>
-                  <span class="score">${vo.rvo.b_review_score}</span>
-                </div>
- --%>
-                <!-- 리뷰 본문: 두 줄 말줄임 -->
-                <div class="clamp-2" style="color:#333;">${vo.rvo.b_review_content}</div>
-
-                <!-- 리뷰 이미지 썸네일 (값 없이 틀만) -->
-                <div class="review-images">
-                  <div class="review-thumb"></div>
-                  <div class="review-thumb"></div>
-                  <div class="review-thumb"></div>
+                <div class="review-block">
+                  
+                  <div class="clamp-2">${vo.rvo.b_review_content}</div>
                 </div>
               </div>
 
-             <div class="content-actions vertical">
-			  <button type="button" class="btn"
-			    onclick="location.href='../etc/detail.eum?b_id=${vo.b_id}'">자세히 보기</button>
-			  <button type="button" class="btn">답변</button>
-			</div>
+              <div class="content-actions vertical">
+                <c:choose>
+                  <c:when test="${vo.rvo.has_reply==1 }">
+                    <p style="font-weight: bold; color:#6b7280; margin:0 20px 70px 0;">답변 완료</p>
+                  </c:when>
+                  <c:otherwise>
+                    <p style="font-weight: bold; color:#6b7280; margin:0 20px 70px 0;">답변 전</p>
+                  </c:otherwise>
+                </c:choose>
+
+                <button type="button" class="btn"
+                  onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}#tabs-3'">
+                  자세히 보기
+                </button>
+              </div>
+
             </div>
           </c:forEach>
         </c:otherwise>
       </c:choose>
+		<div style="height: 100px"></div>
     </div>
   </main>
 </div>
+
 </body>
 </html>

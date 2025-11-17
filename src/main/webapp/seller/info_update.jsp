@@ -194,27 +194,9 @@ $(function(){
 	  <div style="height: 30px"></div>
      <form id="frm" name="frm" method="post" action="../seller/info_update_ok.eum">
  		<input type="hidden" id="biz_verified" name="biz_verified" value="Y">
-		<!-- 프로필 이미지 업로드 -->
-		<div class="field" style="margin-top:30px;">
-		  <label class="label">프로필 이미지</label>
-		  <div class="profile-upload" style="display:flex; align-items:center; gap:20px;">
-		    
-		    <!-- 미리보기 영역 -->
-		    <div class="preview" style="width:70px; height:70px; border-radius:50%; overflow:hidden; background:#f5f5f5; border:1px solid #ccc;">
-		      <img id="previewImg" src="${empty vo.u_s_profileimg_url ? '../images/profile.jpg' : vo.u_s_profileimg_url}"
-     			style="width:100%;height:100%;object-fit:cover;">
-		      <input type="hidden" id="profile_img_url" name="profile_img_url" value="${vo.u_s_profileimg_url}">
-		    </div>
-		    
-		    <!-- 파일 선택 -->
-		    <div class="upload-btn">
-		      <input type="file" id="profile_img" name="profile_img" accept="image/*" style="display:none;">
-		      <button type="button" id="uploadBtn" class="btn">사진 선택</button>
-		    </div>
-		  </div>
-		</div>
+
         <!-- 셀러 닉네임 -->
-        <div class="field" style="margin-bottom:0px">
+        <div class="field" style="margin-bottom:0px; margin-top: 80px;">
           <label class="label">셀러 이름<sup style="color: #a50021">&nbsp;*</sup></label>
           <div class="id-inline">
             <div class="search">
