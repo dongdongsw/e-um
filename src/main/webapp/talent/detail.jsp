@@ -254,8 +254,13 @@ $(function() {
   <section class="dt-container hero" id="main-section">
     <div class="hero-left">
       <div class="title-row">
-        <button class="prime-badge">즐겨찾기</button>
-        <h1 class="title">${detail_vo.b_title}</h1> <!-- 컨텐츠 제목 -->
+        <c:if test="${fCount==0}">
+          <a href="../users/favorite_insert.eum?b_id=${detail_vo.b_id}" class="fav_on">즐겨찾기</a>
+        </c:if>
+        <c:if test="${fCount!=0}">
+          <span class="fav_off">즐겨찾기</span>
+        </c:if>
+        <h1 class="title">${detail_vo.b_title}</h1>
       </div>
 
      <div class="meta" aria-label="별점 및 관심">

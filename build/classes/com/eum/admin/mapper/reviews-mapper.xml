@@ -35,7 +35,7 @@
 								
 	</resultMap>
 
-	<select id="reviewListData" resultMap="reviewMap" parameterType="hashmap">
+	<select id="admin_reviewListData" resultMap="reviewMap" parameterType="hashmap">
 		SELECT r.u_id, r.b_review_id, r.b_review_createdat, r.u_s_id, r.b_id,
 				     r.b_review_content, r.b_review_score, u.u_nickname, b.b_type
 		FROM review r

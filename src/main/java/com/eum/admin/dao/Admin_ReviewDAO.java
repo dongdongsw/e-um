@@ -18,12 +18,12 @@ public class Admin_ReviewDAO {
 	}
 	
 	// 리뷰 리스트 조회
-	public static List<ReviewVO> reviewListData(Map map){
+	public static List<ReviewVO> admin_reviewListData(Map map){
 		List<ReviewVO> list = null;
 		
 		try {
 			SqlSession session = ssf.openSession();
-			list = session.selectList("reviewListData",map);
+			list = session.selectList("admin_reviewListData",map);
 			session.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -37,7 +37,6 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-
 }
 
 .header-area .main-nav {
@@ -46,6 +45,7 @@ body {
   display: flex;
   padding: 15px 30px;
   border-radius: 50px;
+  overflow: visible !important;
 }
 
 .background-header .main-nav {
@@ -131,6 +131,110 @@ body {
 .header-area .main-nav .nav li.has-sub {
   position: relative;
   padding-right: 15px;
+}
+
+/* 프로필 드롭다운 스타일 */
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.profile-trigger:hover {
+  background-color: rgba(116, 83, 252, 0.1);
+}
+
+.profile-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #7453fc;
+}
+
+.profile-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: #2a2a2a;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 150px;
+  display: none;
+  z-index: 10000;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-menu a,
+.dropdown-menu button {
+  display: block !important;
+  width: 100% !important;
+  padding: 12px 20px !important;
+  text-align: left !important;
+  font-size: 14px !important;
+  color: #2a2a2a !important;
+  text-decoration: none !important;
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
+  border-radius: 0 !important;
+  font-family: inherit !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  margin: 0 !important;
+}
+
+.dropdown-menu a:first-child {
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.dropdown-menu button {
+  border-top: 1px solid #eee !important;
+  border-radius: 0 0 8px 8px !important;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+  background-color: #f5f5f5 !important;
+  color: #7453fc !important;
+}
+
+.dropdown-menu form {
+  margin: 0;
+  padding: 0;
+}
+
+/* 프로필 드롭다운은 active 효과 제외 */
+.header-area .main-nav .nav li.profile-dropdown:hover .profile-trigger {
+  background-color: rgba(116, 83, 252, 0.1);
+}
+
+.header-area .main-nav .nav li.profile-dropdown:hover a {
+  color: #2a2a2a;
+  background-color: transparent;
+}
+
+.header-area .main-nav .nav li.profile-dropdown a.active {
+  color: #2a2a2a !important;
+  background-color: transparent !important;
 }
 
 .header-area .main-nav .menu-trigger {
@@ -393,67 +497,64 @@ body {
   .header-area .main-nav .nav li.submenu:hover ul, .header-area .main-nav .nav li.submenu:focus ul {
     height: 0px;
   }
-  /* 모바일 환경 로그아웃 버튼 */
-  .header-area .main-nav .nav li form {
-    display: block !important;
-    width: 100% !important;
+  
+  /* 모바일 프로필 드롭다운 */
+  .profile-dropdown {
+    width: 100%;
   }
   
-  button.active2 {
-    height: 50px !important;
-    line-height: 50px !important;
-    padding: 0px !important;
-    border: none !important;
-    background: #fff !important;
-    color: #1e1e1e !important;
-    width: 100% !important;
-    display: block !important;
+  .profile-trigger {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    background: #fff;
   }
   
-  button.active2:hover {
-    background: #fff !important;
-    color: #7453fc !important;
+  .dropdown-menu {
+    position: static;
+    display: block !important;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  .dropdown-menu a,
+  .dropdown-menu button {
+    background: #f9f9f9 !important;
+    border-bottom: 1px solid #eee;
   }
 }
-
-.header-area .main-nav .nav li form {
-  display: inline !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-button.active2 {
-  display: inline-block !important;
-  font-weight: 500 !important;
-  font-size: 14px !important;
-  text-transform: capitalize !important;
-  color: #fff !important;
-  background-color: #7453fc !important;
-  -webkit-transition: all 0.3s ease 0s !important;
-  -moz-transition: all 0.3s ease 0s !important;
-  -o-transition: all 0.3s ease 0s !important;
-  transition: all 0.3s ease 0s !important;
-  border: 1px solid #7453fc !important;
-  padding: 8px 15px !important;
-  border-radius: 18px !important;
-  letter-spacing: 1px !important;
-  cursor: pointer !important;
-  outline: none !important;
-}
-
-button.active2:hover {
-  color: #fff !important;
-  background-color: #7453fc !important;
-  opacity: 0.9 !important;
-}
-
-.background-header .main-nav .nav li button.active2:hover {
-  color: #fff !important;
-  opacity: 1 !important;
-}
-}
-
 </style>
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    const profileTrigger = document.querySelector('.profile-trigger');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    if (profileTrigger && dropdownMenu) {
+        // 프로필 클릭 이벤트
+        profileTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // 문서 클릭 시 드롭다운 닫기
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.profile-dropdown')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // 드롭다운 메뉴 내부 클릭 시 이벤트 전파 방지 (링크 클릭은 허용)
+        dropdownMenu.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+                // 링크나 버튼 클릭은 정상 작동
+                return;
+            }
+            e.stopPropagation();
+        });
+    }
+});
+</script>
 </head>
 <body>
    <!-- ***** Preloader Start ***** -->
@@ -483,31 +584,30 @@ button.active2:hover {
                     <!-- ***** Menu Start ***** -->
 
                     <ul class="nav">
-                    	<c:if test="${session.Scope.role == ROLE_ADMIN && sessionScope.id!=null }">
+                        <c:if test="${session.Scope.role == ROLE_ADMIN && sessionScope.id!=null }">
                     		<li><a href="../admin/admin_main.eum">관리자</a></li>
                     	</c:if>
                         <li><a href="../talent/list.eum">list</a></li>
-                        <li><a href="../main/detail.eum">detail</a></li>
-                        
-                        <c:if test="${sessionScope.sid==0 && sessionScope.id!=null}">
-                        	<li><a href="../seller/join.eum">셀러 등록</a></li>
-                        </c:if>
-                        
-                        <c:if test="${sessionScope.sid!=0 && sessionScope.id!=null}">
-                        	<li><a href="../seller/info.eum">셀러페이지</a></li>
-                        </c:if>
+                        <li><a href="../seller/join.eum">셀러 등록</a></li>
+                        <li><a href="../notice/list.eum">공지 사항</a></li>
                         
                         <c:if test="${sessionScope.id==null}">
                         	<li><a href="../users/login.eum">로그인</a></li>
                         	<li><a href="../users/join.eum" class="active">회원가입</a></li>
                         </c:if>
-                        
                         <c:if test="${sessionScope.id!=null}">
-                        	<li><a href="../users/info.eum">${sessionScope.name} 님</a></li>
-                            <li>
-                            	<form action="../users/logout.eum" method="post" style="margin: 0; padding: 0; display: inline;">
-                                	<button type="submit" class="active2">로그아웃</button>
-                                </form>
+                            <li class="profile-dropdown">
+                                <div class="profile-trigger">
+                                    <img src="${empty sessionScope.profile ? '../images/profile.jpg' : sessionScope.profile}" 
+                                         alt="프로필" class="profile-image">
+                                    <span class="profile-name">${sessionScope.name}님</span>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <a href="../users/info.eum">마이페이지</a>
+                                    <form action="../users/logout.eum" method="post">
+                                        <button type="submit">로그아웃</button>
+                                    </form>
+                                </div>
                             </li>
                     	</c:if>
                     </ul>   

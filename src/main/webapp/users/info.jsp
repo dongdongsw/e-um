@@ -6,7 +6,7 @@
 <title>회원 정보</title>
 <style>
 body {background-color: #fff !important;}
-.seller-container {
+.user-container {
   display: grid;
   grid-template-columns: 240px 1fr;
   width: 1180px;
@@ -117,19 +117,82 @@ body {background-color: #fff !important;}
   color: #9ca3af;
   margin-top: 4px;
 }
-h2 {margin-bottom:100px}
+h2 {
+	margin-bottom: 100px;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.upload-btn {
+    margin-top: 10px;
+}
+.ulBtn {
+	background-color: transparent; 
+    border: 1px solid #8e4dff;
+    color: #8e4dff;
+    padding: 6px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    line-height: 1.5;
+}
+.ulBtn:hover {
+    background-color: #f1e9ff;
+    color: #8e4dff;
+}
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+	const originalImageUrl = $('#currentProfileImg').attr('src');
+	
+	$('#selectBtn').click(function() {
+		$('#profile_img').click();
+	});
+	
+	$('#profile_img').change(function(e) {
+	    const file = e.target.files[0];
+	    const currentProfileImg = $('#currentProfileImg');
+	    
+	    if (file) {
+	      const reader = new FileReader();
+	      reader.onload = function(event) {
+	    	  currentProfileImg.attr('src', event.target.result);
+	    	  $('#selectBtn').hide();
+	    	  $('#actionButtons').show();
+	      };
+	      reader.readAsDataURL(file);
+	    }
+	});
+	
+	$('#saveBtn').click(function() {
+		$('#profileUpdateForm').submit();
+	});
+	
+	$('#cancelBtn').click(function() {
+		$('#currentProfileImg').attr('src', originalImageUrl);
+		$('#profile_img').val('');
+		$('#actionButtons').hide();
+		$('#selectBtn').show();
+	});
+});
+</script>
 </head>
 <body>
 <div class="header-text" style="height: 200px; background-color: #fff;"></div>
-<div class="seller-container">
+<div class="user-container">
   <!-- 좌측 메뉴 -->
   <aside class="sidebar">
     <h2 style="color:black">마이 페이지</h2>
     <nav class="menu">
       <a href="../users/info.eum" class="active">회원 정보</a>
-      <a href="#" class="">작성한 리뷰</a>
-      <a href="#">찜 컨텐츠</a>
+      <a href="../users/review_list.eum">작성한 리뷰</a>
+      <a href="../users/favorite_list.eum">즐겨찾기한 컨텐츠</a>
       <a href="#">결제 내역</a>
       <a href="../users/info_update.eum">정보 수정</a>
     </nav>
@@ -138,14 +201,26 @@ h2 {margin-bottom:100px}
   <!-- 오른쪽 본문 -->
   <main class="content">
     <h2 style="color: black">회원 정보</h2>
-
     <div class="profile-card">
-      <!-- 프로필 이미지 -->
-      <div class="profile-img">
-        <img src="${empty sessionScope.profile ? '../images/profile.jpg' : sessionScope.profile}" alt="프로필 이미지">
-      </div>
+      <form id="profileUpdateForm" action="../users/profile_upload.eum" method="post" enctype="multipart/form-data">
+        <div class="profile-container">
+          <!-- 프로필 이미지 -->
+          <div class="profile-img">
+            <img id="currentProfileImg" src="${empty sessionScope.profile ? '../images/profile.jpg' : sessionScope.profile}" alt="프로필 이미지">
+          </div>
+          <!-- 파일 선택 -->
+	      <div class="upload-btn">
+	        <input type="file" id="profile_img" name="profile_img" accept="image/*" style="display:none;">
+	        <button type="button" id="selectBtn" class="ulBtn">사진 선택</button>
+	        <div id="actionButtons" style="display:none;">
+              <button type="button" id="saveBtn" class="ulBtn saveBtn">저장</button>
+              <button type="button" id="cancelBtn" class="ulBtn cancelBtn">취소</button>
+            </div>
+	      </div>
+	    </div>
+	  </form>
 
-      <!-- 셀러 기본 정보 -->
+      <!-- 회원 기본 정보 -->
       <div class="profile-info">
         <div class="info-block">
           <div class="info-title">아이디</div>

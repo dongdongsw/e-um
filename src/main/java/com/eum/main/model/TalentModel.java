@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
  
 import com.eum.main.vo.*;
+import com.eum.users.dao.FavoriteDAO;
 import com.eum.main.dao.TalentDAO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
@@ -59,8 +60,10 @@ public class TalentModel {
    public String talent_detail(HttpServletRequest request,
 		   HttpServletResponse response)
    {
-	    try {
-	    	String b_id=request.getParameter("b_id");
+	   HttpSession session = request.getSession();
+	   String u_id = (String)session.getAttribute("id");
+	   try {
+		   String b_id=request.getParameter("b_id");
 	 	   
 	 	   BoardVO detail_vo=TalentDAO.talentDetailData(b_id);
 	 	   BoardVO board_vo=TalentDAO.talentDetailboard(b_id);
@@ -69,12 +72,22 @@ public class TalentModel {
 	 	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
 	 	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
 	 	   
+	 	   // 즐겨찾기 카운트 초기화
+	 	   int fCount = 0; 
+	 	   if(u_id != null && b_id != null) {
+ 	  	        FavoriteVO vo = new FavoriteVO();
+ 	  	        vo.setU_id(u_id);
+ 	  	        vo.setB_id(b_id);
+ 	  	        
+ 	  	        fCount = FavoriteDAO.favoriteCheckCount(vo);
+	 	   }
 	 	   request.setAttribute("detail_vo", detail_vo);
 	 	   request.setAttribute("board_vo", board_vo);
 	 	   request.setAttribute("image_vo", image_vo);
 	 	   request.setAttribute("review_vo", review_vo);
 	 	   request.setAttribute("score_vo", score_vo);
 	 	   request.setAttribute("price_vo", price_vo);
+	 	   request.setAttribute("fCount", fCount);
 	 	   
 		} catch (Exception ex) {
 			ex.printStackTrace();

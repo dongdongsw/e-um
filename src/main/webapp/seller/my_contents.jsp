@@ -18,6 +18,7 @@ html {
   width: 1180px !important;
   margin: 60px auto;
   gap: 40px;
+  color: black;
 }
 
 /* ===== 좌측 메뉴 ===== */
@@ -64,7 +65,8 @@ html {
 .content h2 {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  color: black;
 }
 
 /* ===== 가로형 컨텐츠 리스트 ===== */
@@ -130,6 +132,128 @@ html {
   font-weight: 700;
   color: #8e4dff;
 }
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  background: #fff;
+}
+
+.review-header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.product-thumbnail {
+  width: 80px;
+  height: 80px;
+  background: #f3f4f6;
+}
+
+.product-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.product-category {
+  font-size: 13px;
+  color: #8e4dff;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.product-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.product-author {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.review-actions {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.btn-edit, .btn-delete {
+  padding: 6px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.review-rating {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: #f59e0b;
+}
+
+.star.empty {
+  color: #e5e7eb;
+}
+
+.review-content {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #9ca3af;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.review-stats {
+  display: flex;
+  gap: 16px;
+}
+
+/* 빈 상태 */
+.empty-state {
+  text-align: center;
+  padding: 100px 20px;
+  color: #9ca3af;
+}
+
+.empty-state div {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
 </style>
 </head>
 <body>

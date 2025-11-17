@@ -31,8 +31,34 @@
     .hero-left{display:flex; flex-direction:column; gap:18px; width: 100%}
 
     .title-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
-    .prime-badge{background:#111; color:#fff; border-radius:6px; padding:4px 8px; font-weight:700; font-size:12px; letter-spacing:.2px}
-
+    .prime-badge {
+    	background:#111;
+    	color:#fff;
+    	border-radius:6px;
+    	padding:4px 8px;
+    	font-weight:700;
+    	font-size:12px;
+    	letter-spacing:.2px
+    }
+    .fav_on {
+    	background:#111;
+    	color:#fff;
+    	border-radius:6px;
+    	padding:4px 8px;
+    	font-weight:700;
+    	font-size:12px;
+    	letter-spacing:.2px
+    }
+    .fav_off {
+	    background:#e0e0e0;
+	    color:#999;
+	    border-radius:6px;
+	    padding:4px 8px;
+	    font-weight:700;
+	    font-size:12px;
+	    letter-spacing:.2px;
+	    cursor: default;
+    }
     .title{font-size:32px; line-height:1.25; font-weight:800; color:black;}
 	.banner img {
 		width: 100%;

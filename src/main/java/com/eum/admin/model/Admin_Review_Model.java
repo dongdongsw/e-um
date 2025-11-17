@@ -40,7 +40,7 @@ public class Admin_Review_Model {
 		map.put("start", (start-1));
 		map.put("rowSize", rowSize);
 		
-		List<ReviewVO> review_list = Admin_ReviewDAO.reviewListData(map);
+		List<ReviewVO> review_list = Admin_ReviewDAO.admin_reviewListData(map);
 		int totalpage = Admin_ReviewDAO.reviewTotalData();
 		
 		final int BLOCK = 10;
