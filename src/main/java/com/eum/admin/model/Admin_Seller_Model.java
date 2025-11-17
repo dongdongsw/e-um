@@ -150,4 +150,5 @@ public class Admin_Seller_Model {
 		request.setAttribute("admin_main_jsp", "../sellers/admin_seller_modify.jsp");
 		return "../admin/common/admin_main.jsp";
 	}		
+	
 }

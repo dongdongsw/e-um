@@ -117,7 +117,7 @@ public class Admin_ContentsDAO {
 		
 		try {
 			SqlSession session = ssf.openSession(true);
-			session.update("contentsStatusUpdate",map);
+			session.update(NS + "contentsStatusUpdate",map);
 			session.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -125,5 +125,30 @@ public class Admin_ContentsDAO {
 		
 	}
 
+	// 컨텐츠 검색 리스트
+	public static List<BoardVO> contentSearchListData(Map map){
+		
+		List<BoardVO>  list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList(NS + "contentSearchListData",map);
+			session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
 	
+	// 컨텐츠 검색 페이징
+		public static int contentSearchTotalData(String keyword) {
+			int total = 0;
+			try {
+				SqlSession session = ssf.openSession();
+				total = session.selectOne(NS + "contentSearchTotalData", keyword);
+				session.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return total;
+		}
 }

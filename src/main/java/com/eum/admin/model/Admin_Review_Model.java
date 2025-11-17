@@ -28,6 +28,7 @@ public class Admin_Review_Model {
 		
 		
 		String page = request.getParameter("page");
+		String keyword = request.getParameter("keyword");
 		if(page==null) page ="1";
 		
 		Map map = new HashMap();
@@ -40,8 +41,18 @@ public class Admin_Review_Model {
 		map.put("start", (start-1));
 		map.put("rowSize", rowSize);
 		
-		List<ReviewVO> review_list = Admin_ReviewDAO.reviewListData(map);
-		int totalpage = Admin_ReviewDAO.reviewTotalData();
+		List<ReviewVO> review_list = null;
+		int totalpage = 0;
+		if(keyword==null || keyword.trim().equals("")  ) {
+			
+			review_list = Admin_ReviewDAO.reviewListData(map);
+			totalpage = Admin_ReviewDAO.reviewTotalData();
+			
+		}else {
+			map.put("keyword", keyword);
+			review_list = Admin_ReviewDAO.reviewSearchListData(map);
+			totalpage = Admin_ReviewDAO.reviewSearchTotalData(keyword);
+		}
 		
 		final int BLOCK = 10;
 		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
@@ -53,6 +64,8 @@ public class Admin_Review_Model {
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("review_list", review_list);
+		
+		request.setAttribute("keyword", keyword);
 		
 		request.setAttribute("admin_main_jsp", "../review/admin_review_list.jsp");
 		return "../admin/common/admin_main.jsp";

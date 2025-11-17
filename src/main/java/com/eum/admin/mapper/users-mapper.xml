@@ -7,7 +7,7 @@
 	<result property="rvo.b_review_id" column="b_review_id"/>
 	<result property="rvo.b_review_createdat" column="b_review_createdat"/>
 	<result property="rvo.b_review_content" column="b_review_content"/>
-	<result property="rvo.review_count" column="review_count"/>
+	<result property="rvo.r_count" column="review_count"/>
 	<result property="rivo.r_image_url" column="r_image_url"/>
   	<result property="bovo.b_op_price" column="b_op_price"/>
   	<result property="bivo.b_img_url" column="b_img_url"/>
@@ -73,7 +73,7 @@
 		WHERE u_id = #{u_id}
 	</select>
 	
-	<!-- 유저 상태 수정 -->
+	<!-- <유저> 상태 수정 -->
 	<update id="usersStatusUpdate" parameterType="hashmap">
 	    UPDATE users
 	    SET u_status = #{u_status}

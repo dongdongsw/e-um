@@ -44,6 +44,7 @@ public class Admin_ReviewDAO {
 		return total;
 	}
 	
+	// 리뷰 이미지
 	public static List<Review_ImageVO> selectReviewImages(String b_review_id) {
 	    List<Review_ImageVO> list = null;
 	    try {
@@ -55,5 +56,32 @@ public class Admin_ReviewDAO {
 	    }
 	    return list;
 	}
+	
+	// 리뷰 리스트 조회
+		public static List<ReviewVO> reviewSearchListData(Map map){
+			List<ReviewVO> list = null;
+			
+			try {
+				SqlSession session = ssf.openSession();
+				list = session.selectList("reviewSearchListData",map);
+				session.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return list;
+		}
+		
+		// 리뷰 페이징 조회
+		public static int reviewSearchTotalData(String keyword) {
+			int total = 0;
+			try {
+				SqlSession session = ssf.openSession();
+				total = session.selectOne("reviewSearchTotalData", keyword);
+				session.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return total;
+		}
 
 }
