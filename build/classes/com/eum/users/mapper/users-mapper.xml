@@ -89,6 +89,86 @@
       WHERE u_id=#{u_id}
     </update>
     
+        <!-- 회원 탈퇴 -->
+    <delete id="deleteChatMessage" parameterType="String">
+      DELETE FROM chat_message 
+      WHERE msg_sender_u_id=#{u_id} 
+      OR msg_sender_a_id=#{u_id} 
+      OR msg_sender_s_id IN(SELECT u_s_id
+      						FROM users_seller
+      						WHERE u_id=#{u_id})
+    </delete>
+
+    <delete id="deleteChat" parameterType="String">
+      DELETE FROM chat 
+      WHERE u_id=#{u_id} 
+      OR u_s_id IN(SELECT u_s_id
+        		   FROM users_seller
+				   WHERE u_id=#{u_id})
+    </delete>
+
+    <delete id="deleteBoardLike" parameterType="String">
+      DELETE FROM board_like
+      WHERE u_id=#{u_id}
+    </delete>
+
+    <delete id="deleteFavorite" parameterType="String">
+      DELETE FROM favorite
+      WHERE u_id=#{u_id}
+    </delete>
+
+	<delete id="deleteReviewImage" parameterType="string">
+	  DELETE FROM review_image
+	  WHERE b_review_id IN(SELECT b_review_id
+	    				   FROM review
+	    				   WHERE u_id=#{u_id}
+	    				   OR u_s_id IN(SELECT u_s_id
+	    				   				FROM users_seller
+	    				   				WHERE u_id=#{u_id}))
+  	</delete>
+
+    <delete id="deleteReview" parameterType="String">
+      DELETE FROM review 
+      WHERE u_id=#{u_id} 
+      OR u_s_id IN(SELECT u_s_id
+       			   FROM users_seller
+        		   WHERE u_id=#{u_id})
+    </delete>
+
+	<delete id="deleteBoardOption" parameterType="string">
+	  DELETE FROM board_option
+	  WHERE b_id IN(SELECT b_id
+	  				FROM board
+	  				WHERE u_s_id IN(SELECT u_s_id
+	  								FROM users_seller
+	  								WHERE u_id=#{u_id}))
+	</delete>
+
+    <delete id="deleteBoardImage" parameterType="string">
+      DELETE FROM board_image
+  	  WHERE b_id IN(SELECT b_id FROM board
+  	  				WHERE u_s_id IN(SELECT u_s_id
+  	  				 				FROM users_seller
+  	  				 				WHERE u_id=#{u_id}))
+    </delete>
+
+    <delete id="deleteBoard" parameterType="String">
+      DELETE FROM board 
+      WHERE u_s_id IN(SELECT u_s_id
+        			  FROM users_seller
+        			  WHERE u_id=#{u_id})
+    </delete>
+
+    <delete id="deleteUsersSeller" parameterType="String">
+      DELETE FROM users_seller
+      WHERE u_id=#{u_id}
+    </delete>
+
+    <delete id="deleteUsers" parameterType="String">
+      DELETE FROM users
+      WHERE u_id=#{u_id}
+    </delete>
+    
     <!-- 셀러 여부 확인 -->
     <select id="usersSellerCheck" resultType="int" parameterType="string">
       SELECT COUNT(*) 

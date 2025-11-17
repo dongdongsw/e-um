@@ -7,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
@@ -396,5 +394,19 @@ public class UsersModel {
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	// 회원탈퇴
+	@RequestMapping("users/delete_ok.eum")
+	public String users_info_delete(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		String u_id = (String)session.getAttribute("id");
+
+		if(u_id!=null) {
+			UsersDAO.users_delete(u_id);
+			session.invalidate();
+		}
+		
+		return "redirect:../main/main.eum";
 	}
 }

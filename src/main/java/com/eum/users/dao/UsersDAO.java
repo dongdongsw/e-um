@@ -191,5 +191,28 @@ public class UsersDAO {
 			ex.printStackTrace();
 		}
 	}
-
+	
+	// 회원 탈퇴
+	public static void users_delete(String u_id) {
+		SqlSession session = null;
+		try {
+			session = ssf.openSession();
+			session.delete("deleteChatMessage", u_id);
+			session.delete("deleteBoardLike", u_id);
+			session.delete("deleteFavorite", u_id);
+			session.delete("deleteReviewImage", u_id);
+			session.delete("deleteReview", u_id);
+			session.delete("deleteBoardOption", u_id);
+			session.delete("deleteBoardImage", u_id);
+			session.delete("deleteBoard", u_id);
+			session.delete("deleteChat", u_id);
+			session.delete("deleteUsersSeller", u_id);
+			session.delete("deleteUsers", u_id);
+			session.commit();
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			session.rollback();
+		}
+	}
 }
