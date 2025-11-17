@@ -71,13 +71,8 @@
                       <table class="table table-borderless table-hover">
                         <thead>
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="all2">
-                                <label class="custom-control-label" for="all2"></label>
-                              </div>
-                            </td>
-                            <th><strong>NO</th>
+                            <th></th>
+                            <th><strong>NO</strong></th>
                             <th><strong>리뷰 점수</strong></th>
                             <th><strong>작성자</strong></th>
                             <th><strong>카테고리</strong></th>
@@ -90,12 +85,7 @@
                           <!-- 가데이터 -->
                           <c:forEach var="review_list" items="${review_list }">
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2474">
-                                <label class="custom-control-label" for="2474"></label>
-                              </div>
-                            </td>
+                            <td></td>
                             
                             <td>
                               <p class="mb-0 text-normal">${review_list.b_review_id }</p>
@@ -154,9 +144,11 @@
 								   data-score="${review_list.b_review_score}"
 								   data-content="${fn:replace(review_list.b_review_content, '"', '&quot;')}"
 								   data-date="${review_list.b_review_createdat}">
-								   상세보기
+								   리뷰 상세보기
 								</a>
-
+								
+                                <a class="dropdown-item" href="../admin/admin_users_detail.eum?u_id=${review_list.u_id }">사용자 프로필</a>
+                                <a class="dropdown-item" href="../admin/admin_seller_detail.eum?u_s_id=${review_list.u_s_id }">판매자 프로필</a>
                                 <a class="dropdown-item" href="#">삭제</a>
                               </div>
                             </td>

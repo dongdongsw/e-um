@@ -156,15 +156,12 @@ function toggleContent(el) {
                         <li class="nav-item">
                           <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
                         </li>
-                         <li class="nav-item">
-                          <a class="nav-link " id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Order</a>
-                        </li>
                         <li class="nav-item">
                           <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Review</a>
                         </li>
-                        
-                       
-                        
+                         <li class="nav-item">
+                          <a class="nav-link " id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Order</a>
+                        </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
                         <!-- 프로필 정보 -->
@@ -368,17 +365,13 @@ function toggleContent(el) {
 						        <div class="container-fluid">
 						          <div class="row justify-content-center">
 						            <div class="col-12">
-						              <div class="row align-items-center my-4">
-						                <div class="col">
-						                  <h2 class="h3 mb-0 page-title">Review</h2>
-						                </div>
-						              </div>
+						              
 						              <div class="row">
 						              
 										 <!-- 리뷰 없을 때 -->
 									    <c:if test="${empty review_list}">
 									        <div class="col-12 text-center py-5">
-									            <p class="text-muted" style="font-size:16px;"><strong>📭 리뷰가 없습니다.</strong></p>
+									            <p class="text-muted" style="font-size:16px;"><strong>📭 판매자가 받은 리뷰가 없습니다.</strong></p>
 									        </div>
 									    </c:if>
 
@@ -525,55 +518,122 @@ function toggleContent(el) {
 						        
 						        
                         
+                         
                         <!-- 결제 내역 탭 -->
                         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> 
-                        <h6 class="mb-3">Last payment</h6>
-			              <table class="table table-borderless table-striped">
+                       
+                        <!-- 결제 없을 때 --> 
+		                	<c:if test="${empty orders_list}"> 
+		                		<div class="col-12 text-center py-5"> 
+		                			<p class="text-muted" style="font-size:16px;">
+		                				<strong>📭 판매자가 거래내역이 없습니다.</strong>
+		                			</p> 
+		                		</div> 
+		                	</c:if>
+		                
+		                <c:if test="${not empty orders_list}">
+                        
+			              <table class="table border table-hover bg-white orders-table">
+				
 			                <thead>
 			                  <tr role="row">
-			                    <th>ID</th>
-			                    <th>Purchase Date</th>
-			                    <th>Total</th>
-			                    <th>Payment</th>
-			                    <th>Status</th>
-			                    <th>결제상태 변경</th>
-			                    <th>Action</th>
+			                    <th>
+			                      <div class="custom-control custom-checkbox">
+			                        <input type="checkbox" class="custom-control-input" id="all">
+			                        <label class="custom-control-label" for="all"></label>
+			                      </div>
+			                    </th>
+			                    <th><strong>ID</strong></th>
+			                    <th><strong>사용자</strong></th>
+			                    <th><strong>금액</strong></th>
+			                    <th><strong>구매일</strong></th>
+			                    <th><strong>주문상태</strong></th>
+			                    <th><strong>주문번호</strong></th>
+			                    <th><strong>결제번호</strong></th>
+			                    <th><strong>결제방법</strong></th>
+			                    <th><strong>결제상태</strong></th>
+			                    <th><strong>환불</strong></th>
+			                    <th></th>
 			                  </tr>
 			                </thead>
 			                <tbody>
-				                <c:forEach begin="1" end="14">
-				                  <tr>
-				                    <th scope="col">1331</th>
-				                    <td>2020-12-26 01:32:21</td>
-				                    <td>$16.9</td>
-				                    <td>Paypal</td>
-				                    <td><span class="dot dot-lg bg-warning mr-2"></span>Due</td>
-				                    <td>
-		                              <div class="form-group mb-3">
-				                        <select class="form-control" id="example-select">
-				                          <option>결제완료</option>
-				                          <option>결제중</option>
-				                          <option>결제취소</option>
-				                          <option>환불완료</option>
-				                        </select>
-				                      </div>
-		                            </td>
-				                    <td>
-				                      <div class="dropdown">
-				                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				                          <span class="text-muted sr-only">Action</span>
-				                        </button>
-				                        <div class="dropdown-menu dropdown-menu-right">
-				                          <a class="dropdown-item" href="#">Edit</a>
-				                          <a class="dropdown-item" href="#">Remove</a>
-				                          <a class="dropdown-item" href="#">Assign</a>
-				                        </div>
-				                      </div>
-				                    </td>
-				                  </tr>
-				                </c:forEach>
+			                	
+			                  <c:forEach var="orders_list" items="${orders_list }"> 
+			                  
+			                  <tr>
+			                    <td class="align-center">
+			                      <div class="custom-control custom-checkbox">
+			                        <input type="checkbox" class="custom-control-input">
+			                        <label class="custom-control-label"></label>
+			                      </div>
+			                    </td>
+			                    <td class="text-normal">${orders_list.o_id }</td>
+			                    <td>
+			                    	<a href="../admin/admin_users_detail.eum?u_id=${orders_list.uvo.u_id }">
+			                    		${orders_list.uvo.u_nickname }
+			                    	</a>
+			                    </td>
+			                    <td class="text-normal">${orders_list.o_total_price }</td>
+			                    <td class="text-normal">
+			                    	<fmt:formatDate value="${orders_list.o_createdat}" pattern="yyyy-MM-dd" />
+			                    </td>
+			                    <td class="text-normal">${orders_list.o_status }</td>
+			                    <td class="text-normal">${orders_list.pvo.merchant_uid }</td>
+			                    <td class="text-normal">${orders_list.pvo.pay_id }</td>
+			                    <td class="text-normal">${orders_list.pvo.pay_method }</td>
+			                    <td class="text-normal">${orders_list.pvo.status}</td>
+			                    <td class="text-normal">
+								    <c:if test="${orders_list.pvo.rfvo.rf_status != null}">
+								        <button class="btn btn-warning btn-refund"
+										    data-rfid="${orders_list.pvo.rfvo.rf_id}"
+										    data-reason="${orders_list.pvo.rfvo.rf_reason}"
+										    data-amount="${orders_list.pvo.rfvo.rf_amount}"
+										    data-status="${orders_list.pvo.rfvo.rf_status}"
+										    data-requested="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_requestedat}' pattern='yyyy-MM-dd HH:mm'/>"
+										    data-completed="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_completedat}' pattern='yyyy-MM-dd HH:mm'/>">
+										    환불보기
+										</button>
+			
+								    </c:if>
+								</td>
+			
+			
+			                    
+			                    <td>
+			                      <div class="dropdown">
+			                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                          <span class="text-muted sr-only">Action</span>
+			                        </button>
+			                        <div class="dropdown-menu dropdown-menu-right">
+			                          <a class="dropdown-item" href="#">Remove</a>
+			                        </div>
+			                      </div>
+			                    </td>
+			                  </tr>
+			                  </c:forEach>
+			                 </c:if>
+			                 
 			                </tbody>
 			              </table>
+			              <nav aria-label="Table Paging" class="my-3">
+				                <ul class="pagination justify-content-end mb-0">
+				                   <c:if test="${OstartPage > 1 }">
+				                     <li class="page-item">
+				                     	<a class="page-link" href="../admin/admin_seller_detail.eum?Opage=${OstartPage-1 }&u_s_id=${seller_vo.u_s_id}#contact">&lt;</a>
+				                     </li>
+				                   </c:if>
+				                   <c:forEach var="i" begin="${OstartPage }" end="${OendPage }">
+				                     <li class="page-item ${i==Ocurpage?'active':'' }" >
+				                     	<a class="page-link" href="../admin/admin_seller_detail.eum?Opage=${i }&u_s_id=${seller_vo.u_s_id}#contact">${i }</a>
+				                     </li>
+				                   </c:forEach>  
+				                   <c:if test="${OendPage < Ototalpage }">
+				                     <li class="page-item">
+				                     <a class="page-link" href="../admin/admin_seller_detail.eum?Opage=${OendPage+1 }&u_s_id=${seller_vo.u_s_id}#contact">&gt;</a>
+				                     </li>
+				                   </c:if>
+				                   </ul>
+				              </nav>
               			</div>
                       </div>
                     </div>

@@ -22,6 +22,37 @@
     color: #4a4a4a !important;
 }
 
+.search-box {
+  position: relative;
+  width: 240px;
+  padding-left: 30px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 9px 34px 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #cfd4da;
+  background: #fff;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.search-box input:focus {
+  border-color: #6c63ff; /* 관리자 UI 포인트 컬러 */
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.18);
+  outline: none;
+}
+
+.search-box .icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  color: #868e96;
+}
+
 
 </style>
 	 <main role="main" class="main-content">
@@ -44,10 +75,12 @@
 								  <div class="form-row">
 								    <div class="form-group col-auto">
 								      <label for="search" class="sr-only">Search</label>
-								      <input type="text" class="form-control" id="search"
-								             name="keyword"  
-								             value="${keyword}"
-								             placeholder="Search">
+								      <div class="search-box">
+  <input type="text" id="search" name="keyword"
+         value="${keyword}" placeholder="Search...">
+  <i class="fe fe-search icon"></i>
+</div>
+
 								    </div>
 								  </div>
 								</form>
@@ -55,27 +88,13 @@
                             </div>
                           </form>
                         </div>
-                        <div class="col ml-auto">
-                          <div class="dropdown float-right">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
-                            <div class="dropdown-menu" aria-labelledby="actionMenuButton">
-                              <a class="dropdown-item" href="#">Export</a>
-                              <a class="dropdown-item" href="#">Delete</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                          </div>
-                        </div>
+                        
                       </div>
                       <!-- table -->
                       <table class="table table-borderless table-hover">
                         <thead>
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="all2">
-                                <label class="custom-control-label" for="all2"></label>
-                              </div>
-                            </td>
+                            <th></th>
                             <th></th>
                             <th class="text-dark"><strong>NO</strong></th>
                             <th class="text-dark"><strong>셀러 이름</strong></th>
@@ -88,15 +107,10 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <!-- 가데이터 -->
+                         
                           <c:forEach var="sellers_list" items="${sellers_list }">
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2474">
-                                <label class="custom-control-label" for="2474"></label>
-                              </div>
-                            </td>
+                            <td></td>
                             
                             <td>
                               <div class="avatar avatar-md">

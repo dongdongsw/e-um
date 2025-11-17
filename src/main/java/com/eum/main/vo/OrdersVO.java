@@ -18,4 +18,5 @@ public class OrdersVO {
 	
 	private PaymentVO pvo;
 	private UsersVO uvo;
+	private Board_OptionVO bopvo;
 }

@@ -117,6 +117,27 @@
     background-color: #e0e0e0;
     color: #4f4f4f;
 }
+td a{
+	text-decoration: none;
+	color:black;
+}
+
+.avatar {
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.avatar-xl {
+    width: 120px;
+    height: 120px;
+}
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
 
 </style>
 <script>
@@ -209,8 +230,6 @@ function toggleContent(el) {
 						
 						        <c:when test="${users_vo.u_status == 'warning'}">
 						        	<span class="status-label status-warning  mr-3">회원 경고</span>
-
-						            
 						        </c:when>
 						
 						        <c:when test="${users_vo.u_status == 'inactive'}">
@@ -268,8 +287,6 @@ function toggleContent(el) {
 			                  <div class="row mt-5 align-items-center">
 			                    <div class="col-md-3 text-center mb-5">
 			                      <div class="avatar avatar-xl">
-			                        
-			                        
 			                        <c:choose>
 							        <c:when test="${not empty users_vo.u_profileimg_url }">
 							          <img src="${users_vo.u_profileimg_url }" alt="..." class="avatar-img rounded-circle">
@@ -437,12 +454,16 @@ function toggleContent(el) {
 						        <div class="container-fluid">
 						          <div class="row justify-content-center">
 						            <div class="col-12">
-						              <div class="row align-items-center my-4">
-						                <div class="col">
-						                  <h2 class="h3 mb-0 page-title">Review</h2>
-						                </div>
-						              </div>
+						             
 						              <div class="row">
+						              
+						               <!-- 리뷰 없을 때 -->
+									    <c:if test="${empty review_list}">
+									        <div class="col-12 text-center py-5">
+									            <p class="text-muted" style="font-size:16px;"><strong>📭 사용자가 작성한 리뷰가 없습니다.</strong></p>
+									        </div>
+									    </c:if>
+						              
 						              <!-- 리뷰 가데이터 -->
 						              <c:forEach var="r_list" items="${review_list}">
 										  <div class="col-md-3">
@@ -582,53 +603,114 @@ function toggleContent(el) {
                         
                         <!-- 결제 내역 탭 -->
                         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> 
-                        <h6 class="mb-3">Last payment</h6>
-			              <table class="table table-borderless table-striped">
+                        	<c:if test="${empty orders_list}"> 
+			                		<div class="col-12 text-center py-5"> 
+			                			<p class="text-muted" style="font-size:16px;">
+			                				<strong>📭 판매자가 거래내역이 없습니다.</strong>
+			                			</p> 
+			                		</div> 
+			                	</c:if>
+			                
+			                <c:if test="${not empty orders_list}">
+			              <table class="table border table-hover bg-white orders-table">
+
 			                <thead>
 			                  <tr role="row">
-			                    <th>ID</th>
-			                    <th>Purchase Date</th>
-			                    <th>Total</th>
-			                    <th>Payment</th>
-			                    <th>Status</th>
-			                    <th>결제상태 변경</th>
-			                    <th>Action</th>
+			                    <th>
+			                      <div class="custom-control custom-checkbox">
+			                        <input type="checkbox" class="custom-control-input" id="all">
+			                        <label class="custom-control-label" for="all"></label>
+			                      </div>
+			                    </th>
+			                    <th><strong>ID</strong></th>
+			                    <th><strong>판매자</strong></th>
+			                    <th><strong>금액</strong></th>
+			                    <th><strong>구매일</strong></th>
+			                    <th><strong>주문상태</strong></th>
+			                    <th><strong>주문번호</strong></th>
+			                    <th><strong>결제번호</strong></th>
+			                    <th><strong>결제방법</strong></th>
+			                    <th><strong>결제상태</strong></th>
+			                    <th><strong>환불</strong></th>
+			                    <th></th>
 			                  </tr>
 			                </thead>
 			                <tbody>
-				                <c:forEach begin="1" end="14">
-				                  <tr>
-				                    <th scope="col">1331</th>
-				                    <td>2020-12-26 01:32:21</td>
-				                    <td>$16.9</td>
-				                    <td>Paypal</td>
-				                    <td><span class="dot dot-lg bg-warning mr-2"></span>Due</td>
-				                    <td>
-		                              <div class="form-group mb-3">
-				                        <select class="form-control" id="example-select">
-				                          <option>결제완료</option>
-				                          <option>결제중</option>
-				                          <option>결제취소</option>
-				                          <option>환불완료</option>
-				                        </select>
-				                      </div>
-		                            </td>
-				                    <td>
-				                      <div class="dropdown">
-				                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				                          <span class="text-muted sr-only">Action</span>
-				                        </button>
-				                        <div class="dropdown-menu dropdown-menu-right">
-				                          <a class="dropdown-item" href="#">Edit</a>
-				                          <a class="dropdown-item" href="#">Remove</a>
-				                          <a class="dropdown-item" href="#">Assign</a>
-				                        </div>
-				                      </div>
-				                    </td>
-				                  </tr>
-				                </c:forEach>
+			                  <c:forEach var="orders_list" items="${orders_list }"> 
+			                  <tr>
+			                    <td class="align-center">
+			                      <div class="custom-control custom-checkbox">
+			                        <input type="checkbox" class="custom-control-input">
+			                        <label class="custom-control-label"></label>
+			                      </div>
+			                    </td>
+			                    <td class="text-normal">${orders_list.o_id }</td>
+			                    <td>
+			                    	<a href="../admin/admin_seller_detail.eum?u_s_id=${orders_list.bopvo.bvo.usvo.u_s_id }">
+			                    		${orders_list.bopvo.bvo.usvo.u_s_com }
+			                    	</a>
+			                    </td>
+			                    <td class="text-normal">${orders_list.o_total_price }</td>
+			                    <td class="text-normal">
+			                    	<fmt:formatDate value="${orders_list.o_createdat}" pattern="yyyy-MM-dd" />
+			                    </td>
+			                    <td class="text-normal">${orders_list.o_status }</td>
+			                    <td class="text-normal">${orders_list.pvo.merchant_uid }</td>
+			                    <td class="text-normal">${orders_list.pvo.pay_id }</td>
+			                    <td class="text-normal">${orders_list.pvo.pay_method }</td>
+			                    <td class="text-normal">${orders_list.pvo.status}</td>
+			                    <td class="text-normal">
+								    <c:if test="${orders_list.pvo.rfvo.rf_status != null}">
+								        <button class="btn btn-warning btn-refund"
+										    data-rfid="${orders_list.pvo.rfvo.rf_id}"
+										    data-reason="${orders_list.pvo.rfvo.rf_reason}"
+										    data-amount="${orders_list.pvo.rfvo.rf_amount}"
+										    data-status="${orders_list.pvo.rfvo.rf_status}"
+										    data-requested="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_requestedat}' pattern='yyyy-MM-dd HH:mm'/>"
+										    data-completed="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_completedat}' pattern='yyyy-MM-dd HH:mm'/>">
+										    환불보기
+										</button>
+			
+								    </c:if>
+								</td>
+			
+			
+			                    
+			                    <td>
+			                      <div class="dropdown">
+			                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                          <span class="text-muted sr-only">Action</span>
+			                        </button>
+			                        <div class="dropdown-menu dropdown-menu-right">
+			                          <a class="dropdown-item" href="#">Remove</a>
+			                        </div>
+			                      </div>
+			                    </td>
+			                  </tr>
+			                  </c:forEach>
+			                </c:if>
+			                 
 			                </tbody>
 			              </table>
+			              <nav aria-label="Table Paging" class="my-3">
+				                <ul class="pagination justify-content-end mb-0">
+				                   <c:if test="${OstartPage > 1 }">
+				                     <li class="page-item">
+				                     	<a class="page-link" href="../admin/admin_users_detail.eum?Opage=${OstartPage-1 }&u_id=${users_vo.u_id}#contact">&lt;</a>
+				                     </li>
+				                   </c:if>
+				                   <c:forEach var="i" begin="${OstartPage }" end="${OendPage }">
+				                     <li class="page-item ${i==Ocurpage?'active':'' }" >
+				                     	<a class="page-link" href="../admin/admin_users_detail.eum?Opage=${i }&u_id=${users_vo.u_id}#contact">${i }</a>
+				                     </li>
+				                   </c:forEach>  
+				                   <c:if test="${OendPage < Ototalpage }">
+				                     <li class="page-item">
+				                     <a class="page-link" href="../admin/admin_users_detail.eum?Opage=${OendPage+1 }&u_id=${users_vo.u_id}#contact">&gt;</a>
+				                     </li>
+				                   </c:if>
+				                   </ul>
+				              </nav>
               			</div>
                       </div>
                     </div>
@@ -709,4 +791,67 @@ function toggleContent(el) {
             </div>
           </div>
         </div>
+  
+<!-- 환불 상세 모달 -->
+<div class="modal fade" id="refundModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">환불 상세 정보</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <form method="post" action="../admin/admin_refund_status.eum">
+      <div class="modal-body">
+
+        <!-- 숨겨진 값 (rf_id, page 값 전달용) -->
+        <input type="hidden" name="rf_id" id="rf-id">
+        <input type="hidden" name="page" value="${curpage}">
+
+        <p><strong>환불 상태:</strong> 
+          <select name="rf_status" id="rf-status-select" class="form-control">
+            <option value="환불취소">환불취소</option>
+            <option value="환불접수">환불접수</option>
+            <option value="환불완료">환불완료</option>
+          </select>
+        </p>
+
+        <p><strong>환불 금액:</strong> <span id="rf-amount"></span></p>
+        <p><strong>환불 사유:</strong> <span id="rf-reason"></span></p>
+        <p><strong>요청일:</strong> <span id="rf-requested"></span></p>
+        <p><strong>완료일:</strong> <span id="rf-completed"></span></p>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">변경 저장</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+$(document).on("click", ".btn-refund", function () {
+
+    $("#rf-id").val($(this).data("rfid"));               // 환불 ID
+    $("#rf-reason").text($(this).data("reason"));        // 사유
+    $("#rf-amount").text($(this).data("amount"));        // 금액
+    $("#rf-requested").text($(this).data("requested"));  // 요청일
+    $("#rf-completed").text($(this).data("completed"));  // 완료일
+
+    const status = $(this).data("status");               // 현재 상태
+    $("#rf-status").text(status);
+    $("#rf-status-select").val(status);                  // 드롭다운 선택
+
+    $("#refundModal").modal("show");
+});
+
+</script>
         

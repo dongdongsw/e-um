@@ -134,4 +134,62 @@
 		)
 	</select>
 	
+	<resultMap type="OrdersVO" id="ordersMap">
+	  	<result property="b_op_id" column="b_op_id"/>
+	  	<result property="o_total_price" column="o_total_price"/>
+		<result property="o_id" column="o_id"/>
+		<result property="o_status" column="o_status"/>
+		<result property="o_createdat" column="o_createdat"/>
+	
+		
+	
+		<association property="pvo" javaType="PaymentVO">
+			<result property="pay_id" column="pay_id" />
+			<result property="pay_method" column="pay_method" />
+			<result property="status" column="status" />
+			<result property="merchant_uid" column="merchant_uid" />
+			
+			<association property="rfvo" javaType="RefundVO">
+				<result property="rf_id" column="rf_id" />
+				<result property="rf_reason" column="rf_reason" />
+				<result property="rf_amount" column="rf_amount" />
+				<result property="rf_status" column="rf_status" />
+				<result property="rf_requestedat" column="rf_requestedat" />
+				<result property="rf_completedat" column="rf_completedat" />
+			</association>
+		</association>
+		<association property="uvo" javaType="UsersVO">
+			<result property="u_nickname" column="u_nickname" />
+			<result property="u_id" column="u_id" />
+		</association>
+		
+	  </resultMap>
+	
+	<!-- <유저> 각 사용자 주문 내역 리스트 -->
+	<select id="ordersSellersListData" resultMap="ordersMap" parameterType="hashmap">
+		SELECT o.o_id, o.o_total_price, o.o_status, o.o_createdat,
+			p.pay_id, p.pay_method, p.status, p.merchant_uid, u.u_nickname, u.u_id,
+			r.rf_id, r.rf_amount, r.rf_reason, r.rf_status, r.rf_requestedat, r.rf_completedat
+		FROM orders o
+		LEFT JOIN payment p ON o.o_id = p.o_id
+		LEFT JOIN users u ON u.u_id = o.o_u_id
+		LEFT JOIN refund r ON r.pay_id = p.pay_id
+		LEFT JOIN board_option bo ON o.b_op_id = bo.b_op_id
+    	LEFT JOIN board b ON b.b_id = bo.b_id
+    	LEFT JOIN users_seller us ON us.u_s_id = b.u_s_id
+		WHERE us.u_s_id = #{u_s_id}
+		ORDER BY o.o_createdat DESC
+		OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+	
+	<!-- <주문> 페이징 -->
+	<select id="ordersSellersTotalPage" resultType="int" parameterType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM orders o
+	    LEFT JOIN board_option bo ON o.b_op_id = bo.b_op_id
+	    LEFT JOIN board b ON b.b_id = bo.b_id
+	    LEFT JOIN users_seller us ON us.u_s_id = b.u_s_id
+		WHERE us.u_s_id = #{u_s_id}
+	</select>
+	
 </mapper>

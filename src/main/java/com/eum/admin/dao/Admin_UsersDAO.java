@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
+import com.eum.main.vo.OrdersVO;
 import com.eum.main.vo.ReviewVO;
 import com.eum.main.vo.Review_ImageVO;
 import com.eum.main.vo.UsersVO;
@@ -186,4 +187,32 @@ public class Admin_UsersDAO {
         return total;
     }
 	
+    // 각 사용자 주문 리스트 조회
+ 	public static List<OrdersVO> ordersUsersListData(Map map){
+ 		
+ 		List<OrdersVO> list = null;
+ 		try {
+ 			SqlSession session = ssf.openSession();
+ 			list = session.selectList("ordersUsersListData",map);
+ 			session.close();
+ 		} catch (Exception ex) {
+ 			ex.printStackTrace();
+ 		}
+ 		return list;
+ 	}
+ 	
+ 	// 각 사용자 주문 페이징 조회
+ 	public static int ordersUsersTotalPage(String u_id) {
+ 		int total = 0;
+ 		try {
+ 			SqlSession session = ssf.openSession();
+ 			total = session.selectOne("ordersUsersTotalPage",u_id);
+ 			session.close();
+ 		} catch (Exception ex) {
+ 			ex.printStackTrace();
+ 		}
+ 		return total;
+ 	}
+    
+    
 }

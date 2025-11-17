@@ -51,40 +51,17 @@
 								  </div>
 								</form>
                               </div>
-                              <div class="form-group col-auto ml-3">
-                                <label class="my-1 mr-2 sr-only" for="inlineFormCustomSelectPref">Status</label>
-                                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                                  <option selected>Choose...</option>
-                                  <option value="1">Processing</option>
-                                  <option value="2">Success</option>
-                                  <option value="3">Pending</option>
-                                  <option value="3">Hold</option>
-                                </select>
-                              </div>
+                              
                             </div>
                           </form>
                         </div>
-                        <div class="col ml-auto">
-                          <div class="dropdown float-right">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
-                            <div class="dropdown-menu" aria-labelledby="actionMenuButton">
-                              <a class="dropdown-item" href="#">Export</a>
-                              <a class="dropdown-item" href="#">Delete</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                          </div>
-                        </div>
+                        
                       </div>
                       <!-- table -->
                       <table class="table table-borderless table-hover">
                         <thead>
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="all2">
-                                <label class="custom-control-label" for="all2"></label>
-                              </div>
-                            </td>
+                            <th></th>
                             <th></th>
                             <th><strong>셀러 KEY</strong></th>
                             <th><strong>카테고리</strong></th>
@@ -99,12 +76,7 @@
                           <!-- 가데이터 -->
                           <c:forEach var="contents_list" items="${contents_list }">
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2474">
-                                <label class="custom-control-label" for="2474"></label>
-                              </div>
-                            </td>
+                            <td></td>
                             
                             <td>
                               <div class="avatar avatar-md">

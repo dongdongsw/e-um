@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
 import com.eum.main.vo.BoardVO;
+import com.eum.main.vo.OrdersVO;
 import com.eum.main.vo.ReviewVO;
 import com.eum.main.vo.Review_ImageVO;
 import com.eum.main.vo.UsersVO;
@@ -119,7 +120,6 @@ public class Admin_SellerDAO {
 	
 	// 셀러 삭제
 			
-	// 셀러 수정
 	
 	// 셀러 검색 + 페이지 목록
 	public static List<Users_SellerVO> sellerSearchListData(Map map){
@@ -150,5 +150,32 @@ public class Admin_SellerDAO {
 		}
 		return total;
 	}
+	
+	// 각 판매자 주문 리스트 조회
+ 	public static List<OrdersVO> ordersSellersListData(Map map){
+ 		
+ 		List<OrdersVO> list = null;
+ 		try {
+ 			SqlSession session = ssf.openSession();
+ 			list = session.selectList("ordersSellersListData",map);
+ 			session.close();
+ 		} catch (Exception ex) {
+ 			ex.printStackTrace();
+ 		}
+ 		return list;
+ 	}
+	 	
+ 	// 각 판매자 주문 페이징 조회
+ 	public static int ordersSellersTotalPage(int u_s_id) {
+ 		int total = 0;
+ 		try {
+ 			SqlSession session = ssf.openSession();
+ 			total = session.selectOne("ordersSellersTotalPage",u_s_id);
+ 			session.close();
+ 		} catch (Exception ex) {
+ 			ex.printStackTrace();
+ 		}
+ 		return total;
+ 	}
 	
 }

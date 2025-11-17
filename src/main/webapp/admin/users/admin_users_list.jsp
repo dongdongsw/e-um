@@ -54,28 +54,13 @@
                             </div>
                           </form>
                         </div>
-                        <div class="col ml-auto">
-                          <div class="dropdown float-right">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
-                            <div class="dropdown-menu" aria-labelledby="actionMenuButton">
-                              <a class="dropdown-item" href="#">Export</a>
-                              <a class="dropdown-item" href="#">Delete</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                          </div>
-                        </div>
                       </div>
                       
                       <!-- table -->
                       <table class="table table-borderless table-hover">
                         <thead>
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="all2">
-                                <label class="custom-control-label" for="all2"></label>
-                              </div>
-                            </td>
+                            <th></th>
                             <th></th>
                             <th><strong>NO</strong></th>
                             <th><strong>닉네임</strong></th>
@@ -93,12 +78,7 @@
                         
                           <c:forEach var="users" items="${ users_list}">
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2474">
-                                <label class="custom-control-label" for="2474"></label>
-                              </div>
-                            </td>
+                            <td></td>
                             
                             <td>
                               <div class="avatar avatar-md">
