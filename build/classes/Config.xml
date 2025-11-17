@@ -17,6 +17,7 @@
      <typeAlias type="com.eum.main.vo.RefundVO" alias="RefundVO"/>
      <typeAlias type="com.eum.main.vo.ReviewVO" alias="ReviewVO"/>
      <typeAlias type="com.eum.main.vo.Review_ImageVO" alias="Review_ImageVO"/>
+     <typeAlias type="com.eum.main.vo.FavoriteVO" alias="FavoriteVO"/>
 
    </typeAliases>
   <environments default="development">
@@ -38,6 +39,8 @@
     <mapper resource="com/eum/seller/mapper/seller-mapper.xml"/>
     <mapper resource="com/eum/pay/mapper/payment-mapper.xml"/>
     <mapper resource="com/eum/seller/mapper/contents-mapper.xml"/>
+    <mapper resource="com/eum/users/mapper/favorite-mapper.xml"/>
+	<mapper resource="com/eum/users/mapper/review-mapper.xml"/>
     
     <!-- 관리자 -->
     <mapper resource="com/eum/admin/mapper/contents-mapper.xml"/>

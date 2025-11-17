@@ -98,6 +98,9 @@ public class UsersDAO {
 					vo.setU_phone(dbVO.getU_phone());	
 					vo.setCreateat(dbVO.getCreateat());
 					vo.setU_profileimg_url(dbVO.getU_profileimg_url());
+					vo.setU_push_noti(dbVO.getU_push_noti());
+					vo.setU_email_noti(dbVO.getU_email_noti());
+					vo.setU_sms_noti(dbVO.getU_sms_noti());
 					
 					// 셀러인지 체크
 					int seller = session.selectOne("usersSellerCheck", dbVO.getU_id());
@@ -116,6 +119,77 @@ public class UsersDAO {
 			ex.printStackTrace();
 		}
 		return vo;
+	}
+	
+	// 정보 수정 데이터
+	public static UsersVO usersInfoUpdateData(String u_loginid) {
+	    UsersVO vo = null;
+	    try {
+	        SqlSession session = ssf.openSession();
+	        vo = session.selectOne("usersInfoData", u_loginid); 
+	        session.close();
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
+	    return vo;
+	}
+	
+	// 정보수정
+	public static void usersInfoUpdate(UsersVO vo) {
+		try {
+			SqlSession session = ssf.openSession(true);
+			session.update("usersInfoUpdate_ok", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	// 프로필 이미지 업로드
+	public static void profileImgUpload(UsersVO vo) {
+		try {
+			SqlSession session = ssf.openSession(true);
+			session.update("profileImgUpload", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	// 아이디 찾기
+	public static String findMyId(UsersVO vo) {
+		String u_loginid = "";
+		try {
+			SqlSession session = ssf.openSession();
+			u_loginid = session.selectOne("findMyId", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return u_loginid;
+	}
+	
+	// 비밀번호 찾기_정보확인
+	public static String findMyPwd(UsersVO vo) {
+		String u_id = "";
+		try {
+			SqlSession session = ssf.openSession();
+			u_id = session.selectOne("findMyPwd", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return u_id;
+	}
+	// 비밀번호 재설정
+	public static void pwdChange(UsersVO vo) {
+		try {
+			SqlSession session = ssf.openSession(true);
+			session.update("pwdChange", vo);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 }

@@ -43,11 +43,51 @@
 	
 	<!-- 로그인 -->
 	<select id="usersInfoData" resultType="UsersVO" parameterType="string">
-      SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_role,
-      			u_email, TO_CHAR(u_createat, 'YYYY-MM-DD') AS createat, u_profileimg_url
+      SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_push_noti, u_email_noti, u_sms_noti,
+      			u_role, u_email, TO_CHAR(u_createat, 'YYYY-MM-DD') AS createat, u_profileimg_url
       FROM users
       WHERE u_loginid=#{u_loginid}
     </select>
+    
+    <select id="usersGetSellerId" resultType="int" parameterType="string">
+      SELECT u_s_id 
+      FROM users_seller
+      WHERE u_id=#{u_id}
+    </select>
+    
+    <!-- 정보 수정 -->
+    <update id="usersInfoUpdate_ok" parameterType="UsersVO">
+      UPDATE users SET
+      u_nickname=#{u_nickname}, u_pwd=#{u_pwd}, u_phone=#{u_phone}, u_loc=#{u_loc},
+      u_push_noti=#{u_push_noti}, u_email_noti=#{u_email_noti}, u_sms_noti=#{u_sms_noti}
+      WHERE u_loginid=#{u_loginid}
+    </update>
+    
+    <!-- 프로필 이미지 업로드 -->
+    <update id="profileImgUpload" parameterType="UsersVO">
+      UPDATE users SET
+      u_profileimg_url=#{u_profileimg_url}
+      WHERE u_loginid=#{u_loginid}
+    </update>
+    
+    <!-- 아이디 찾기 -->
+    <select id="findMyId" resultType="string" parameterType="UsersVO">
+      SELECT u_loginid
+      FROM users
+      WHERE u_email=#{u_email} AND u_phone=#{u_phone}
+    </select>
+    
+    <!-- 비밀번호 찾기 -->
+    <select id="findMyPwd" resultType="string" parameterType="UsersVO">
+      SELECT u_id
+      FROM users
+      WHERE u_loginid=#{u_loginid} AND u_email=#{u_email}
+    </select>
+    <update id="pwdChange" parameterType="UsersVO">
+      UPDATE users SET
+      u_pwd=#{u_pwd}
+      WHERE u_id=#{u_id}
+    </update>
     
     <!-- 셀러 여부 확인 -->
     <select id="usersSellerCheck" resultType="int" parameterType="string">
