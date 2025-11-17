@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.admin.mapper.admin-mapper">
-	<!-- <유저> 리스트 -->
 	<select id="adminUsersListData">
 	
 	</select>
 	
-	<!-- <셀러> 리스트 -->
 	<select id="adminSellerListData">
 	
 	</select>
 	
-	<!-- <컨텐츠> 리스트 -->
 	<select id="adminContentsListData">
 	
 	</select>
 	
-	<!-- <주문> 리스트 -->
 	<select id="adminOredersListData">
 	
 	</select>
 	
-	<!-- 리스트 -->
-	<select id="noticeListData" resultType="NoticeVO" parameterType="map">
+	<select id="adminnoticeListData" resultType="NoticeVO" parameterType="map">
 	  SELECT n_id, n_title, n_createdAt, n_updatedAt
 	  FROM (
 	      SELECT n_id, n_title, n_createdAt, n_updatedAt, ROWNUM AS num
@@ -34,26 +29,22 @@
 	  )
 	  WHERE num BETWEEN #{start} AND #{end}
 	</select>
-	<!-- 디테일 -->
-	 <select id="noticeDetailData" resultType="NoticeVO" parameterType="string">
+	 <select id="adminnoticeDetailData" resultType="NoticeVO" parameterType="string">
 	  SELECT n_id,n_title,n_createdAt,n_updatedAt,n_content
 	  FROM notice_board
 	  WHERE n_id=#{n_id}
 	 </select>
-	<!-- 총 페이지 -->
-	 <select id="noticeTotalPage" resultType="int">
+	 <select id="adminnoticeTotalPage" resultType="int">
 	  SELECT CEIL(COUNT(*) / 10.0)
 	  FROM notice_board
 	 </select>
-	 <!-- 추가 -->
-	 <insert id="noticeInsert" parameterType="NoticeVO">
+	 <insert id="adminnoticeInsert" parameterType="NoticeVO">
 	  INSERT INTO notice_board(n_id,n_title,n_content,n_createdAt,n_updatedAt)
 	  VALUES(NOTICE_BOARD_SEQ.NEXTVAL,
 	   #{n_title},#{n_content},SYSDATE,NULL
 	  )
 	 </insert>
-	 <!-- 수정 -->
-	 <update id="noticeUpdate" parameterType="NoticeVO">
+	 <update id="adminnoticeUpdate" parameterType="NoticeVO">
 	  UPDATE notice_board
 	  SET
 	   n_title=#{n_title},
@@ -61,10 +52,9 @@
 	   n_updatedAt=SYSDATE
 	  WHERE n_id=#{n_id}
 	 </update>
-	 <!-- 삭제 -->
-	 <delete id="noticeDelete" parameterType="string">
+	 <delete id="adminnoticeDelete" parameterType="string">
 	  DELETE FROM notice_board
 	  WHERE n_id=#{n_id}
 	 </delete>
-	 
+
 </mapper>

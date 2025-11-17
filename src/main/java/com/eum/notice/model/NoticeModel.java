@@ -52,15 +52,25 @@ public class NoticeModel {
 
 	// 상세보기
 	@RequestMapping("notice/detail.eum")
-	public String notice_detail(HttpServletRequest request,HttpServletResponse response)
-	{
-		String n_id=request.getParameter("n_id");
-		NoticeVO vo=NoticeDAO.noticeDetailData(n_id);
-		
-		request.setAttribute("vo", vo);
-		request.setAttribute("main_jsp","../notice/detail.jsp");
-		return "../main/main.jsp";
+	public String notice_detail(HttpServletRequest request, HttpServletResponse response) {
+
+	    String n_id = request.getParameter("n_id");
+	    System.out.println("📌 /notice/detail.eum called, n_id = " + n_id);
+
+	    NoticeVO vo = NoticeDAO.noticeDetailData(n_id);
+
+	    // vo 못 가져온 경우 방어 코드
+	    if (vo == null) {
+	        System.out.println("❗ vo is null → redirect to list");
+	        return "redirect:../notice/list.eum";
+	    }
+
+	    request.setAttribute("vo", vo);
+	    request.setAttribute("main_jsp", "../notice/detail.jsp");
+
+	    return "../main/main.jsp";
 	}
+
 	
 	// 글쓰기
 	@RequestMapping("notice/insert.eum")

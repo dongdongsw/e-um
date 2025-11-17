@@ -68,7 +68,7 @@
                     <button type="submit" class="btn btn-outline-primary mr-2">
                       <i class="fe fe-save fe-16 mr-2"></i>저장
                     </button>
-                    <button type="reset" class="btn btn-outline-danger">
+                    <button type="button" class="btn btn-outline-danger" onclick="location.href='admin_notice_detail.eum?n_id=${vo.n_id}'">
                       <i class="fe fe-x fe-16 mr-2"></i>취소
                     </button>
                   </div>

@@ -85,6 +85,10 @@
       background-color: #d4d4d4;
       color: #333;
     }
+    .table a {
+  color: #212529 !important;   /* 번호와 동일한 컬러 */
+  text-decoration: none !important; /* 밑줄 제거 */
+}
   </style>
 </head>
 
@@ -95,23 +99,28 @@
             <div class="col-12">
               <h2 class="h3 mb-3 page-title" style="font-size: 35px">공지사항</h2>
               <!-- 검색 -->
-              <div class="row mb-4 items-align-center">
-				  <div class="col-12 d-flex align-items-center justify-content-end">
-				    <div class="position-relative mr-3" style="width: 300px;">
+               <div class="row mb-4 items-align-center">
+				  <div class="col-12 d-flex align-items-center justify-content-between">
+				    <div class="position-relative" style="width: 350px;">
 				      <span class="fe fe-search position-absolute text-muted" style="top: 8px; left: 14px;"></span>
 				      <input
 				        class="form-control form-control-sm bg-white rounded-pill pl-5"
 				        type="search" placeholder="검색어를 입력하세요" style="text-align: center;" aria-label="Search">
 				    </div>
 				    <!-- ✅ 전체 삭제 버튼 -->
-				    <button type="button" class="btn" data-toggle="modal" data-target="#deleteModal">
-				      <span class="fe fe-trash-2 fe-16 text-muted"></span>
-				    </button>
-				    <button type="button" class="btn">
-				      <a href="admin_notice_insert.eum"><span class="fe fe-edit fe-16 text-muted"></span></a>
-				    </button>
+				    <div style="margin-top: 10px;">
+				      <button type="button" class="btn" data-toggle="modal" data-target="#deleteModal">
+				        <span class="fe fe-trash-2 fe-16 text-muted"></span>
+				      </button>
+				      <a href="admin_notice_insert.eum">
+				      <button type="button" class="btn">
+				        <span class="fe fe-edit fe-16 text-muted"></span>
+				      </button>
+				      </a>
+				    </div>
 				  </div>
 				</div>
+				
 
               <!-- 테이블 -->
               <table class="table border table-hover bg-white">
@@ -123,10 +132,12 @@
                         <label class="custom-control-label" for="all"></label>
                       </div>
                     </th>
-                    <th style="width: 80px;">번호</th>
-                    <th>제목</th>
-                    <th style="width: 150px;">작성일</th>
-                    <th style="width: 80px;">Action</th>
+                    <th style="width: 8%;">번호</th>
+                    <th style="width: 59%;">제목</th>
+                    <th style="width: 13%;">작성자</th>
+                    <th style="width: 10%;">작성일</th>
+                    <th style="width: 10%;">Action</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
@@ -139,7 +150,8 @@
 	                      </div>
 	                    </td>
 	                    <td>${vo.n_id}</td>
-	                    <td onclick="location.href='admin_notice_detail.eum?n_id=${vo.n_id}'" style="cursor:pointer;">${vo.n_title}</td>
+	                    <td style="cursor:pointer;" onclick="location.href='../admin/admin_notice_detail.eum?n_id=${vo.n_id}'">${vo.n_title}</td>
+	                    <td style="padding-left: -160px;">관리자</td>
 	                    <td>
 			              <fmt:formatDate value="${vo.n_createdAt}" pattern="yyyy.MM.dd" />
 			            </td>

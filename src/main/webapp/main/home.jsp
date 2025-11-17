@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style type="text/css">
 /* ===============================
    LIBERTY NFT - Category Buttons
@@ -171,7 +172,7 @@ $(function(){
           <div class="discover-items">
 			  <form id="search-form" method="GET" class="search" action="../talent/keyword_list.eum">
 			      <div class="row">
-			        <div class="col-lg-7">
+			        <div class="col-lg-9">
 			            <fieldset>
 			                <input type="text" name="keyword" class="searchText" placeholder="어떤 재능이 필요하세요?" autocomplete="on" required>
 			            </fieldset>
@@ -211,13 +212,13 @@ $(function(){
   <div class="category-container">
   <a href="../talent/b_type_list.eum?b_type=운동건강">
     <button class="brutalist-button button-1">
-      <img src="../images/exeimg.png" alt="디자인" class="category-icon">
+      <img src="../images/sports.svg" alt="디자인" class="category-icon">
       <span>운동/건강</span>
     </button>
     </a>
    <a href="../talent/b_type_list.eum?b_type=비즈니스">
     <button class="brutalist-button button-1">
-      <img src="../images/bizimg.png" alt="비즈니스" class="category-icon">
+      <img src="../images/business-bag-svgrepo-com.svg" alt="비즈니스" class="category-icon">
       <span>비즈니스</span>
     </button>
     </a>
@@ -229,7 +230,7 @@ $(function(){
     </a>
    <a href="../talent/b_type_list.eum?b_type=생활라이프">
     <button class="brutalist-button button-1">
-      <img src="../images/robot.png" alt="AI/테크" class="category-icon">
+      <img src="../images/life.svg" alt="AI/테크" class="category-icon">
       <span>생활/라이프</span>
     </button>
     </a>

@@ -22,7 +22,7 @@ function loadList(page, fd) {
     if (!b_type) b_type = "";
     if (!fd) fd = $("input[name=fd]:checked").val() || "view";
 
-    let ajaxUrl = "";
+    let ajaxUrl = "../main/main.jsp";
     if (keyword !== "") ajaxUrl = "../talent/keyword_ajax.eum";
     else if (b_type !== "") ajaxUrl = "../talent/b_type_ajax.eum";
     else return;
@@ -42,6 +42,8 @@ function loadList(page, fd) {
         success: function(json) {
 
             console.log("AJAX RESULT:", json);
+            console.log(JSON.stringify(json.list[0], null, 2));
+            
 
             let rawList = json.list;
             let list = [];
@@ -52,113 +54,132 @@ function loadList(page, fd) {
                 list = rawList; 
             }
             
+            $("#default-list").hide();   // ★ 위로 이동시키고 한 번만 실행
             $(".card-area").empty();
-            $("#default-list").hide();
-
+            
             if (!list || list.length === 0) {
                 $(".card-area").html('<div class="col-md-12"><p style="text-align:center; padding:50px 0;">검색 결과가 없습니다.</p></div>');
                 $("#pagination-area .page").empty();
                 return;
             }
-            list.forEach(vo => {
-            	 let reviewScore = vo.b_review_score ?? 0;
-   	          let reviewCount = vo.review_count ?? 0;
-   	          let price = vo.b_op_price ? Number(vo.b_op_price).toLocaleString() : 0;
-   	          let company = vo.u_s_com || "";
-   	          
-   	          let html = `
-   	            <div class="col-md-3">
-   	              <div class="temporary__storage" style="border:none">
-   	                <div class="list-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
-   	                  <div class="image">
-   	                    <img src="${vo.b_thumbnail}" width="200" height="160" style="border-radius: 15px;">
-   	                  </div>
-   	                  <div class="content">
-   	                    <div class="content__text">
-   	                      <span class="stream__title">${vo.b_title}</span>
-   	                      <span class="event" style="font-size: 10px">
-                             ⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0}
-                             (${vo.rvo.review_count != null ? vo.rvo.review_count : 0})
-                           </span>
-                           <span class="streamer__name" style="font-size: 12px">
-                             <fmt:formatNumber value="${empty vo.bovo.b_op_price ? 0 : vo.bovo.b_op_price}"
-                                               pattern="#,###"/>원
-                           </span>
-                           <span class="streamer__name" style="font-size: 10px">
-                             ${vo.usvo.u_s_com}
-                           </span>
-   	                    </div>
-   	                  </div>
-   	                </div>
-   	              </div>
-   	            </div>`;
-   	          
-   	          $(".card-area").append(html);
-   	        });
+         // loadList 함수 내부의 카드 생성 부분을 다음과 같이 수정:
 
+            list.forEach(function(vo) {
+                var reviewScore = vo.rvo && vo.rvo.b_review_score ? vo.rvo.b_review_score : 0;
+                var reviewCount = vo.rvo && vo.rvo.review_count ? vo.rvo.review_count : 0;
+                var price       = vo.bovo && vo.bovo.b_op_price ? Number(vo.bovo.b_op_price).toLocaleString() : 0;
+                var company     = vo.usvo && vo.usvo.u_s_com ? vo.usvo.u_s_com : "";
+
+                var html  = '';
+                html += '<div class="col-md-3">';
+                html += '  <div class="temporary__storage" style="border:none">';
+                html += '    <div class="list-card" onclick="location.href=\'../talent/detail.eum?b_id=' + vo.b_id + '\'">';
+                html += '      <div class="image">';
+                html += '        <img src="' + vo.b_thumbnail + '" width="200" height="160" style="border-radius: 15px;">';
+                html += '      </div>';
+                html += '      <div class="image__overlay"></div>';  // 이 줄 추가!
+                html += '      <div class="content">';  // contents → content로 변경
+                html += '        <div class="avatar"></div>';  // 이 줄 추가!
+                html += '        <div class="content__text">';
+                html += '          <span class="stream__title">' + vo.b_title + '</span>';
+                html += '          <span class="event" style="font-size: 10px">';
+                html += '            ⭐️ ' + reviewScore + ' (' + reviewCount + ')';
+                html += '          </span>';
+                html += '          <span class="streamer__name" style="font-size: 12px">';
+                html += '            ' + price + '원';
+                html += '          </span>';
+                html += '          <span class="streamer__name" style="font-size: 10px">';
+                html += '            ' + company;
+                html += '          </span>';
+                html += '          <span class="categories">';  // 이 부분도 추가
+                html += '            <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">';
+                html += '              ' + (vo.b_type || '');
+                html += '            </div>';
+                html += '          </span>';
+                html += '        </div>';
+                html += '      </div>';
+                html += '    </div>';
+                html += '  </div>';
+                html += '</div>';
+
+                $(".card-area").append(html);
+            });
+
+
+
+         // 페이지 정보
             let cur = json.curpage;
             let total = json.totalpage;
             let sp = json.startpage;
             let ep = json.endpage;
-            let fdParam = fd; 
 
             let p_html = "";
 
-            if (sp > 1)
-                p_html += `<li class="page__btn"><a href="#" class="page-link" data-page="${sp - 1}" data-fd="${fdParam}">&lt;</a></li>`;
-
-            for (let i = sp; i <= ep; i++) {
-                p_html += `
-                <li class="page__numbers ${i == cur ? 'active' : ''}">
-                    <a href="#" class="page-link" data-page="${i}" data-fd="${fdParam}">${i}</a>
-                </li>`;
+            // 이전 페이지 버튼
+            if (sp > 1) {
+                p_html += '<li class="page__btn active">';
+                p_html += '<a href="#" data-page="' + (sp - 1) + '">&lt;</a>';
+                p_html += '</li>';
             }
 
-            if (ep < total)
-                p_html += `<li class="page__btn"><a href="#" class="page-link" data-page="${ep + 1}" data-fd="${fdParam}">&gt;</a></li>`;
+            // 페이지 번호들
+            for (let i = sp; i <= ep; i++) {
+                if (i == cur) {
+                    p_html += '<li class="page__numbers active">';
+                    p_html += '<a href="#" data-page="' + i + '" data-fd="' + fd + '">' + i + '</a>';
+                    p_html += '</li>';
+                } else {
+                    p_html += '<li class="page__numbers">';
+                    p_html += '<a href="#" data-page="' + i + '" data-fd="' + fd + '">' + i + '</a>';
+                    p_html += '</li>';
+                }
+            }
+
+            // 다음 페이지 버튼
+            if (ep < total) {
+                p_html += '<li class="page__btn active">';
+                p_html += '<a href="#" data-page="' + (ep + 1) + '">&gt;</a>';
+                p_html += '</li>';
+            }
 
             $("#pagination-area .page").html(p_html);
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX 에러:", error);
+            $(".card-area").html('<div class="col-md-12"><p style="text-align:center; padding:50px 0;">데이터를 불러오는데 실패했습니다.</p></div>');
         }
     });
 }
 
 
 $(document).ready(function() {
-    $(document).on("change", "input[name=fd]", function () {
-        // 정렬 변경 시 1페이지로 돌아가면서 loadList 호출
-        loadList(1, $(this).val());
-    });
-    
-    $(document).on("click", "#pagination-area .page-link", function(e) {
-        e.preventDefault();
-        let nextPage = $(this).data("page");
-        let currentFd = $(this).data("fd"); 
-        
-        if (!currentFd) {
-            currentFd = $("input[name=fd]:checked").val() || "view";
-        }
-        
-        loadList(nextPage, currentFd);
-    });
+    // 정렬 라디오 버튼 변경
+   $(document)
+  .off("change", "input[name=fd]")
+  .on("change", "input[name=fd]", function () {
+      loadList(1, $(this).val());
+});
 
+    // 페이지네이션 클릭
+    $(document)
+  .off("click", "#pagination-area a")
+  .on("click", "#pagination-area a", function(e) {
+      e.preventDefault();
+      let nextPage = $(this).data("page");
+      let currentFd = $("input[name=fd]:checked").val() || "view";
+      loadList(nextPage, currentFd);
+});
+
+    // 검색창 제출
     $(".search").on("submit", function (e) {
         e.preventDefault();
-
         let keyword = $(".search_input").val().trim();
-        if (keyword === "") {
+        if (!keyword) {
             alert("검색어를 입력해주세요");
             return;
         }
-        location.href="../talent/keyword_list.eum?keyword="+encodeURIComponent(keyword)+"&page=1"
+        location.href = "../talent/keyword_list.eum?keyword=" + encodeURIComponent(keyword) + "&page=1";
     });
-    
-    $(".reset").on("click", function () {
-        $(".card-area").empty();
-        $(".search_input").val("");  
-        $("#default-list").show();          
-        $("#pagination-area").show();       
-    });
-    
 });
 </script>
 <style>
@@ -551,85 +572,6 @@ $(document).ready(function() {
   })();
 </script>
 <!-- 검색 -->
-<script>
-$(function (){
-	  $(".search").on("submit", function (e) {
-	    e.preventDefault();
-
-	    let keyword = $(".search_input").val().trim();
-	    if (keyword === "") {
-	      alert("검색어를 입력해주세요");
-	      return;
-	    }
-	    location.href="../talent/keyword_list.eum?keyword="+encodeURIComponent(keyword)+"&page=1"
-	  });
-	  
-	  $(".reset").on("click", function () {
-	      $(".card-area").empty();
-	      $(".search_input").val("");  
-	      $("#default-list").show();          
-	      $("#pagination-area").show();       
-	  });
-	  
-	  function talent_search(keyword, page) {
-	    $.ajax({
-	      url: "../talent/keyword_ajax.eum",
-	      type: "GET",
-	      data: { 
-	      	"keyword": keyword, 
-	      	"page": page 
-	      },
-	      success: function (result) {
-	        let json = JSON.parse(result);
-	        
-	        $("#default-list").hide();
-	        $(".card-area").empty(); 
-	        
-	        if (json.length === 0) {
-	          $(".card-area").html('<div class="col-md-12"><p style="text-align:center; padding:50px 0;">검색 결과가 없습니다.</p></div>');
-	          return;
-	        }
-	        
-	        json.forEach((vo) => {
-	          let reviewScore = vo.b_review_score ?? 0;
-	          let reviewCount = vo.review_count ?? 0;
-	          let price = vo.b_op_price ? Number(vo.b_op_price).toLocaleString() : 0;
-	          let company = vo.u_s_com || "";
-	          
-	          let html = `
-	            <div class="col-md-3">
-	              <div class="temporary__storage" style="border:none">
-	                <div class="list-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
-	                  <div class="image">
-	                    <img src="${vo.b_thumbnail}" width="200" height="160" style="border-radius: 15px;">
-	                  </div>
-	                  <div class="content">
-	                    <div class="content__text">
-	                      <span class="stream__title">${vo.b_title}</span>
-	                      <span class="event" style="font-size: 10px">
-                          ⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0}
-                          (${vo.rvo.review_count != null ? vo.rvo.review_count : 0})
-                        </span>
-                        <span class="streamer__name" style="font-size: 12px">
-                          <fmt:formatNumber value="${empty vo.bovo.b_op_price ? 0 : vo.bovo.b_op_price}"
-                                            pattern="#,###"/>원
-                        </span>
-                        <span class="streamer__name" style="font-size: 10px">
-                          ${vo.usvo.u_s_com}
-                        </span>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>`;
-	          
-	          $(".card-area").append(html);
-	        });
-	      }
-	    });
-	  }
-});
-</script>
 
     <!-- 🔹 결과 영역 -->
     <div class="main">
