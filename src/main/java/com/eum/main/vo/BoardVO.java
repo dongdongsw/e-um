@@ -33,4 +33,6 @@ public class BoardVO {
 	private Board_ImageVO bivo=new Board_ImageVO();
 	private UsersVO uvo=new UsersVO();
 	private OrdersVO ovo=new OrdersVO();
+	private PaymentVO pvo=new PaymentVO();
+	private RefundVO rfvo=new RefundVO();
 }
