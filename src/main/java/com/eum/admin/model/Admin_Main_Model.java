@@ -17,7 +17,6 @@ public class Admin_Main_Model {
 		return "../admin/common/admin_main.jsp";
 	}
 	
-	
 		
 	
 	

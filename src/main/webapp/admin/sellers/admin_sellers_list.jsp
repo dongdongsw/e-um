@@ -22,56 +22,29 @@
     color: #4a4a4a !important;
 }
 
-/* .search-box {
-  position: relative;
-  width: 240px;
-  padding-left: 30px;
+.page-header-custom h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2px;
 }
 
-.search-box input {
-  width: 100%;
-  padding: 9px 34px 9px 12px;
-  border-radius: 8px;
-  border: 1px solid #cfd4da;
-  background: #fff;
-  font-size: 14px;
-  transition: 0.2s;
+.page-header-custom p {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0;
 }
 
-.search-box input:focus {
-  border-color: #6c63ff; 
-  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.18);
-  outline: none;
-}
-
-.search-box .icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 15px;
-  color: #868e96;
-} */
-
-
-/* 테스트 */
-.search-form button {
-  border: none;
-  background: none;
-  color: #8b8ba7;
-}
-
-/* styling of whole input container */
-.search-form {
+/* 검색 디자인 */
+.form {
   --timing: 0.3s;
-  --width-of-input: 420px;
+  --width-of-input: 400px;
   --height-of-input: 40px;
   --border-height: 2px;
   --input-bg: #fff;
-  --border-color: #2f2ee9;
+  --border-color: #9755F6;
   --border-radius: 30px;
   --after-border-radius: 1px;
-
   position: relative;
   width: var(--width-of-input);
   height: var(--height-of-input);
@@ -81,12 +54,10 @@
   border-radius: var(--border-radius);
   transition: border-radius 0.5s ease;
   background: var(--input-bg,#fff);
-	border: 1px solid #e6e6e6;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* styling of Input */
-.search-input {
+.input {
   font-size: 0.9rem;
   background-color: transparent;
   width: 100%;
@@ -96,7 +67,7 @@
   border: none;
 }
 
-.search-form:before {
+.form:before {
   content: "";
   position: absolute;
   background: var(--border-color);
@@ -110,43 +81,51 @@
   transition: transform var(--timing) ease;
 }
 
-/* Hover on Input */
-.search-form:focus-within {
+.form:focus-within {
   border-radius: var(--after-border-radius);
 }
 
-.search-input:focus {
+input:focus {
   outline: none;
 }
 
-.search-form:focus-within:before {
+.form:focus-within:before {
   transform: scale(1);
 }
 
-/* reset button hidden initially */
-.reset-btn {
+.reset {
   border: none;
   background: none;
   opacity: 0;
   visibility: hidden;
 }
 
-/* close button shown when typing */
+input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.form svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
 .search-input:not(:placeholder-shown) ~ .reset-btn {
   opacity: 1;
   visibility: visible;
 }
 
-/* sizing svg icons */
 .search-form svg {
   width: 17px;
   
 }
 
-
-
-
+.form button {
+  border: none;
+  background: none;
+}
 </style>
+
 	 <main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
@@ -154,63 +133,44 @@
               <div class="row">
                 <!-- Small table -->
                 <div class="col-md-12 my-1">
-                  <h2 class="h4 mb-1">셀러 리스트</h2>
-                  <p class="mb-3"> </p>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+	                <div class="page-header-custom">
+					    <h2>Seller_List</h2>
+					    <p>등록된 모든 셀러 정보를 확인할 수 있습니다.</p>
+					</div>
+				      <form class="form" method="get" action="admin_sellers_list.eum">
+					    <button type="submit">
+					        <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					            <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+					                stroke="currentColor"
+					                stroke-width="1.333"
+					                stroke-linecap="round"
+					                stroke-linejoin="round" />
+					        </svg>
+					    </button>
+					
+					    <input class="input"
+					           type="text"
+					           name="keyword"
+					           placeholder="Search..."
+					           value="${keyword}" />
+					
+					    <button type="reset" class="reset">
+					        <svg xmlns="http://www.w3.org/2000/svg"
+					             fill="none"
+					             viewBox="0 0 24 24"
+					             stroke="currentColor"
+					             stroke-width="2">
+					            <path stroke-linecap="round"
+					                  stroke-linejoin="round"
+					                  d="M6 18L18 6M6 6l12 12" />
+					        </svg>
+					    </button>
+					
+					</form>
+				</div>
                   <div class="card shadow">
                     <div class="card-body">
-                      <div class="toolbar row mb-3">
-                        <div class="col">
-                          <div class="form-inline">
-							  <div class="form-row">
-							    <div class="form-group col-auto">
-							
-							      <!-- 🔥 여기 search form 단독 삽입 -->
-							      <form method="get" action="admin_sellers_list.eum" class="search-form">
-							
-							          <button type="submit" class="search-btn">
-							            <svg fill="none" xmlns="http://www.w3.org/2000/svg">
-							              <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
-							               stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"/>
-							            </svg>
-							          </button>
-							
-							          <input class="search-input"
-							                 type="text"
-							                 name="keyword"
-							                 placeholder="Search..."
-							                 value="${keyword}"
-							          />
-							
-							          <button type="reset" class="reset-btn">
-							            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-							              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-							            </svg>
-							          </button>
-							
-							      </form>
-							      </div>
-							      
-
-								  
-                                <%-- <form method="get" action="admin_sellers_list.eum" class="form-inline">
-								  <div class="form-row">
-								    <div class="form-group col-auto">
-								      <label for="search" class="sr-only">Search</label>
-								      <div class="search-box">
-										  <input type="text" id="search" name="keyword"
-										         value="${keyword}" placeholder="Search...">
-										  <i class="fe fe-search icon"></i>
-										</div>
-
-								    </div>
-								  </div>
-								</form> --%>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                        
-                      </div>
                       <!-- table -->
                       <table class="table table-borderless table-hover">
                         <thead>
@@ -326,5 +286,13 @@
           </div> <!-- .row -->
         </div> <!-- .container-fluid -->
         
-        
+<script type="text/javascript">
+
+document.querySelector(".reset").addEventListener("click", function(e){
+    const input = document.querySelector(".input");
+    input.value = "";
+    input.focus();
+});
+
+</script>
     
