@@ -50,57 +50,5 @@ public class NoticeDAO {
 		}
 		return total;
 	}
-	public static void noticeInsert(NoticeVO vo)
-	{
-		try
-		{
-			SqlSession session=ssf.openSession(true);
-			session.insert("noticeInsert",vo);
-			session.close();
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-	}
-	public static NoticeVO noticeUpdateData(String n_id)
-	{
-		
-		SqlSession session=ssf.openSession();
-		NoticeVO vo=session.selectOne("noticeUpdateData",n_id);
-		session.close();
-		
-		return vo;
-	}
-	public static void noticeUpdate(NoticeVO vo)
-	{
-		try
-		{
-			SqlSession session=ssf.openSession(true);
-			session.update("noticeUpdate",vo);
-			session.close();
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-	}
-	public static void noticeDelete(String n_id) 
-	{
-		try
-		{
-			SqlSession session=ssf.openSession(true);
-			session.delete("noticeDelete",n_id);
-			session.close();
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-	}
-	public static NoticeVO noticeDeleteData(String n_id)
-	{
-		
-		SqlSession session=ssf.openSession();
-		NoticeVO vo=session.selectOne("noticeDeleteData",n_id);
-		session.close();
-		return vo;
-	}
+	
 }

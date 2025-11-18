@@ -621,3 +621,81 @@ input:not(:placeholder-shown) ~ .reset {
   margin-top: 3px;
 }
 /* end 검색바 */ 
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15px;
+  margin: 3rem auto;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+}
+
+/* 각 요소 공통 */
+.page__numbers, .page__btn, .page__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 숫자 버튼 */
+.page__numbers {
+  width: 20px;
+  height: 20px;
+  border-radius: 0.4rem;
+  transition: all 0.3s ease;
+}
+
+.page__numbers a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page__numbers:hover {
+  color: var(--primary);
+}
+
+.page__numbers.active {
+  color: #fff;
+  background: var(--primary);
+  font-weight: 600;
+  border: 1px solid var(--primary);
+}
+
+.page__btn {
+  color: var(--greyLight);
+  pointer-events: none;
+}
+
+.page__btn a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.page__btn.active {
+  color: var(--greyDark);
+  pointer-events: initial;
+}
+
+.page__btn.active:hover {
+  color: var(--primary);
+}
+
+:root {
+  --primary: #7453fc;
+  --greyLight: #7453fc;
+  --greyDark: #2d4848;
+}

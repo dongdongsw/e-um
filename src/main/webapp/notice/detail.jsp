@@ -1,87 +1,141 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title></title>
-  <link rel="stylesheet" href="../css/notice.css">
-  <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-  <script type="text/javascript">
-  $(function() {
-      // ✅ 삭제버튼 클릭 시 모달 표시
-      $("#delSpan").click(function() {
-        $(".modal-overlay").fadeIn(150);
-      });
+<meta charset="UTF-8">
+<title>공지사항 상세보기</title>
+<link rel="stylesheet" href="notice.css">
 
-      // ✅ 취소버튼 클릭 시 모달 닫기
-      $("#cancelBtn").click(function() {
-        $(".modal-overlay").fadeOut(150);
-      });
-
-      // ✅ 확인버튼 클릭 시 삭제 요청
-      $("#confirmBtn").click(function() {
-        const n_id = "${vo.n_id}";
-        location.href = "delete_ok.do?n_id=" + n_id;
-      });
-    });
-  </script>
-  <style type="text/css">
-  /* ✅ 디테일 */
-.notice-page .notice-title.detail {
-  font-size: 26px;
+<style>
+body {
+  background: #f5f5f5;
 }
-.notice-page .notice-date {
-  color: #999;
+
+.notice-container {
+  width: 1000px;
+  margin: 100px auto 100px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* 정보 영역 */
+.info-row {
+  display: flex;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.info-item {
+  flex: 1;
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 14px;
-  margin-bottom: 30px;
 }
 
-.notice-page .notice-content {
+.info-item:not(:last-child) {
+  border-right: 1px solid #e5e5e5;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #7453fc;
+  min-width: 60px;
+}
+
+.info-value {
+  color: #666;
+}
+
+/* 내용 영역 */
+.notice-body {
+  padding: 50px 40px;
+  min-height: 400px;
+  background: white;
+}
+.notice-title.detail {
+  word-break: break-word;   /* 단어 단위로 줄바꿈 */
+  white-space: normal;      /* 자동 줄바꿈 허용 */
+  line-height: 1.6;
+}
+.notice-content {
   font-size: 16px;
-  line-height: 1.8;
-  color: #444;
+  line-height: 1.9;
+  color: #333;
   white-space: pre-line;
 }
 
-.notice-page .btn-move {
-  text-align: right;
+/* 하단 버튼 영역 */
+.notice-footer {
+  padding: 25px 40px;
+  background: #fafafa;
+  border-top: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-  </style>
-</head>
-<body class="notice-page">
-  <div class="header-text" style="height: 150px;  background-color: #fff;"></div>
-  <div class="notice-container">
-    <h1 class="notice-title">[안내] 11월 정기 점검 일정</h1>
-    <div class="notice-date">작성일 : 2025.11.07</div>
-    <div class="notice-content">
-      안정적인 서비스 제공을 위해 정기 점검이 진행됩니다.
-      점검 시간 동안 일시적으로 서비스 이용이 제한될 수 있습니다.
 
-      점검 일시: 11월 10일(월) 00:00 ~ 06:00
-      점검 내용: 서버 업그레이드 및 보안 패치
-      점검 내용: 서버 업그레이드 및 보안 패치
-      점검 내용: 서버 업그레이드 및 보안 패치
-      점검 내용: 서버 업그레이드 및 보안 패치
-      점검 내용: 서버 업그레이드 및 보안 패치
-      점검 내용: 서버 업그레이드 및 보안 패치
-      점검 내용: 서버 업그레이드 및 보안 패치
-      점검 내용: 서버 업그레이드 및 보안 패치
-    </div>
-   <div class="btn-move">
-	<a href="update.jsp" class="btn-update">수정</a>
-	<span id="delSpan" class="btn-delete">삭제</span>
-    <a href="javascript:history.back()" class="btn-back">목록</a>
-    </div>
-  </div>
-   <!-- ✅ 삭제 확인 모달창 -->
-  <div class="modal-overlay">
-    <div class="modal-box">
-      <h3>정말 삭제하시겠습니까?</h3>
-      <div class="modal-btns">
-        <button id="confirmBtn" class="btn-confirm">확인</button>
-        <button id="cancelBtn" class="btn-cancel">취소</button>
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 12px 28px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.btn-list {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-list:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+</style>
+</head>
+
+<body class="notice-page">
+<div class="header-text" style="height:140px; background-color:#fff;"></div>
+
+  <div class="notice-container">
+
+    <div class="notice-title detail">${vo.n_title}</div>
+
+    <div class="info-row">
+      <div class="info-item">
+        <span class="info-label">작성일</span>
+        <span class="info-value">
+          <fmt:formatDate value="${vo.n_createdAt}" pattern="yyyy.MM.dd" />
+        </span>
       </div>
     </div>
+
+    <!-- 본문 내용 -->
+    <div class="notice-body">
+      <div class="notice-content">${vo.n_content}</div>
+    </div>
+
+    <!-- 하단 버튼 -->
+    <div class="notice-footer">
+      <div></div>
+      <div class="btn-group">
+        <a href="list.eum" class="btn btn-list">목록</a>
+      </div>
+    </div>
+
   </div>
+
 </body>
 </html>

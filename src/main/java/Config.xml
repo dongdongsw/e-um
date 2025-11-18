@@ -47,5 +47,6 @@
     <mapper resource="com/eum/admin/mapper/sellers-mapper.xml"/>
     <mapper resource="com/eum/admin/mapper/reviews-mapper.xml"/>
     <mapper resource="com/eum/admin/mapper/users-mapper.xml"/>
+    <mapper resource="com/eum/admin/mapper/notice-mapper.xml"/>
   </mappers>
 </configuration>

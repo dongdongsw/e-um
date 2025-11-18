@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <title>공지사항</title>
-  <link rel="stylesheet" href="../css/notice.css">
+  <link rel="stylesheet" href="notice.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <style type="text/css">
    .notice-page {
@@ -16,7 +16,6 @@
   padding: 0;
 }
 
-/* ✅ 컨테이너 */
  .notice-page .notice-container {
   width: 900px;
   margin: 80px auto 60px auto;
@@ -26,7 +25,6 @@
   padding: 40px;
 }
 
-/* ✅ 타이틀 */
  .notice-page .notice-title {
   font-weight: 700;
   color: #7453fc;
@@ -35,9 +33,33 @@
   margin-bottom: 30px;
 }
 
-/* ✅ 버튼 공통 */
+ .notice-page .search-box {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-bottom: 25px;
+}
+ .notice-page .search-input {
+  width: 300px;
+  padding: 8px 15px 8px 35px;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  outline: none;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+ .notice-page .search-input:focus {
+  border-color: #7453fc;
+  box-shadow: 0 0 0 3px rgba(116, 83, 252, 0.15);
+}
+ .notice-page .search-box .fe-search {
+  position: absolute;
+  margin-left: 10px;
+  color: #aaa;
+  pointer-events: none;
+}
+
  .notice-page .btn,
- .notice-page .btn-write,
  .notice-page .btn-back,
  .notice-page .btn-update,
  .notice-page .btn-delete {
@@ -53,25 +75,8 @@
   display: inline-block;
 }
 
- .notice-page .btn:hover,
- .notice-page .btn-write:hover,
- .notice-page .btn-back:hover,
- .notice-page .btn-update:hover {
+ .notice-page .btn:hover {
   background: #5334d0;
-}
-
- .notice-page .btn-cancel {
-  background: #bbb;
-}
-
- .notice-page .btn-cancel:hover {
-  background: #999;
-}
-
-/* ✅ 리스트 */
- .notice-page .notice-title.list {
-  font-size: 28px;
-  margin-bottom: 40px;
 }
 
  .notice-page table {
@@ -79,103 +84,55 @@
   border-collapse: collapse;
   font-size: 15px;
 }
-
  .notice-page th,
  .notice-page td {
   border-bottom: 1px solid #ddd;
   padding: 14px 10px;
   text-align: left;
 }
-
  .notice-page th {
   background-color: #f4f0ff;
   color: #5334d0;
 }
-
  .notice-page tr:hover {
   background-color: #f8f5ff;
   cursor: pointer;
 }
 
- .notice-page .btn-write {
-  float: right;
-  margin-top: -15px;
-  margin-bottom: 10px;
-  padding: 8px 15px;
-}
-
-/* ✅ 작성, 수정 */
- .notice-page .notice-title.insert,
- .notice-page .notice-title.update {
-  font-size: 26px;
-}
-
- .notice-page form {
-  display: flex;
-  flex-direction: column;
-}
-
- .notice-page label {
-  font-weight: 600;
-  margin-top: 15px;
-  margin-bottom: 8px;
-  color: #5334d0;
-  font-size: 15px;
-}
-
- .notice-page input[type="text"],
- .notice-page textarea {
-  font-size: 15px;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  outline: none;
-  transition: 0.2s;
-}
-
- .notice-page input[type="text"]:focus,
- .notice-page textarea:focus {
-  border-color: #7453fc;
-  box-shadow: 0 0 0 3px rgba(116, 83, 252, 0.1);
-}
-
- .notice-page textarea {
-  height: 250px;
-  resize: vertical;
-  line-height: 1.6;
-}
-
- .notice-page .btn-wrap {
-  margin-top: 30px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
 .notice-page .pagination {
   margin-top: 30px;
   display: flex;
-  justify-content: center; /* ✅ 가운데 정렬 핵심 */
-  gap: 8px;                /* ✅ 숫자 간 간격 */
+  justify-content: center;
+  gap: 8px;
   font-size: 15px;
+}
+input[type="search"]:focus::placeholder {
+      color: transparent;
+      transition: color 0.2s ease;
+    }
+     .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 35px;
+  padding: 12px 0;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
 }
   </style>
 </head>
 
 <body class="notice-page">
- <div class="header-text" style="height: 150px;  background-color: #fff;"></div>
-  <%-- <c:choose>
-    <c:when test="${not empty sessionScope.user}">
-      <li><a href="mypage.do">${sessionScope.user.u_name} 님</a></li>
-      <li><a href="logout.do">로그아웃</a></li>
-    </c:when>
-  </c:choose> --%>
- 
+ <div class="header-text" style="height: 120px;  background-color: #fff;"></div>
 
-      
   <!-- ========== 공지사항 리스트 영역 ========== -->
   <div class="notice-container">
     <h1 class="notice-title">공지사항</h1>
-    <a href="insert.jsp" class="btn-write">글쓰기</a>
+
+    <div class="search-box" style="position: relative;">
+      <span class="fe fe-search"></span>
+      <input type="search" class="search-input" placeholder="검색어를 입력하세요" aria-label="Search">
+    </div>
 
     <table>
       <thead>
@@ -186,13 +143,11 @@
         </tr>
       </thead>
       <tbody>
-        <!-- DB에서 불러온 list 출력 -->
         <c:forEach var="vo" items="${list}">
           <tr onclick="location.href='../notice/detail.eum?n_id=${vo.n_id}'">
             <td>${vo.n_id}</td>
             <td>
               ${vo.n_title}
-              <!-- 오늘 날짜면 NEW 표시 -->
               <c:if test="${vo.n_createdAt == today}">
                 <sup style="color:red; font-weight:bold;">NEW</sup>
               </c:if>
@@ -202,48 +157,35 @@
             </td>
           </tr>
         </c:forEach>
-        </tbody>
+      </tbody>
     </table>
 
     <!-- 페이지네이션 -->
-    <div class="pagination" style="margin-top:20px; text-align:center;">
-  <%-- ◀◀ 이전 10페이지 이동 --%>
-  <c:if test="${startPage > 1}">
-    <a href="list.eum?page=${startPage - 10}">&laquo;</a>
-  </c:if>
-
-  <%-- ◀ 이전 1페이지 이동 --%>
-  <c:if test="${curpage > 1}">
-    <a href="list.eum?page=${curpage - 1}">&lt;</a>
-  </c:if>
-
-  <%-- 페이지 번호 목록 출력 (현재 그룹 범위) --%>
-  <c:forEach var="i" begin="${startPage}" end="${endPage}">
-    <c:choose>
-      <c:when test="${i == curpage}">
-        <strong style="color:#7453fc;">${i}</strong>
-      </c:when>
-      <c:otherwise>
-        <a href="list.eum?page=${i}">${i}</a>
-      </c:otherwise>
-    </c:choose>
-  </c:forEach>
-
-  <%-- ▶ 다음 1페이지 이동 --%>
-  <c:if test="${curpage < totalpage}">
-    <a href="list.eum?page=${curpage + 1}">&gt;</a>
-  </c:if>
-
-  <%-- ▶▶ 다음 10페이지 이동 --%>
-  <c:if test="${endPage < totalpage}">
-    <a href="list.eum?page=${startPage + 10}">&raquo;</a>
-  </c:if>
-</div>
+    <div class="pagination">
+      <c:if test="${startPage > 1}">
+        <a href="list.eum?page=${startPage - 10}">&laquo;</a>
+      </c:if>
+      <c:if test="${curpage > 1}">
+        <a href="list.eum?page=${curpage - 1}">&lt;</a>
+      </c:if>
+      <c:forEach var="i" begin="${startPage}" end="${endPage}">
+        <c:choose>
+          <c:when test="${i == curpage}">
+            <strong style="color:#7453fc;">${i}</strong>
+          </c:when>
+          <c:otherwise>
+            <a href="list.eum?page=${i}">${i}</a>
+          </c:otherwise>
+        </c:choose>
+      </c:forEach>
+      <c:if test="${curpage < totalpage}">
+        <a href="list.eum?page=${curpage + 1}">&gt;</a>
+      </c:if>
+      <c:if test="${endPage < totalpage}">
+        <a href="list.eum?page=${startPage + 10}">&raquo;</a>
+      </c:if>
+    </div>
 
   </div>
-
- 
-
-
 </body>
 </html>
