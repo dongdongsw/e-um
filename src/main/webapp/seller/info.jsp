@@ -117,8 +117,35 @@ body {background-color: #fff !important;}
   color: #9ca3af;
   margin-top: 4px;
 }
-h2 {margin-bottom:100px}
+h2 {
+	margin-bottom: 100px;
+}
 
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.upload-btn {
+    margin-top: 10px;
+}
+.ulBtn {
+	background-color: transparent; 
+    border: 1px solid #8e4dff;
+    color: #8e4dff;
+    padding: 6px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    line-height: 1.5;
+    width: 100px;
+}
+.ulBtn:hover {
+    background-color: #f1e9ff;
+    color: #8e4dff;
+}
 .editBtn {
   color: white;
   background-color: black;
@@ -129,6 +156,42 @@ h2 {margin-bottom:100px}
   font-weight: bold;
 }
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+	const originalImageUrl = $('#currentProfileImg').attr('src');
+	
+	$('#selectBtn').click(function() {
+		$('#profile_img').click();
+	});
+	
+	$('#profile_img').change(function(e) {
+	    const file = e.target.files[0];
+	    const currentProfileImg = $('#currentProfileImg');
+	    
+	    if (file) {
+	      const reader = new FileReader();
+	      reader.onload = function(event) {
+	    	  currentProfileImg.attr('src', event.target.result);
+	    	  $('#selectBtn').hide();
+	    	  $('#actionButtons').show();
+	      };
+	      reader.readAsDataURL(file);
+	    }
+	});
+	
+	$('#saveBtn').click(function() {
+		$('#profileUpdateForm').submit();
+	});
+	
+	$('#cancelBtn').click(function() {
+		$('#currentProfileImg').attr('src', originalImageUrl);
+		$('#profile_img').val('');
+		$('#actionButtons').hide();
+		$('#selectBtn').show();
+	});
+});
+</script>
 </head>
 <body>
 <div class="header-text" style="height: 200px; background-color: #fff;"></div>
@@ -151,10 +214,24 @@ h2 {margin-bottom:100px}
     <h2 style="color: black">셀러 정보</h2>
 
     <div class="profile-card">
-      <!-- 프로필 이미지 -->
-      <div class="profile-img">
-        <img src="${empty vo.u_s_profileimg_url ? '../images/profile.jpg' : vo.u_s_profileimg_url}" alt="프로필 이미지">
-      </div>
+
+      <form id="profileUpdateForm" action="../seller/profile_upload.eum" method="post" enctype="multipart/form-data">
+        <div class="profile-container">
+          <!-- 프로필 이미지 -->
+          <div class="profile-img">
+            <img id="currentProfileImg" src="${empty vo.u_s_profileimg_url ? '../images/profile.jpg' : vo.u_s_profileimg_url}" alt="프로필 이미지">
+          </div>
+          <!-- 파일 선택 -->
+	      <div class="upload-btn">
+	        <input type="file" id="profile_img" name="profile_img" accept="image/*" style="display:none;">
+	        <button type="button" id="selectBtn" class="ulBtn" style="width: 125px">사진 선택</button>
+	        <div id="actionButtons" style="display:none;">
+              <button type="button" id="saveBtn" class="ulBtn saveBtn" style="width: 60px">저장</button>
+              <button type="button" id="cancelBtn" class="ulBtn cancelBtn" style="width: 60px">취소</button>
+            </div>
+	      </div>
+	    </div>
+	  </form>
 
       <!-- 셀러 기본 정보 -->
       <div class="profile-info">
@@ -179,7 +256,7 @@ h2 {margin-bottom:100px}
         </div>
         <div style="text-align: right;">
          <a href="../seller/info_update.eum">
-          <button class="editBtn">✍️수정</button>
+          <button class="editBtn">수정</button>
          </a>
         </div>
       </div>

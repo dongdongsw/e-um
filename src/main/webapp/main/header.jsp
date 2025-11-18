@@ -588,7 +588,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     		<li><a href="../admin/admin_main.eum">관리자</a></li>
                     	</c:if>
                         <li><a href="../talent/list.eum">list</a></li>
+                        <c:if test="${sessionScope.sid==0 && sessionScope.id!=null}">
                         <li><a href="../seller/join.eum">셀러 등록</a></li>
+                        </c:if>
+                         <c:if test="${sessionScope.sid!=0 && sessionScope.id!=null}">
+                        <li><a href="../seller/info.eum">셀러페이지</a></li>
+                        </c:if>
                         <li><a href="../notice/list.eum">공지 사항</a></li>
                         
                         <c:if test="${sessionScope.id==null}">
