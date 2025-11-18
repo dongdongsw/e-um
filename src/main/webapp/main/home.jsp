@@ -81,7 +81,9 @@ border-bottom: 1px solid #e6e6f8;
 .brutalist-button.button-1:hover .category-icon {
   transform: scale(1.1) rotate(5deg);
 }
-
+.item > img{
+ border-radius: 20px;
+}
 </style>
 </head>
 <body>
@@ -139,10 +141,13 @@ border-bottom: 1px solid #e6e6f8;
         <div class="col-lg-5 offset-lg-1">
           <div class="owl-banner owl-carousel">
             <div class="item">
-              <img src="../assets/images/banner-01.png" alt="">
+              <img src="../images/banner1.png">
             </div>
             <div class="item">
-              <img src="../assets/images/banner-02.png" alt="">
+              <img src="../images/banner2.png">
+            </div>
+            <div class="item">
+              <img src="../images/banner3.png">
             </div>
           </div>
         </div>
