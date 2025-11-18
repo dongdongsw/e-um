@@ -413,9 +413,9 @@ $(document).ready(function() {
       </label>
     </li>
   </ul>
-   
+   <hr style="border:0; height:1px; background:#e0e0e0; margin:50px 0;">
 
-      <ul class="accordion" id="sidebar-accordion" style="margin-top: 70px;">
+      <ul class="accordion" id="sidebar-accordion" style="margin-top: 6px;">
       <!-- 섹션 1 -->
       <li class="accordion__section">
         <button class="accordion__toggle" type="button"

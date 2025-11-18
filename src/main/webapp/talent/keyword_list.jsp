@@ -399,30 +399,10 @@ $(document).ready(function() {
       </label>
     </li>
   </ul>
-   <div class="d-flex">
-    <div class="wrapper">
-      <div class="price-input">
-        <div class="field">
-          <input type="number" class="input-min" value="50000">
-          <span>원</span>
-        </div>
-        <div class="separator">-</div>
-        <div class="field">
-          <input type="number" class="input-max" value="200000">
-          <span>원</span>
-        </div>
-      </div>
-      <div class="slider">
-        <div class="progress"></div>
-      </div>
-      <div class="range-input">
-        <input type="range" class="range-min" min="0" max="990000" value="50000" step="10000">
-        <input type="range" class="range-max" min="10000" max="1000000" value="200000" step="10000">
-      </div>
-    </div>
-  </div>
+   
+<hr style="border:0; height:1px; background:#e0e0e0; margin:50px 0;">
 
-      <ul class="accordion" id="sidebar-accordion">
+      <ul class="accordion" id="sidebar-accordion" style="margin-top: 60px;">
       <!-- 섹션 1 -->
       <li class="accordion__section">
         <button class="accordion__toggle" type="button"
