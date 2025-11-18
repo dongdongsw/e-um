@@ -15,4 +15,8 @@ public class OrdersVO {
 	private int b_op_id,o_total_price,o_id;
 	private String o_status,o_u_id;
 	private Date o_createdat,o_updatedat;
+
+	private PaymentVO pvo;
+	private BoardVO bvo;
+	private Board_OptionVO bopvo;
 }
