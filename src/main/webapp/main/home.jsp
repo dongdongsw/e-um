@@ -75,7 +75,12 @@ border-bottom: 1px solid #e6e6f8;
 .brutalist-button.button-1:hover .category-icon {
   transform: scale(1.1) rotate(5deg);
 }
-
+.item > img {
+  border-radius: 20px;
+}
+.main-banner {
+  background-color: #f7f7f7;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
@@ -123,10 +128,13 @@ $(function(){
         <div class="col-lg-5 offset-lg-1">
           <div class="owl-banner owl-carousel">
             <div class="item">
-              <img src="../assets/images/banner-01.png" alt="">
+              <img src="../images/banner1.png">
             </div>
             <div class="item">
-              <img src="../assets/images/banner-02.png" alt="">
+              <img src="../images/banner2.png">
+            </div>
+            <div class="item">
+              <img src="../images/banner2.png">
             </div>
           </div>
         </div>
