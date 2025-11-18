@@ -15,6 +15,37 @@
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
   $(function () {
+
+	  const collapsedHeight = 100;
+	  const $box  = $('#priceBox');
+	  const $btn  = $('#priceToggleBtn');
+
+	  // 처음 상태: 접혀있음
+	  $box.data('collapsed', true);
+
+	  $btn.on('click', function (e) {
+	    e.preventDefault();
+
+	    const isCollapsed = $box.data('collapsed');
+
+	    if (isCollapsed) {
+	      // 펼치기
+	      $box.css({
+	        height: 'auto',
+	        overflow: 'visible'
+	      });
+	      $box.data('collapsed', false);
+	      $btn.text('접기');
+	    } else {
+	      // 다시 접기
+	      $box.css({
+	        height: collapsedHeight + 'px',
+	        overflow: 'hidden'
+	      });
+	      $box.data('collapsed', true);
+	      $btn.text('더보기');
+	    }
+	  });
 	  
 	  loadReviewTab();
     // jQuery UI tabs
@@ -201,6 +232,43 @@
   
 </script>
 <style type="text/css">
+/* 바깥 박스: 테두리/배경만 담당, 높이 제한 없음 */
+.price-desc {
+  margin: 16px 0;
+  padding: 16px;
+  background-color: #fff;
+  border: 1px solid #E0E5EB;
+  border-radius: 15px;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* 안쪽 내용 영역만 잘라서 숨김 */
+.price-body {
+  height: 100px;         /* 고정 높이 */
+  overflow: hidden;      /* 넘치는 글 가리기 */
+}
+
+/* 더보기 영역 (윗줄 + 가운데 정렬) */
+.price-more-area {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+/* 더보기 링크 스타일 (네이버 느낌) */
+.price-more-link {
+  font-size: 13px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.price-more-link:hover {
+  text-decoration: underline;
+  color: #7453fc;
+}
 
 </style>
 </head>
@@ -208,10 +276,10 @@
   <div class="header-text" style="height: 200px;"></div>
 
   <section class="dt-container hero" id="main-section">
-    <div class="hero-left">
-      <div class="title-row">
+    <div class="hero-left" style="height: 300px">
+      <div class="title-row" style="display: block;">
         <button class="prime-badge">즐겨찾기</button>
-        <h1 class="title">${detail_vo.b_title}</h1> <!-- 컨텐츠 제목 -->
+        <h2 class="title" style="height: 90px; display: flex;  align-items: center;">${detail_vo.b_title}</h2> <!-- 컨텐츠 제목 -->
       </div>
 
       <div class="meta" aria-label="별점 및 관심">
@@ -258,7 +326,7 @@
 
     <div class="hero-right">
        <!--컨텐츠 메인 이미지 -->
-        <img src="${detail_vo.b_thumbnail }">
+        <img src="${detail_vo.b_thumbnail }" style="width: 100%; height: 320px; border-radius: 10px">
     </div>
   </section>
   <!-- 상세정보 시작 --> 
@@ -339,6 +407,22 @@
 			    </c:forEach>
 			  </div>
 			</span>
+			
+<div class="price-desc">
+  <h5 style="color: black; font-weight: bold">가격 정보</h5><br><br>
+
+  <!-- ✨ 여기 안쪽만 150px로 잘릴 영역 -->
+  <div class="price-body" id="priceBox">
+    <c:forEach var="priceInfo" items="${price_vo}">
+      <p>${priceInfo.b_op_title} : ${priceInfo.b_op_detail}</p><br>
+    </c:forEach>
+  </div>
+
+  <!-- 🔽 네이버 스타일 더보기(More) - 항상 보임 -->
+  <div class="price-more-area">
+    <a href="#" class="price-more-link" id="priceToggleBtn">더보기</a>
+  </div>
+</div>
 	            <div class="cta">
 	              <button class="btn-ghost">전문가에게 문의하기</button>
 	              <a href="../main/orderPayment.eum" class="btn-pri">구매하기</a>

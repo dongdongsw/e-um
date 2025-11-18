@@ -309,4 +309,17 @@ import com.eum.main.vo.ReviewVO;
 		   return res;
 	   }
 	   
+	   // 구매자 검사
+	   public static int buyCheck(Map map) {
+		   int buy=0;
+		   try {
+			   SqlSession session=ssf.openSession();
+			   buy=session.selectOne("buyCheck",map);
+			   session.close();
+     	   } catch (Exception ex) {
+     		   ex.printStackTrace();
+     	   }
+		   return buy;
+	   }
+	   
 	}
