@@ -666,6 +666,8 @@ function toggleContent(el) {
 										    data-reason="${orders_list.pvo.rfvo.rf_reason}"
 										    data-amount="${orders_list.pvo.rfvo.rf_amount}"
 										    data-status="${orders_list.pvo.rfvo.rf_status}"
+										    data-opage="${Ocurpage}"
+										    data-uid="${users_vo.u_id }"
 										    data-requested="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_requestedat}' pattern='yyyy-MM-dd HH:mm'/>"
 										    data-completed="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_completedat}' pattern='yyyy-MM-dd HH:mm'/>">
 										    환불보기
@@ -804,13 +806,14 @@ function toggleContent(el) {
         </button>
       </div>
 
-      <form method="post" action="../admin/admin_refund_status.eum">
+     <form method="post" action="../admin/admin_refund_users_status.eum">
       <div class="modal-body">
 
         <!-- 숨겨진 값 (rf_id, page 값 전달용) -->
         <input type="hidden" name="rf_id" id="rf-id">
-        <input type="hidden" name="page" value="${curpage}">
-
+		<input type="hidden" name="Opage" id="rf-opage">
+		<input type="hidden" name="u_id" id="rf-uid">
+		
         <p><strong>환불 상태:</strong> 
           <select name="rf_status" id="rf-status-select" class="form-control">
             <option value="환불취소">환불취소</option>
@@ -840,18 +843,32 @@ function toggleContent(el) {
 <script>
 $(document).on("click", ".btn-refund", function () {
 
-    $("#rf-id").val($(this).data("rfid"));               // 환불 ID
-    $("#rf-reason").text($(this).data("reason"));        // 사유
-    $("#rf-amount").text($(this).data("amount"));        // 금액
-    $("#rf-requested").text($(this).data("requested"));  // 요청일
-    $("#rf-completed").text($(this).data("completed"));  // 완료일
+    $("#rf-id").val($(this).data("rfid"));
+    $("#rf-reason").text($(this).data("reason"));
+    $("#rf-amount").text($(this).data("amount"));
+    $("#rf-requested").text($(this).data("requested"));
+    $("#rf-completed").text($(this).data("completed"));
 
-    const status = $(this).data("status");               // 현재 상태
-    $("#rf-status").text(status);
-    $("#rf-status-select").val(status);                  // 드롭다운 선택
+    $("#rf-uid").val($(this).data("uid"));
+    $("#rf-opage").val($(this).data("opage"));
+
+    const status = $(this).data("status");
+    $("#rf-status-select").val(status);  
 
     $("#refundModal").modal("show");
 });
+$(document).ready(function () {
+    // URL에 hash(#contact / #home) 가 있는 경우 해당 탭 활성화
+    let hash = window.location.hash;
 
+    if (hash) {
+        $('#myTab a[href="' + hash + '"]').tab('show');
+    }
+
+    // 탭 클릭 시 hash 업데이트 (뒤로가기 등 브라우저 히스토리 효과)
+    $('#myTab a').on('shown.bs.tab', function (e) {
+        history.replaceState(null, null, e.target.hash);
+    });
+});
 </script>
         

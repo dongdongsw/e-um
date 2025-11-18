@@ -589,6 +589,8 @@ function toggleContent(el) {
 										    data-reason="${orders_list.pvo.rfvo.rf_reason}"
 										    data-amount="${orders_list.pvo.rfvo.rf_amount}"
 										    data-status="${orders_list.pvo.rfvo.rf_status}"
+										    data-opage="${Ocurpage}"
+										    data-usid="${seller_vo.u_s_id}"
 										    data-requested="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_requestedat}' pattern='yyyy-MM-dd HH:mm'/>"
 										    data-completed="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_completedat}' pattern='yyyy-MM-dd HH:mm'/>">
 										    환불보기
@@ -714,7 +716,52 @@ function toggleContent(el) {
             </div>
           </div>
         </div>
-        
+      
+
+<!-- 환불 상세 모달 -->
+<div class="modal fade" id="refundModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">환불 상세 정보</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <form method="post" action="../admin/admin_refund_sellers_status.eum">
+	      <div class="modal-body">
+	
+	        <!-- 숨겨진 값 (rf_id, page 값 전달용) -->
+	        <input type="hidden" name="rf_id" id="rf-id">
+			<input type="hidden" name="Opage" id="rf-opage">
+			<input type="hidden" name="u_s_id" id="rf-usid">
+	
+	        <p><strong>환불 상태:</strong> 
+	          <select name="rf_status" id="rf-status-select" class="form-control">
+	            <option value="환불취소">환불취소</option>
+	            <option value="환불접수">환불접수</option>
+	            <option value="환불완료">환불완료</option>
+	          </select>
+	        </p>
+	
+	        <p><strong>환불 금액:</strong> <span id="rf-amount"></span></p>
+	        <p><strong>환불 사유:</strong> <span id="rf-reason"></span></p>
+	        <p><strong>요청일:</strong> <span id="rf-requested"></span></p>
+	        <p><strong>완료일:</strong> <span id="rf-completed"></span></p>
+	
+	      </div>
+	
+	      <div class="modal-footer">
+	        <button type="submit" class="btn btn-primary">변경 저장</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -729,6 +776,37 @@ document.addEventListener("DOMContentLoaded", function () {
         $('#contact-tab').tab('show');
     }
 
+});
+
+$(document).on("click", ".btn-refund", function () {
+
+    $("#rf-id").val($(this).data("rfid"));        
+    $("#rf-reason").text($(this).data("reason"));    
+    $("#rf-amount").text($(this).data("amount"));       
+    $("#rf-requested").text($(this).data("requested"));  
+    $("#rf-completed").text($(this).data("completed"));  
+
+    $("#rf-usid").val($(this).data("usid"));
+    $("#rf-opage").val($(this).data("opage"));
+    
+    const status = $(this).data("status");              
+    $("#rf-status-select").val(status);            
+
+    $("#refundModal").modal("show");
+});
+
+$(document).ready(function () {
+    // URL에 hash(#contact / #home) 가 있는 경우 해당 탭 활성화
+    let hash = window.location.hash;
+
+    if (hash) {
+        $('#myTab a[href="' + hash + '"]').tab('show');
+    }
+
+    // 탭 클릭 시 hash 업데이트 (뒤로가기 등 브라우저 히스토리 효과)
+    $('#myTab a').on('shown.bs.tab', function (e) {
+        history.replaceState(null, null, e.target.hash);
+    });
 });
 </script>
         

@@ -114,4 +114,39 @@ public class Admin_Orders_Model {
 		Admin_OrdersDAO.refundStatusUpdate(map);
 		return "redirect:../admin/admin_orders_list.eum?page="+page;
 	}
+	
+	// 환불 유저 상태 수정
+	@RequestMapping("admin/admin_refund_users_status.eum")
+	public String admin_refund_users_status(HttpServletRequest request, HttpServletResponse response) {
+		
+		String Opage = request.getParameter("Opage");
+		String u_id = request.getParameter("u_id");
+		String rf_status = request.getParameter("rf_status");
+		String rf_id = request.getParameter("rf_id");
+		
+		Map map = new HashMap();
+		map.put("rf_id", rf_id);
+		map.put("rf_status", rf_status);
+		
+		Admin_OrdersDAO.refundStatusUpdate(map);
+		return "redirect:../admin/admin_users_detail.eum?Opage="+Opage+"&u_id="+u_id+"#contact";
+	}
+	
+	// 환불 판매자 상태 수정
+	@RequestMapping("admin/admin_refund_sellers_status.eum")
+	public String admin_refund_sellers_status(HttpServletRequest request, HttpServletResponse response) {
+		
+		String Opage = request.getParameter("Opage");
+		String u_s_id = request.getParameter("u_s_id");
+		String rf_status = request.getParameter("rf_status");
+		String rf_id = request.getParameter("rf_id");
+		
+		Map map = new HashMap();
+		map.put("rf_id", rf_id);
+		map.put("rf_status", rf_status);
+		
+		Admin_OrdersDAO.refundStatusUpdate(map);
+		return "redirect:../admin/admin_seller_detail.eum?Opage="+Opage+"&u_s_id="+u_s_id+"#contact";
+	}
+	
 }
