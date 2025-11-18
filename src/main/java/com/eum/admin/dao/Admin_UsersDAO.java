@@ -21,7 +21,7 @@ public class Admin_UsersDAO {
 		
 	}
 	
-	private static final String NS = "com.eum.seller.mapper.contents-mapper.";
+	private static final String NS = "com.eum.admin.mapper.delete-mapper.";
 
 	// 유저 리스트 조회
 	public static List<UsersVO> usersListData(Map map){
@@ -71,13 +71,16 @@ public class Admin_UsersDAO {
 	public static void userDel(String u_id) {
 	    try {
 	        SqlSession session = ssf.openSession();
+	        
 
+	        session.delete(NS + "usersLikeDelete", u_id);
+	        session.delete(NS + "usersFavoriteDelete", u_id);
+	        
 	        List<String> reviewIds = session.selectList(NS + "findUserReviewIds", u_id);
 	        for (String rId : reviewIds) {
 	            session.delete(NS + "deleteReviewImagesByReviewId", rId);
 	        }
 	        session.delete(NS + "deleteReviewsByUserId", u_id);
-
 	        Integer u_s_id = session.selectOne(NS + "findUserSellerId", u_id);
 	        if (u_s_id != null) {
 	            List<String> bList = session.selectList(NS + "findSellerBoardIds", u_s_id);

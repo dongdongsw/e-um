@@ -4677,6 +4677,10 @@ button.bg-primary:hover,
 button.bg-primary:focus {
   background-color: #004ee7 !important; }
 
+.bg-purple {
+  background-color: #9370DB !important;
+}
+
 .bg-secondary {
   background-color: #6c757d !important; }
 

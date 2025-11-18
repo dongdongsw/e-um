@@ -43,5 +43,7 @@
     <mapper resource="com/eum/admin/mapper/contents-mapper.xml"/>
     <mapper resource="com/eum/list/mapper/life-mapper.xml"/>
     <mapper resource="com/eum/admin/mapper/orders-mapper.xml"/>
+    <mapper resource="com/eum/admin/mapper/main-mapper.xml"/>
+    <mapper resource="com/eum/admin/mapper/delete-mapper.xml"/>
   </mappers>
 </configuration>

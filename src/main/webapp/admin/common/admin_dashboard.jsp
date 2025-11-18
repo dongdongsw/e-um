@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<style>
+.bg-purple {
+  background-color: #9370DB !important; /* MediumPurple 색상 */
+}
+</style>
+
 <main role="main" class="main-content">
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -17,9 +24,10 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <span class="h2 mb-0">186</span>
-                                        <p class="small text-muted mb-0">사용자 총 수</p>
-                                        <span class="badge badge-pill badge-warning">+1.5%</span>
+                                        <span class="h2 mb-0">
+                                        	<fmt:formatNumber value="${userTotal }" type="number"/>
+                                        </span>
+                                        <p class="small text-muted mb-0"><strong>사용자 총 수</strong></p>
                                     </div>
                                     <div class="col-auto">
                                         <span class="fe fe-32 fe-users text-muted mb-0"></span>
@@ -35,12 +43,13 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <span class="h2 mb-0">186</span>
-                                        <p class="small text-muted mb-0">셀러 총 수</p>
-                                        <span class="badge badge-pill badge-warning">+1.5%</span>
+                                        <span class="h2 mb-0">
+                                        	<fmt:formatNumber value="${sellerTotal }" type="number"/>
+                                        </span>
+                                        <p class="small text-muted mb-0"><strong>셀러 총 수</strong></p>
                                     </div>
                                     <div class="col-auto">
-                                        <span class="fe fe-32 fe-users text-muted mb-0"></span>
+                                        <span class="fe fe-32 fe-briefcase text-muted mb-0"></span>
                                     </div>
                                 </div>
                             </div>
@@ -53,9 +62,10 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <span class="h2 mb-0">186</span>
-                                        <p class="small text-muted mb-0">컨텐츠 총 수</p>
-                                        <span class="badge badge-pill badge-warning">+1.5%</span>
+                                        <span class="h2 mb-0">
+                                        	<fmt:formatNumber value="${contentsTotal }" type="number"/>
+                                        </span>
+                                        <p class="small text-muted mb-0"><strong>컨텐츠 총 수</strong></p>
                                     </div>
                                     <div class="col-auto">
                                         <span class="fe fe-32 fe-shopping-bag text-muted mb-0"></span>
@@ -71,12 +81,13 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <span class="h2 mb-0">186</span>
-                                        <p class="small text-muted mb-0">리뷰 총 수</p>
-                                        <span class="badge badge-pill badge-warning">+1.5%</span>
+                                        <span class="h2 mb-0">
+                                        	<fmt:formatNumber value="${reviewTotal}" type="number"/>
+                                        </span>
+                                        <p class="small text-muted mb-0"><strong>리뷰 총 수</strong></p>
                                     </div>
                                     <div class="col-auto">
-                                        <span class="fe fe-32 fe-editㅂ text-muted mb-0"></span>
+                                        <span class="fe fe-32 fe-edit text-muted mb-0"></span>
                                     </div>
                                 </div>
                             </div>
@@ -95,22 +106,22 @@
 				    <!-- Conversion -->
 				    <div class="col-md-3">
 				        <div class="card shadow h-100">
-				            <div class="card-body">
+				        	<div class="card-body d-flex flex-column justify-content-center">
 				                <div class="row align-items-center">
-				                    <div class="col-3 text-center">
+				                    <div class="col-2 text-center">
 				                        <span class="circle circle-sm bg-primary">
-				                            <i class="fe fe-16 fe-filter text-white mb-0"></i>
+				                            <i class="fe fe-16 fe-user-plus text-white mb-0"></i>
 				                        </span>
 				                    </div>
 				                    <div class="col">
-				                        <p class="small text-muted mb-0">Conversion</p>
+				                        <p class="small text-muted mb-0"><strong>셀러 등록 비율</strong></p>
 				                        <div class="row align-items-center no-gutters">
 				                            <div class="col-auto">
-				                                <span class="h3 mr-2 mb-0">86.6%</span>
+				                                <span class="h3 mr-2 mb-0">${sellerRegTotal }%</span>
 				                            </div>
 				                            <div class="col-md-12 col-lg">
 				                                <div class="progress progress-sm mt-2" style="height:3px">
-				                                    <div class="progress-bar bg-success" role="progressbar" style="width: 87%"></div>
+				                                    <div class="progress-bar bg-success" role="progressbar" style="width: ${sellerRegTotal }%"></div>
 				                                </div>
 				                            </div>
 				                        </div>
@@ -120,26 +131,27 @@
 				        </div>
 				    </div>
 				
-				    <!-- Visitors -->
 				    <div class="col-md-3">
-				        <div class="card shadow h-100">
-				            <div class="card-body">
-				                <div class="row align-items-center">
-				                    <div class="col">
-				                        <small class="text-muted mb-0">Visitors</small>
-				                        <h3 class="card-title mb-0">108</h3>
-				                        <p class="small text-muted mb-0">
-				                            <span class="fe fe-arrow-up fe-12 text-success"></span>
-				                            <span>37.7% Last week</span>
-				                        </p>
-				                    </div>
-				                    <div class="col-4 text-right">
-				                        <span class="inlinebar"></span>
-				                    </div>
-				                </div>
-				            </div>
-				        </div>
-				    </div>
+					    <div class="card shadow h-100">
+        					<div class="card-body d-flex flex-column justify-content-center">
+					
+					            <!-- 상단 (제목 + 숫자) -->
+					            <small class="text-muted mb-0"><strong>신규 셀러</strong></small>
+					            <h3 class="card-title mb-1">${sellerNew }</h3>
+					
+					            <!-- 하단 row (Total + Last week 변화율) -->
+					            <div class="d-flex justify-content-between align-items-center">
+					                <p class="small text-muted mb-0">This Week</p>
+					                <div class="d-flex align-items-center text-success small">
+					                    <span class="fe fe-arrow-up fe-12 mr-1"></span>
+					                    <span>${sellerGrowth }% Last week</span>
+					                </div>
+					            </div>
+					
+					        </div>
+					    </div>
+					</div>
+
 				
 				    <!-- EARNING (2칸) -->
 				    <div class="col-md-6 ">
@@ -150,31 +162,40 @@
 				
 				                    <!-- Earning -->
 				                    <div class="col-md-3 text-left">
-				                        <p class="mb-0 text-uppercase text-muted"><strong>Earning</strong></p>
-				                        <h3 class="mb-1">$2,562</h3>
-				                        <p class="text-muted mb-0 small">Lorem ipsum dolor sit amet.</p>
+				                        <p class="mb-0 text-uppercase text-muted"><strong>총 환불금액</strong></p>
+				                        <h3 class="mb-1">
+											<fmt:formatNumber value="${refundAmount}" type="currency" currencySymbol="$"/>
+										</h3>
+				                        <p class="text-muted mb-0 small">Lorem ipsum dolor </p>
 				                    </div>
 				
 				                    <!-- Cost -->
-				                    <div class="col-md-3">
-				                        <p class="mb-0 text-muted"><strong>Cost</strong></p>
-				                        <h4 class="mb-0">108</h4>
-				                        <p class="small text-muted mb-0">37.7% Last week</p>
+				                    <div class="col-md-2">
+				                        <p class="mb-0 text-muted"><strong>신규 환불</strong></p>
+				                        <h4 class="mb-0">${refundNew }</h4>
+				                        <p class="small text-muted mb-0">NEW</p>
 				                    </div>
 				
+									<!-- Cost -->
+				                    <div class="col-md-2">
+				                        <p class="mb-0 text-muted"><strong>환불 접수</strong></p>
+				                        <h4 class="mb-0">${refundReceiveTotal }</h4>
+				                        <p class="small text-muted mb-0">Total</p>
+				                    </div>	
+									
 				                    <!-- Revenue -->
-				                    <div class="col-md-3">
-				                        <p class="mb-0 text-muted"><strong>Revenue</strong></p>
-				                        <h4 class="mb-0">1168</h4>
-				                        <p class="small text-muted mb-0">-18.9% Last week</p>
+				                    <div class="col-md-2">
+				                        <p class="mb-0 text-muted"><strong>총 환불 수</strong></p>
+				                        <h4 class="mb-0">${refundTotal }</h4>
+				                        <p class="small text-muted mb-0">Total</p>
 				                    </div>
 				
 				                    <!-- Circle Chart -->
-				                    <div class="col-md-3 text-center">
+				                    <div class="col-md-2 text-center">처리 완료
 				                        <div style="width: 110px; margin: 0 auto;">
 				                            <div id="radialbarWidget"></div>
 				                        </div>
-				                    </div>
+				                    </div> 
 				
 				                </div>
 				
@@ -193,13 +214,11 @@
 			<div class="row mb-2">
 			
 			    <!-- Line Chart -->
-			    <div class="col-md-6 mb-2 d-flex">
+			    <div class="col-md-8 mb-2 d-flex">
 			        <div class="card shadow h-100 w-100">
 			            <div class="card-header">
-			                <strong class="card-title mb-0">Line Chart</strong>
-			                <span class="badge badge-light float-right mr-2">30 days</span>
-			                <span class="badge badge-light float-right mr-2">7 days</span>
-			                <span class="badge badge-secondary float-right mr-2">Today</span>
+			                <strong class="card-title mb-0">월별 신규 가입자</strong>
+			                <span class="badge badge-secondary float-right mr-2">30 days</span>
 			            </div>
 			            <div class="card-body">
 			                <canvas id="lineChartjs"></canvas>
@@ -208,70 +227,75 @@
 			    </div>
 			
 			    <!-- Category Donut -->
-			    <div class="col-md-6 mb-2 d-flex">
+			    <div class="col-md-4 mb-2 d-flex">
 			        <div class="card shadow h-100 w-100">
 			            <div class="card-body">
 			                <div class="chart-box mb-3">
-			                    <div id="customAngle"></div>
+			                    <div id="categoryChart"></div>
 			                </div>
 			
-			                <div class="w-70 mx-auto ">
+			                <%-- <div class="w-70 mx-auto ">--%>
 			                    
 			                    <!-- 리스트 내용 동일 -->
 			                    <div class="row align-items-center mb-2 ">
 			                        <div class="col">
 			                            <p class="mb-0">운동건강</p>
-			                            <span class="my-0 text-muted small">+10%</span>
 			                        </div>
 			                        <div class="col-auto text-right">
-			                            <p class="mb-0">218</p>
-			                            <span class="dot dot-md bg-success"></span>
+			                            <p class="mb-0">
+			                            	<c:out value="${categoryCount.EXERCISE}" default="0"/> 개	
+			                            </p>
+			                            <span class="dot dot-md bg-danger"></span>
 			                        </div>
 			                    </div>
 			                    <div class="row align-items-center mb-2">
 			                        <div class="col">
 			                            <p class="mb-0">비즈니스</p>
-			                            <span class="my-0 text-muted small">+10%</span>
 			                        </div>
 			                        <div class="col-auto text-right">
-			                            <p class="mb-0">218</p>
-			                            <span class="dot dot-md bg-success"></span>
+			                            <p class="mb-0">
+			                            	<c:out value="${categoryCount.BUSINESS}" default="0"/> 개
+			                            </p>
+			                            <span class="dot dot-md bg-primary"></span>
 			                        </div>
 			                    </div>
 			                    <div class="row align-items-center mb-2">
 			                        <div class="col">
 			                            <p class="mb-0">취미/자기개발</p>
-			                            <span class="my-0 text-muted small">+10%</span>
 			                        </div>
 			                        <div class="col-auto text-right">
-			                            <p class="mb-0">218</p>
-			                            <span class="dot dot-md bg-success"></span>
+			                            <p class="mb-0">
+			                            	<c:out value="${categoryCount.HOBBY_DEV}" default="0"/> 개
+			                            </p>
+			                            <span class="dot dot-md bg-warning"></span>
 			                        </div>
 			                    </div>
 			                    <div class="row align-items-center mb-2">
 			                        <div class="col">
 			                            <p class="mb-0">생활라이프</p>
-			                            <span class="my-0 text-muted small">+10%</span>
 			                        </div>
 			                        <div class="col-auto text-right">
-			                            <p class="mb-0">218</p>
+			                            <p class="mb-0">
+			                            	<c:out value="${categoryCount.LIFE_STYLE}" default="0"/> 개
+			                            </p>
 			                            <span class="dot dot-md bg-success"></span>
 			                        </div>
 			                    </div>
 			                    <div class="row align-items-center mb-2  ">
 			                        <div class="col">
 			                            <p class="mb-0">기타</p>
-			                            <span class="my-0 text-muted small">+10%</span>
 			                        </div>
 			                        <div class="col-auto text-right">
-			                            <p class="mb-0">218</p>
-			                            <span class="dot dot-md bg-success"></span>
+			                            <p class="mb-0">
+			                            <c:out value="${categoryCount.ETC}" default="0"/> 개
+			                            </p>
+			                            <span class="dot dot-md bg-purple"></span>
 			                        </div>
 			                    </div>
 			
-			                    <!-- 이하 동일… -->
+			 
 			
-			                </div>
+			                <!-- </div>  -->
 			            </div>
 			        </div>
 			    </div>
@@ -389,12 +413,20 @@
     
     
 <script>
+	var labels = [];
+	var data = [];
+	
+	<c:forEach var="row" items="${usersGraph}">
+	    labels.push("${row.MONTHS}");
+	    data.push(${row.SIGNUP_COUNT});
+	</c:forEach>
+	
     var lineChartData = {
-        labels: ["Jan", "Feb", "Mar"],
+        labels: labels,
         datasets: [{
-            label: "신규 유저",
+            label: "월별 신규 유저",
             borderColor: "rgba(75,192,192,1)",
-            data: [28, 48, 40],
+            data: data,
             fill: false,
             lineTension: 0.2
         }]
@@ -412,6 +444,45 @@
         data: lineChartData,
         options: ChartOptions
     });
+    
+ 	// 카테고리 그래프
+    var categoryCountData = {
+        BUSINESS: <c:out value="${categoryCount.BUSINESS}" default="0"/>,
+        LIFE_STYLE: <c:out value="${categoryCount.LIFE_STYLE}" default="0"/>,
+        HOBBY_DEV: <c:out value="${categoryCount.HOBBY_DEV}" default="0"/>,
+        EXERCISE: <c:out value="${categoryCount.EXERCISE}" default="0"/>,
+        ETC: <c:out value="${categoryCount.ETC}" default="0"/>
+    };
+	
+    var totalCount = 
+        categoryCountData.BUSINESS + 
+        categoryCountData.LIFE_STYLE + 
+        categoryCountData.HOBBY_DEV + 
+        categoryCountData.EXERCISE + 
+        categoryCountData.ETC;
+ 
+    var categoryChartOptions = {
+        series: [
+            (categoryCountData.BUSINESS / totalCount)* 100,
+            (categoryCountData.LIFE_STYLE / totalCount)* 100,
+            (categoryCountData.HOBBY_DEV / totalCount)* 100,
+            (categoryCountData.EXERCISE / totalCount)* 100,
+            (categoryCountData.ETC / totalCount)* 100
+        ],
+        chart: {
+            id: "category_cta", 
+            height: 200,
+            type: "radialBar"
+        },
+        
+        labels: ["비즈니스", "생활라이프", "취미/자기개발", "운동건강", "기타"],
+    };
+
+    var categoryChartElement = document.querySelector("#categoryChart");
+    if (categoryChartElement) {
+        var finalCategoryChart = new ApexCharts(categoryChartElement, categoryChartOptions);
+        finalCategoryChart.render();
+    }
 </script>
 
     

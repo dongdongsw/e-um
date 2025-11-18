@@ -68,7 +68,7 @@
             <!-- 관리자 셀러 리스트 -->
             <li class="nav-item w-100">
               <a class="nav-link" href="../admin/admin_sellers_list.eum">
-                <i class="fe fe-users fe-16"></i>
+                <i class="fe fe-briefcase fe-16"></i>
                 <span class="ml-3 item-text">SELLERS</span>
               </a>
             </li>
