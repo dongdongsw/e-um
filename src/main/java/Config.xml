@@ -18,6 +18,7 @@
      <typeAlias type="com.eum.main.vo.ReviewVO" alias="ReviewVO"/>
      <typeAlias type="com.eum.main.vo.Review_ImageVO" alias="Review_ImageVO"/>
      <typeAlias type="com.eum.main.vo.FavoriteVO" alias="FavoriteVO"/>
+	 <typeAlias type="com.eum.main.vo.Board_LikeVO" alias="Board_LikeVO"/>
 
    </typeAliases>
   <environments default="development">
