@@ -246,7 +246,7 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
         <div class="review-footer">
           <div>${vo.b_review_createdat}</div>
           <div class="review-stats">
-            <span>💬 답글 ${vo.depth_count}</span>
+            <span>💬 답글 ${vo.depth_count >=1 ? '1' : '0'}</span>
           </div>
         </div>
       </div>

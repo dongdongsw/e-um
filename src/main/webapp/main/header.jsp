@@ -17,7 +17,7 @@ body {
 }
 .background-header {
   background-color: #fff !important;
-  height: 70px!important;
+  height: 100px!important;
   position: fixed!important;
   top: 0!important;
   left: 0;
@@ -543,8 +543,22 @@ body {
 	color: #999999;
 	font-weight: bold;
 }
-</style>
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* a 밑줄 제거 */
+}
 
+.logo-image {
+    margin-right: 10px; /* 이미지와 텍스트 간 간격 */
+}
+
+.logo-text h1,
+.logo-text h6 {
+    margin: 0;
+}
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     const profileTrigger = document.querySelector('.profile-trigger');
@@ -597,15 +611,15 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <div class="logo-image">
-	                    <a href="../main/main.eum" class="logo">
-	                        <object class="logo-image" data="../images/logo.svg" type="image/svg+xml"></object>
-	                    </a>
-                    </div>
-                    <div class="logo-text">
-	                    <h1 class="logo-name">E-UM</h1>
-	                    <h6 class="logo-intro">재능을 잇다</h6>
-                    </div>
+                    <a href="../main/main.eum" class="logo">
+                    	<div>
+	                        <object id="logoBtn" class="logo-image" data="../images/logo.svg" type="image/svg+xml"></object>
+                    	</div>
+                    	<div class="logo-text">
+	                    	<h1 class="logo-name">E-UM</h1>
+	                    	<h6 class="logo-intro">재능을 잇다</h6>
+                    	</div>
+                    </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
 
