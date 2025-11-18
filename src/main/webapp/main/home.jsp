@@ -12,8 +12,8 @@
 ================================= */
 .category-section {
   width: 100%;
-background: #ffffff;  
-border-bottom: 1px solid #e6e6f8;
+  background: #ffffff;  
+  border-bottom: 1px solid #e6e6f8;
   padding: 40px 0 50px 0;  /* ✅ 위 공간 확장 */
   display: flex;
   justify-content: center;
@@ -43,7 +43,7 @@ border-bottom: 1px solid #e6e6f8;
   background: #ffffff;
   border: 2px solid #b3aaff;
   border-radius: 18px;
-  box-shadow: 5px 5px 0 #00000022;
+  box-shadow: 5px 5px 0 #d5cbf7;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,17 +58,18 @@ border-bottom: 1px solid #e6e6f8;
 
 /* hover 시 효과 */
 .brutalist-button.button-1:hover {
-  background: #6c63ff;
-  color: #fff;
+  background: #fff;
+  color: black;
   border-color: #4c43e2;
   transform: translate(-5px, -5px);
-  box-shadow: 8px 8px 0 #00000033;
+  box-shadow: 8px 8px 0 #c6b7f5;
+  
 }
 
 /* 클릭 시 */
 .brutalist-button.button-1:active {
   transform: translate(0, 0);
-  box-shadow: 3px 3px 0 #00000033;
+   box-shadow: 3px 3px 0 #e3dcfb;
 }
 
 /* 아이콘 */
@@ -82,80 +83,20 @@ border-bottom: 1px solid #e6e6f8;
 .brutalist-button.button-1:hover .category-icon {
   transform: scale(1.1) rotate(5deg);
 }
+
 </style>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 $(function(){
-
-  // 검색 함수 정의
-  function talent_search(keyword, page){
-    $.ajax({
-      url: "../talent/keyword_ajax.eum",
-      type: "GET",
-      data: { "keyword": keyword, "page": page },
-      success: function (result) {
-
-        let json = JSON.parse(result);
-        console.log(json);
-
-        $("#default-list").hide();
-        $(".card-area").empty();
-
-        if (json.length === 0) {
-          $(".card-area").html(
-            '<div class="col-md-12"><p style="text-align:center; padding:50px 0;">검색 결과가 없습니다.</p></div>'
-          );
-          return;
+    $("#search-form").submit(function(e){
+        let keyword = $("input[name=keyword]").val().trim();
+        if(keyword === ""){
+            alert("검색어를 입력하세요.");
+            e.preventDefault();
         }
-
-        json.forEach((vo, idx) => {
-
-          let reviewScore = vo.b_review_score != null ? vo.b_review_score : 0;
-          let reviewCount = vo.review_count != null ? vo.review_count : 0;
-          let price = vo.b_op_price ? Number(vo.b_op_price).toLocaleString() : 0;
-          let company = vo.u_s_com || '';
-
-          let html =
-            '<div class="col-md-3">' +
-              '<div class="temporary__storage" style="border:none">' +
-                '<div class="list-card" onclick="location.href=\'../talent/detail.eum?b_id=' + vo.b_id + '\'">' +
-                  '<div class="image">' +
-                    '<img src="' + vo.b_thumbnail + '" width="200" height="160" style="border-radius: 15px;">' +
-                  '</div>' +
-                  '<div class="image__overlay"></div>' +
-                  '<div class="content">' +
-                    '<div class="avatar"></div>' +
-                    '<div class="content__text">' +
-                      '<span class="stream__title">' + vo.b_title + '</span>' +
-                      '<div class="content__body">' +
-                        '<span class="event" style="font-size: 10px">' +
-                          '⭐️ ' + reviewScore + ' (' + reviewCount + ')' +
-                        '</span>' +
-                        '<span class="streamer__name" style="font-size: 12px">' +
-                          price + '원' +
-                        '</span>' +
-                        '<span class="streamer__name" style="font-size: 10px">' + company + '</span>' +
-                      '</div>' +
-                      '<span class="categories">' +
-                        '<div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">' +
-                          vo.b_type +
-                        '</div>' +
-                      '</span>' +
-                    '</div>' +
-                  '</div>' +
-                '</div>' +
-              '</div>' +
-            '</div>';
-
-          $(".card-area").append(html);
-        });
-
-      }
     });
-  }
-
-});  
+});
 </script>
 
 </head>
@@ -167,7 +108,8 @@ $(function(){
           <div class="header-text">
            <div>
              <h2 style="color:black">이음,<br>
-				딱 맞는 전문가와 이어드립니다</h2>
+				</h2>
+				<h3 style="color: black;font-size: 40px;">딱 맞는 전문가와 이어드립니다</h3>
            </div>
           <div class="discover-items">
 			  <form id="search-form" method="GET" class="search" action="../talent/keyword_list.eum">
@@ -212,92 +154,38 @@ $(function(){
   <div class="category-container">
   <a href="../talent/b_type_list.eum?b_type=운동건강">
     <button class="brutalist-button button-1">
-      <img src="../images/sports.svg" alt="디자인" class="category-icon">
+      <img src="../images/운동11.gif" alt="디자인" class="category-icon">
       <span>운동/건강</span>
     </button>
     </a>
    <a href="../talent/b_type_list.eum?b_type=비즈니스">
     <button class="brutalist-button button-1">
-      <img src="../images/business-bag-svgrepo-com.svg" alt="비즈니스" class="category-icon">
+      <img src="../images/비즈니스.gif" alt="비즈니스" class="category-icon">
       <span>비즈니스</span>
     </button>
     </a>
     <a href="../talent/b_type_list.eum?b_type=취미/자기개발">
     <button class="brutalist-button button-1">
-      <img src="../images/headphones.png" alt="음악" class="category-icon">
+      <img src="../images/프라이팬.gif" alt="음악" class="category-icon">
       <span>취미/자기개발</span>
     </button>
     </a>
    <a href="../talent/b_type_list.eum?b_type=생활라이프">
     <button class="brutalist-button button-1">
-      <img src="../images/life.svg" alt="AI/테크" class="category-icon">
+      <img src="../images/생활.gif" alt="AI/테크" class="category-icon">
       <span>생활/라이프</span>
     </button>
     </a>
 	<a href="../talent/b_type_list.eum?b_type=기타">
     <button class="brutalist-button button-1">
-      <img src="../images/puzzle.png" alt="기타" class="category-icon">
+      <img src="../images/기타.gif" alt="기타" class="category-icon">
       <span>기타</span>
     </button>
     </a>
   </div>
 </section>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-01.png" alt="">
-                  </div>
-                  <h4>Blockchain</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
+              
               </div>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-02.png" alt="">
-                  </div>
-                  <h4>Digital Art</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-03.png" alt="">
-                  </div>
-                  <h4>Music Art</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-05.png" alt="">
-                  </div>
-                  <h4>Valuable</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-06.png" alt="">
-                  </div>
-                  <h4>Triple NFT</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -315,7 +203,7 @@ $(function(){
               <div class="col-lg-12">
                 <div class="section-heading">
                   <div class="line-dec"></div>
-                  <h2><em>인기 컨텐츠</em></h2>
+                  <h2><em>신뢰할 수 있는 결과물<br> 고객 만족도 4.9점</em></h2>
                 </div>
               </div>
               <div class="col-lg-12">

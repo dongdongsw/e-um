@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <title>공지사항</title>
-  <link rel="stylesheet" href="../css/notice.css">
+  <link rel="stylesheet" href="notice.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <style type="text/css">
    .notice-page {
@@ -123,7 +123,7 @@ input[type="search"]:focus::placeholder {
 </head>
 
 <body class="notice-page">
- <div class="header-text" style="height: 150px;  background-color: #fff;"></div>
+ <div class="header-text" style="height: 100px;  background-color: #fff;"></div>
 
   <!-- ========== 공지사항 리스트 영역 ========== -->
   <div class="notice-container">

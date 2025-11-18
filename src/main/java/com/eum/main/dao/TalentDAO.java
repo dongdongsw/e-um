@@ -252,6 +252,28 @@ import oracle.net.ns.SessionAtts;
 		        ex.printStackTrace();
 		    } 
 		    return total;
+		    /*
+		     * <select id="homePopularContents" resultType="BoardVO">
+				 SELECT * FROM
+				 board
+				 ORDER BY b_view_count DESC
+				 FETCH FIRST 5 ROWS ONLY
+				</select>
+		     */
 		}
+		/*public static List<BoardVO> homePopularContents()
+		{
+			List<BoardVO> topList=null;
+			try
+			{
+				SqlSession session=ssf.openSession();
+				topList=session.selectList("homePopularContents");
+				session.close();
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			return topList;
+		}*/
 
 	}

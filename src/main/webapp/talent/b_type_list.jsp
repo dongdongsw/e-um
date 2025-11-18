@@ -156,19 +156,24 @@ function getParam(name) {
 }
 
 function loadList(page, fd) {
+    // page가 "", null, undefined, NaN 이면 1로 보정 (서버 NumberFormatException 방지)
+    if (!page || isNaN(page)) {
+        page = 1;
+    }
+
     let keyword = getParam("keyword");
-    let b_type = getParam("b_type");
+    let b_type  = getParam("b_type");
 
     if (!keyword) keyword = "";
-    if (!b_type) b_type = "";
+    if (!b_type)  b_type  = "";
     if (!fd) fd = $("input[name=fd]:checked").val() || "view";
 
-    let ajaxUrl = "../main/main.jsp";
+    let ajaxUrl = "";
     if (keyword !== "") ajaxUrl = "../talent/keyword_ajax.eum";
     else if (b_type !== "") ajaxUrl = "../talent/b_type_ajax.eum";
-    else return;
+    else return; // 둘 다 없으면 호출 안 함
 
-    console.log("AJAX SEND:", { keyword, b_type, fd, page });
+    // console.log("AJAX SEND:", { keyword, b_type, fd, page });
 
     $.ajax({
         url: ajaxUrl,
@@ -181,74 +186,77 @@ function loadList(page, fd) {
         },
         dataType: "json",
         success: function(json) {
-
-            console.log("AJAX RESULT:", json);
-            console.log(JSON.stringify(json.list[0], null, 2));
-            
+            // console.log("AJAX RESULT:", json);
 
             let rawList = json.list;
             let list = [];
-            
+
             if (rawList && typeof rawList === 'object' && !Array.isArray(rawList)) {
-                list = Object.keys(rawList).map(key => rawList[key]).filter(item => item !== undefined);
+                list = Object.keys(rawList)
+                             .map(key => rawList[key])
+                             .filter(item => item !== undefined);
             } else if (Array.isArray(rawList)) {
-                list = rawList; 
+                list = rawList;
             }
-            
-            $("#default-list").hide();   // ★ 위로 이동시키고 한 번만 실행
+
+            // 기본 리스트는 최초 1번만 DOM에서 제거
+            if (!window.defaultRemoved) {
+                $("#default-list").remove();
+                window.defaultRemoved = true;
+            }
+
+            // 결과 영역 초기화
             $(".card-area").empty();
-            
+
             if (!list || list.length === 0) {
-                $(".card-area").html('<div class="col-md-12"><p style="text-align:center; padding:50px 0;">검색 결과가 없습니다.</p></div>');
+                $(".card-area").html(
+                    '<div class="col-md-12"><p style="text-align:center; padding:50px 0;">검색 결과가 없습니다.</p></div>'
+                );
                 $("#pagination-area .page").empty();
                 return;
             }
-         // loadList 함수 내부의 카드 생성 부분을 다음과 같이 수정:
 
+            // 🔹 카드 HTML 버퍼링
+            let htmlBuffer = "";
             list.forEach(function(vo) {
                 var reviewScore = vo.rvo && vo.rvo.b_review_score ? vo.rvo.b_review_score : 0;
                 var reviewCount = vo.rvo && vo.rvo.review_count ? vo.rvo.review_count : 0;
                 var price       = vo.bovo && vo.bovo.b_op_price ? Number(vo.bovo.b_op_price).toLocaleString() : 0;
                 var company     = vo.usvo && vo.usvo.u_s_com ? vo.usvo.u_s_com : "";
 
-                var html  = '';
-                html += '<div class="col-md-3">';
-                html += '  <div class="temporary__storage" style="border:none">';
-                html += '    <div class="list-card" onclick="location.href=\'../talent/detail.eum?b_id=' + vo.b_id + '\'">';
-                html += '      <div class="image">';
-                html += '        <img src="' + vo.b_thumbnail + '" width="200" height="160" style="border-radius: 15px;">';
-                html += '      </div>';
-                html += '      <div class="image__overlay"></div>';  // 이 줄 추가!
-                html += '      <div class="content">';  // contents → content로 변경
-                html += '        <div class="avatar"></div>';  // 이 줄 추가!
-                html += '        <div class="content__text">';
-                html += '          <span class="stream__title">' + vo.b_title + '</span>';
-                html += '          <span class="event" style="font-size: 10px">';
-                html += '            ⭐️ ' + reviewScore + ' (' + reviewCount + ')';
-                html += '          </span>';
-                html += '          <span class="streamer__name" style="font-size: 12px">';
-                html += '            ' + price + '원';
-                html += '          </span>';
-                html += '          <span class="streamer__name" style="font-size: 10px">';
-                html += '            ' + company;
-                html += '          </span>';
-                html += '          <span class="categories">';  // 이 부분도 추가
-                html += '            <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">';
-                html += '              ' + (vo.b_type || '');
-                html += '            </div>';
-                html += '          </span>';
-                html += '        </div>';
-                html += '      </div>';
-                html += '    </div>';
-                html += '  </div>';
-                html += '</div>';
-
-                $(".card-area").append(html);
+                htmlBuffer += ''
+                    + '<div class="col-md-3">'
+                    + '  <div class="temporary__storage" style="border:none">'
+                    + '    <div class="list-card" onclick="location.href=\'../talent/detail.eum?b_id=' + vo.b_id + '\'">'
+                    + '      <div class="image">'
+                    + '        <img src="' + vo.b_thumbnail + '" width="200" height="160"'
+                    + '             style="border-radius: 15px;" loading="lazy">'
+                    + '      </div>'
+                    + '      <div class="content">'
+                    + '        <div class="content__text">'
+                    + '          <span class="stream__title">' + vo.b_title + '</span>'
+                    + '          <span class="event" style="font-size: 10px">'
+                    + '            ⭐️ ' + reviewScore + ' (' + reviewCount + ')'
+                    + '          </span>'
+                    + '          <span class="streamer__name" style="font-size: 12px">'
+                    + '            ' + price + '원'
+                    + '          </span>'
+                    + '          <span class="streamer__name" style="font-size: 10px">' + company + '</span>'
+                    + '          <div class="categories__btn"'
+                    + '               style="width:55px; text-align: center; font-size: 10px">'
+                    +               (vo.b_type || '')
+                    + '          </div>'
+                    + '        </div>'
+                    + '      </div>'
+                    + '    </div>'
+                    + '  </div>'
+                    + '</div>';
             });
 
+            // 🔹 한 번에 DOM에 넣기 (성능 향상)
+            $(".card-area").html(htmlBuffer);
 
-
-         // 페이지 정보
+            // 🔹 페이지 정보
             let cur = json.curpage;
             let total = json.totalpage;
             let sp = json.startpage;
@@ -258,58 +266,57 @@ function loadList(page, fd) {
 
             // 이전 페이지 버튼
             if (sp > 1) {
-                p_html += '<li class="page__btn active">';
-                p_html += '<a href="#" data-page="' + (sp - 1) + '">&lt;</a>';
-                p_html += '</li>';
+                p_html += '<li class="page__btn active">'
+                        + '  <a href="#" data-page="' + (sp - 1) + '">&lt;</a>'
+                        + '</li>';
             }
 
             // 페이지 번호들
             for (let i = sp; i <= ep; i++) {
                 if (i == cur) {
-                    p_html += '<li class="page__numbers active">';
-                    p_html += '<a href="#" data-page="' + i + '" data-fd="' + fd + '">' + i + '</a>';
-                    p_html += '</li>';
+                    p_html += '<li class="page__numbers active">'
+                            + '  <a href="#" data-page="' + i + '" data-fd="' + fd + '">' + i + '</a>'
+                            + '</li>';
                 } else {
-                    p_html += '<li class="page__numbers">';
-                    p_html += '<a href="#" data-page="' + i + '" data-fd="' + fd + '">' + i + '</a>';
-                    p_html += '</li>';
+                    p_html += '<li class="page__numbers">'
+                            + '  <a href="#" data-page="' + i + '" data-fd="' + fd + '">' + i + '</a>'
+                            + '</li>';
                 }
             }
 
             // 다음 페이지 버튼
             if (ep < total) {
-                p_html += '<li class="page__btn active">';
-                p_html += '<a href="#" data-page="' + (ep + 1) + '">&gt;</a>';
-                p_html += '</li>';
+                p_html += '<li class="page__btn active">'
+                        + '  <a href="#" data-page="' + (ep + 1) + '">&gt;</a>'
+                        + '</li>';
             }
 
             $("#pagination-area .page").html(p_html);
         },
         error: function(xhr, status, error) {
             console.error("AJAX 에러:", error);
-            $(".card-area").html('<div class="col-md-12"><p style="text-align:center; padding:50px 0;">데이터를 불러오는데 실패했습니다.</p></div>');
+            $(".card-area").html(
+                '<div class="col-md-12"><p style="text-align:center; padding:50px 0;">데이터를 불러오는데 실패했습니다.</p></div>'
+            );
         }
     });
 }
 
-
 $(document).ready(function() {
     // 정렬 라디오 버튼 변경
-   $(document)
-  .off("change", "input[name=fd]")
-  .on("change", "input[name=fd]", function () {
-      loadList(1, $(this).val());
-});
+    $(document).on("change", "input[name=fd]", function () {
+        loadList(1, $(this).val());
+    });
 
     // 페이지네이션 클릭
     $(document)
-  .off("click", "#pagination-area a")
-  .on("click", "#pagination-area a", function(e) {
-      e.preventDefault();
-      let nextPage = $(this).data("page");
-      let currentFd = $("input[name=fd]:checked").val() || "view";
-      loadList(nextPage, currentFd);
-});
+      .off("click", "#pagination-area a")
+      .on("click", "#pagination-area a", function(e) {
+          e.preventDefault();
+          let nextPage = $(this).data("page");
+          let currentFd = $("input[name=fd]:checked").val() || "view";
+          loadList(nextPage, currentFd);
+    });
 
     // 검색창 제출
     $(".search").on("submit", function (e) {
@@ -319,10 +326,13 @@ $(document).ready(function() {
             alert("검색어를 입력해주세요");
             return;
         }
-        location.href = "../talent/keyword_list.eum?keyword=" + encodeURIComponent(keyword) + "&page=1";
+        location.href = "../talent/keyword_list.eum?keyword=" 
+                      + encodeURIComponent(keyword) 
+                      + "&page=1";
     });
 });
 </script>
+
 
 </head>
 <body>
@@ -359,7 +369,7 @@ $(document).ready(function() {
 <div class="list-container">
     <!-- 정렬 -->
     <div class="sidebar">
-    <h2 style="font-weight: bold; position:relative; top:-30px;">
+    <h2 style="font-weight: bold; position:relative; top:-50px;">
   <c:choose>
     <c:when test="${not empty keyword}">
       ${keyword}
@@ -403,30 +413,9 @@ $(document).ready(function() {
       </label>
     </li>
   </ul>
-   <div class="d-flex">
-    <div class="wrapper">
-      <div class="price-input">
-        <div class="field">
-          <input type="number" class="input-min" value="50000">
-          <span>원</span>
-        </div>
-        <div class="separator">-</div>
-        <div class="field">
-          <input type="number" class="input-max" value="200000">
-          <span>원</span>
-        </div>
-      </div>
-      <div class="slider">
-        <div class="progress"></div>
-      </div>
-      <div class="range-input">
-        <input type="range" class="range-min" min="0" max="990000" value="50000" step="10000">
-        <input type="range" class="range-max" min="10000" max="1000000" value="200000" step="10000">
-      </div>
-    </div>
-  </div>
+   
 
-      <ul class="accordion" id="sidebar-accordion">
+      <ul class="accordion" id="sidebar-accordion" style="margin-top: 70px;">
       <!-- 섹션 1 -->
       <li class="accordion__section">
         <button class="accordion__toggle" type="button"

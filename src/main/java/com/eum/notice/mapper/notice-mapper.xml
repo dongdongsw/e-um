@@ -14,11 +14,9 @@
   )
   WHERE num BETWEEN #{start} AND #{end}
 </select>
-
-
 <!-- 디테일 -->
  <select id="noticeDetailData" resultType="NoticeVO" parameterType="string">
-  SELECT n_id, ,n_title,n_createdAt,n_updatedAt,n_content
+  SELECT n_id,n_title,n_createdAt,n_updatedAt,n_content
   FROM notice_board
   WHERE n_id=#{n_id}
  </select>
@@ -27,31 +25,4 @@
   SELECT CEIL(COUNT(*) / 10.0)
   FROM notice_board
  </select>
- <!-- 추가 -->
- <insert id="noticeInsert" parameterType="NoticeVO">
-  INSERT INTO notice_board (
-    n_id, n_title, n_content, n_createdAt, n_updatedAt
-  )
-  VALUES (
-    NOTICE_BOARD_SEQ.NEXTVAL,
-    #{n_title, jdbcType=VARCHAR},
-    #{n_content, jdbcType=VARCHAR},
-    SYSDATE,
-    NULL
-  )
-</insert>
- <!-- 수정 -->
- <update id="noticeUpdate" parameterType="NoticeVO">
-  UPDATE notice_board
-  SET
-   n_title=#{n_title},
-   n_content=#{n_content},
-   n_updatedAt=SYSDATE
-  WHERE n_id=#{n_id}
- </update>
- <!-- 삭제 -->
- <delete id="noticeDelete" parameterType="string">
-  DELETE FROM notice_board
-  WHERE n_id=#{n_id}
- </delete>
 </mapper>

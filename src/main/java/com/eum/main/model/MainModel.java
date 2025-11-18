@@ -1,5 +1,9 @@
 package com.eum.main.model;
 
+import java.util.List;
+
+import com.eum.main.dao.TalentDAO;
+import com.eum.main.vo.BoardVO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
@@ -11,6 +15,7 @@ public class MainModel {
 	
 	@RequestMapping("main/main.eum")
 	public String main_main(HttpServletRequest request, HttpServletResponse response) {
+		
 		request.setAttribute("main_jsp", "../main/home.jsp");
 		return "../main/main.jsp";
 	}

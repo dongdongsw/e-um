@@ -26,7 +26,7 @@
 		   b_title,
 		   b_thumbnail AS b_thumbnail,
 		   ROUND(AVG(b_review_score),1) AS b_review_score,
-		   COUNT(DISTINCT b_review_id) AS review_count,
+		   COUNT(*) AS review_count,
 		   MIN(b_op_price) AS b_op_price,
 		   u_s_com,
 		   b_type
@@ -189,6 +189,7 @@
     FROM board
     WHERE b_type = #{b_type}
 </select>
+
 
    
 </mapper>
