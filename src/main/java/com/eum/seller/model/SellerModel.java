@@ -183,7 +183,7 @@ public class SellerModel {
 	
 	@RequestMapping("seller/review_result.eum")
 	public String seller_review(HttpServletRequest request,HttpServletResponse response) {
-		System.out.println("model 진입");
+
 	    HttpSession session=request.getSession();
 	    int sid=(int)session.getAttribute("sid");
 	    
@@ -206,10 +206,10 @@ public class SellerModel {
 	    map.put("end", end);
 	    map.put("sort", sort);
 	    map.put("u_s_id", sid); 
-	    System.out.println("Map에 넣어주기");
+
 	    List<BoardVO> list=SellerDAO.sellerReview(map);
 	    int count=SellerDAO.sReviewTotalPage(map);
-	    System.out.println("dao 실행 완");
+
 	    final int BLOCK=10;
 	    int totalpage=(int)(Math.ceil(count/5.0));
 	    int startPage=((curpage - 1) / BLOCK * BLOCK) + 1;

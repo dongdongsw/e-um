@@ -73,33 +73,36 @@
         </c:otherwise>
       </c:choose>
 
-      <!-- 페이지네이션 -->
-      <ul class="page">
+      <ul class="page"> 
 
-        <!-- 이전 버튼 -->
-        <c:if test="${startPage > 1}">
-          <li class="page__btn active">
-            <a class="material-icons"
-               href="../seller/review.eum?page=${startPage - 1}&sort=${param.sort}">&lt;</a>
-          </li>
-        </c:if>
+  <!-- 이전 버튼 -->
+  <c:if test="${startPage > 1}">
+    <li class="page__btn active">
+      <a class="material-icons"
+         href="javascript:void(0);"
+         onclick="prev(${startPage - 1})">&lt;</a>
+    </li>
+  </c:if>
 
-        <!-- 페이지 숫자 -->
-        <c:forEach var="i" begin="${startPage}" end="${endPage}">
-          <li class="page__numbers ${i == curpage ? 'active' : ''}">
-            <a href="../seller/review.eum?page=${i}&sort=${param.sort}">${i}</a>
-          </li>
-        </c:forEach>
+  <!-- 페이지 숫자 -->
+  <c:forEach var="i" begin="${startPage}" end="${endPage}">
+    <li class="page__numbers ${i==curpage?'active':''}">
+      <a href="javascript:void(0);"
+         onclick="change(${i})">${i}</a>
+    </li>
+  </c:forEach>
 
-        <!-- 다음 버튼 -->
-        <c:if test="${endPage < totalpage}">
-          <li class="page__btn active">
-            <a class="material-icons"
-               href="../seller/review.eum?page=${endPage + 1}&sort=${param.sort}">&gt;</a>
-          </li>
-        </c:if>
+  <!-- 다음 버튼 -->
+  <c:if test="${endPage < totalpage}">
+    <li class="page__btn active">
+      <a class="material-icons"
+         href="javascript:void(0);"
+         onclick="next(${endPage + 1})">&gt;</a>
+    </li>
+  </c:if>
 
-      </ul>
+</ul>
+
 
       <div style="height: 100px"></div>
 </body>

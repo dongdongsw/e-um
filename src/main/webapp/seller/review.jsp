@@ -7,39 +7,55 @@
 <meta charset="UTF-8">
 <title>구매자 리뷰</title>
 <link rel="stylesheet" href="../css/seller_review.css">
-
+<style type="text/css">
+a {
+  color: #7453fc;
+}
+</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-$(function() {
+  // 공통 AJAX 함수
+  function loadReviews(page) {
+    let sort = $("#sortSelect").val();
 
-	  const initSort = $("#sortSelect").val();
-	  console.log("초기 sort :", initSort);
-	  loadReviews(initSort);
+    $.ajax({
+      type: 'post',
+      url: '../seller/review_result.eum',
+      data: {
+        page: page,   
+        sort: sort   
+      },
+      success: function(result) {
 
+        $('.content-list').html(result);
+      },
+      error: function(err) {
+        console.error("리뷰 로딩 실패:", err);
+      }
+    });
+  }
 
-	  $("#sortSelect").on("change", function () {
-	    const sort = $(this).val();
-	    console.log("변경된 sort :", sort);
-	    loadReviews(sort);
-	  });
+  $(function() {
+    const initSort = $("#sortSelect").val();
 
+    loadReviews(1);
 
-	  function loadReviews(sort) {
-	    $.ajax({
-	      type: 'post',
-	      url: '../seller/review_result.eum',
-	      data: { sort: sort },
-	      success: function(result) {
-	        $('.content-list').html(result);
-	      },
-	      error: function(err) {
-	        console.error("리뷰 로딩 실패:", err);
-	      }
-	    });
-	  }
-	});
+    $("#sortSelect").on("change", function () {
+      const sort = $(this).val();
+      console.log("변경된 sort :", sort);
+      loadReviews(1);
+    });
+  });
 
-
+  function change(page) {
+    loadReviews(page);
+  }
+  function prev(page) {
+    loadReviews(page);
+  }
+  function next(page) {
+    loadReviews(page);
+  }
 </script>
 </head>
 
@@ -72,8 +88,6 @@ $(function() {
 		    <option value="오래된순">오래된 순</option>
 		    <option value="별점높은순">별점 높은 순</option>
 		    <option value="별점낮은순">별점 낮은 순</option>
-		    <option value="답변완료">답변 완료</option>
-		    <option value="답변전">답변 전</option>
 		  </select>
 		</div>
 	</div>

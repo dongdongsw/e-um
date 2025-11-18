@@ -199,7 +199,7 @@
                 <div class="field-label">가격 설명</div> <!-- b_op_detail -->
                 <div class="field-input">
                   <textarea name="priceDesc1"
-                            placeholder="예: 1:1 맞춤 상담 1회 + 기본 플랜 제공"></textarea>
+                            placeholder="예: 1:1 맞춤 상담 1회 + 기본 플랜 제공" required></textarea>
                 </div>
               </div>
             </div>
@@ -221,7 +221,7 @@
                 <div class="field-input">
                   <input type="number" name="price2"
                          placeholder="예: 90000"
-                         min="0" required/>
+                         min="0"/>
                 </div>
               </div>
 
@@ -251,7 +251,7 @@
                 <div class="field-input">
                   <input type="number" name="price3"
                          placeholder="예: 150000"
-                         min="0" required/>
+                         min="0"/>
                 </div>
               </div>
 
@@ -259,7 +259,7 @@
                 <div class="field-label">가격 설명</div>
                 <div class="field-input">
                   <textarea name="priceDesc3"
-                            placeholder="예: 모든 서비스 + 사후 관리까지 포함" required></textarea>
+                            placeholder="예: 모든 서비스 + 사후 관리까지 포함"></textarea>
                 </div>
               </div>
             </div>

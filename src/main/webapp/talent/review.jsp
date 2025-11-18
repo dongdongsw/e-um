@@ -102,6 +102,19 @@ $(function(){
 	      });
 	  
 
+	  $(document).on("submit", "#reviewIn", function (e) {
+
+	      let content = $("#rw-content").val().trim();                 
+	      
+	      if (content.length === 0) {
+	          alert("리뷰 내용을 작성하세요.");
+	          $("#rw-content").focus();
+	          e.preventDefault();   
+	          return false;
+	      }
+
+	      return true;
+	  });
 		 
 	});
 	
@@ -114,7 +127,7 @@ $(function(){
 		    <!----------------------------- 리뷰 작성 폼 start ----------------------------------->
 		    <c:if test="${sessionScope.id!=null }">
 		      <div class="review-write form-box">
-		        <form action="../review/insert_ok.eum" method="post">
+		        <form action="../review/insert_ok.eum" method="post" id="reviewIn">
 		          <input type="hidden" name="b_id" value="${detail_vo.b_id}">
 		          <input type="hidden" name="u_s_id" value="${detail_vo.u_s_id }">
 		          
