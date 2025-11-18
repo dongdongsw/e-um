@@ -291,6 +291,7 @@ public class TalentModel {
 	 	   request.setAttribute("score_vo", score_vo);
 	 	   request.setAttribute("price_vo", price_vo);
 	 	   request.setAttribute("fCount", fCount);
+		   request.setAttribute("u_id", u_id);
 	 	   
 		} catch (Exception ex) {
 			ex.printStackTrace();
