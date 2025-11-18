@@ -27,7 +27,7 @@ body {
 
 .footer {
   display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
   padding: 30px 30px 20px 30px;
   color: #2f2f2f;
   background-color: #fff;
@@ -35,12 +35,16 @@ body {
 }
 
 .footer > * {
-  flex:  1 100%;
+  flex: 1 100%;
 }
 
 .footer__addr {
-  margin-right: 1.25em;
-  margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-right: -130px; /* nav와 간격 */
+  min-height: 100%;
+  flex: 0 0 auto;  /* 추가: addr은 좌측 크기만 차지 */
 }
 
 .footer__logo {
@@ -59,6 +63,7 @@ body {
 .nav__title {
   font-weight: 400;
   font-size: 15px;
+  color: #2f2f2f;
 }
 
 .footer address {
@@ -96,7 +101,10 @@ body {
 
 .footer__nav {
   display: flex;
-	flex-flow: row wrap;
+  flex-wrap: wrap;
+  gap: 1.25em; /* nav_item 간격 유지 */
+  margin-left: 0; /* addr쪽으로 붙임 */
+  
 }
 
 .footer__nav > * {
@@ -118,7 +126,7 @@ body {
   flex-wrap: wrap;
   color: #999;
 }
-  
+
 .legal__links {
   display: flex;
   align-items: center;
@@ -138,18 +146,36 @@ body {
   .footer__nav > * {
     flex: 1;
   }
-  
+
   .nav__item--extra {
     flex-grow: 2;
   }
-  
+
+  .nav__item:last-child h2.nav__title:nth-of-type(2) {
+    margin-top: 2em;
+  }
+
   .footer__addr {
     flex: 1 0px;
   }
-  
+
   .footer__nav {
     flex: 2 0px;
   }
+}
+
+.sist-logo {
+  margin-top: 0px;
+  margin-left: 7px;
+  width: 80px;
+  height: 80px;
+}
+
+.intro-eum {
+  margin-top: auto;
+  margin-left: 5px;
+  font-style: normal;
+  color: #999;
 }
 </style>
 </head>
@@ -160,90 +186,96 @@ body {
  <footer class="footer">
   <div class="footer__addr">
   
-    <h1 class="footer__logo">Something</h1>
-        
-    <h2>Contact</h2>
-    
+    <div class="sist-logo">
+      <img src="../images/sist.png">
+    </div>
+    <div class="intro-eum">Copyright @2025 1조 이음(E-UM)프로젝트</div>
     <address>
-      5534 Somewhere In. The World 22193-10212<br>
-          
-      <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+      <a class="footer__btn" href="https://github.com/dongdongsw/e-um">Git Hub</a>
     </address>
   </div>
   
   <ul class="footer__nav">
     <li class="nav__item">
-      <h2 class="nav__title">Media</h2>
+      <h2 class="nav__title">회원</h2>
 
       <ul class="nav__ul">
         <li>
-          <a href="#">Online</a>
+          <a href="#">List1</a>
         </li>
 
         <li>
-          <a href="#">Print</a>
+          <a href="#">List2</a>
         </li>
             
         <li>
-          <a href="#">Alternative Ads</a>
-        </li>
-      </ul>
-    </li>
-    
-    <li class="nav__item nav__item--extra">
-      <h2 class="nav__title">Technology</h2>
-      
-      <ul class="nav__ul nav__ul--extra">
-        <li>
-          <a href="#">Hardware Design</a>
+          <a href="#">List3</a>
         </li>
         
         <li>
-          <a href="#">Software Design</a>
+          <a href="#">List4</a>
         </li>
         
         <li>
-          <a href="#">Digital Signage</a>
-        </li>
-        
-        <li>
-          <a href="#">Automation</a>
-        </li>
-        
-        <li>
-          <a href="#">Artificial Intelligence</a>
-        </li>
-        
-        <li>
-          <a href="#">IoT</a>
+          <a href="#">List5</a>
         </li>
       </ul>
     </li>
     
     <li class="nav__item">
-      <h2 class="nav__title">Legal</h2>
+      <h2 class="nav__title">회원</h2>
       
       <ul class="nav__ul">
         <li>
-          <a href="#">Privacy Policy</a>
+          <a href="#">회원가입</a>
         </li>
         
         <li>
-          <a href="#">Terms of Use</a>
+          <a href="#">로그인</a>
         </li>
         
         <li>
-          <a href="#">Sitemap</a>
+          <a href="#">마이페이지</a>
+        </li>
+      </ul>
+    </li>
+    
+    <li class="nav__item">
+      <h2 class="nav__title">셀러</h2>
+      
+      <ul class="nav__ul">
+        <li>
+          <a href="#">셀러등록</a>
+        </li>
+        
+        <li>
+          <a href="#">셀러페이지</a>
+        </li>
+      </ul>
+    </li>
+    
+    <li class="nav__item">
+      <h2 class="nav__title">관리자</h2>
+      
+      <ul class="nav__ul">
+        <li>
+          <a href="#">관리자페이지</a>
+        </li>
+      </ul>
+      
+      <h2 class="nav__title">게시판</h2>
+      
+      <ul class="nav__ul">
+        <li>
+          <a href="#">공지사항</a>
         </li>
       </ul>
     </li>
   </ul>
   
-  <div class="legal">
-    <p>&copy; 2019 Something. All rights reserved.</p>
-    
+  <div class="legal">  
     <div class="legal__links">
-      <span>Made with <span class="heart">♥</span> remotely from Anywhere</span>
+      <span>Made by. 서동현 김민석 이철우 이수현 지은표</span>
     </div>
   </div>
 </footer>

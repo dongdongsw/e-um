@@ -61,16 +61,22 @@ body {
   transition: all 0.3s ease 0s;
 }
 
-.header-area .main-nav .logo img {
-  width: 223px;
+.header-area .main-nav .logo-image {
+	margin-left: 30px;
+  	width: 75px;
 }
 
 .background-header .main-nav .logo {
   margin-top: 8px;
 }
 
-.background-header .main-nav .logo img {
-  width: 180px;
+.background-header .main-nav .logo-image {
+	margin-left: 30px;
+  	width: 75px;
+}
+.background-header .main-nav .logo-text {
+	/* 로고 텍스트 블록 전체를 아래로 이동시켜 스크롤 시 헤더 높이에 맞춥니다. */
+	margin-top: -5px !important; 
 }
 
 .header-area .main-nav .nav {
@@ -523,6 +529,20 @@ body {
     border-bottom: 1px solid #eee;
   }
 }
+
+.logo-name {
+	margin-left: 30px;
+	margin-top: 5px;
+	color: #7453fc;
+	font-weight: bold;
+}
+
+.logo-intro {
+	margin-left: 32px;
+	margin-bottom: 1px;
+	color: #999999;
+	font-weight: bold;
+}
 </style>
 
 <script type="text/javascript">
@@ -577,9 +597,15 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="../main/main.eum" class="logo">
-                        <img src="../assets/images/logo.png" alt="">
-                    </a>
+                    <div class="logo-image">
+	                    <a href="../main/main.eum" class="logo">
+	                        <object class="logo-image" data="../images/logo.svg" type="image/svg+xml"></object>
+	                    </a>
+                    </div>
+                    <div class="logo-text">
+	                    <h1 class="logo-name">E-UM</h1>
+	                    <h6 class="logo-intro">재능을 잇다</h6>
+                    </div>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
 

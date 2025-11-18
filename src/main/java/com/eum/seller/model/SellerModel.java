@@ -13,13 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import com.eum.seller.dao.SellerDAO;
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.Users_SellerVO;
-import com.eum.users.dao.UsersDAO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
