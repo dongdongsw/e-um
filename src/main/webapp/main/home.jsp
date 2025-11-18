@@ -18,7 +18,7 @@ border-bottom: 1px solid #e6e6f8;
   justify-content: center;
   align-items: flex-start; 
   overflow: visible; 
-  margin-top: 30px !important;
+  margin-top: 0 !important;
   margin-bottom: 30px !important;
 }
 
@@ -34,8 +34,8 @@ border-bottom: 1px solid #e6e6f8;
 }
 
 .brutalist-button.button-1 {
-  width: 160px;
-  height: 160px;
+  width: 150px;
+  height: 150px;
   background: #ffffff;
   border: 2px solid #b3aaff;
   border-radius: 18px;
@@ -44,7 +44,7 @@ border-bottom: 1px solid #e6e6f8;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   color: #333;
@@ -77,9 +77,49 @@ border-bottom: 1px solid #e6e6f8;
 }
 .item > img {
   border-radius: 20px;
+  
+  align-items: center;
 }
 .main-banner {
   background-color: #f7f7f7;
+}
+.popular-section {
+    max-width: 1200px;
+    margin: 15px 0 0 0;
+    padding: 0;
+}
+
+.popular-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.popular-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.popluar-tags:hover {
+    color: white;
+    border-color: black;
+    background: #7453FC;
+}
+.tag-btn {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tag-btn:hover {
+    background: #7453FC;
+    color: white;
+    border-color: black;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -100,8 +140,8 @@ $(function(){
     <div class="container" style="width:1180px;">
       <div class="row">
         <div class="col-lg-6 align-self-center">
-          <div class="header-text">
-           <div>
+          <div class="header-text" style="margin-left:50px">
+           <div style="margin-left:15px">
              <h2 style="color:black">이음,<br>
 				</h2>
 				<h3 style="color: black;font-size: 40px;">딱 맞는 전문가와 이어드립니다</h3>
@@ -116,17 +156,28 @@ $(function(){
 			        </div>
 			        <div class="col-lg-2">                        
 			            <fieldset>
-			                <button class="main-button">검색</button>
+			                <button class="main-button" style="width:80px;">검색</button>
 			            </fieldset>
 			        </div>
 			    </div>
 			</form>
+			<div class="popular-section">
+			    <div class="popular-tags" style="display: inline-flex; gap: 6px;">
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=개발'">개발</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=마케팅'">마케팅</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=골프'">골프</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=시공'">시공</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</button>
+			    </div>
+			</div>
           </div>
           </div>
         </div>
         
-        <div class="col-lg-5 offset-lg-1">
-          <div class="owl-banner owl-carousel">
+        <div class="col-lg-5 col-lg-5">
+          <div class="owl-banner owl-carousel" style="margin-left: 50px;">
             <div class="item">
               <img src="../images/banner1.png">
             </div>
@@ -134,7 +185,10 @@ $(function(){
               <img src="../images/banner2.png">
             </div>
             <div class="item">
-              <img src="../images/banner2.png">
+              <img src="../images/banner3.png">
+            </div>
+            <div class="item">
+              <img src="../images/banner4.jpg">
             </div>
           </div>
         </div>
@@ -149,39 +203,45 @@ $(function(){
                 </div>
               </div>
               <section class="category-section">
-  <div class="category-container">
-  <a href="../talent/b_type_list.eum?b_type=운동건강">
-    <button class="brutalist-button button-1">
-      <img src="../images/운동11.gif" alt="디자인" class="category-icon">
-      <span>운동/건강</span>
-    </button>
-    </a>
-   <a href="../talent/b_type_list.eum?b_type=비즈니스">
-    <button class="brutalist-button button-1">
-      <img src="../images/비즈니스.gif" alt="비즈니스" class="category-icon">
-      <span>비즈니스</span>
-    </button>
-    </a>
-    <a href="../talent/b_type_list.eum?b_type=취미/자기개발">
-    <button class="brutalist-button button-1">
-      <img src="../images/프라이팬.gif" alt="음악" class="category-icon">
-      <span>취미/자기개발</span>
-    </button>
-    </a>
-   <a href="../talent/b_type_list.eum?b_type=생활라이프">
-    <button class="brutalist-button button-1">
-      <img src="../images/생활.gif" alt="AI/테크" class="category-icon">
-      <span>생활/라이프</span>
-    </button>
-    </a>
-	<a href="../talent/b_type_list.eum?b_type=기타">
-    <button class="brutalist-button button-1">
-      <img src="../images/기타.gif" alt="기타" class="category-icon">
-      <span>기타</span>
-    </button>
-    </a>
-  </div>
-</section>
+				  <div class="category-container">
+				  <a href="../talent/b_type_list.eum?b_type=운동건강">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/운동11.gif" alt="디자인" class="category-icon">
+				      <span>운동/건강</span>
+				    </button>
+				    </a>
+				   <a href="../talent/b_type_list.eum?b_type=비즈니스">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/비즈니스.gif" alt="비즈니스" class="category-icon">
+				      <span>비즈니스</span>
+				    </button>
+				    </a>
+				    <a href="../talent/b_type_list.eum?b_type=취미/자기개발">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/프라이팬.gif" alt="음악" class="category-icon">
+				      <span>취미/자기개발</span>
+				    </button>
+				    </a>
+				   <a href="../talent/b_type_list.eum?b_type=생활라이프">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/생활.gif" alt="AI/테크" class="category-icon">
+				      <span>생활/라이프</span>
+				    </button>
+				    </a>
+					<a href="../talent/b_type_list.eum?b_type=기타">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/기타.gif" alt="기타" class="category-icon">
+				      <span>기타</span>
+				    </button>
+				    </a>
+				    <a href="../talent/b_type_list.eum?b_type=all">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/기타.gif" alt="잔체보기" class="category-icon">
+				      <span>전체보기</span>
+				    </button>
+				    </a>
+				  </div>
+				</section>
               
               </div>
           </div>
