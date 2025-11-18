@@ -124,12 +124,6 @@
 	          <when test="sort == '별점낮은순'">
 	            ORDER BY r.b_review_score ASC
 	          </when>
-	          <when test="sort == '답변완료'">
-	            ORDER BY r.b_review_createdat DESC
-	          </when>
-	          <when test="sort == '답변전'">
-	            ORDER BY r.b_review_createdat DESC
-	          </when>
 	          <otherwise>
 	            ORDER BY r.b_review_createdat DESC
 	          </otherwise>
