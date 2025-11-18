@@ -15,7 +15,12 @@
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
   $(function () {
-	  
+
+	  var chk = "${chk}";
+	  if(chk == 1){
+		  document.querySelector('.like-button').classList.toggle('liked');
+	  }
+
 	  const collapsedHeight = 100;
 	  const $box  = $('#priceBox');
 	  const $btn  = $('#priceToggleBtn');
@@ -99,12 +104,33 @@
 
     // ▼ 좋아요 버튼: 클릭 바인딩 + 토글
     function toggleLike(e){
-      const el = e.currentTarget;                          // 클릭된 버튼
-      const countEl = el.querySelector(".like-count");
-      let count = parseInt(countEl.textContent.replace(/,/g, "")) || 0;
-      const liked = el.classList.toggle("liked");          // 클래스 토글 (색상 변경)
+      if("${u_id}"){
+          const el = e.currentTarget;                          // 클릭된 버튼
+          const countEl = el.querySelector(".like-count");
+          let count = parseInt(countEl.textContent.replace(/,/g, "")) || 0;
+          const liked = el.classList.toggle("liked");          // 클래스 토글 (색상 변경)
 
-      countEl.textContent = (liked ? count + 1 : count - 1).toLocaleString();
+          countEl.textContent = (liked ? count + 1 : count - 1).toLocaleString();
+          
+          if(liked){
+        	  console.log("like");
+              $.ajax({
+            	  url: "../like/likeInsert.eum",
+                  type: "post",
+                  data: { 'b_id': "${detail_vo.b_id}" }
+              });
+          }else{
+        	  console.log("delete");
+              $.ajax({
+            	  url: "../like/likeDelete.eum",     
+                  type: "post",
+                  data: { 'b_id': "${detail_vo.b_id}" }
+              });
+          }
+      }else{
+    	  alert("로그인 후 이용해주세요");
+      }
+      return;
     }
 
     // 버튼 여러 개도 대응
@@ -308,7 +334,7 @@ $(function() {
 		  <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
 		    <path d="M12 21s-6.7-4.3-9.4-7.1C.7 11.9.4 8.9 2.3 7 4 5.3 6.8 5.6 8.6 7.3L12 10.6l3.4-3.3c1.8-1.7 4.6-2 6.3-.3 1.9 1.9 1.6 4.9-.3 6.8C18.7 16.7 12 21 12 21z"></path>
 		  </svg>
-		  <span class="like-count">${empty board_vo.rvo.review_count ? 0 : board_vo.rvo.review_count}</span> <!-- 좋아요 수 -->
+		  <span class="like-count ${chk == 1 ? 'liked' : ''  }">${empty likeCount ? 0 : likeCount}</span> <!-- 좋아요 수 -->
 		</div>
 
         <div class="quick">
