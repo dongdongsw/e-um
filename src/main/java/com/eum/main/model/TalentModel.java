@@ -102,15 +102,24 @@ public class TalentModel {
    public String talent_review(HttpServletRequest request,
 		   HttpServletResponse response)
    {
+	   HttpSession session=request.getSession();
+	   String id=(String)session.getAttribute("id");
+	   
 	   String b_id=request.getParameter("b_id");
 	   String page=request.getParameter("page");
 	   
+	   Map map=new HashMap();
+	   map.put("u_id", id);
+	   map.put("b_id", b_id);
+	   
+	   int buy=TalentDAO.buyCheck(map);
 	   BoardVO detail_vo=TalentDAO.talentDetailData(b_id);
 	   BoardVO board_vo=TalentDAO.talentDetailboard(b_id);
 	   List<BoardVO> review_vo=TalentDAO.talentDetailreview(b_id);
 	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
 	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
 	   
+	   request.setAttribute("buy", buy);
 	   request.setAttribute("page", page);
 	   request.setAttribute("detail_vo", detail_vo);
 	   request.setAttribute("board_vo", board_vo);
@@ -120,6 +129,7 @@ public class TalentModel {
 
 	   return "../talent/review.jsp";
    }
+   
    // 리뷰 작성
    @RequestMapping("review/insert_ok.eum") 
    public String review_insert(HttpServletRequest request, HttpServletResponse response) {

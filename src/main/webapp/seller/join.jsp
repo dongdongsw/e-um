@@ -166,7 +166,7 @@ $(function(){
   		<span style="font-size: 30px;">셀러 가입</span>하고<br/>재능 판매를 시작해 보세요!
 	 </h1>
  
-	  <div style="height: 30px"></div>
+	  <div style="height: 50px"></div>
      <form id="frm" name="frm" method="post" action="../seller/seller_join_ok.eum">
  		<input type="hidden" id="biz_verified" name="biz_verified" value="N">
 		
@@ -251,7 +251,7 @@ $(function(){
 		  <button class="submit" type="button" id="joinBtn">셀러 가입</button>
 		</div>
         
-        <div style="height: 30px"></div>
+        <div style="height: 70px"></div>
       </form>
     </div>
   </div>

@@ -209,5 +209,15 @@
      WHERE
      b_review_id=#{b_review_id}
    </delete>
+   
+      <!-- 구매자 검사 -->
+   <select id="buyCheck" resultType="int" parameterType="hashmap">
+   	 SELECT COUNT(*) 
+		FROM orders o
+		JOIN board_option bo 
+		  ON o.b_op_id = bo.b_op_id
+		WHERE o.o_u_id = #{u_id}
+		  AND bo.b_id = #{b_id}
+   </select>
 </mapper>
 

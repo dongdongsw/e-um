@@ -16,6 +16,37 @@
 <script>
   $(function () {
 	  
+	  const collapsedHeight = 100;
+	  const $box  = $('#priceBox');
+	  const $btn  = $('#priceToggleBtn');
+
+	  // 처음 상태: 접혀있음
+	  $box.data('collapsed', true);
+
+	  $btn.on('click', function (e) {
+	    e.preventDefault();
+
+	    const isCollapsed = $box.data('collapsed');
+
+	    if (isCollapsed) {
+	      // 펼치기
+	      $box.css({
+	        height: 'auto',
+	        overflow: 'visible'
+	      });
+	      $box.data('collapsed', false);
+	      $btn.text('접기');
+	    } else {
+	      // 다시 접기
+	      $box.css({
+	        height: collapsedHeight + 'px',
+	        overflow: 'hidden'
+	      });
+	      $box.data('collapsed', true);
+	      $btn.text('더보기');
+	    }
+	  });
+	  
 	  loadReviewTab();
     // jQuery UI tabs
     $("#tabs").tabs();
@@ -252,15 +283,15 @@ $(function() {
   <div class="header-text" style="height: 200px;"></div>
 
   <section class="dt-container hero" id="main-section">
-    <div class="hero-left">
-      <div class="title-row">
+    <div class="hero-left" style="height: 300px">
+      <div class="title-row" style="display: block;">
         <c:if test="${fCount==0}">
           <a href="../users/favorite_insert.eum?b_id=${detail_vo.b_id}" class="fav_on">즐겨찾기</a>
         </c:if>
         <c:if test="${fCount!=0}">
           <span class="fav_off">즐겨찾기</span>
         </c:if>
-        <h1 class="title">${detail_vo.b_title}</h1>
+        <h2 class="title" style="height: 90px; display: flex;  align-items: center;">${detail_vo.b_title}</h2>
       </div>
 
      <div class="meta" aria-label="별점 및 관심">
@@ -307,7 +338,7 @@ $(function() {
 
     <div class="hero-right">
        <!--컨텐츠 메인 이미지 -->
-        <img src="${detail_vo.b_thumbnail }">
+        <img src="${detail_vo.b_thumbnail }" style="width: 100%; height: 310px; border-radius: 10px">
     </div>
   </section>
   <!-- 상세정보 시작 --> 
@@ -395,6 +426,20 @@ $(function() {
 		    </c:forEach>
 		  </div>
 		</span>
+		
+		<div class="price-desc">
+		  <h5 style="color: black; font-weight: bold">가격 정보</h5><br><br>
+		
+		  <div class="price-body" id="priceBox">
+		    <c:forEach var="priceInfo" items="${price_vo}">
+		      <p>${priceInfo.b_op_title} : ${priceInfo.b_op_detail}</p><br>
+		    </c:forEach>
+		  </div>
+
+		  <div class="price-more-area">
+		    <a href="#" class="price-more-link" id="priceToggleBtn">더보기</a>
+		  </div>
+		</div>
             <div class="cta">
               <button type="button" class="btn-ghost">전문가에게 문의하기</button>
               <button type="submit" class="btn-pri">구매하기</button>

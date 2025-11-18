@@ -124,7 +124,7 @@ $(function(){
 		<aside class="side-sticky">
 			
 		    <!----------------------------- 리뷰 작성 폼 start ----------------------------------->
-		    <c:if test="${sessionScope.id!=null }">
+		    <c:if test="${buy>0 }">
 		      <div class="review-write form-box">
 		        <form action="../review/insert_ok.eum" method="post" id="reviewIn">
 		          <input type="hidden" name="b_id" value="${detail_vo.b_id}">
