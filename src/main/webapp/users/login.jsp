@@ -103,7 +103,7 @@ $(function() {
   <div class="login-wrapper">
   <div class="form-container">
     <a href="../main/main.eum" style="text-decoration: none; color: black;">
-	  <p class="title">E-UM</p>
+	  <p class="title">로그인</p>
 	</a>
 	<form class="form" method="post" action="../main/login/login.eum">
 		<div class="input-group">
@@ -117,23 +117,9 @@ $(function() {
 				<a rel="noopener noreferrer" href="../users/fine_me.eum">아이디 / 비밀번호 찾기</a>
 			</div>
 		</div>
-		<input type="button" class="sign" id="logBtn" value="로그인">
+		<input type="button" class="sign" id="logBtn" value="로그인" style="margin-top: 30px;">
 	</form>
-	<div class="social-message">
-		<div class="line"></div>
-		<p class="message">Made by.</p>
-		<div class="line"></div>
-	</div>
-	<div class="team-slider">
-        <div class="slider-container">
-            <div class="slider-track">
-                <span class="slide">1조 서동현  김민석  이철우  이수현  지은표</span>
-                <span class="slide">1조 서동현  김민석  이철우  이수현  지은표</span>
-                <span class="slide">1조 서동현  김민석  이철우  이수현  지은표</span>
-                <span class="slide">1조 서동현  김민석  이철우  이수현  지은표</span>
-            </div>
-        </div>
-    </div>
+	<br>
 	<p class="signup">아직 회원이 아니신가요?
 		<a rel="noopener noreferrer" href="../users/join.eum" class="">회원가입</a>
 	</p>

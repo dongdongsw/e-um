@@ -42,7 +42,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  margin-right: -130px; /* nav와 간격 */
+  margin-right: 0px; /* nav와 간격 */
   min-height: 100%;
   flex: 0 0 auto;  /* 추가: addr은 좌측 크기만 차지 */
 }
@@ -104,7 +104,7 @@ body {
   flex-wrap: wrap;
   gap: 1.25em; /* nav_item 간격 유지 */
   margin-left: 0; /* addr쪽으로 붙임 */
-  
+  margin-right: 200px;
 }
 
 .footer__nav > * {
@@ -197,27 +197,27 @@ body {
   
   <ul class="footer__nav">
     <li class="nav__item">
-      <h2 class="nav__title">회원</h2>
+      <h2 class="nav__title">카테고리별</h2>
 
       <ul class="nav__ul">
         <li>
-          <a href="#">List1</a>
+          <a href="../talent/b_type_list.eum?b_type=생활라이프">생활/라이프</a>
         </li>
 
         <li>
-          <a href="#">List2</a>
+          <a href="./talent/b_type_list.eum?b_type=운동건강">운동/건강</a>
         </li>
             
         <li>
-          <a href="#">List3</a>
+          <a href="../talent/b_type_list.eum?b_type=취미/자기개발">취미/자기개발</a>
         </li>
         
         <li>
-          <a href="#">List4</a>
+          <a href="../talent/b_type_list.eum?b_type=비즈니스">비즈니스</a>
         </li>
         
         <li>
-          <a href="#">List5</a>
+          <a href="../talent/b_type_list.eum?b_type=기타">기타</a>
         </li>
       </ul>
     </li>
@@ -227,15 +227,11 @@ body {
       
       <ul class="nav__ul">
         <li>
-          <a href="#">회원가입</a>
+          <a href="../users/join.eum">회원가입</a>
         </li>
         
         <li>
-          <a href="#">로그인</a>
-        </li>
-        
-        <li>
-          <a href="#">마이페이지</a>
+          <a href="../users/login.eum">로그인</a>
         </li>
       </ul>
     </li>
@@ -245,29 +241,17 @@ body {
       
       <ul class="nav__ul">
         <li>
-          <a href="#">셀러등록</a>
-        </li>
-        
-        <li>
-          <a href="#">셀러페이지</a>
+          <a href="../seller/join.eum">셀러등록</a>
         </li>
       </ul>
     </li>
     
     <li class="nav__item">
-      <h2 class="nav__title">관리자</h2>
-      
-      <ul class="nav__ul">
-        <li>
-          <a href="#">관리자페이지</a>
-        </li>
-      </ul>
-      
       <h2 class="nav__title">게시판</h2>
       
       <ul class="nav__ul">
         <li>
-          <a href="#">공지사항</a>
+          <a href="../notice/list.eum">공지사항</a>
         </li>
       </ul>
     </li>
