@@ -53,16 +53,16 @@ border-bottom: 1px solid #e6e6f8;
 }
 
 .brutalist-button.button-1:hover {
-  background: #6c63ff;
-  color: #fff;
+  background: #fff;
+  color: black;
   border-color: #4c43e2;
   transform: translate(-5px, -5px);
-  box-shadow: 8px 8px 0 #00000033;
+  box-shadow: 8px 8px 0 #c6b7f5;
 }
 
 .brutalist-button.button-1:active {
   transform: translate(0, 0);
-  box-shadow: 3px 3px 0 #00000033;
+  box-shadow: 3px 3px 0 #e3dcfb;
 }
 
 .category-icon {
@@ -77,6 +77,18 @@ border-bottom: 1px solid #e6e6f8;
 }
 
 </style>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(function(){
+    $("#search-form").submit(function(e){
+        let keyword = $("input[name=keyword]").val().trim();
+        if(keyword === ""){
+            alert("검색어를 입력하세요.");
+            e.preventDefault();
+        }
+    });
+});
+</script>
 </head>
 <body>
   <div class="main-banner" style="background-color: #fff">
@@ -84,52 +96,30 @@ border-bottom: 1px solid #e6e6f8;
       <div class="row">
         <div class="col-lg-6 align-self-center">
           <div class="header-text">
-           
            <div>
              <h2 style="color:black">이음,<br>
-				딱 맞는 전문가와 이어드립니다</h2>
+				</h2>
+				<h3 style="color: black;font-size: 40px;">딱 맞는 전문가와 이어드립니다</h3>
            </div>
-            
-           
           <div class="discover-items">
-          <form id="search-form" name="gs" method="submit" role="search" action="#">
-            <div class="row">
-              <div class="col-lg-4">
-                <fieldset>
-                    <input type="text" name="keyword" class="searchText" placeholder="어떤 재능이 필요하세요?" autocomplete="on" required>
-                </fieldset>
-              </div>
-              <div class="col-lg-3">
-                <fieldset>
-                    <select name="Category" class="form-select" aria-label="Default select example" id="chooseCategory" onchange="this.form.click()">
-                        <option selected>카테고리</option>
-                        <option type="checkbox" name="option1" value="Music">Music</option>
-                        <option value="Digital">Digital</option>
-                        <option value="Blockchain">Blockchain</option>
-                        <option value="Virtual">Virtual</option>
-                    </select>
-                </fieldset>
-              </div>
-              <div class="col-lg-3">
-                <fieldset>
-                    <select name="Price" class="form-select" aria-label="Default select example" id="chooseCategory" onchange="this.form.click()">
-                        <option selected>가격대</option>
-                        <option value="Ending-Soon">Ending Soon</option>
-                        <option value="Coming-Soon">Coming Soon</option>
-                        <option value="Closed">Closed</option>
-                    </select>
-                </fieldset>
-              </div>
-              <div class="col-lg-2">                        
-                <fieldset>
-                    <button class="main-button">검색</button>
-                </fieldset>
-              </div>
-            </div>
-          </form>
+			  <form id="search-form" method="GET" class="search" action="../talent/keyword_list.eum">
+			      <div class="row">
+			        <div class="col-lg-9">
+			            <fieldset>
+			                <input type="text" name="keyword" class="searchText" placeholder="어떤 재능이 필요하세요?" autocomplete="on" required>
+			            </fieldset>
+			        </div>
+			        <div class="col-lg-2">                        
+			            <fieldset>
+			                <button class="main-button">검색</button>
+			            </fieldset>
+			        </div>
+			    </div>
+			</form>
           </div>
           </div>
         </div>
+        
         <div class="col-lg-5 offset-lg-1">
           <div class="owl-banner owl-carousel">
             <div class="item">
@@ -151,95 +141,41 @@ border-bottom: 1px solid #e6e6f8;
                 </div>
               </div>
               <section class="category-section">
-				  <div class="category-container">
-				    <button class="brutalist-button button-1">
-				      <img src="../../main/images/color-pallete.png" alt="디자인" class="category-icon">
-				      <span>디자인</span>
-				    </button>
-				
-				    <button class="brutalist-button button-1">
-				      <img src="../../main/images/video-camera.png" alt="영상" class="category-icon">
-				      <span>영상</span>
-				    </button>
-				
-				    <button class="brutalist-button button-1">
-				      <img src="../../main/images/headphones.png" alt="음악" class="category-icon">
-				      <span>음악</span>
-				    </button>
-				
-				    <button class="brutalist-button button-1">
-				      <img src="../../main/images/graduation.png" alt="교육" class="category-icon">
-				      <span>교육</span>
-				    </button>
-				
-				    <button class="brutalist-button button-1">
-				      <img src="../../main/images/robot.png" alt="AI/테크" class="category-icon">
-				      <span>AI / 테크</span>
-				    </button>
-					<a href="../list/etclist.eum">
-				    <button class="brutalist-button button-1">
-				      <img src="../../main/images/puzzle.png" alt="기타" class="category-icon">
-				      <span>기타</span>
-				    </button>
-				    </a>
-				  </div>
-			</section>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-01.png" alt="">
-                  </div>
-                  <h4>Blockchain</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
+  <div class="category-container">
+  <a href="../talent/b_type_list.eum?b_type=운동건강">
+    <button class="brutalist-button button-1">
+      <img src="../images/운동11.gif" alt="디자인" class="category-icon">
+      <span>운동/건강</span>
+    </button>
+    </a>
+   <a href="../talent/b_type_list.eum?b_type=비즈니스">
+    <button class="brutalist-button button-1">
+      <img src="../images/비즈니스.gif" alt="비즈니스" class="category-icon">
+      <span>비즈니스</span>
+    </button>
+    </a>
+    <a href="../talent/b_type_list.eum?b_type=취미/자기개발">
+    <button class="brutalist-button button-1">
+      <img src="../images/프라이팬.gif" alt="음악" class="category-icon">
+      <span>취미/자기개발</span>
+    </button>
+    </a>
+   <a href="../talent/b_type_list.eum?b_type=생활라이프">
+    <button class="brutalist-button button-1">
+      <img src="../images/생활.gif" alt="AI/테크" class="category-icon">
+      <span>생활/라이프</span>
+    </button>
+    </a>
+	<a href="../talent/b_type_list.eum?b_type=기타">
+    <button class="brutalist-button button-1">
+      <img src="../images/기타.gif" alt="기타" class="category-icon">
+      <span>기타</span>
+    </button>
+    </a>
+  </div>
+</section>
+              
               </div>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-02.png" alt="">
-                  </div>
-                  <h4>Digital Art</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-03.png" alt="">
-                  </div>
-                  <h4>Music Art</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-05.png" alt="">
-                  </div>
-                  <h4>Valuable</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-5">
-                <div class="item">
-                  <div class="icon">
-                    <img src="../assets/images/icon-06.png" alt="">
-                  </div>
-                  <h4>Triple NFT</h4>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -257,7 +193,7 @@ border-bottom: 1px solid #e6e6f8;
               <div class="col-lg-12">
                 <div class="section-heading">
                   <div class="line-dec"></div>
-                  <h2><em>인기 컨텐츠</em></h2>
+                  <h2><em>신뢰할 수 있는 결과물<br> 고객 만족도 4.9점</em></h2>
                 </div>
               </div>
               <div class="col-lg-12">
@@ -537,6 +473,7 @@ border-bottom: 1px solid #e6e6f8;
       </div>
     </div>
   </div>
+  
   
 </body>
 </html>

@@ -265,7 +265,53 @@ import com.eum.main.vo.*;
      	   }
 		   return buy;
 	   }
-	   
-	}
+	   // 키워드 검색
+	   public static List<BoardVO> talentSearchKeywordData(Map map) {
+		    List<BoardVO> list = null;
+		    try {
+		    	
+		        SqlSession session = ssf.openSession();
+		        list = session.selectList("talentSearchKeywordData", map);
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    } 
+		    return list;
+		}
+	    // 키워드 검색 페이지네이션
+		public static int talentSearchKeywordTotalPage(Map map) {
+		    int total = 0;
+		    try {
+		    	
+		        SqlSession session = ssf.openSession();
+		        total = session.selectOne("talentSearchKeywordTotalPage", map);
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    } 
+		    return total;
+		}
+		// 타입 검색
+		public static List<BoardVO> talentSearchTypeData(Map map) {
+		    List<BoardVO> list = null;
+		    try {
+		        SqlSession session = ssf.openSession();
+		        list = session.selectList("talentSearchTypeData", map);
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    } 
+		    return list;
+		}
+		// 타입 검색 페이지네이션
+		public static int talentSearchTypeTotalPage(Map map) {
+		    int total = 0;
+		    try {
+		        SqlSession session = ssf.openSession();
+		        total = session.selectOne("talentSearchTypeTotalPage", map);
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    } 
+		    return total;
+		}
+		
+}
 	   
 	

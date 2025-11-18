@@ -219,5 +219,84 @@
 		WHERE o.o_u_id = #{u_id}
 		  AND bo.b_id = #{b_id}
    </select>
+   <!-- 키워드 검색 -->
+   <select id="talentSearchKeywordData" resultMap="boardMap" parameterType="hashmap">
+	SELECT * FROM (
+	  SELECT ROWNUM AS num, A.*
+	  FROM (
+	    SELECT
+	      board.b_id,
+	      b_title,
+	      b_thumbnail,
+	      ROUND(AVG(b_review_score),1) AS b_review_score,
+	      COUNT(DISTINCT b_review_id) AS review_count,
+	      MIN(b_op_price) AS b_op_price,
+	      u_s_com,
+	      b_type,
+	      board.b_view_count
+	    FROM board
+	    JOIN board_option ON board.b_id = board_option.b_id
+	    JOIN users_seller ON board.u_s_id = users_seller.u_s_id
+	    JOIN review ON board.b_id = review.b_id
+	    WHERE (b_title LIKE '%'||#{keyword}||'%'
+	       OR b_content LIKE '%'||#{keyword}||'%')
+	    GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type,board.b_view_count
+	    <choose>
+	      <when test="fd == 'price_asc'">ORDER BY b_op_price ASC</when>
+	      <when test="fd == 'price_desc'">ORDER BY b_op_price DESC</when>
+	      <when test="fd == 'review'">ORDER BY review_count DESC</when>
+	      <when test="fd == 'view'">ORDER BY board.b_view_count DESC</when>
+	      <when test="fd == 'review_score'">ORDER BY b_review_score DESC</when>
+	      <otherwise>ORDER BY board.b_id DESC</otherwise>
+	    </choose>
+	  ) A
+	)
+	WHERE num BETWEEN #{start} AND #{end}
+</select>
+<!-- 키워드 페이지네이션 -->
+<select id="talentSearchKeywordTotalPage" resultType="int" parameterType="hashmap">
+    SELECT CEIL(COUNT(DISTINCT B.b_id) / 12.0)
+    FROM board B
+    WHERE B.b_title LIKE '%'||#{keyword}||'%' OR B.b_content LIKE '%'||#{keyword}||'%'
+    </select>
+<!-- 타입 검색 -->
+<select id="talentSearchTypeData" resultMap="boardMap" parameterType="hashmap">
+	SELECT * FROM (
+	  SELECT ROWNUM AS num, A.*
+	  FROM (
+	    SELECT
+	      board.b_id,
+	      b_title,
+	      b_thumbnail,
+	      ROUND(AVG(b_review_score),1) AS b_review_score,
+	      COUNT(DISTINCT b_review_id) AS review_count,
+	      MIN(b_op_price) AS b_op_price,
+	      u_s_com,
+	      b_type,
+	      board.b_view_count
+	    FROM board
+	    JOIN board_option ON board.b_id = board_option.b_id
+	    JOIN users_seller ON board.u_s_id = users_seller.u_s_id
+	    JOIN review ON board.b_id = review.b_id
+	    WHERE b_type = #{b_type}
+	    GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type,board.b_view_count
+	    <choose>
+	      <when test="fd == 'price_asc'">ORDER BY b_op_price ASC</when>
+	      <when test="fd == 'price_desc'">ORDER BY b_op_price DESC</when>
+	      <when test="fd == 'review'">ORDER BY review_count DESC</when>
+	      <when test="fd == 'view'">ORDER BY board.b_view_count DESC</when>
+	      <when test="fd == 'review_score'">ORDER BY b_review_score DESC</when>
+	      <otherwise>ORDER BY board.b_id DESC</otherwise>
+	    </choose>
+	  ) A
+	)
+	WHERE num BETWEEN #{start} AND #{end}
+</select>
+<!-- 타입 페이지네이션 -->
+<select id="talentSearchTypeTotalPage" resultType="int" parameterType="hashmap">
+    SELECT CEIL(COUNT(*) / 12.0)
+    FROM board
+    WHERE b_type = #{b_type}
+</select>
 </mapper>
 

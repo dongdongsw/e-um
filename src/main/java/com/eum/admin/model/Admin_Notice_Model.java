@@ -56,17 +56,8 @@ public class Admin_Notice_Model {
  	@RequestMapping("admin/admin_notice_detail.eum")
  	public String notice_detail(HttpServletRequest request,HttpServletResponse response)
  	{
- 		System.out.println("~~~ ADMIN DETAIL CONTROLLER IS HERE ~~~");
- 
  		String n_id=request.getParameter("n_id");
  		NoticeVO vo=Admin_NoticeDAO.adminnoticeDetailData(n_id);
- 		
- 		System.out.println("Received n_id: " + n_id);
- 		if (vo == null) {
- 	        System.out.println("No data found for n_id: " + n_id);    
- 	    } else {
- 	        System.out.println("Notice found: " + vo.getN_title());    
- 	    }
  		
  		request.setAttribute("n_id", n_id);
  		request.setAttribute("vo", vo);

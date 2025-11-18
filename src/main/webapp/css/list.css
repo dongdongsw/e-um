@@ -144,12 +144,12 @@
 .image {
   width: 100%;
   height: 160px;
-  position: absolute;
   background-color: white;
   cursor: pointer;
   transition: all .2s ease;
   border-radius: 15px;
 }
+
 
 .list-card::before {
   position: absolute;
@@ -204,10 +204,6 @@ label {
   gap: 5px;
 }
 
-.content__body {
-  display: flex;
-  flex-direction: column;
-}
 
 .stream__title {
   font-weight: 900;
@@ -239,6 +235,7 @@ label {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
 
 :root {
   --primary: #7453fc;
@@ -366,6 +363,14 @@ label {
   background: #fff;
   border: 2px solid #f2f2f2;
   cursor: pointer;
+}
+.label--radio {
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+.radio {
+    pointer-events: auto !important;
 }
 
 .radio {
@@ -556,7 +561,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .search {
   --timing: 0.3s;
-  --width-of-input: 500px;
+  --width-of-input: 600px;
   --height-of-input: 40px;
   --border-height: 2px;
   --input-bg: #fff;
@@ -621,6 +626,7 @@ input:not(:placeholder-shown) ~ .reset {
   margin-top: 3px;
 }
 /* end 검색바 */ 
+/* 페이지네이션 컨테이너 */
 .page {
   display: flex;
   justify-content: center;
