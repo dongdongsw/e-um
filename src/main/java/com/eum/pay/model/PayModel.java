@@ -150,7 +150,7 @@ public class PayModel {
 	}
 	
 	// 결제 내역 페이지
-	@RequestMapping("pay/mypage_payment.eum")
+	@RequestMapping("users/order_list.eum")
 	public String mypage_payment(HttpServletRequest request,
 	         HttpServletResponse response)
 	   {
@@ -165,7 +165,7 @@ public class PayModel {
 			  request.setAttribute("pay_vo", pay_vo);
 			  
 		
-	      request.setAttribute("main_jsp", "../pay/my_order.jsp");
+	      request.setAttribute("main_jsp", "../users/order_list.jsp");
 	      return "../main/main.jsp";
 	   }
 

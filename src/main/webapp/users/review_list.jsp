@@ -211,7 +211,7 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
       <a href="../users/info.eum">회원 정보</a>
       <a href="../users/review_list.eum" class="active">작성한 리뷰</a>
       <a href="../users/favorite_list.eum">즐겨찾기한 컨텐츠</a>
-      <a href="#">결제 내역</a>
+      <a href="../users/order_list.eum">결제 내역</a>
       <a href="../users/info_update.eum">정보 수정</a>
     </nav>
   </aside>

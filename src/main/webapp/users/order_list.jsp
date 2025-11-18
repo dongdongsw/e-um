@@ -527,14 +527,14 @@ body {
       <a href="../users/info.eum">회원 정보</a>
       <a href="../users/review_list.eum">작성한 리뷰</a>
       <a href="../users/favorite_list.eum">즐겨찾기한 컨텐츠</a>
-      <a href="../pay/mypage_payment.eum" class="active">결제 내역</a>
+      <a href="../users/order_list.eum" class="active">결제 내역</a>
       <a href="../users/info_update.eum">정보 수정</a>
     </nav>
   </aside>
 
   <!-- 오른쪽 본문 -->
   <main class="content">
-    <h2>주문 상세 내역</h2>
+    <h2>결제 내역</h2>
     
     <!-- 🔍 상단 필터 영역 -->
     <form class="filter-bar" method="get" action="order_search.eum">
@@ -633,7 +633,7 @@ body {
     <!-- 빈 상태 (주문이 없을 때) -->
     <c:if test="${empty pay_vo}">
       <div class="empty-state">
-        <div>주문 내역이 없습니다.</div>
+        <div>결제한 내역이 없습니다.</div>
       </div>
     </c:if>
   </main>

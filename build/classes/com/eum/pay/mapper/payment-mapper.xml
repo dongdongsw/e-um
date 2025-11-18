@@ -11,6 +11,9 @@
     <result property="bovo.b_op_detail" column="b_op_detail"/>
     <result property="ovo.o_createdat" column="o_createdat"/>
     <result property="ovo.o_total_price" column="o_total_price"/>
+    <result property="pvo.o_u_id" column="o_u_id"/>
+    <result property="ovo.o_id" column="o_id"/>
+    <result property="pvo.amount" column="amount"/>
   </resultMap>
   
   <!-- 주문 상세페이지 데이터 조회 -->
@@ -92,27 +95,52 @@
     WHERE o_id = #{o_id}
     </update>
     
+    
+  <resultMap type="OrdersVO" id="ordersMap">
+	<result property="o_id" column="o_id"/>
+	<result property="o_createdat" column="o_createdat"/>
+
+	<association property="bopvo" javaType="Board_OptionVO">
+		<result property="b_op_title" column="b_op_title" />
+		<result property="b_op_detail" column="b_op_detail" />
+		<result property="b_op_id" column="b_op_id" />
+	</association>
+	
+	<association property="bvo" javaType="BoardVO">
+		<result property="b_thumbnail" column="b_thumbnail" />
+		
+		<association property="usvo" javaType="Users_SellerVO">
+			<result property="u_s_com" column="u_s_com" />
+		</association>
+	</association>
+	
+	<association property="pvo" javaType="PaymentVO">
+		<result property="o_u_id" column="o_u_id" />
+		<result property="amount" column="amount" />
+		<result property="pay_id" column="pay_id" />
+		<result property="imp_uid" column="imp_uid" />
+	</association>
+	
+	
+  </resultMap>
+  
+    
    <!-- mypage payment -->
-   <select id="mypagePayment" resultMap="optionMap" parameterType="string">
-    SELECT * FROM ( SELECT ROWNUM AS num, A.*
-	FROM ( SELECT
-    o.o_u_id AS o_u_id,
-	o.o_id AS o_id,
-	o.b_op_id AS b_op_id,
-	o.o_createdat AS o_createdat,
-	o.o_total_price AS o_total_price,
-	bo.b_op_title AS b_op_title,
-	bo.b_op_detail AS b_op_detail,
-	b.b_thumbnail AS b_thumbnail,
-	us.u_s_com AS u_s_com
-	FROM orders o
-	JOIN board_option bo ON o.b_op_id = bo.b_op_id
-	JOIN board b ON b.b_id = bo.b_id
-	JOIN users_seller us ON b.u_s_id = us.u_s_id
-    WHERE o.o_u_id = #{o_u_id}
-    ORDER BY o_id DESC
-	) A )
-	WHERE num BETWEEN #{start} AND #{end}
+   <select id="mypagePayment" resultMap="ordersMap" parameterType="hashmap">
+	    SELECT
+		    p.o_u_id, p.amount, p.pay_id, p.imp_uid,
+			o.o_id, o.o_createdat, 
+			bo.b_op_title, bo.b_op_detail, bo.b_op_id,
+			b.b_thumbnail,
+			us.u_s_com
+			
+		FROM orders o
+		JOIN board_option bo ON o.b_op_id = bo.b_op_id
+	    JOIN payment p ON o.o_id = p.o_id
+		JOIN board b ON b.b_id = bo.b_id
+		JOIN users_seller us ON b.u_s_id = us.u_s_id
+	    WHERE o.o_u_id = #{o_u_id}
+	    ORDER BY o_id DESC
    </select>
 
 	<!-- 환불 인서트 -->
