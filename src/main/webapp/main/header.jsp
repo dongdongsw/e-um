@@ -67,7 +67,7 @@ body {
 }
 
 .background-header .main-nav .logo {
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .background-header .main-nav .logo-image {
