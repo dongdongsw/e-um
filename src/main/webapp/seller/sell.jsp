@@ -149,62 +149,44 @@ body {background-color: #fff !important;}
       <a href="../seller/info_update.eum">정보 수정</a>
     </nav>
   </aside>
-
   <!-- 오른쪽 본문 -->
   <main class="content">
     <h2 style="color:black;">내 컨텐츠</h2>
 
     <div class="content-list">
-      <c:choose>
-		  <c:when test="${empty list}">
-		   <div class="content-item">
-		    <div style="padding:24px;color:#666;">등록된 컨텐츠가 없습니다.</div>
-		   </div>
-		  </c:when>
-		  <c:otherwise>
-		    <c:forEach var="vo" items="${list}">
-			  <div class="content-item">
-			    <!-- 썸네일 -->
-			    <div class="content-thumb">
-			      <img src="${vo.b_thumbnail}" alt="${vo.b_title}">
-			    </div>
-			
-			    <!-- 정보 -->
-			    
-			    <div class="content-info">
-			     <div class="content-dates">
 
-			        
-			      </div>
-			      <div class="content-title">${vo.b_title}</div>
-			      <div class="content-meta">
-			        ${vo.b_type} <span class="dot">·</span> ${vo.b_filter}
-			      </div>
-			      <div class="content-stats">
-			        <span class="status" style="font-weight: bold">
-			          ${vo.b_status eq 'active' ? '판매중' : 'inactive'} 
-			        </span>
-			     	
-			        <span style="margin-left: 20px">조회수 ${vo.b_view_count}</span>
-			        &nbsp;
-			        <span>리뷰 100</span>
-			      </div>
-			     
-			      <div class="content-price">
-			        <fmt:formatNumber value="50000" pattern="#,###" />원
-			      </div>
-			    </div>
-			
-			    <!-- 오른쪽 버튼 영역 -->
-			    <div class="content-actions">
-			      <button type="button" class="btn view">보기</button>
-			      <button type="button" class="btn edit">수정</button>
-			      <button type="button" class="btn delete">삭제</button>
-			    </div>
-			  </div>
-			</c:forEach>
-		  </c:otherwise>
-		</c:choose>
+          <c:forEach var="vo" items="${uspay_vo}">
+           <div class="content-item">
+             <!-- 정보 -->
+             
+             <div class="content-info">
+              <div class="content-dates">
+   
+               </div>
+               <div class="content-title">${vo.bopvo.b_op_title}</div>
+               <div class="content-stats">
+                 <span class="status" style="font-weight: bold">
+                   ${vo.o_status} 
+                 </span>
+                 
+                 <span style="margin-left: 20px">주문 유저 닉네임 : ${vo.uvo.u_nickname}</span>
+                 &nbsp;
+               </div>
+              
+               <div class="content-price">
+                 <fmt:formatNumber value="${vo.o_total_price}" pattern="#,###" />원
+               </div>
+             </div>
+         
+             <!-- 오른쪽 버튼 영역 -->
+             <div class="content-actions">
+               <div style="text-align: right; margin-left: auto; font-size: 11px; color:#6b7280;"> <!-- 주문 날짜 -->
+                  <fmt:formatDate value="${vo.o_createdat}" pattern="yyyy.MM.dd HH:mm"/>
+                    </div>
+             </div>
+           </div>
+         </c:forEach>
+
      
     </div>
   </main>
