@@ -14,28 +14,29 @@
     <result property="pvo.o_u_id" column="o_u_id"/>
     <result property="ovo.o_id" column="o_id"/>
     <result property="pvo.amount" column="amount"/>
+    
   </resultMap>
   
   <!-- 주문 상세페이지 데이터 조회 -->
   <select id="ordersData" resultMap="optionMap" parameterType="int">
     SELECT
-	b.b_id,
-	b_thumbnail,
-	us.u_s_id,
-	u_s_profileimg_url,
-	u_s_com,
-	b_op_id,
-	b_op_title,
-	b_op_price,
-	b_op_detail
-	FROM board b, users_seller us, board_option bo
-	WHERE b.u_s_id = us.u_s_id
-	AND b.b_id = bo.b_id
-	AND bo.b_op_id = #{b_op_id}
+   b.b_id,
+   b_thumbnail,
+   us.u_s_id,
+   u_s_profileimg_url,
+   u_s_com,
+   b_op_id,
+   b_op_title,
+   b_op_price,
+   b_op_detail
+   FROM board b, users_seller us, board_option bo
+   WHERE b.u_s_id = us.u_s_id
+   AND b.b_id = bo.b_id
+   AND bo.b_op_id = #{b_op_id}
   </select>
   
   <!-- orders table insert -->
-	<insert id="ordersInsert" parameterType="OrdersVO">
+   <insert id="ordersInsert" parameterType="OrdersVO">
     <selectKey keyProperty="o_id" resultType="int" order="BEFORE">
         SELECT orders_id_seq.nextval FROM dual
     </selectKey>
@@ -57,7 +58,7 @@
         SYSDATE,
         #{o_u_id}
     )
-	</insert>
+   </insert>
 
   <!-- orders 결제대기 -> 결제취소 변경 -->
   <update id="ordersCancel" parameterType="string">
@@ -70,7 +71,7 @@
   <!-- payment table insert -->
   <insert id="paymentInsert" parameterType="paymentVO">
    INSERT INTO payment(pay_id,o_id,o_u_id,imp_uid,merchant_uid,amount,status,pay_method,
-   					   pg_provider,receipt_url,paid_at,canceled_at,o_method)
+                     pg_provider,receipt_url,paid_at,canceled_at,o_method)
      VALUES(payment_id_seq.nextval,
             #{o_id},
             #{o_u_id},
@@ -95,55 +96,54 @@
     WHERE o_id = #{o_id}
     </update>
     
-    
   <resultMap type="OrdersVO" id="ordersMap">
-	<result property="o_id" column="o_id"/>
-	<result property="o_createdat" column="o_createdat"/>
+   <result property="o_id" column="o_id"/>
+   <result property="o_createdat" column="o_createdat"/>
 
-	<association property="bopvo" javaType="Board_OptionVO">
-		<result property="b_op_title" column="b_op_title" />
-		<result property="b_op_detail" column="b_op_detail" />
-		<result property="b_op_id" column="b_op_id" />
-	</association>
-	
-	<association property="bvo" javaType="BoardVO">
-		<result property="b_thumbnail" column="b_thumbnail" />
-		
-		<association property="usvo" javaType="Users_SellerVO">
-			<result property="u_s_com" column="u_s_com" />
-		</association>
-	</association>
-	
-	<association property="pvo" javaType="PaymentVO">
-		<result property="o_u_id" column="o_u_id" />
-		<result property="amount" column="amount" />
-		<result property="pay_id" column="pay_id" />
-		<result property="imp_uid" column="imp_uid" />
-	</association>
-	
-	
+   <association property="bopvo" javaType="Board_OptionVO">
+      <result property="b_op_title" column="b_op_title" />
+      <result property="b_op_detail" column="b_op_detail" />
+      <result property="b_op_id" column="b_op_id" />
+   </association>
+   
+   <association property="bvo" javaType="BoardVO">
+      <result property="b_thumbnail" column="b_thumbnail" />
+      
+      <association property="usvo" javaType="Users_SellerVO">
+         <result property="u_s_com" column="u_s_com" />
+      </association>
+   </association>
+   
+   <association property="pvo" javaType="PaymentVO">
+      <result property="o_u_id" column="o_u_id" />
+      <result property="amount" column="amount" />
+      <result property="pay_id" column="pay_id" />
+      <result property="imp_uid" column="imp_uid" />
+   </association>
+   
+   
   </resultMap>
   
     
    <!-- mypage payment -->
    <select id="mypagePayment" resultMap="ordersMap" parameterType="hashmap">
-	    SELECT
-		    p.o_u_id, p.amount, p.pay_id, p.imp_uid,
-			o.o_id, o.o_createdat, 
-			bo.b_op_title, bo.b_op_detail, bo.b_op_id,
-			b.b_thumbnail,
-			us.u_s_com
-			
-		FROM orders o
-		JOIN board_option bo ON o.b_op_id = bo.b_op_id
-	    JOIN payment p ON o.o_id = p.o_id
-		JOIN board b ON b.b_id = bo.b_id
-		JOIN users_seller us ON b.u_s_id = us.u_s_id
-	    WHERE o.o_u_id = #{o_u_id}
-	    ORDER BY o_id DESC
+       SELECT
+          p.o_u_id, p.amount, p.pay_id, p.imp_uid,
+         o.o_id, o.o_createdat, o.o_status,
+         bo.b_op_title, bo.b_op_detail, bo.b_op_id,
+         b.b_thumbnail,
+         us.u_s_com
+         
+      FROM orders o
+      JOIN board_option bo ON o.b_op_id = bo.b_op_id
+       JOIN payment p ON o.o_id = p.o_id
+      JOIN board b ON b.b_id = bo.b_id
+      JOIN users_seller us ON b.u_s_id = us.u_s_id
+       WHERE o.o_u_id = #{o_u_id}
+       ORDER BY o_id DESC
    </select>
 
-	<!-- 환불 인서트 -->
+   <!-- 환불 인서트 -->
    <insert id="refundInsert" parameterType="RefundVO">
     INSERT INTO refund(rf_id,pay_id,o_u_id,rf_reason,rf_amount,rf_status,rf_requestedat,rf_completedat)
      VALUES(refund_id_seq.nextval,
@@ -151,8 +151,47 @@
             #{o_u_id},
             #{rf_reason},
             #{rf_amount},
-            '환불대기',
+            '환불접수',
             SYSDATE,
             NULL)
    </insert>
+   <resultMap type="OrdersVO" id="uspayMap">
+   <result property="o_id" column="o_id"/>
+   <result property="o_createdat" column="o_createdat"/>
+   <result property="o_status" column="o_status"/>
+   <result property="o_total_price" column="o_total_price"/>
+
+   <association property="bopvo" javaType="Board_OptionVO">
+      <result property="b_op_title" column="b_op_title" />
+      <result property="b_op_id" column="b_op_id" />
+   </association>
+
+      <association property="usvo" javaType="Users_SellerVO">
+         <result property="u_s_id" column="u_s_id" />
+      </association>
+
+   <association property="uvo" javaType="UsersVO">
+      <result property="u_nickname" column="u_nickname" />
+   </association>
+   
+   
+  </resultMap>
+   <!-- 셀러 페이지 유저 결제 목록 -->
+   <select id="usPayList" resultMap="uspayMap" parameterType="int">
+        SELECT DISTINCT
+       o.o_id,
+       o.o_createdat,
+       o.o_total_price,
+       o.o_status,
+       bo.b_op_id,
+       bo.b_op_title,
+       us.u_s_id,
+       u.u_nickname
+   FROM orders o
+   LEFT JOIN board_option bo ON o.b_op_id = bo.b_op_id
+   LEFT JOIN board b ON bo.b_id = b.b_id
+   LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
+   LEFT JOIN users u ON u.u_id = us.u_id
+   WHERE us.u_s_id = #{u_s_id}
+   </select>
 </mapper>
