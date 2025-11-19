@@ -193,7 +193,7 @@
 				                    <!-- Circle Chart -->
 				                    <div class="col-md-2 text-center">처리 완료
 				                        <div style="width: 110px; margin: 0 auto;">
-				                            <div id="radialbarWidget"></div>
+				                            <div id="radialbarWidget1"></div>
 				                        </div>
 				                    </div> 
 				
@@ -483,6 +483,91 @@
         var finalCategoryChart = new ApexCharts(categoryChartElement, categoryChartOptions);
         finalCategoryChart.render();
     }
+    
+    
+    var refundNew = ${refundNew};
+    var refundTotal = ${refundTotal};
+
+    var percent = 0;
+    if (refundTotal > 0) {
+        percent = (refundNew / refundTotal) * 100;
+    }
+
+	/* 환불 완료 처리 */
+var refundNew = ${refundNew};             // 신규 환불 (미처리)
+var refundReceiveTotal = ${refundReceiveTotal}; // 환불 접수 (미처리)
+var refundTotal = ${refundTotal};         // 총 환불 수
+
+// ★ 처리 완료 건수 계산
+var completed = refundTotal - (refundNew + refundReceiveTotal);
+if (completed < 0) completed = 0;
+
+// ★ 비율 계산
+var percent = 0;
+if (refundTotal > 0) {
+    percent = (completed / refundTotal) * 100;
+}
+
+// ★ 다크모드 대응
+var isDarkMode = document.body.classList.contains("dark-mode");
+var textColor = isDarkMode ? "#fff" : "#333";
+
+// ★ 차트 설정
+var radialbarWidgetOptions = {
+    series: [percent],
+    chart: {
+        height: 120,
+        type: "radialBar"
+    },
+    plotOptions: {
+        radialBar: {
+            hollow: {
+                size: "70%",
+                margin: 0
+            },
+            dataLabels: {
+                name: { show: false },
+                value: {
+                    formatter: function() {
+                        return completed; // ★ 처리 완료 개수
+                    },
+                    fontSize: "1.53125rem",
+                    fontWeight: 700,
+                    show: true,
+                    color: textColor,
+                    offsetY: 8
+                }
+            }
+        }
+    },
+    fill: {
+        type: "gradient",
+        gradient: {
+            shade: "light",
+            type: "diagonal2",
+            shadeIntensity: 0.2,
+            gradientFromColors: ["#BB86FC"],
+            gradientToColors: ["#6200EE"],
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [20, 100]
+        }
+    },
+    stroke: {
+        lineCap: "round"
+    }
+};
+
+var radialbarWidget1 = document.querySelector("#radialbarWidget1");
+
+if (radialbarWidget1) {
+    new ApexCharts(radialbarWidget1, radialbarWidgetOptions).render();
+}
+
+
+
+
+
 </script>
 
     

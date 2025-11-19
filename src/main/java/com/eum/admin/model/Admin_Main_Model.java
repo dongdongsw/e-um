@@ -31,8 +31,6 @@ public class Admin_Main_Model {
 		int refundCompleteTotal = Admin_MainDAO.refundCompleteTotalCount();
 		List<Map<String,Object>> usersGraph = Admin_MainDAO.usersGraphMonth();
 		Map<String, Object> categoryCount = Admin_MainDAO.categoryTotalCount();
-
-		System.out.println(usersGraph);
 		
 		request.setAttribute("userTotal", userTotal);
 		request.setAttribute("sellerTotal", sellerTotal);

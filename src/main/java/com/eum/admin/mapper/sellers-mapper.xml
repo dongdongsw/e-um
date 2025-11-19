@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.admin.mapper.seller-mapper">
+
 	<resultMap id="SellerWithUserMap" type="Users_SellerVO">
 	  <!-- users_seller 기본 컬럼 -->
 	  <id property="u_s_id" column="u_s_id"/>
@@ -45,7 +46,7 @@
 		WHERE u_s_id = #{u_s_id}
 	</select>
 	
-	<!-- 셀러 컨텐츠 리스트 -->
+	<!-- <셀러> 컨텐츠 리스트 -->
 	<select id="sellerContentsListData" resultType="BoardVO" parameterType="hashmap">
 	    SELECT b.b_id, b.u_s_id, b.b_title, b.b_type, b.b_prod_on_off, b.b_createdat, b_status
 	    FROM board b

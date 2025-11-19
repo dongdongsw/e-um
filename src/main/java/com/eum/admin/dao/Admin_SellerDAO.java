@@ -22,6 +22,8 @@ public class Admin_SellerDAO {
 		ssf = CreateSqlSessionFactory.getSsf();
 	}
 	
+	private static final String NS = "com.eum.admin.mapper.delete-mapper.";
+	
 	// 셀러 리스트 조회
 	public static List<Users_SellerVO> sellerListData(Map map){
 		
@@ -119,7 +121,39 @@ public class Admin_SellerDAO {
 	}
 	
 	// 셀러 삭제
+	public static void sellerDel(int u_s_id) {
+		
+		try {
+			SqlSession session = ssf.openSession();
+			List<String> bList = session.selectList(NS + "findSellerBoardIds", u_s_id);
+			for(String b_id : bList) {
+				//셀러가 받은 좋아요 삭제
+	            session.delete(NS + "favoriteDel", b_id);
+				//셀러가 받은 즐겨찾기 삭제
+	            session.delete(NS + "likeDel", b_id);
+				//셀러가 받은 리뷰 이미지 삭제
+	            session.delete(NS + "reviewImageDel", b_id);
+				//셀러 작성한 리뷰 삭제 & 셀러가 받은 리뷰 삭제
+	            session.delete(NS + "reviewDel", b_id);
+				//셀러가 만든 게시판 이미지 삭제
+	            session.delete(NS + "detailImgDel", b_id);
+				//셀러가 만든 게시판 옵션 삭제
+	            session.delete(NS + "priceOpDel", b_id);
+				//셀러가 만든 게시판 삭제
+	            session.delete(NS + "boardDel", b_id);
+	            
+			}
+            //마지막으로 셀러 삭제
+            session.delete(NS + "sellerDelete", u_s_id);
 			
+			session.commit();
+			session.close();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
 	
 	// 셀러 검색 + 페이지 목록
 	public static List<Users_SellerVO> sellerSearchListData(Map map){

@@ -46,7 +46,7 @@
   	WHERE b_id=#{b_id}
   </delete>
   
-  <delete id="likeDel" parameterType="string"> <!-- 상세이미지 삭제 -->
+  <delete id="likeDel" parameterType="string"> <!-- 좋아요 삭제 -->
     DELETE FROM board_like
   	WHERE b_id=#{b_id}
   </delete>
@@ -97,5 +97,12 @@
   	DELETE FROM board_like
   	WHERE u_id = #{u_id}
   </delete>
+  
+  <!-- 셀러 삭제 -->
+  <delete id="sellerDelete" parameterType="int">
+  	DELETE FROM users_seller
+  	WHERE u_s_id = #{u_s_id}
+  </delete>
+  
   
   </mapper>

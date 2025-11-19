@@ -251,7 +251,7 @@ input:not(:placeholder-shown) ~ .reset {
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="../admin/admin_seller_detail.eum?u_s_id=${sellers_list.u_s_id}">상세보기</a>
-                                <a class="dropdown-item" href="#">삭제</a>
+                                <a class="dropdown-item" href="../admin/admin_seller_delete.eum?page=${curpage}&u_s_id=${sellers_list.u_s_id}&keyword=${keyword}">삭제</a>
                               </div>
                             </td>
                           </tr>
