@@ -102,4 +102,17 @@ public class Admin_Contents_Model {
 		
 		return "redirect:../admin/admin_contents_detail.eum?b_id="+b_id;
 	}
+	
+	// 관리자 컨텐츠 삭제 
+	@RequestMapping("admin/admin_contents_delete.eum")
+	public String admin_contents_delete(HttpServletRequest request, HttpServletResponse response) {
+		String page = request.getParameter("page");
+		String b_id = request.getParameter("b_id");
+		String keyword = request.getParameter("keyword");
+		
+		Admin_ContentsDAO.contentsDel(b_id);
+		
+		return "redirect:../admin/admin_contents_list.eum?page="+page+"&keyword="+keyword;
+	}
+	
 }

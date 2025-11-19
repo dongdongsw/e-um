@@ -13,6 +13,7 @@
 		<result property="b_review_id" column="b_review_id"/>
 		<result property="b_id" column="b_id"/>
 		<result property="u_id" column="u_id"/>
+		<result property="depth" column="depth"/>
 		<result property="b_review_createdat" column="b_review_createdat"/>
 		<result property="b_review_content" column="b_review_content"/>
 		<result property="b_review_score" column="b_review_score"/>
@@ -37,7 +38,7 @@
 
 	<!-- <리뷰> 리스트 -->
 	<select id="reviewListData" resultMap="reviewMap" parameterType="hashmap">
-		SELECT r.u_id, r.b_review_id, r.b_review_createdat, r.u_s_id, r.b_id,
+		SELECT r.u_id, r.b_review_id, r.b_review_createdat, r.u_s_id, r.b_id, r.depth,
 				     r.b_review_content, r.b_review_score, u.u_nickname, b.b_type
 		FROM review r
 		LEFT JOIN users u ON r.u_id = u.u_id
@@ -55,7 +56,7 @@
 	
 	<!-- <리뷰> 검색 리스트 -->
 	<select id="reviewSearchListData" resultMap="reviewMap" parameterType="hashmap">
-		SELECT r.u_id, r.b_review_id, r.b_review_createdat, r.u_s_id, r.b_id,
+		SELECT r.u_id, r.b_review_id, r.b_review_createdat, r.u_s_id, r.b_id, r.depth,
 				     r.b_review_content, r.b_review_score, u.u_nickname, b.b_type
 		FROM review r
 		LEFT JOIN users u ON r.u_id = u.u_id

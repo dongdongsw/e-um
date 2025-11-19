@@ -279,7 +279,7 @@
 		    </c:otherwise>
 		</c:choose>
 
-        <a href="" class="btn btn-danger btn-sm">삭제</a>
+        <a href="../admin/admin_contents_delete.eum?page=1&b_id=${board_vo.b_id}&keyword= " class="btn btn-danger btn-sm">삭제</a>
     </div>
 
 </div>

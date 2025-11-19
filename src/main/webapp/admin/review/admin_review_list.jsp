@@ -191,6 +191,7 @@ input:not(:placeholder-shown) ~ .reset {
                             <th></th>
                             <th><strong>NO</strong></th>
                             <th><strong>리뷰 점수</strong></th>
+                            <th><strong>종류</strong></th>
                             <th><strong>작성자</strong></th>
                             <th><strong>카테고리</strong></th>
                             <th class="w-25"><strong>content</strong></th>
@@ -210,6 +211,15 @@ input:not(:placeholder-shown) ~ .reset {
                             
                             <td>
                               <p class="mb-0 text-normal">⭐${review_list.b_review_score}</p>
+                            </td>
+                            
+                             <td>
+                             	<c:if test="${review_list.depth == 1}">
+                             		<p class="mb-0 text-normal">리뷰</p>	
+                             	</c:if>
+                              	<c:if test="${review_list.depth == 2}">
+                             		<p class="mb-0 text-normal">답글</p>	
+                             	</c:if>
                             </td>
                             
                             <td>
@@ -266,7 +276,15 @@ input:not(:placeholder-shown) ~ .reset {
 								
                                 <a class="dropdown-item" href="../admin/admin_users_detail.eum?u_id=${review_list.u_id }">사용자 프로필</a>
                                 <a class="dropdown-item" href="../admin/admin_seller_detail.eum?u_s_id=${review_list.u_s_id }">판매자 프로필</a>
-                                <a class="dropdown-item" href="#">삭제</a>
+                                <c:if test="">
+                                	
+                                </c:if>
+                                <c:if test="${review_list.depth == 1}">
+                             		<a class="dropdown-item" href="../admin/admin_review_delete.eum?page=${curpage }&keyword=${keyword}&b_review_id=${review_list.b_review_id}">리뷰삭제</a>	
+                             	</c:if>
+                              	<c:if test="${review_list.depth == 2}">
+                             		<a class="dropdown-item" href="../admin/admin_review_replydelete.eum?page=${curpage }&keyword=${keyword}&b_review_id=${review_list.b_review_id}">답글삭제</a>
+                             	</c:if>
                               </div>
                             </td>
                           </tr>
@@ -380,7 +398,9 @@ input:not(:placeholder-shown) ~ .reset {
     });
 
 
-    document.querySelector(".reset").addEventListener("click", function(e){
+    document.querySelector(".form .reset").addEventListener("click", function(e){
+        e.preventDefault();   
+
         const input = document.querySelector(".input");
         input.value = "";
         input.focus();

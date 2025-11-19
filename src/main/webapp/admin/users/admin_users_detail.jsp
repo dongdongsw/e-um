@@ -225,19 +225,19 @@ function toggleContent(el) {
                         				
                         	 <c:choose>
 						        <c:when test="${users_vo.u_status == 'active'}">
-						            <span class="status-label status-active mr-3">회원 활동</span>
+						            <span class="status-label status-active mr-2">회원 활동</span>
 						        </c:when>
 						
 						        <c:when test="${users_vo.u_status == 'warning'}">
-						        	<span class="status-label status-warning  mr-3">회원 경고</span>
+						        	<span class="status-label status-warning  mr-2">회원 경고</span>
 						        </c:when>
 						
 						        <c:when test="${users_vo.u_status == 'inactive'}">
-						            <span class="status-label status-inactive  mr-3" style="font-size:14px;">회원 정지</span>
+						            <span class="status-label status-inactive  mr-2" style="font-size:14px;">회원 정지</span>
 						        </c:when>
 						
 						        <c:otherwise>
-						            <span class="status-label tatus-active mr-3" style="font-size:14px;">알수없음</span>
+						            <span class="status-label tatus-active mr-2" style="font-size:14px;">알수없음</span>
 						        </c:otherwise>
 						    </c:choose>
 							    <div class="dropdown">
@@ -275,7 +275,7 @@ function toggleContent(el) {
 								        <div class="dropdown-divider"></div>
 								
 								        <!-- 회원 삭제 (항상 표시) -->
-								        <a class="dropdown-item text-danger" href="#">
+								        <a class="dropdown-item text-danger" href="../admin/admin_users_delete.eum?u_id=${users_vo.u_id }">
 								            회원 삭제
 								        </a>
 								
@@ -497,7 +497,7 @@ function toggleContent(el) {
 												      <i class="fe fe-more-vertical"></i>
 												    </button>
 												    <div class="dropdown-menu dropdown-menu-right m-2">
-												      <a class="dropdown-item" href="#"><i class="fe fe-delete fe-12 mr-2"></i>Delete</a>
+												      <a class="dropdown-item" href="../admin/admin_review_delete.eum?u_id=${users_vo.u_id}&b_review_id=${r_list.b_review_id}&redirect=user_detail"><i class="fe fe-delete fe-12 mr-2"></i>리뷰 삭제</a>
 												    </div>
 												  </div>
 												</div>

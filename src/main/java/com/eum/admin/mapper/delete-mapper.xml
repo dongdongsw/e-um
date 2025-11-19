@@ -104,5 +104,21 @@
   	WHERE u_s_id = #{u_s_id}
   </delete>
   
-  
+     <!-- 리뷰와 리뷰의 대한 답변 삭제 -->
+   <delete id="reviewReplyDelete" parameterType="int">
+     DELETE FROM review
+     WHERE group_id = #{b_review_id}
+   </delete>
+   
+   <!-- 리뷰 이미지 삭제 -->
+   <delete id="reviewImageDelete" parameterType="int">
+     DELETE FROM review_image
+     WHERE b_review_id = #{b_review_id}
+   </delete>
+   
+   <!-- 리뷰 답글만 삭제 -->
+   <delete id="reviewDelete" parameterType="int">
+     DELETE FROM review
+     WHERE b_review_id = #{b_review_id}
+   </delete>
   </mapper>

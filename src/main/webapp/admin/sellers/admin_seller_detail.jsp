@@ -164,12 +164,32 @@ function toggleContent(el) {
                         </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
+                       
                         <!-- 프로필 정보 -->
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"> 
                         	<div class="d-flex justify-content-end">
-							    <a href="../admin/admin_users_detail.eum?u_id=${seller_vo.u_id }" class="btn mb-2 btn-lavender">회원 정보</a>
-							    
+							    <div class="dropdown">
+								    <button class="btn btn-light mb-1 dropdown-toggle" type="button" id="userActionMenu"
+								            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								        더보기
+								    </button>
+								
+								    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userActionMenu">
+							            <a class="dropdown-item" 
+							               href="../admin/admin_users_detail.eum?u_id=${seller_vo.u_id }">
+							               회원 정보
+							            </a>
+							            
+								        <!-- 회원 삭제 (항상 표시) -->
+								        <a class="dropdown-item text-danger" href="../admin/admin_seller_delete.eum?page=${curpage}&u_s_id=${seller_vo.u_s_id}&keyword= ">
+								            회원 삭제
+								        </a>
+								
+								    </div>
+								</div>
 							</div>
+							
+							
 			                  <div class="row mt-5 align-items-center profile-header">
 
 			                    <div class="col-md-3 text-center mb-5">
@@ -199,7 +219,7 @@ function toggleContent(el) {
 			                  
 			                  	  <!-- 기본 정보 -->
 					              <div class="col-md-4">
-					                <div class="card shadow mb-6">
+					                <div class="card shadow mb-1">
 					                  <div class="card-header">
 					                    <strong class="card-title">셀러 기본 정보</strong>
 					                  </div>
@@ -338,17 +358,17 @@ function toggleContent(el) {
 							                     <ul class="pagination justify-content-end mb-0">
 							                        <c:if test="${startPage > 1 }">
 							                          <li class="page-item">
-							                          	<a class="page-link" href="../admin/admin_sellers_detail.eum?page=${startPage-1 }">&lt;</a>
+							                          	<a class="page-link" href="../admin/admin_seller_detail.eum?page=${startPage-1 }&u_s_id=${seller_vo.u_s_id}">&lt;</a>
 							                          </li>
 							                        </c:if>
 							                        <c:forEach var="i" begin="${startPage }" end="${endPage }">
 							                          <li class="page-item ${i==curpage?'active':'' }" >
-							                          	<a class="page-link" href="../admin/admin_sellers_detail.eum?page=${i }">${i }</a>
+							                          	<a class="page-link" href="../admin/admin_seller_detail.eum?page=${i }&u_s_id=${seller_vo.u_s_id}">${i }</a>
 							                          </li>
 							                        </c:forEach>  
 							                        <c:if test="${endPage < totalpage }">
 							                          <li class="page-item">
-							                          <a class="page-link" href="../admin/admin_sellers_detail.eum?page=${endPage+1 }">&gt;</a>
+							                          <a class="page-link" href="../admin/admin_seller_detail.eum?page=${endPage+1 }&u_s_id=${seller_vo.u_s_id}">&gt;</a>
 							                          </li>
 							                        </c:if>
 							                     </ul>
@@ -407,7 +427,7 @@ function toggleContent(el) {
 												      <i class="fe fe-more-vertical"></i>
 												    </button>
 												    <div class="dropdown-menu dropdown-menu-right m-2">
-												      <a class="dropdown-item" href="#"><i class="fe fe-delete fe-12 mr-2"></i>Delete</a>
+												      <a class="dropdown-item" href="../admin/admin_review_delete.eum?page_r=${curpage_r}&b_review_id=${r_list.b_review_id }&u_s_id=${seller_vo.u_s_id}&redirect=seller_detail"><i class="fe fe-delete fe-12 mr-2"></i>Delete</a>
 												    </div>
 												  </div>
 												</div>
@@ -607,7 +627,7 @@ function toggleContent(el) {
 			                          <span class="text-muted sr-only">Action</span>
 			                        </button>
 			                        <div class="dropdown-menu dropdown-menu-right">
-			                          <a class="dropdown-item" href="#">Remove</a>
+			                          <a class="dropdown-item" href="">Remove</a>
 			                        </div>
 			                      </div>
 			                    </td>

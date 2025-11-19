@@ -288,11 +288,14 @@ input:not(:placeholder-shown) ~ .reset {
         
 <script type="text/javascript">
 
-document.querySelector(".reset").addEventListener("click", function(e){
+document.querySelector(".form .reset").addEventListener("click", function(e){
+    e.preventDefault();  
+
     const input = document.querySelector(".input");
     input.value = "";
     input.focus();
 });
+
 
 </script>
     

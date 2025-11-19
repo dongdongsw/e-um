@@ -48,19 +48,23 @@
 	<!-- 신규 셀러 비율 1주 전과 비교 -->
 	<select id="sellerNewRegistGrowth" resultType="double">
 		SELECT ROUND(
-			(	
-				(
-					SELECT COUNT(*) FROM users_seller
-					WHERE u_createat &lt; SYSDATE AND u_createat &gt;= SYSDATE-7
-				) * 100.0
-			)
-			/
-			(
-				SELECT COUNT(*) FROM users_seller
-				WHERE u_createat &lt; SYSDATE-7 AND u_createat &gt;= SYSDATE-14
-			),1
-		)
-		FROM dual
+	        (
+	            (
+	                SELECT COUNT(*) 
+	                FROM users_seller
+	                WHERE u_createat &lt; SYSDATE 
+	                  AND u_createat &gt;= SYSDATE-7
+	            ) * 100.0
+	        )
+	        /
+	        NULLIF((
+	            SELECT COUNT(*) 
+	            FROM users_seller
+	            WHERE u_createat &lt; SYSDATE-7 
+	              AND u_createat &gt;= SYSDATE-14
+	        ), 0)
+	    ,1)
+	    FROM dual
 	</select>
 	
 	<!-- 총 환불 금액 -->

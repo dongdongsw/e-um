@@ -235,7 +235,7 @@ input:not(:placeholder-shown) ~ .reset {
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                           <a class="dropdown-item" href="../admin/admin_users_detail.eum?u_id=${orders_list.uvo.u_id }">프로필</a>
-                          <a class="dropdown-item" href="#">Remove</a>
+                          
                         </div>
                       </div>
                     </td>
@@ -318,23 +318,24 @@ input:not(:placeholder-shown) ~ .reset {
 <script>
 $(document).on("click", ".btn-refund", function () {
 
-    $("#rf-id").val($(this).data("rfid"));               // 환불 ID
-    $("#rf-reason").text($(this).data("reason"));        // 사유
-    $("#rf-amount").text($(this).data("amount"));        // 금액
-    $("#rf-requested").text($(this).data("requested"));  // 요청일
-    $("#rf-completed").text($(this).data("completed"));  // 완료일
+    $("#rf-id").val($(this).data("rfid"));               
+    $("#rf-reason").text($(this).data("reason"));    
+    $("#rf-amount").text($(this).data("amount"));      
+    $("#rf-requested").text($(this).data("requested"));  
+    $("#rf-completed").text($(this).data("completed")); 
 
-    const status = $(this).data("status");               // 현재 상태
+    const status = $(this).data("status");           
     $("#rf-status").text(status);
-    $("#rf-status-select").val(status);                  // 드롭다운 선택
+    $("#rf-status-select").val(status);                
 
     $("#refundModal").modal("show");
 });
 
-document.querySelector(".reset").addEventListener("click", function(e){
+document.querySelector(".form .reset").addEventListener("click", function(e){
+    e.preventDefault();   
+
     const input = document.querySelector(".input");
     input.value = "";
     input.focus();
 });
-
 </script>

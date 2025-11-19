@@ -21,6 +21,7 @@ public class Admin_ContentsDAO {
 	}
 
 	private static final String NS = "com.eum.admin.mapper.contents-mapper.";
+	private static final String DS = "com.eum.admin.mapper.delete-mapper.";
 	// 컨텐츠 리스트 조회
 	public static List<BoardVO> contentsListData(Map map){
 		
@@ -111,7 +112,38 @@ public class Admin_ContentsDAO {
        return list;
     }
 	// 컨텐츠 삭제
-	
+	public static void contentsDel(String b_id) {
+		
+		try
+	       {
+	          SqlSession session=ssf.openSession();
+	          
+		        //셀러가 받은 좋아요 삭제
+	            session.delete(DS + "favoriteDel", b_id);
+				//셀러가 받은 즐겨찾기 삭제
+	            session.delete(DS + "likeDel", b_id);
+				//셀러가 받은 리뷰 이미지 삭제
+	            session.delete(DS + "reviewImageDel", b_id);
+				//셀러 작성한 리뷰 삭제 & 셀러가 받은 리뷰 삭제
+	            session.delete(DS + "reviewDel", b_id);
+				//셀러가 만든 게시판 이미지 삭제
+	            session.delete(DS + "detailImgDel", b_id);
+				//셀러가 만든 게시판 옵션 삭제
+	            session.delete(DS + "priceOpDel", b_id);
+				//셀러가 만든 게시판 삭제
+	            session.delete(DS + "boardDel", b_id);
+	            
+	            session.commit();
+	            
+	        	session.close();
+	       }catch(Exception ex)
+	       {
+	          ex.printStackTrace();
+	       }
+		
+	}
+    
+    
 	// 컨텐츠 상태 수정
 	public static void contentsStatusUpdate(Map map) {
 		

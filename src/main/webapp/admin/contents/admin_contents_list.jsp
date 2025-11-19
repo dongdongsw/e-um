@@ -242,7 +242,7 @@ input:not(:placeholder-shown) ~ .reset {
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="../admin/admin_contents_detail.eum?b_id=${contents_list.b_id }">상세보기</a>
-                                <a class="dropdown-item" href="#">삭제</a>
+                                <a class="dropdown-item" href="../admin/admin_contents_delete.eum?page=${curpage}&b_id=${contents_list.b_id}&keyword=${keyword}">삭제</a>
                               </div>
                             </td>
                           </tr>
@@ -279,7 +279,9 @@ input:not(:placeholder-shown) ~ .reset {
         
 <script type="text/javascript">
 
-document.querySelector(".reset").addEventListener("click", function(e){
+document.querySelector(".form .reset").addEventListener("click", function(e){
+    e.preventDefault();   
+
     const input = document.querySelector(".input");
     input.value = "";
     input.focus();
