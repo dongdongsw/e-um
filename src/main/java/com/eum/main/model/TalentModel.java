@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.eum.main.vo.*;
+import com.eum.pay.dao.LikeDAO;
 import com.eum.users.dao.FavoriteDAO;
 import com.eum.main.dao.TalentDAO;
 import com.sist.controller.Controller;
@@ -274,6 +275,13 @@ public class TalentModel {
 	 	   List<BoardVO> review_vo=TalentDAO.talentDetailreview(b_id);
 	 	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
 	 	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
+		   Board_LikeVO board_like_vo = new Board_LikeVO();
+
+		   board_like_vo.setB_id(b_id);               
+		   board_like_vo.setU_id(u_id);
+			
+		   int chk = LikeDAO.boardLikeUserChk(board_like_vo);
+		   int likeCount = LikeDAO.boardLikeCount(board_like_vo);
 	 	   
 	 	   // 즐겨찾기 카운트 초기화
 	 	   int fCount = 0; 
@@ -290,6 +298,8 @@ public class TalentModel {
 	 	   request.setAttribute("review_vo", review_vo);
 	 	   request.setAttribute("score_vo", score_vo);
 	 	   request.setAttribute("price_vo", price_vo);
+		   request.setAttribute("likeCount", likeCount);
+	 	   request.setAttribute("chk", chk);
 	 	   request.setAttribute("fCount", fCount);
 		   request.setAttribute("u_id", u_id);
 	 	   
