@@ -632,7 +632,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         <c:if test="${session.Scope.role == ROLE_ADMIN && sessionScope.id!=null }">
                     		<li><a href="../admin/admin_main.eum">관리자</a></li>
                     	</c:if>
-                        <li><a href="../talent/list.eum">list</a></li>
                         <c:if test="${sessionScope.sid==0 && sessionScope.id!=null}">
                         <li><a href="../seller/join.eum">셀러 등록</a></li>
                         </c:if>
