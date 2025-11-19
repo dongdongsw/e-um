@@ -62,12 +62,12 @@ body {
 }
 
 .header-area .main-nav .logo-image {
-	margin-left: 10px;
+	margin-left: 5px;
   	width: 70px;
 }
 
 .background-header .main-nav .logo {
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .background-header .main-nav .logo-image {
@@ -550,6 +550,7 @@ body {
 
 .logo-image {
     margin-right: 10px; /* 이미지와 텍스트 간 간격 */
+    pointer-events: none; /* object 태그의 클릭 이벤트를 부모로 전달 */
 }
 
 .logo-text h1,
