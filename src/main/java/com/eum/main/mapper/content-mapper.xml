@@ -259,44 +259,172 @@
     FROM board B
     WHERE B.b_title LIKE '%'||#{keyword}||'%' OR B.b_content LIKE '%'||#{keyword}||'%'
     </select>
-<!-- 타입 검색 -->
-<select id="talentSearchTypeData" resultMap="boardMap" parameterType="hashmap">
-	SELECT * FROM (
-	  SELECT ROWNUM AS num, A.*
-	  FROM (
-	    SELECT
-	      board.b_id,
-	      b_title,
-	      b_thumbnail,
-	      ROUND(AVG(b_review_score),1) AS b_review_score,
-	      COUNT(DISTINCT b_review_id) AS review_count,
-	      MIN(b_op_price) AS b_op_price,
-	      u_s_com,
-	      b_type,
-	      board.b_view_count
-	    FROM board
-	    JOIN board_option ON board.b_id = board_option.b_id
-	    JOIN users_seller ON board.u_s_id = users_seller.u_s_id
-	    JOIN review ON board.b_id = review.b_id
-	    WHERE b_type = #{b_type}
-	    GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type,board.b_view_count
-	    <choose>
-	      <when test="fd == 'price_asc'">ORDER BY b_op_price ASC</when>
-	      <when test="fd == 'price_desc'">ORDER BY b_op_price DESC</when>
-	      <when test="fd == 'review'">ORDER BY review_count DESC</when>
-	      <when test="fd == 'view'">ORDER BY board.b_view_count DESC</when>
-	      <when test="fd == 'review_score'">ORDER BY b_review_score DESC</when>
-	      <otherwise>ORDER BY board.b_id DESC</otherwise>
-	    </choose>
-	  ) A
-	)
+    
+  <!-- 타입별 리스트 -->
+  <!-- 생활라이프 -->
+  <select id="talentTypeListData" resultMap="boardMap" parameterType="hashmap">
+    SELECT * FROM ( SELECT ROWNUM AS num, A.*
+    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
+                ROUND(AVG(b_review_score),1) AS b_review_score,
+                COUNT(DISTINCT b_review_id) AS review_count,
+                MIN(b_op_price) AS b_op_price, u_s_com, b_type
+          FROM board,board_option,users_seller,review
+          WHERE board.b_id = board_option.b_id
+          AND board.u_s_id = users_seller.u_s_id
+          AND board.b_id = review.b_id
+          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
+          ORDER BY b_id DESC
+         ) A)
 	WHERE num BETWEEN #{start} AND #{end}
-</select>
-<!-- 타입 페이지네이션 -->
-<select id="talentSearchTypeTotalPage" resultType="int" parameterType="hashmap">
+	AND b_type = '생활라이프'
+  </select>
+  
+  <!-- 운동건강 -->
+  <select id="exerTypeListData" resultMap="boardMap" parameterType="hashmap">
+    SELECT * FROM ( SELECT ROWNUM AS num, A.*
+    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
+                ROUND(AVG(b_review_score),1) AS b_review_score,
+                COUNT(DISTINCT b_review_id) AS review_count,
+                MIN(b_op_price) AS b_op_price, u_s_com, b_type
+          FROM board,board_option,users_seller,review
+          WHERE board.b_id = board_option.b_id
+          AND board.u_s_id = users_seller.u_s_id
+          AND board.b_id = review.b_id
+          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
+          ORDER BY b_id DESC
+         ) A)
+	WHERE num BETWEEN #{start} AND #{end}
+	AND b_type = '운동건강'
+  </select>
+  
+  <!-- 취미/자기개발 -->
+  <select id="hobbyTypeListData" resultMap="boardMap" parameterType="hashmap">
+    SELECT * FROM ( SELECT ROWNUM AS num, A.*
+    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
+                ROUND(AVG(b_review_score),1) AS b_review_score,
+                COUNT(DISTINCT b_review_id) AS review_count,
+                MIN(b_op_price) AS b_op_price, u_s_com, b_type
+          FROM board,board_option,users_seller,review
+          WHERE board.b_id = board_option.b_id
+          AND board.u_s_id = users_seller.u_s_id
+          AND board.b_id = review.b_id
+          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
+          ORDER BY b_id DESC
+         ) A)
+	WHERE num BETWEEN #{start} AND #{end}
+	AND b_type = '취미/자기개발'
+  </select>
+  
+  <!-- 비즈니스 -->
+  <select id="bizTypeListData" resultMap="boardMap" parameterType="hashmap">
+    SELECT * FROM ( SELECT ROWNUM AS num, A.*
+    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
+                ROUND(AVG(b_review_score),1) AS b_review_score,
+                COUNT(DISTINCT b_review_id) AS review_count,
+                MIN(b_op_price) AS b_op_price, u_s_com, b_type
+          FROM board,board_option,users_seller,review
+          WHERE board.b_id = board_option.b_id
+          AND board.u_s_id = users_seller.u_s_id
+          AND board.b_id = review.b_id
+          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
+          ORDER BY b_id DESC
+         ) A)
+	WHERE num BETWEEN #{start} AND #{end}
+	AND b_type = '비즈니스'
+  </select>
+
+  <!-- 기타 -->
+  <select id="etcTypeListData" resultMap="boardMap" parameterType="hashmap">
+    SELECT * FROM ( SELECT ROWNUM AS num, A.*
+    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
+                ROUND(AVG(b_review_score),1) AS b_review_score,
+                COUNT(DISTINCT b_review_id) AS review_count,
+                MIN(b_op_price) AS b_op_price, u_s_com, b_type
+          FROM board,board_option,users_seller,review
+          WHERE board.b_id = board_option.b_id
+          AND board.u_s_id = users_seller.u_s_id
+          AND board.b_id = review.b_id
+          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
+          ORDER BY b_id DESC
+         ) A)
+	WHERE num BETWEEN #{start} AND #{end}
+	AND b_type = '기타'
+  </select>
+  
+  <!-- 타입 페이지네이션 -->
+  <!-- 생활라이프 -->
+  <select id="talentTypeTotalPage" resultType="int">
     SELECT CEIL(COUNT(*) / 12.0)
     FROM board
-    WHERE b_type = #{b_type}
-</select>
+    WHERE b_type = '생활라이프'
+  </select>
+  
+  <!-- 운동건강 -->
+  <select id="exerTypeTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*) / 12.0)
+    FROM board
+    WHERE b_type = '운동건강'
+  </select>
+  
+  <!-- 취미/자기개발 -->
+  <select id="hobbyTypeTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*) / 12.0)
+    FROM board
+    WHERE b_type = '취미/자기개발'
+  </select>
+  
+  <!-- 비즈니스 -->
+  <select id="bizTypeTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*) / 12.0)
+    FROM board
+    WHERE b_type = '비즈니스'
+  </select>
+  
+  <!-- 기타 -->
+  <select id="etcTypeTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*) / 12.0)
+    FROM board
+    WHERE b_type = '비즈니스'
+  </select>
+  
+    <!-- 타입 검색 -->
+	<select id="talentSearchTypeData" resultMap="boardMap" parameterType="hashmap">
+		SELECT * FROM (
+		  SELECT ROWNUM AS num, A.*
+		  FROM (
+		    SELECT
+		      board.b_id,
+		      b_title,
+		      b_thumbnail,
+		      ROUND(AVG(b_review_score),1) AS b_review_score,
+		      COUNT(DISTINCT b_review_id) AS review_count,
+		      MIN(b_op_price) AS b_op_price,
+		      u_s_com,
+		      b_type,
+		      board.b_view_count
+		    FROM board
+		    JOIN board_option ON board.b_id = board_option.b_id
+		    JOIN users_seller ON board.u_s_id = users_seller.u_s_id
+		    JOIN review ON board.b_id = review.b_id
+		    WHERE b_type = #{b_type}
+		    GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type,board.b_view_count
+		    <choose>
+		      <when test="fd == 'price_asc'">ORDER BY b_op_price ASC</when>
+		      <when test="fd == 'price_desc'">ORDER BY b_op_price DESC</when>
+		      <when test="fd == 'review'">ORDER BY review_count DESC</when>
+		      <when test="fd == 'view'">ORDER BY board.b_view_count DESC</when>
+		      <when test="fd == 'review_score'">ORDER BY b_review_score DESC</when>
+		      <otherwise>ORDER BY board.b_id DESC</otherwise>
+		    </choose>
+		  ) A
+		)
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 타입 페이지네이션 -->
+	<select id="talentSearchTypeTotalPage" resultType="int" parameterType="hashmap">
+	    SELECT CEIL(COUNT(*) / 12.0)
+	    FROM board
+	    WHERE b_type = #{b_type}
+	</select>
 </mapper>
 

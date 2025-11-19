@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 import com.eum.main.vo.*;
 import com.eum.pay.dao.LikeDAO;
 import com.eum.users.dao.FavoriteDAO;
-import com.eum.main.dao.TalentDAO;
+import com.eum.main.dao.ContentDAO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class TalentModel {
+public class ContentModel {
 	 @RequestMapping("talent/keyword_list.eum")
 	    public String talent_search(HttpServletRequest request, HttpServletResponse response) {
 	        
@@ -42,8 +42,8 @@ public class TalentModel {
 	        map.put("end", end);
 
 	        // DAO 호출
-	        List<BoardVO> list = TalentDAO.talentSearchKeywordData(map);
-	        int totalpage = TalentDAO.talentSearchKeywordTotalPage(map);
+	        List<BoardVO> list = ContentDAO.talentSearchKeywordData(map);
+	        int totalpage = ContentDAO.talentSearchKeywordTotalPage(map);
 	        
 	        final int BLOCK = 10;
 		    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
@@ -85,8 +85,8 @@ public class TalentModel {
 	        map.put("start", start);
 	        map.put("end", end);
 
-	        List<BoardVO> list = TalentDAO.talentSearchTypeData(map);
-	        int totalpage = TalentDAO.talentSearchTypeTotalPage(map);
+	        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
+	        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
 
 	        final int BLOCK = 10;
 		    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
@@ -125,8 +125,8 @@ public class TalentModel {
 	            map.put("start", (curpage - 1) * 12 + 1);
 	            map.put("end", curpage * 12);
 
-	            List<BoardVO> list = TalentDAO.talentSearchKeywordData(map);
-	            int totalpage = TalentDAO.talentSearchKeywordTotalPage(map);
+	            List<BoardVO> list = ContentDAO.talentSearchKeywordData(map);
+	            int totalpage = ContentDAO.talentSearchKeywordTotalPage(map);
 
 	            int BLOCK = 10;
 	            int startpage = ((curpage - 1) / BLOCK * BLOCK) + 1;
@@ -202,8 +202,8 @@ public class TalentModel {
 	            map.put("start", (curpage - 1) * 12 + 1);
 	            map.put("end", curpage * 12);
 
-	            List<BoardVO> list = TalentDAO.talentSearchTypeData(map);
-	            int totalpage = TalentDAO.talentSearchTypeTotalPage(map);
+	            List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
+	            int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
 
 	            int BLOCK = 10;
 	            int startpage = ((curpage - 1) / BLOCK * BLOCK) + 1;
@@ -269,12 +269,12 @@ public class TalentModel {
 	   try {
 		   String b_id=request.getParameter("b_id");
 	 	   
-	 	   BoardVO detail_vo=TalentDAO.talentDetailData(b_id);
-	 	   BoardVO board_vo=TalentDAO.talentDetailboard(b_id);
-	 	   List<BoardVO> image_vo=TalentDAO.talentDetailboardImage(b_id);
-	 	   List<BoardVO> review_vo=TalentDAO.talentDetailreview(b_id);
-	 	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
-	 	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
+	 	   BoardVO detail_vo=ContentDAO.talentDetailData(b_id);
+	 	   BoardVO board_vo=ContentDAO.talentDetailboard(b_id);
+	 	   List<BoardVO> image_vo=ContentDAO.talentDetailboardImage(b_id);
+	 	   List<BoardVO> review_vo=ContentDAO.talentDetailreview(b_id);
+	 	   BoardVO score_vo=ContentDAO.talentDetailscore(b_id);
+	 	   List<Board_OptionVO> price_vo=ContentDAO.talentDetailprice(b_id);
 		   Board_LikeVO board_like_vo = new Board_LikeVO();
 
 		   board_like_vo.setB_id(b_id);               
@@ -326,12 +326,12 @@ public class TalentModel {
 	   map.put("u_id", id);
 	   map.put("b_id", b_id);
 	   
-	   int buy=TalentDAO.buyCheck(map);
-	   BoardVO detail_vo=TalentDAO.talentDetailData(b_id);
-	   BoardVO board_vo=TalentDAO.talentDetailboard(b_id);
-	   List<BoardVO> review_vo=TalentDAO.talentDetailreview(b_id);
-	   BoardVO score_vo=TalentDAO.talentDetailscore(b_id);
-	   List<Board_OptionVO> price_vo=TalentDAO.talentDetailprice(b_id);
+	   int buy=ContentDAO.buyCheck(map);
+	   BoardVO detail_vo=ContentDAO.talentDetailData(b_id);
+	   BoardVO board_vo=ContentDAO.talentDetailboard(b_id);
+	   List<BoardVO> review_vo=ContentDAO.talentDetailreview(b_id);
+	   BoardVO score_vo=ContentDAO.talentDetailscore(b_id);
+	   List<Board_OptionVO> price_vo=ContentDAO.talentDetailprice(b_id);
 	   
 	   request.setAttribute("buy", buy);
 	   request.setAttribute("page", page);
@@ -365,7 +365,7 @@ public class TalentModel {
 		   vo.setB_review_content(content);
 		   vo.setB_review_score(Double.parseDouble(score));
 		   
-		   TalentDAO.reviewInsert(vo);
+		   ContentDAO.reviewInsert(vo);
 		   
 	   } catch (Exception e) {
 		   e.printStackTrace();
@@ -395,7 +395,7 @@ public class TalentModel {
 		   vo.setB_review_content(content);
 		   vo.setGroup_id(group_id);
 		   
-		   TalentDAO.replyInsert(vo);
+		   ContentDAO.replyInsert(vo);
 		   
 	   } catch (Exception e) {
 		   e.printStackTrace();
@@ -422,7 +422,7 @@ public class TalentModel {
 	   vo.setB_review_score(Double.parseDouble(score));
 	   vo.setB_review_content(content);
 	   
-	   String res=TalentDAO.reviewUpdate(vo);
+	   String res=ContentDAO.reviewUpdate(vo);
 	   
 	   try
 	   {
@@ -449,7 +449,7 @@ public class TalentModel {
 	   vo.setB_review_id(rid);
 	   vo.setB_review_content(content);
 	   
-	   String res=TalentDAO.replyUpdate(vo);
+	   String res=ContentDAO.replyUpdate(vo);
 	   
 	   try
 	   {
@@ -469,7 +469,7 @@ public class TalentModel {
 	   
 	   String rid=request.getParameter("rid");
 	   
-	   String res=TalentDAO.replyDelete(Integer.parseInt(rid));
+	   String res=ContentDAO.replyDelete(Integer.parseInt(rid));
 	   
 	   try
 	   {
@@ -489,7 +489,7 @@ public class TalentModel {
 	   
 	   String rid=request.getParameter("rid");
 	   
-	   String res=TalentDAO.reviewDelete(Integer.parseInt(rid));
+	   String res=ContentDAO.reviewDelete(Integer.parseInt(rid));
 	   
 	   try
 	   {
@@ -499,5 +499,195 @@ public class TalentModel {
 	   }catch(Exception ex) {}
    }
    
+	// 타입별 리스트 출력
+    // 생활라이프
+   	@RequestMapping("content/talent_list.eum")
+   	public String talent_list(HttpServletRequest request, HttpServletResponse response) {
+        String b_type = "생활라이프";
+
+        String page = request.getParameter("page");
+        int curpage = (page == null) ? 1 : Integer.parseInt(page);
+
+        int rowSize = 12;
+        int start = (curpage - 1) * rowSize + 1;
+        int end = curpage * rowSize;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("b_type", b_type);
+        map.put("start", start);
+        map.put("end", end);
+
+        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
+        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+
+        final int BLOCK = 10;
+	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+	    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	    if(endPage > totalpage) {
+	    	endPage = totalpage;
+	    }
+
+	    request.setAttribute("startPage", startPage);
+	    request.setAttribute("endPage", endPage);
+        request.setAttribute("list", list);
+        request.setAttribute("curpage", curpage);
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("b_type", b_type);
+
+        request.setAttribute("main_jsp", "../content/talent_list.jsp");
+        return "../main/main.jsp";
+    }
+   	
+   	// 운동건강
+   	@RequestMapping("content/exer_list.eum")
+   	public String exercise_list(HttpServletRequest request, HttpServletResponse response) {
+        String b_type = "운동건강";
+
+        String page = request.getParameter("page");
+        int curpage = (page == null) ? 1 : Integer.parseInt(page);
+
+        int rowSize = 12;
+        int start = (curpage - 1) * rowSize + 1;
+        int end = curpage * rowSize;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("b_type", b_type);
+        map.put("start", start);
+        map.put("end", end);
+
+        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
+        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+
+        final int BLOCK = 10;
+	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+	    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	    if(endPage > totalpage) {
+	    	endPage = totalpage;
+	    }
+
+	    request.setAttribute("startPage", startPage);
+	    request.setAttribute("endPage", endPage);
+        request.setAttribute("list", list);
+        request.setAttribute("curpage", curpage);
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("b_type", b_type);
+
+        request.setAttribute("main_jsp", "../content/exercise_list.jsp");
+        return "../main/main.jsp";
+    }
+   	
+   	// 취미/자기개발
+   	@RequestMapping("content/hobby_list.eum")
+   	public String hobby_list(HttpServletRequest request, HttpServletResponse response) {
+        String b_type = "취미/자기개발";
+
+        String page = request.getParameter("page");
+        int curpage = (page == null) ? 1 : Integer.parseInt(page);
+
+        int rowSize = 12;
+        int start = (curpage - 1) * rowSize + 1;
+        int end = curpage * rowSize;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("b_type", b_type);
+        map.put("start", start);
+        map.put("end", end);
+
+        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
+        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+
+        final int BLOCK = 10;
+	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+	    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	    if(endPage > totalpage) {
+	    	endPage = totalpage;
+	    }
+
+	    request.setAttribute("startPage", startPage);
+	    request.setAttribute("endPage", endPage);
+        request.setAttribute("list", list);
+        request.setAttribute("curpage", curpage);
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("b_type", b_type);
+
+        request.setAttribute("main_jsp", "../content/hobby_list.jsp");
+        return "../main/main.jsp";
+    }
+   	
+   	// 비즈니스
+   	@RequestMapping("content/biz_list.eum")
+   	public String biz_list(HttpServletRequest request, HttpServletResponse response) {
+        String b_type = "비즈니스";
+
+        String page = request.getParameter("page");
+        int curpage = (page == null) ? 1 : Integer.parseInt(page);
+
+        int rowSize = 12;
+        int start = (curpage - 1) * rowSize + 1;
+        int end = curpage * rowSize;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("b_type", b_type);
+        map.put("start", start);
+        map.put("end", end);
+
+        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
+        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+
+        final int BLOCK = 10;
+	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+	    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	    if(endPage > totalpage) {
+	    	endPage = totalpage;
+	    }
+
+	    request.setAttribute("startPage", startPage);
+	    request.setAttribute("endPage", endPage);
+        request.setAttribute("list", list);
+        request.setAttribute("curpage", curpage);
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("b_type", b_type);
+
+        request.setAttribute("main_jsp", "../content/biz_list.jsp");
+        return "../main/main.jsp";
+    }
+   	
+   	// 기타
+   	@RequestMapping("content/etc_list.eum")
+   	public String etc_list(HttpServletRequest request, HttpServletResponse response) {
+        String b_type = "기타";
+
+        String page = request.getParameter("page");
+        int curpage = (page == null) ? 1 : Integer.parseInt(page);
+
+        int rowSize = 12;
+        int start = (curpage - 1) * rowSize + 1;
+        int end = curpage * rowSize;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("b_type", b_type);
+        map.put("start", start);
+        map.put("end", end);
+
+        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
+        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+
+        final int BLOCK = 10;
+	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+	    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	    if(endPage > totalpage) {
+	    	endPage = totalpage;
+	    }
+
+	    request.setAttribute("startPage", startPage);
+	    request.setAttribute("endPage", endPage);
+        request.setAttribute("list", list);
+        request.setAttribute("curpage", curpage);
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("b_type", b_type);
+
+        request.setAttribute("main_jsp", "../content/etc_list.jsp");
+        return "../main/main.jsp";
+    }
 }
 

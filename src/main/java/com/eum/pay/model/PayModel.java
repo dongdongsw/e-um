@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.eum.main.dao.TalentDAO;
+import com.eum.main.dao.ContentDAO;
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.OrdersVO;
 import com.eum.main.vo.PaymentVO;

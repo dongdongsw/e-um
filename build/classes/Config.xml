@@ -18,6 +18,7 @@
      <typeAlias type="com.eum.main.vo.ReviewVO" alias="ReviewVO"/>
      <typeAlias type="com.eum.main.vo.Review_ImageVO" alias="Review_ImageVO"/>
      <typeAlias type="com.eum.main.vo.FavoriteVO" alias="FavoriteVO"/>
+	 <typeAlias type="com.eum.main.vo.Board_LikeVO" alias="Board_LikeVO"/>
 
    </typeAliases>
   <environments default="development">
@@ -33,7 +34,7 @@
   </environments>
   <mappers>
 
-    <mapper resource="com/eum/main/mapper/talent-mapper.xml"/>
+    <mapper resource="com/eum/main/mapper/content-mapper.xml"/>
     <mapper resource="com/eum/notice/mapper/notice-mapper.xml"/>
     <mapper resource="com/eum/users/mapper/users-mapper.xml"/>
     <mapper resource="com/eum/seller/mapper/seller-mapper.xml"/>
@@ -41,6 +42,7 @@
     <mapper resource="com/eum/seller/mapper/contents-mapper.xml"/>
     <mapper resource="com/eum/users/mapper/favorite-mapper.xml"/>
 	<mapper resource="com/eum/users/mapper/review-mapper.xml"/>
+	<mapper resource="com/eum/pay/mapper/like-mapper.xml"/>
     
     <!-- 관리자 -->
     <mapper resource="com/eum/admin/mapper/contents-mapper.xml"/>

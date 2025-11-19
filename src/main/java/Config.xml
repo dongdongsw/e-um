@@ -34,7 +34,7 @@
   </environments>
   <mappers>
 
-    <mapper resource="com/eum/main/mapper/talent-mapper.xml"/>
+    <mapper resource="com/eum/main/mapper/content-mapper.xml"/>
     <mapper resource="com/eum/notice/mapper/notice-mapper.xml"/>
     <mapper resource="com/eum/users/mapper/users-mapper.xml"/>
     <mapper resource="com/eum/seller/mapper/seller-mapper.xml"/>

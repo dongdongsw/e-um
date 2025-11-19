@@ -204,31 +204,31 @@ $(function(){
               </div>
               <section class="category-section">
 				  <div class="category-container">
-				  <a href="../talent/b_type_list.eum?b_type=운동건강">
+				  <a href="../content/exer_list.eum">
 				    <button class="brutalist-button button-1">
 				      <img src="../images/운동11.gif" alt="디자인" class="category-icon">
 				      <span>운동/건강</span>
 				    </button>
 				    </a>
-				   <a href="../talent/b_type_list.eum?b_type=비즈니스">
+				   <a href="../content/biz_list.eum">
 				    <button class="brutalist-button button-1">
 				      <img src="../images/비즈니스.gif" alt="비즈니스" class="category-icon">
 				      <span>비즈니스</span>
 				    </button>
 				    </a>
-				    <a href="../talent/b_type_list.eum?b_type=취미/자기개발">
+				    <a href="../content/hobby_list.eum">
 				    <button class="brutalist-button button-1">
 				      <img src="../images/프라이팬.gif" alt="음악" class="category-icon">
 				      <span>취미/자기개발</span>
 				    </button>
 				    </a>
-				   <a href="../talent/b_type_list.eum?b_type=생활라이프">
+				   <a href="../content/talent_list.eum">
 				    <button class="brutalist-button button-1">
 				      <img src="../images/생활.gif" alt="AI/테크" class="category-icon">
 				      <span>생활/라이프</span>
 				    </button>
 				    </a>
-					<a href="../talent/b_type_list.eum?b_type=기타">
+					<a href="../content/etc_list.eum">
 				    <button class="brutalist-button button-1">
 				      <img src="../images/기타.gif" alt="기타" class="category-icon">
 				      <span>기타</span>

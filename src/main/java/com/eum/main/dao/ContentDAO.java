@@ -10,55 +10,187 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.eum.commons.CreateSqlSessionFactory;
 import com.eum.main.vo.*;
 
-	public class TalentDAO {
-	   private static SqlSessionFactory ssf;
-	   static
-	   {
-		   ssf=CreateSqlSessionFactory.getSsf();
-	   }
+public class ContentDAO {
+	private static SqlSessionFactory ssf;
+	static {
+		ssf=CreateSqlSessionFactory.getSsf();
+	}
+	
+	// 생활라이프 리스트
+	public static List<BoardVO> talentTypeListData(Map map) {
+		List<BoardVO> list=null;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("talentTypeListData",map);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return list;
+	}
+
+	// 운동건강 리스트
+	public static List<BoardVO> exerTypeListData(Map map) {
+		List<BoardVO> list=null;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("exerTypeListData",map);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return list;
+	}
+
+	// 취미/자기개발 리스트
+	public static List<BoardVO> hobbyTypeListData(Map map) {
+		List<BoardVO> list=null;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("hobbyTypeListData",map);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null) {
+			session.close();
+			}
+		}
+		return list;
+	}
 	   
-	// 리스트
-	   public static List<BoardVO> talentListData(Map map)
-	   {
-		   List<BoardVO> list=null;
-		   SqlSession session=null;
-		   try
-		   {
-			   session=ssf.openSession();
-			   list=session.selectList("talentListData",map);
-		   }catch(Exception ex)
-		   {
-			   ex.printStackTrace();
-		   }
-		   finally
-		   {
-			   if(session!=null)
-				   session.close();
-		   }
-		   return list;
-	   }
+	// 비즈니스 리스트
+	public static List<BoardVO> bizTypeListData(Map map) {
+		List<BoardVO> list=null;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("bizTypeListData",map);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return list;
+	}
 	   
-	// 총 페이지
-	   public static int talentTotalPage()
-	   {
-		   int total=0;
-		   SqlSession session=null;
-		   try
-		   {
-			   session=ssf.openSession();
-			   total=session.selectOne("talentTotalPage");
-		   }catch(Exception ex)
-		   {
-			   ex.printStackTrace();
-		   }
-		   finally
-		   {
-			   if(session!=null)
-				   session.close();
-		   }
-		   return total;
-	   }
+	// 기타 리스트
+	public static List<BoardVO> etcTypeListData(Map map) {
+		List<BoardVO> list=null;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("etcTypeListData",map);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return list;
+	}
 	   
+	// 생활라이프 총페이지
+	public static int talentTypeTotalPage() {
+		int total=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			total=session.selectOne("talentTypeTotalPage");
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
+	
+	// 운동건강 총페이지
+	public static int exerTypeTotalPage() {
+		int total=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			total=session.selectOne("exerTypeTotalPage");
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
+
+	// 취미/자기개발 총페이지
+	public static int hobbyTypeTotalPage() {
+		int total=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			total=session.selectOne("hobbyTypeTotalPage");
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
+	   
+	// 비즈니스 총페이지
+	public static int bizTypeTotalPage() {
+		int total=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			total=session.selectOne("bizTypeTotalPage");
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
+	
+	// 기타 총페이지
+	public static int etcTypeTotalPage() {
+		int total=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			total=session.selectOne("etcTypeTotalPage");
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
+	
 	// 상세보기 페이지
 	   public static BoardVO talentDetailData(String b_id)
 	   {
@@ -289,6 +421,7 @@ import com.eum.main.vo.*;
 		    } 
 		    return total;
 		}
+		
 		// 타입 검색
 		public static List<BoardVO> talentSearchTypeData(Map map) {
 		    List<BoardVO> list = null;
@@ -311,7 +444,6 @@ import com.eum.main.vo.*;
 		    } 
 		    return total;
 		}
-		
 }
 	   
 	
