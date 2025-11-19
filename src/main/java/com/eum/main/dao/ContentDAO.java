@@ -1,5 +1,6 @@
 package com.eum.main.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
@@ -105,6 +106,27 @@ public class ContentDAO {
 		}
 		return list;
 	}
+	
+	// ALL 리스트
+	public static List<BoardVO> allTypeListData(int start, int end) {
+		List<BoardVO> list=null;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			Map map = new HashMap();
+			map.put("start", start);
+			map.put("end", end);
+			list=session.selectList("allTypeListData", map);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return list;
+	}
 	   
 	// 생활라이프 총페이지
 	public static int talentTypeTotalPage() {
@@ -181,6 +203,23 @@ public class ContentDAO {
 		try {
 			session=ssf.openSession();
 			total=session.selectOne("etcTypeTotalPage");
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
+	
+	// ALL 총페이지
+	public static int allTypeTotalPage() {
+		int total=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			total=session.selectOne("allTypeTotalPage");
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}

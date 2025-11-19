@@ -443,17 +443,17 @@ $(document).ready(function() {
           <ul class="page">
             <c:if test="${startPage > 1}">
               <li class="page__btn active">
-                <a href="../content/talent_list.eum?page=${startPage-1}&b_type=취미/자기개발">&lt;</a>
+                <a href="../content/hobby_list.eum?page=${startPage-1}&b_type=취미/자기개발">&lt;</a>
               </li>
             </c:if>
             <c:forEach var="i" begin="${startPage}" end="${endPage}">
               <li class="page__numbers ${i==curpage?'active':''}">
-                <a href="../content/talent_list.eum?page=${i}&b_type=취미/자기개발">${i}</a>
+                <a href="../content/hobby_list.eum?page=${i}&b_type=취미/자기개발">${i}</a>
               </li>
             </c:forEach>
             <c:if test="${endPage < totalpage}">
               <li class="page__btn active">
-                <a href="../content/talent_list.eum?page=${endPage+1}&b_type=취미/자기개발">&gt;</a>
+                <a href="../content/hobby_list.eum?page=${endPage+1}&b_type=취미/자기개발">&gt;</a>
               </li>
             </c:if>
           </ul>

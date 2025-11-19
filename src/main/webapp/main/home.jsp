@@ -255,7 +255,7 @@ $(function(){
 				      <span>기타</span>
 				    </button>
 				    </a>
-				    <a href="../talent/b_type_list.eum?b_type=all">
+				    <a href="../content/all_list.eum">
 				    <button class="brutalist-button button-1">
 				      <img src="../images/ALL.png" alt="잔체보기" class="category-icon">
 				      <span>전체보기</span>

@@ -517,8 +517,8 @@ public class ContentModel {
         map.put("start", start);
         map.put("end", end);
 
-        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
-        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+        List<BoardVO> list = ContentDAO.talentTypeListData(map);
+        int totalpage = ContentDAO.talentTypeTotalPage();
 
         final int BLOCK = 10;
 	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
@@ -555,8 +555,8 @@ public class ContentModel {
         map.put("start", start);
         map.put("end", end);
 
-        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
-        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+        List<BoardVO> list = ContentDAO.exerTypeListData(map);
+        int totalpage = ContentDAO.exerTypeTotalPage();
 
         final int BLOCK = 10;
 	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
@@ -593,8 +593,8 @@ public class ContentModel {
         map.put("start", start);
         map.put("end", end);
 
-        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
-        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+        List<BoardVO> list = ContentDAO.hobbyTypeListData(map);
+        int totalpage = ContentDAO.hobbyTypeTotalPage();
 
         final int BLOCK = 10;
 	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
@@ -631,8 +631,8 @@ public class ContentModel {
         map.put("start", start);
         map.put("end", end);
 
-        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
-        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+        List<BoardVO> list = ContentDAO.bizTypeListData(map);
+        int totalpage = ContentDAO.bizTypeTotalPage();
 
         final int BLOCK = 10;
 	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
@@ -669,8 +669,8 @@ public class ContentModel {
         map.put("start", start);
         map.put("end", end);
 
-        List<BoardVO> list = ContentDAO.talentSearchTypeData(map);
-        int totalpage = ContentDAO.talentSearchTypeTotalPage(map);
+        List<BoardVO> list = ContentDAO.etcTypeListData(map);
+        int totalpage = ContentDAO.etcTypeTotalPage();
 
         final int BLOCK = 10;
 	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
@@ -687,6 +687,41 @@ public class ContentModel {
         request.setAttribute("b_type", b_type);
 
         request.setAttribute("main_jsp", "../content/etc_list.jsp");
+        return "../main/main.jsp";
+    }
+   	
+    // ALL
+   	@RequestMapping("content/all_list.eum")
+   	public String all_list(HttpServletRequest request, HttpServletResponse response) {
+
+        String page = request.getParameter("page");
+        int curpage = (page == null) ? 1 : Integer.parseInt(page);
+
+        int rowSize = 12;
+        int start = (curpage - 1) * rowSize + 1;
+        int end = curpage * rowSize;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("start", start);
+        map.put("end", end);
+
+        List<BoardVO> list = ContentDAO.allTypeListData(start, end);
+        int totalpage = ContentDAO.allTypeTotalPage();
+
+        final int BLOCK = 10;
+	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+	    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	    if(endPage > totalpage) {
+	    	endPage = totalpage;
+	    }
+
+	    request.setAttribute("startPage", startPage);
+	    request.setAttribute("endPage", endPage);
+        request.setAttribute("list", list);
+        request.setAttribute("curpage", curpage);
+        request.setAttribute("totalpage", totalpage);
+
+        request.setAttribute("main_jsp", "../content/all_list.jsp");
         return "../main/main.jsp";
     }
 }

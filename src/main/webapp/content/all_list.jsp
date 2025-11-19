@@ -181,7 +181,7 @@ $(document).ready(function() {
     <div class="category-tabs-container" style="text-align: center;">
         <ul style="display: inline-flex; gap: 50px;">
             <li><a href="../content/exer_list.eum?b_type=운동건강">운동/건강</a></li>
-			<li><a href="../content/biz_list.eum?b_type=비즈니스" class="active">비즈니스</a></li>
+			<li><a href="../content/biz_list.eum?b_type=비즈니스">비즈니스</a></li>
 			<li><a href="../content/hobby_list.eum?b_type=취미/자기개발">취미/자기개발</a></li>
 			<li><a href="../content/talent_list.eum?b_type=생활라이프">생활/라이프</a></li>
 			<li><a href="../content/etc_list.eum?b_type=기타">기타</a></li>
@@ -443,17 +443,17 @@ $(document).ready(function() {
           <ul class="page">
             <c:if test="${startPage > 1}">
               <li class="page__btn active">
-                <a href="../content/biz_list.eum?page=${startPage-1}&b_type=비즈니스">&lt;</a>
+                <a href="../content/all_list.eum?page=${startPage-1}">&lt;</a>
               </li>
             </c:if>
             <c:forEach var="i" begin="${startPage}" end="${endPage}">
               <li class="page__numbers ${i==curpage?'active':''}">
-                <a href="../content/biz_list.eum?page=${i}&b_type=비즈니스">${i}</a>
+                <a href="../content/all_list.eum?page=${i}">${i}</a>
               </li>
             </c:forEach>
             <c:if test="${endPage < totalpage}">
               <li class="page__btn active">
-                <a href="../content/biz_list.eum?page=${endPage+1}&b_type=비즈니스">&gt;</a>
+                <a href="../content/all_list.eum?page=${endPage+1}">&gt;</a>
               </li>
             </c:if>
           </ul>

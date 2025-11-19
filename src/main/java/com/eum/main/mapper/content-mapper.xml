@@ -263,92 +263,157 @@
   <!-- 타입별 리스트 -->
   <!-- 생활라이프 -->
   <select id="talentTypeListData" resultMap="boardMap" parameterType="hashmap">
-    SELECT * FROM ( SELECT ROWNUM AS num, A.*
-    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
-                ROUND(AVG(b_review_score),1) AS b_review_score,
-                COUNT(DISTINCT b_review_id) AS review_count,
-                MIN(b_op_price) AS b_op_price, u_s_com, b_type
-          FROM board,board_option,users_seller,review
-          WHERE board.b_id = board_option.b_id
-          AND board.u_s_id = users_seller.u_s_id
-          AND board.b_id = review.b_id
-          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
-          ORDER BY b_id DESC
-         ) A)
-	WHERE num BETWEEN #{start} AND #{end}
-	AND b_type = '생활라이프'
+    SELECT * FROM (
+        SELECT ROWNUM AS num, B.*
+        FROM (
+            SELECT 
+                b.b_id AS b_id,
+                b.b_title AS b_title,
+                b.b_thumbnail AS b_thumbnail,
+                ROUND(AVG(r.b_review_score), 1) AS b_review_score,
+                COUNT(DISTINCT r.b_review_id) AS review_count,
+                MIN(bo.b_op_price) AS b_op_price,
+                us.u_s_com AS u_s_com,
+                b.b_type AS b_type
+            FROM board b
+            LEFT JOIN board_option bo ON b.b_id = bo.b_id
+            LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
+            LEFT JOIN review r ON b.b_id = r.b_id
+            WHERE b.b_type = '생활라이프'
+            GROUP BY b.b_id, b.b_title, b.b_thumbnail, us.u_s_com, b.b_type
+            ORDER BY b.b_id DESC
+        ) B
+    )
+    WHERE num BETWEEN #{start} AND #{end}
   </select>
   
   <!-- 운동건강 -->
   <select id="exerTypeListData" resultMap="boardMap" parameterType="hashmap">
-    SELECT * FROM ( SELECT ROWNUM AS num, A.*
-    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
-                ROUND(AVG(b_review_score),1) AS b_review_score,
-                COUNT(DISTINCT b_review_id) AS review_count,
-                MIN(b_op_price) AS b_op_price, u_s_com, b_type
-          FROM board,board_option,users_seller,review
-          WHERE board.b_id = board_option.b_id
-          AND board.u_s_id = users_seller.u_s_id
-          AND board.b_id = review.b_id
-          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
-          ORDER BY b_id DESC
-         ) A)
-	WHERE num BETWEEN #{start} AND #{end}
-	AND b_type = '운동건강'
+    SELECT * FROM (
+        SELECT ROWNUM AS num, B.*
+        FROM (
+            SELECT 
+                b.b_id AS b_id,
+                b.b_title AS b_title,
+                b.b_thumbnail AS b_thumbnail,
+                ROUND(AVG(r.b_review_score), 1) AS b_review_score,
+                COUNT(DISTINCT r.b_review_id) AS review_count,
+                MIN(bo.b_op_price) AS b_op_price,
+                us.u_s_com AS u_s_com,
+                b.b_type AS b_type
+            FROM board b
+            LEFT JOIN board_option bo ON b.b_id = bo.b_id
+            LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
+            LEFT JOIN review r ON b.b_id = r.b_id
+            WHERE b.b_type = '운동건강'
+            GROUP BY b.b_id, b.b_title, b.b_thumbnail, us.u_s_com, b.b_type
+            ORDER BY b.b_id DESC
+        ) B
+    )
+    WHERE num BETWEEN #{start} AND #{end}
   </select>
   
   <!-- 취미/자기개발 -->
   <select id="hobbyTypeListData" resultMap="boardMap" parameterType="hashmap">
-    SELECT * FROM ( SELECT ROWNUM AS num, A.*
-    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
-                ROUND(AVG(b_review_score),1) AS b_review_score,
-                COUNT(DISTINCT b_review_id) AS review_count,
-                MIN(b_op_price) AS b_op_price, u_s_com, b_type
-          FROM board,board_option,users_seller,review
-          WHERE board.b_id = board_option.b_id
-          AND board.u_s_id = users_seller.u_s_id
-          AND board.b_id = review.b_id
-          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
-          ORDER BY b_id DESC
-         ) A)
-	WHERE num BETWEEN #{start} AND #{end}
-	AND b_type = '취미/자기개발'
+    SELECT * FROM (
+        SELECT ROWNUM AS num, B.*
+        FROM (
+            SELECT 
+                b.b_id AS b_id,
+                b.b_title AS b_title,
+                b.b_thumbnail AS b_thumbnail,
+                ROUND(AVG(r.b_review_score), 1) AS b_review_score,
+                COUNT(DISTINCT r.b_review_id) AS review_count,
+                MIN(bo.b_op_price) AS b_op_price,
+                us.u_s_com AS u_s_com,
+                b.b_type AS b_type
+            FROM board b
+            LEFT JOIN board_option bo ON b.b_id = bo.b_id
+            LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
+            LEFT JOIN review r ON b.b_id = r.b_id
+            WHERE b.b_type = '취미/자기개발'
+            GROUP BY b.b_id, b.b_title, b.b_thumbnail, us.u_s_com, b.b_type
+            ORDER BY b.b_id DESC
+        ) B
+    )
+    WHERE num BETWEEN #{start} AND #{end}
   </select>
   
   <!-- 비즈니스 -->
   <select id="bizTypeListData" resultMap="boardMap" parameterType="hashmap">
-    SELECT * FROM ( SELECT ROWNUM AS num, A.*
-    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
-                ROUND(AVG(b_review_score),1) AS b_review_score,
-                COUNT(DISTINCT b_review_id) AS review_count,
-                MIN(b_op_price) AS b_op_price, u_s_com, b_type
-          FROM board,board_option,users_seller,review
-          WHERE board.b_id = board_option.b_id
-          AND board.u_s_id = users_seller.u_s_id
-          AND board.b_id = review.b_id
-          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
-          ORDER BY b_id DESC
-         ) A)
-	WHERE num BETWEEN #{start} AND #{end}
-	AND b_type = '비즈니스'
+    SELECT * FROM (
+        SELECT ROWNUM AS num, B.*
+        FROM (
+            SELECT 
+                b.b_id AS b_id,
+                b.b_title AS b_title,
+                b.b_thumbnail AS b_thumbnail,
+                ROUND(AVG(r.b_review_score), 1) AS b_review_score,
+                COUNT(DISTINCT r.b_review_id) AS review_count,
+                MIN(bo.b_op_price) AS b_op_price,
+                us.u_s_com AS u_s_com,
+                b.b_type AS b_type
+            FROM board b
+            LEFT JOIN board_option bo ON b.b_id = bo.b_id
+            LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
+            LEFT JOIN review r ON b.b_id = r.b_id
+            WHERE b.b_type = '비즈니스'
+            GROUP BY b.b_id, b.b_title, b.b_thumbnail, us.u_s_com, b.b_type
+            ORDER BY b.b_id DESC
+        ) B
+    )
+    WHERE num BETWEEN #{start} AND #{end}
   </select>
 
   <!-- 기타 -->
   <select id="etcTypeListData" resultMap="boardMap" parameterType="hashmap">
-    SELECT * FROM ( SELECT ROWNUM AS num, A.*
-    FROM (SELECT board.b_id AS b_id, b_title, b_thumbnail AS b_thumbnail,
-                ROUND(AVG(b_review_score),1) AS b_review_score,
-                COUNT(DISTINCT b_review_id) AS review_count,
-                MIN(b_op_price) AS b_op_price, u_s_com, b_type
-          FROM board,board_option,users_seller,review
-          WHERE board.b_id = board_option.b_id
-          AND board.u_s_id = users_seller.u_s_id
-          AND board.b_id = review.b_id
-          GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
-          ORDER BY b_id DESC
-         ) A)
-	WHERE num BETWEEN #{start} AND #{end}
-	AND b_type = '기타'
+    SELECT * FROM (
+        SELECT ROWNUM AS num, B.*
+        FROM (
+            SELECT 
+                b.b_id AS b_id,
+                b.b_title AS b_title,
+                b.b_thumbnail AS b_thumbnail,
+                ROUND(AVG(r.b_review_score), 1) AS b_review_score,
+                COUNT(DISTINCT r.b_review_id) AS review_count,
+                MIN(bo.b_op_price) AS b_op_price,
+                us.u_s_com AS u_s_com,
+                b.b_type AS b_type
+            FROM board b
+            LEFT JOIN board_option bo ON b.b_id = bo.b_id
+            LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
+            LEFT JOIN review r ON b.b_id = r.b_id
+            WHERE b.b_type = '기타'
+            GROUP BY b.b_id, b.b_title, b.b_thumbnail, us.u_s_com, b.b_type
+            ORDER BY b.b_id DESC
+        ) B
+    )
+    WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  
+  <!-- All -->
+  <select id="allTypeListData" resultMap="boardMap" parameterType="hashmap">
+    SELECT * FROM (
+        SELECT ROWNUM AS num, B.*
+        FROM (
+            SELECT 
+                b.b_id AS b_id,
+                b.b_title AS b_title,
+                b.b_thumbnail AS b_thumbnail,
+                ROUND(AVG(r.b_review_score), 1) AS b_review_score,
+                COUNT(DISTINCT r.b_review_id) AS review_count,
+                MIN(bo.b_op_price) AS b_op_price,
+                us.u_s_com AS u_s_com,
+                b.b_type AS b_type
+            FROM board b
+            LEFT JOIN board_option bo ON b.b_id = bo.b_id
+            LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
+            LEFT JOIN review r ON b.b_id = r.b_id
+            GROUP BY b.b_id, b.b_title, b.b_thumbnail, us.u_s_com, b.b_type
+            ORDER BY b.b_id DESC
+        ) B
+    )
+    WHERE num BETWEEN #{start} AND #{end}
   </select>
   
   <!-- 타입 페이지네이션 -->
@@ -384,7 +449,13 @@
   <select id="etcTypeTotalPage" resultType="int">
     SELECT CEIL(COUNT(*) / 12.0)
     FROM board
-    WHERE b_type = '비즈니스'
+    WHERE b_type = '기타'
+  </select>
+  
+  <!-- All -->
+  <select id="allTypeTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*) / 12.0)
+    FROM board
   </select>
   
     <!-- 타입 검색 -->
