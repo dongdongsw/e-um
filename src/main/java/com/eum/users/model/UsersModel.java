@@ -149,6 +149,7 @@ public class UsersModel {
 			session.setAttribute("push_noti", vo.getU_push_noti());
 			session.setAttribute("email_noti", vo.getU_email_noti());
 			session.setAttribute("sms_noti", vo.getU_sms_noti());
+			System.out.println(vo.getU_role());
 		}
 		try {
 			response.setContentType("text/plain;charset=UTF-8");
