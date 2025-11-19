@@ -5,6 +5,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <style>
+.pagination .page-link {
+    color: #A67CFF;
+}
+.pagination .page-link:hover {
+    color: #fff;
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+}
+.pagination .page-item.active .page-link {
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+    color: #fff;
+}
 
 
 #home .container-fluid {

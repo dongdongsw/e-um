@@ -32,18 +32,12 @@
         </a>
         <nav class="vertnav navbar navbar-light">
           <!-- nav bar -->
-          <div class="w-100 mb-4 d-flex">
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
-              <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
-                <g>
-                  <polygon class="st0" points="78,105 15,105 24,87 87,87 	" />
-                  <polygon class="st0" points="96,69 33,69 42,51 105,51 	" />
-                  <polygon class="st0" points="78,33 15,33 24,15 87,15 	" />
-                </g>
-              </svg>
-            </a>
-          </div>
-          <ul class="navbar-nav flex-fill w-100 mb-2">
+          	<a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="../main/main.eum">
+			  <img src="../images/logo.svg"
+			       class="navbar-brand-img brand-sm"
+			       style="width: 80px; height: auto;" />
+			</a>
+          <ul class="navbar-nav flex-fill w-100 mb-2 mt-3">
           <li class="nav-item w-100">
               <a class="nav-link" href="../admin/admin_main.eum">
                 <i class="fe fe-home fe-16"></i>
@@ -53,7 +47,7 @@
             </ul>
             
           <p class="text-muted nav-heading mt-4 mb-1">
-            <span>Components</span>
+            <span>Management</span>
           </p>
           <ul class="navbar-nav flex-fill w-100 mb-2">
             
@@ -99,7 +93,7 @@
           </ul>
             
           <p class="text-muted nav-heading mt-4 mb-1">
-            <span>Apps</span>
+            <span>Operations</span>
           </p>
           <ul class="navbar-nav flex-fill w-100 mb-2">
             <!-- 관리자 공지사항 -->
@@ -119,28 +113,8 @@
             </li>
           </ul>
           
-          <!-- 빈 공백임 디자인을 위해서 -->
-          <p class="text-muted nav-heading mt-4 mb-1"><span></span></p>
-          <ul class="navbar-nav flex-fill w-100 mb-2">
-            <li class="nav-item w-100"><a class="nav-link"><i class="fe  fe-16"></i><span class="ml-3 item-text"></span></a></li>
-            <li class="nav-item w-100"><a class="nav-link"><i class="fe  fe-16"></i><span class="ml-3 item-text"></span></a></li>
-            <li class="nav-item w-100"><a class="nav-link"><i class="fe  fe-16"></i><span class="ml-3 item-text"></span></a></li>
-            <li class="nav-item w-100"><a class="nav-link"><i class="fe  fe-16"></i><span class="ml-3 item-text"></span></a></li>
-            <li class="nav-item w-100"><a class="nav-link"><i class="fe  fe-16"></i><span class="ml-3 item-text"></span></a></li>
-          </ul>
+         
           
-          <!--  공백 -->
-          <p class="text-muted nav-heading mt-4 mb-1"><span></span></p>
-          <ul class="navbar-nav flex-fill w-100 mb-2">
-            <li class="nav-item w-100"><a class="nav-link"><i class="fe  fe-16"></i><span class="ml-3 item-text"></span></a></li>
-          </ul>
-          
-          <!-- 홈으로 돌아가는 버튼 -->
-          <div class="btn-box w-100 mt-4 mb-1">
-            <a href="../main/main.eum" target="_blank" class="btn mb-2 btn-lavender btn-lg btn-block">
-              <i class="fe fe-home fe-12 mx-2"></i><span class="small">홈으로</span>
-            </a>
-          </div>
         </nav>
       </aside>
       

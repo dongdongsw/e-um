@@ -7,6 +7,8 @@
 <head>
   <meta charset="UTF-8">
 <style>
+
+
     input[type="search"]:focus::placeholder {
       color: transparent;
       transition: color 0.2s ease;

@@ -3,6 +3,22 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
+
+.pagination .page-link {
+    color: #A67CFF;
+}
+.pagination .page-link:hover {
+    color: #fff;
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+}
+.pagination .page-item.active .page-link {
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+    color: #fff;
+}
+
+
 .avatar-md {
   width: 50px;
   height: 50px;
@@ -18,9 +34,21 @@
   display: block;
 }
 
-.text-normal {
-    color: #4a4a4a !important;
+
+body:not(.dark-mode) .text-normal {
+    color: var(--body-color) !important;
 }
+
+
+body.dark-mode .text-normal {
+    color: var(--body-color) !important;
+}
+
+a {
+    color: var(--body-color) !important;
+}
+
+
 
 .page-header-custom h2 {
     font-size: 1.2rem;

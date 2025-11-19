@@ -5,6 +5,34 @@
 
 
 <style>
+
+.pagination .page-link {
+    color: #A67CFF;
+}
+.pagination .page-link:hover {
+    color: #fff;
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+}
+.pagination .page-item.active .page-link {
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+    color: #fff;
+}
+
+body:not(.dark-mode) .text-normal {
+    color: var(--body-color) !important;
+}
+
+
+body.dark-mode .text-normal {
+    color: var(--body-color) !important;
+}
+
+a {
+    color: var(--body-color) !important;
+}
+
 .avatar-md {
   width: 50px;
   height: 50px;

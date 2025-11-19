@@ -3,6 +3,35 @@
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <style>
+
+body:not(.dark-mode) .text-normal {
+    color: var(--body-color) !important;
+}
+
+
+body.dark-mode .text-normal {
+    color: var(--body-color) !important;
+}
+
+a {
+    color: var(--body-color) !important;
+}
+
+.pagination .page-link {
+    color: #A67CFF;
+}
+.pagination .page-link:hover {
+    color: #fff;
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+}
+.pagination .page-item.active .page-link {
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+    color: #fff;
+}
+
+
 .text-normal {
     color: #4a4a4a !important;
 }
