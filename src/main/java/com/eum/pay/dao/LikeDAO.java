@@ -49,7 +49,6 @@ public class LikeDAO {
    
    public static int boardLikeUserChk(Board_LikeVO vo)
    {
-	   System.out.println("boardLikeUserChk !!! ");
 	   int count=0;
 	   SqlSession session=null;
 	   try
