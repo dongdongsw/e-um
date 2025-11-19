@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.main.mapper.main-mapper">
+<resultMap type="com.eum.main.vo.BoardVO" id="boardMap">
+  	<result property="rvo.b_review_score" column="b_review_score"/>
+  	<result property="rvo.u_s_id" column="u_s_id"/>
+	<result property="rvo.b_review_id" column="b_review_id"/>
+	<result property="rvo.b_review_createdat" column="b_review_createdat"/>
+	<result property="rvo.b_review_content" column="b_review_content"/>
+	<result property="rvo.review_count" column="review_count"/>
+	<result property="rivo.r_image_url" column="r_image_url"/>
+  	<result property="bovo.b_op_price" column="b_op_price"/>
+  	<result property="bivo.b_img_url" column="b_img_url"/>
+  	<result property="usvo.u_s_com" column="u_s_com"/>
+	<result property="usvo.u_s_profileimg_url" column="u_s_profileimg_url"/>
+	<result property="usvo.u_s_carrer" column="u_s_carrer"/>
+	<result property="usvo.u_s_zone" column="u_s_zone"/>
+	<result property="uvo.u_nickname" column="u_nickname"/>
+	<result property="uvo.u_profileimg_url" column="u_profileImg_url"/>
+	
+  </resultMap>
+<!-- 메인 핫 컨텐츠 -->
+	<select id="homeHotContents" resultMap="boardMap">
+   SELECT *
+FROM (
+    SELECT ROWNUM AS num, A.*
+    FROM (
+        SELECT 
+            b.b_id,
+            b.b_title,
+            b.b_thumbnail,
+            ROUND(AVG(r.b_review_score),1) AS b_review_score,
+            MIN(op.b_op_price) AS b_op_price,
+            s.u_s_com,
+            b.b_type
+        FROM board b
+        JOIN board_option op ON b.b_id = op.b_id
+        JOIN users_seller s ON b.u_s_id = s.u_s_id
+        JOIN review r ON b.b_id = r.b_id
+        GROUP BY b.b_id, b.b_title, b.b_thumbnail, s.u_s_com, b.b_type
+        ORDER BY 
+            AVG(r.b_review_score) DESC,    
+            b.b_id DESC                   
+    ) A
+)
+WHERE num BETWEEN 1 AND 6
+
+</select>
+</mapper>

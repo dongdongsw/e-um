@@ -444,6 +444,20 @@ public class ContentDAO {
 		    } 
 		    return total;
 		}
+		public static List<BoardVO> homeHotContents()
+		{
+			List<BoardVO> list=null;
+			try
+			{
+				SqlSession session=ssf.openSession();
+				list=session.selectList("homeHotContents");
+				session.close();
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			return list;
+		}
 }
 	   
 	

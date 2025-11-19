@@ -35,6 +35,7 @@
   <mappers>
 
     <mapper resource="com/eum/main/mapper/content-mapper.xml"/>
+    <mapper resource="com/eum/main/mapper/main-mapper.xml"/>
     <mapper resource="com/eum/notice/mapper/notice-mapper.xml"/>
     <mapper resource="com/eum/users/mapper/users-mapper.xml"/>
     <mapper resource="com/eum/seller/mapper/seller-mapper.xml"/>
@@ -43,6 +44,7 @@
     <mapper resource="com/eum/users/mapper/favorite-mapper.xml"/>
 	<mapper resource="com/eum/users/mapper/review-mapper.xml"/>
 	<mapper resource="com/eum/pay/mapper/like-mapper.xml"/>
+	
     
     <!-- 관리자 -->
     <mapper resource="com/eum/admin/mapper/contents-mapper.xml"/>

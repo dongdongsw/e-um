@@ -426,5 +426,6 @@
 	    FROM board
 	    WHERE b_type = #{b_type}
 	</select>
+	
 </mapper>
 

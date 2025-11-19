@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,6 +122,27 @@ border-bottom: 1px solid #e6e6f8;
     color: white;
     border-color: black;
 }
+/* 인기 컨텐츠 */
+.title{
+	font-size: 18px !important;
+	display: -webkit-box;
+    -webkit-line-clamp: 1;   /* 보일 최대 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;       /* 줄 간격 */
+    max-height: calc(1.4em * 1);
+    margin-bottom: 30px;
+}
+.com{
+	display: -webkit-box;
+    -webkit-line-clamp: 1;   /* 보일 최대 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;       /* 줄 간격 */
+    max-height: calc(1.4em * 1);
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
@@ -167,7 +189,6 @@ $(function(){
 			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=마케팅'">마케팅</button>
 			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=골프'">골프</button>
 			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button>
-			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=시공'">시공</button>
 			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button>
 			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</button>
 			    </div>
@@ -236,7 +257,7 @@ $(function(){
 				    </a>
 				    <a href="../talent/b_type_list.eum?b_type=all">
 				    <button class="brutalist-button button-1">
-				      <img src="../images/기타.gif" alt="잔체보기" class="category-icon">
+				      <img src="../images/ALL.png" alt="잔체보기" class="category-icon">
 				      <span>전체보기</span>
 				    </button>
 				    </a>
@@ -261,55 +282,27 @@ $(function(){
               <div class="col-lg-12">
                 <div class="section-heading">
                   <div class="line-dec"></div>
-                  <h2><em>신뢰할 수 있는 결과물<br> 고객 만족도 4.9점</em></h2>
+                  <h2><em>인기 급상승 서비스</em></h2>
                 </div>
               </div>
               <div class="col-lg-12">
                 <div class="owl-collection owl-carousel">
-                  <div class="item">
-                    <img src="../assets/images/collection-01.jpg" alt="">
-                    <div class="down-content">
-                      <h4>Mutant Bored Ape Yacht Club</h4>
-                      <span class="collection">Items In Collection:<br><strong>310/340</strong></span>
-                      <span class="category">Category:<br><strong>Digital Crypto</strong></span>
-                      <div class="main-button">
-                        <a href="explore.html">Explore Mutant</a>
-                      </div>
+                  <c:forEach var="vo" items="${hotList}">
+                    <div class="item">
+                      <a href="../talent/detail.eum?b_id=${vo.b_id }">
+                        <div class="image">
+                          <img src="${vo.b_thumbnail}" width="250" height="300" style="border-radius: 15px;">
+                        </div>
+                        <div class="down-content">
+                          <h6 style="margin-bottom: 10px; color: #999999">${vo.b_type}</h6>
+                          <h5 class="title">${vo.b_title}</h5>
+                          <span class="collection">⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0}</span>
+                          <span class="category com"><strong>${vo.usvo.u_s_com}</strong></span>
+                        </div>
+                      </a>
                     </div>
-                  </div>
-                  <div class="item">
-                    <img src="../assets/images/collection-01.jpg" alt="">
-                    <div class="down-content">
-                      <h4>Bored Ape Kennel Club</h4>
-                      <span class="collection">Items In Collection:<br><strong>324/324</strong></span>
-                      <span class="category">Category:<br><strong>Visual Art</strong></span>
-                      <div class="main-button">
-                        <a href="explore.html">Explore Bored Ape</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="../assets/images/collection-01.jpg" alt="">
-                    <div class="down-content">
-                      <h4>Genesis Collective Statue</h4>
-                      <span class="collection">Items In Collection:<br><strong>380/394</strong></span>
-                      <span class="category">Category:<br><strong>Music Art</strong></span>
-                      <div class="main-button">
-                        <a href="explore.html">Explore Genesis</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="../assets/images/collection-01.jpg" alt="">
-                    <div class="down-content">
-                      <h4>Worldwide Artwork Ground</h4>
-                      <span class="collection">Items In Collection:<br><strong>426/468</strong></span>
-                      <span class="category">Category:<br><strong>Blockchain</strong></span>
-                      <div class="main-button">
-                        <a href="explore.html">Explore Worldwide</a>
-                      </div>
-                    </div>
-                  </div>
+                  </c:forEach>
+                </div>
                 </div>
               </div>
             </div> 
@@ -317,7 +310,8 @@ $(function(){
         </div>
       </div>
     </div>
-  </div>
+</div>
+
 
   <div class="create-nft">
     <div class="container">
