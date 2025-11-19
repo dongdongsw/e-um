@@ -16,25 +16,6 @@
     <result property="pvo.amount" column="amount"/>
     
   </resultMap>
-  
-  <!-- 주문 상세페이지 데이터 조회 -->
-  <select id="ordersData" resultMap="optionMap" parameterType="int">
-    SELECT
-   b.b_id,
-   b_thumbnail,
-   us.u_s_id,
-   u_s_profileimg_url,
-   u_s_com,
-   b_op_id,
-   b_op_title,
-   b_op_price,
-   b_op_detail
-   FROM board b, users_seller us, board_option bo
-   WHERE b.u_s_id = us.u_s_id
-   AND b.b_id = bo.b_id
-   AND bo.b_op_id = #{b_op_id}
-  </select>
-  
   <!-- orders table insert -->
    <insert id="ordersInsert" parameterType="OrdersVO">
     <selectKey keyProperty="o_id" resultType="int" order="BEFORE">
