@@ -12,6 +12,7 @@ import com.eum.admin.dao.Admin_ReviewDAO;
 import com.eum.admin.dao.Admin_SellerDAO;
 import com.eum.admin.dao.Admin_UsersDAO;
 import com.eum.main.vo.BoardVO;
+import com.eum.main.vo.OrdersVO;
 import com.eum.main.vo.ReviewVO;
 import com.eum.main.vo.Review_ImageVO;
 import com.eum.main.vo.UsersVO;
@@ -82,11 +83,12 @@ public class Admin_Seller_Model {
 		String u_s_id = request.getParameter("u_s_id");
 		// 컨텐츠 리스트 출력
 		String page = request.getParameter("page");
+		String Opage = request.getParameter("Opage");
 		if(page==null) page ="1";
-		
+		if(Opage==null) Opage ="1";
 		Users_SellerVO seller_vo = Admin_SellerDAO.sellerDetailData(Integer.parseInt(u_s_id));
 		
-		int rowSize=4;
+		int rowSize=3;
 		int curpage = Integer.parseInt(page);
 		int start = (rowSize*curpage)-(rowSize-1);
 		int end = rowSize*curpage;
@@ -114,20 +116,37 @@ public class Admin_Seller_Model {
 		if(page_r==null) page_r ="1";
 				
 		int rowSize_r=8;
+		int OrowSize=12;
 		int curpage_r = Integer.parseInt(page_r);
+		int Ocurpage = Integer.parseInt(Opage);
 		int start_r = (rowSize_r*curpage_r)-(rowSize_r-1);
+		int Ostart = (OrowSize*Ocurpage)-(OrowSize-1);
 		int end_r = rowSize_r*curpage_r;
 		
 		Map map_r = new HashMap();
 		map_r.put("u_s_id",u_s_id);
 		map_r.put("start_r", (start_r-1));
 		map_r.put("rowSize_r", rowSize_r);
+		
+		Map Omap = new HashMap();
+		Omap.put("start", Ostart);
+		Omap.put("rowSize", OrowSize);
+		Omap.put("u_s_id", u_s_id);
+		
 		List<ReviewVO> review_list = Admin_SellerDAO.sellerReviewListData(map_r); 
 		int totalpage_r = Admin_SellerDAO.sellerReviewTotalData(Integer.parseInt(u_s_id));
+		
+		List<OrdersVO> orders_list = Admin_SellerDAO.ordersSellersListData(Omap);
+		int Ototalpage = Admin_SellerDAO.ordersSellersTotalPage(Integer.parseInt(u_s_id));
+		
 		final int BLOCK_r = 10;
 		int startPage_r=((curpage_r-1)/BLOCK_r*BLOCK_r)+1;
 		int endPage_r=((curpage_r-1)/BLOCK_r*BLOCK_r)+BLOCK_r;
 		if(totalpage_r < endPage_r) endPage_r=totalpage_r;
+		
+		int OstartPage = ((Ocurpage-1)/BLOCK*BLOCK)+1;
+		int OendPage=((Ocurpage-1)/BLOCK*BLOCK)+BLOCK;
+		if(Ototalpage < OendPage) OendPage=Ototalpage;
 		
 		request.setAttribute("startPage_r", startPage_r);
 		request.setAttribute("endPage_r", endPage_r);
@@ -137,17 +156,27 @@ public class Admin_Seller_Model {
 		
 		
 		
+		request.setAttribute("orders_list", orders_list);
+		request.setAttribute("OstartPage", OstartPage);
+		request.setAttribute("OendPage", OendPage);
+		request.setAttribute("Ocurpage", Ocurpage);
+		request.setAttribute("Ototalpage", Ototalpage);
+		
 		request.setAttribute("admin_main_jsp", "../sellers/admin_seller_detail.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
 	
 	
-	// 관리자 셀러 수정 페이지
-	@RequestMapping("admin/admin_seller_modify.eum")
-	public String admin_seller_modify(HttpServletRequest request, HttpServletResponse response) {
-									
+	// 관리자 셀러 삭제 
+	@RequestMapping("admin/admin_seller_delete.eum")
+	public String admin_seller_delete(HttpServletRequest request, HttpServletResponse response) {
+		String page = request.getParameter("page");
+		String u_s_id = request.getParameter("u_s_id");
+		String  keyword = request.getParameter("keyword");
 		
-		request.setAttribute("admin_main_jsp", "../sellers/admin_seller_modify.jsp");
-		return "../admin/common/admin_main.jsp";
+		Admin_SellerDAO.sellerDel(Integer.parseInt(u_s_id));
+		
+
+		return "redirect:admin_sellers_list.eum?page="+page+"&keyword="+keyword;
 	}		
 }

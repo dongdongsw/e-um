@@ -30,7 +30,7 @@
 			b.b_thumbnail, b.b_status, b.b_createdat, b.b_view_count, us.u_s_com, b.b_type
 	  FROM board b
 	  LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
-	  ORDER BY b.b_id DESC
+	  ORDER BY b.b_createdat DESC
 	  OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
 	</select>
 	
@@ -90,35 +90,35 @@
 	   LEFT JOIN users_seller sel
 	       ON b.u_s_id = sel.u_s_id
 	   WHERE b.b_id = #{b_id}
-</select>
+	</select>
 	
 	<select id="contentsDetailboardImage"
         resultType="com.eum.main.vo.Board_ImageVO"
         parameterType="string">
-    SELECT 
-        b_img_id,
-        b_id,
-        b_img_url
-    FROM board_image
-    WHERE b_id = #{b_id}
-    ORDER BY b_img_id ASC
-</select>
+	    SELECT 
+	        b_img_id,
+	        b_id,
+	        b_img_url
+	    FROM board_image
+	    WHERE b_id = #{b_id}
+	    ORDER BY b_img_id ASC
+	</select>
 	
 	
 	
-  <!-- 별점 평균 -->
-  <select id="contentsDetailscore"  resultType="com.eum.main.vo.BoardVO"  parameterType="string">
-    SELECT b_id,ROUND(AVG(b_review_score),1) AS b_review_score
-   FROM review
-   WHERE b_id=#{b_id}
-   GROUP BY b_id
-  </select>
+	<!-- 별점 평균 -->
+	 <select id="contentsDetailscore"  resultType="com.eum.main.vo.BoardVO"  parameterType="string">
+		 SELECT b_id,ROUND(AVG(b_review_score),1) AS b_review_score
+		 FROM review
+		 WHERE b_id=#{b_id}
+		 GROUP BY b_id
+	</select>
   
-  <!-- 금액 옵션 -->
-  <select id="contentsDetailprice" resultType="Board_OptionVO" parameterType="string">
-    SELECT * FROM board_option
-    WHERE b_id=#{b_id}
-  </select>
+	<!-- 금액 옵션 -->
+	<select id="contentsDetailprice" resultType="Board_OptionVO" parameterType="string">
+	  SELECT * FROM board_option
+	  WHERE b_id=#{b_id}
+	</select>
 	
 	
 	<!-- 컨텐츠 상태 수정 -->
@@ -127,4 +127,36 @@
 	    SET b_status = #{b_status}
 	    WHERE b_id = #{b_id}
 	</update>
+	
+	
+	<!-- 컨텐츠 검색 -->
+	<select id="contentSearchListData" resultMap="BoardWithSellerMap" parameterType="hashmap">
+		SELECT b.b_id,  b.u_s_id AS b_u_s_id, b.b_filter, b.b_title, us.u_s_id AS us_u_s_id,
+			b.b_thumbnail, b.b_status, b.b_createdat, b.b_view_count, us.u_s_com, b.b_type
+		FROM board b
+		LEFT JOIN users_seller us ON us.u_s_id = b.u_s_id
+		WHERE (
+			b.b_id LIKE '%'||#{keyword}||'%'
+			OR b.b_type LIKE '%'||#{keyword}||'%'
+			OR b.b_title LIKE '%'||#{keyword}||'%'
+			OR us.u_s_com LIKE '%'||#{keyword}||'%'
+		)
+		ORDER BY b.b_id DESC
+		OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+	
+	<!-- 검색 컨텐츠 페이징 -->
+	<select id="contentSearchTotalData" resultType="int" parameterType="string">
+		SELECT CEIL(COUNT(*)/12.0)
+			FROM board b
+			LEFT JOIN users_seller us ON us.u_s_id = b.u_s_id
+			WHERE (
+				b.b_id LIKE '%'||#{keyword}||'%'
+				OR b.b_type LIKE '%'||#{keyword}||'%'
+				OR b.b_title LIKE '%'||#{keyword}||'%'
+				OR us.u_s_com LIKE '%'||#{keyword}||'%'
+			)
+	</select>
+	
+	
 </mapper>

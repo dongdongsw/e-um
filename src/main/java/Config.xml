@@ -49,8 +49,11 @@
     <!-- 관리자 -->
     <mapper resource="com/eum/admin/mapper/contents-mapper.xml"/>
     <mapper resource="com/eum/admin/mapper/sellers-mapper.xml"/>
-    <mapper resource="com/eum/admin/mapper/reviews-mapper.xml"/>
     <mapper resource="com/eum/admin/mapper/users-mapper.xml"/>
     <mapper resource="com/eum/admin/mapper/notice-mapper.xml"/>
+    <mapper resource="com/eum/admin/mapper/orders-mapper.xml"/>
+    <mapper resource="com/eum/admin/mapper/main-mapper.xml"/>
+    <mapper resource="com/eum/admin/mapper/delete-mapper.xml"/>
+    <mapper resource="com/eum/admin/mapper/reviews-mapper.xml"/>
   </mappers>
 </configuration>

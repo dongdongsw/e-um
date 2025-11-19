@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.admin.mapper.main-mapper">
+
+	<!-- 총 사용자 수 -->
+	<select id="userTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM users
+	</select>
+	
+	<!-- 총 판매자 수 -->
+	<select id="sellerTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM users_seller
+	</select>
+	
+	<!-- 총 컨텐츠 수 -->
+	<select id="contentsTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM board
+	</select>
+	
+	<!-- 총 리뷰 수 -->
+	<select id="reviewTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM review
+	</select>
+	
+	<!-- 현재 셀러 등록 현황 -->
+	<select id="sellerRegistPercentage" resultType="double">
+		SELECT ROUND(
+			(
+				(SELECT COUNT(*) FROM users_seller) * 100.0
+				/
+				(SELECT COUNT(*) FROM users)
+			),1
+		)
+		FROM dual
+	</select>
+	
+	<!-- 신규 셀러 범위 : 1주 -->
+	<select id="sellerNewRegist" resultType="int">
+		SELECT COUNT(*)
+		FROM users_seller
+		WHERE u_createat &lt; SYSDATE AND u_createat &gt;= SYSDATE-7
+	</select>
+	
+	<!-- 신규 셀러 비율 1주 전과 비교 -->
+	<select id="sellerNewRegistGrowth" resultType="double">
+		SELECT ROUND(
+	        (
+	            (
+	                SELECT COUNT(*) 
+	                FROM users_seller
+	                WHERE u_createat &lt; SYSDATE 
+	                  AND u_createat &gt;= SYSDATE-7
+	            ) * 100.0
+	        )
+	        /
+	        NULLIF((
+	            SELECT COUNT(*) 
+	            FROM users_seller
+	            WHERE u_createat &lt; SYSDATE-7 
+	              AND u_createat &gt;= SYSDATE-14
+	        ), 0)
+	    ,1)
+	    FROM dual
+	</select>
+	
+	<!-- 총 환불 금액 -->
+	<select id="refundTotalAmount" resultType="int">
+		SELECT SUM(rf_amount)
+		FROM refund
+		WHERE rf_status = '환불완료'
+	</select>
+	
+	<!-- 신규 환불 신청 수 -->
+	<select id="refundNewApply" resultType="int">
+		SELECT COUNT(*)
+		FROM refund
+		WHERE rf_status = '환불대기'
+	</select>
+	
+	<!-- 총 환불 접수 수 -->
+	<select id="refundReceiveTotalApply" resultType="int">
+		SELECT COUNT(*)
+		FROM refund
+		WHERE rf_status = '환불접수'
+	</select>
+	
+	<!-- 총 환불 수 -->
+	<select id="refundTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM refund
+	</select>
+	
+	<!-- 총 환불 처리 완료된 수 -->
+	<select id="refundCompleteTotalCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM refund 
+		WHERE rf_status = '환불완료'
+	</select>
+	
+	<!-- 유저 가입 통계 월별 -->
+	<select id="usersGraphMonth" resultType="hashmap">
+	    SELECT TO_CHAR(u_createat, 'YYYY-MM') AS months,
+	           COUNT(*) AS signup_count
+	    FROM users
+	    WHERE u_createat &gt;= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -12)
+	    GROUP BY TO_CHAR(u_createat, 'YYYY-MM')
+	    ORDER BY TO_CHAR(u_createat, 'YYYY-MM')
+	</select>
+	
+	<!-- 카테고리 별 개수 -->
+	<select id="categoryTotalCount" resultType="hashmap">
+		SELECT 
+			SUM(CASE WHEN b_type = '비즈니스' THEN 1 ELSE 0 END) AS business,
+		    SUM(CASE WHEN b_type = '생활라이프' THEN 1 ELSE 0 END) AS life_style,
+		    SUM(CASE WHEN b_type = '취미/자기개발' THEN 1 ELSE 0 END) AS hobby_dev,
+		    SUM(CASE WHEN b_type = '운동건강' THEN 1 ELSE 0 END) AS exercise,
+		    SUM(CASE WHEN b_type = '기타' THEN 1 ELSE 0 END) AS etc
+		FROM board
+	</select>
+</mapper>

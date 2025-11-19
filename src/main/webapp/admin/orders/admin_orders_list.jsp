@@ -1,225 +1,247 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
+<style>
+.text-normal {
+    color: #4a4a4a !important;
+}
+/* 금액, 주문번호, 결제번호, 결제방법 열 중앙 정렬 */
+.orders-table td:nth-child(4),
+.orders-table td:nth-child(7),
+.orders-table td:nth-child(8),
+.orders-table td:nth-child(9),
+.orders-table th:nth-child(4),
+.orders-table th:nth-child(7),
+.orders-table th:nth-child(8),
+.orders-table th:nth-child(9) {
+    text-align: center !important;
+}
+
+td a{
+	text-decoration: none;
+	color:black;
+}
+
+.page-header-custom h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.page-header-custom p {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0;
+}
+
+/* 검색 디자인 */
+.form {
+  --timing: 0.3s;
+  --width-of-input: 400px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #9755F6;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg,#fff);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.form:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.form:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+input:focus {
+  outline: none;
+}
+
+.form:focus-within:before {
+  transform: scale(1);
+}
+
+.reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.form svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+.search-input:not(:placeholder-shown) ~ .reset-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-form svg {
+  width: 17px;
+  
+}
+
+.form button {
+  border: none;
+  background: none;
+}
+
+</style>
 <main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12">
-              <h2 class="h3 mb-3 page-title">Orders</h2>
-              <div class="row mb-4 items-align-center">
-                <div class="col-md">
-                  <ul class="nav nav-pills justify-content-start">
-                    <li class="nav-item">
-                      <a class="nav-link active bg-transparent pr-2 pl-0 text-primary" href="#">All <span class="badge badge-pill bg-primary text-white ml-2">164</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link text-muted px-2" href="#">Pending <span class="badge badge-pill bg-white border text-muted ml-2">64</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link text-muted px-2" href="#">Processing <span class="badge badge-pill bg-white border text-muted ml-2">48</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link text-muted px-2" href="#">Completed <span class="badge badge-pill bg-white border text-muted ml-2">52</span></a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-md-auto ml-auto text-right">
-                  <span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
-                    <a href="#" class="text-muted"><i class="fe fe-x mx-1"></i></a>
-                    <span class="text-muted">Status : <strong>Pending</strong></span>
-                  </span>
-                  <span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
-                    <a href="#" class="text-muted"><i class="fe fe-x mx-1"></i></a>
-                    <span class="text-muted">April 14, 2020 - May 13, 2020</span>
-                  </span>
-                  <button type="button" class="btn" data-toggle="modal" data-target=".modal-slide"><span class="fe fe-filter fe-16 text-muted"></span></button>
-                  <button type="button" class="btn"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
-                </div>
-              </div>
-              <!-- Slide Modal -->
-              <div class="modal fade modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="defaultModalLabel">Filters</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fe fe-x fe-12"></i>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="p-2">
-                        <div class="form-group my-4">
-                          <p class="mb-2"><strong>Regions</strong></p>
-                          <label for="multi-select2" class="sr-only"></label>
-                          <select class="form-control select2-multi" id="multi-select2">
-                            <optgroup label="Mountain Time Zone">
-                              <option value="AZ">Arizona</option>
-                              <option value="CO">Colorado</option>
-                              <option value="ID">Idaho</option>
-                              <option value="MT">Montana</option>
-                              <option value="NE">Nebraska</option>
-                              <option value="NM">New Mexico</option>
-                              <option value="ND">North Dakota</option>
-                              <option value="UT">Utah</option>
-                              <option value="WY">Wyoming</option>
-                            </optgroup>
-                            <optgroup label="Central Time Zone">
-                              <option value="AL">Alabama</option>
-                              <option value="AR">Arkansas</option>
-                              <option value="IL">Illinois</option>
-                              <option value="IA">Iowa</option>
-                              <option value="KS">Kansas</option>
-                              <option value="KY">Kentucky</option>
-                              <option value="LA">Louisiana</option>
-                              <option value="MN">Minnesota</option>
-                              <option value="MS">Mississippi</option>
-                              <option value="MO">Missouri</option>
-                              <option value="OK">Oklahoma</option>
-                              <option value="SD">South Dakota</option>
-                              <option value="TX">Texas</option>
-                              <option value="TN">Tennessee</option>
-                              <option value="WI">Wisconsin</option>
-                            </optgroup>
-                          </select>
-                        </div> <!-- form-group -->
-                        <div class="form-group my-4">
-                          <p class="mb-2">
-                            <strong>Payment</strong>
-                          </p>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1">Paypal</label>
-                          </div>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck2">
-                            <label class="custom-control-label" for="customCheck2">Credit Card</label>
-                          </div>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1-1" checked>
-                            <label class="custom-control-label" for="customCheck1">Wire Transfer</label>
-                          </div>
-                        </div> <!-- form-group -->
-                        <div class="form-group my-4">
-                          <p class="mb-2">
-                            <strong>Types</strong>
-                          </p>
-                          <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio1">End users</label>
-                          </div>
-                          <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
-                            <label class="custom-control-label" for="customRadio2">Whole Sales</label>
-                          </div>
-                        </div> <!-- form-group -->
-                        <div class="form-group my-4">
-                          <p class="mb-2">
-                            <strong>Completed</strong>
-                          </p>
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                            <label class="custom-control-label" for="customSwitch1">Include</label>
-                          </div>
-                        </div> <!-- form-group -->
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn mb-2 btn-primary btn-block">Apply</button>
-                      <button type="button" class="btn mb-2 btn-secondary btn-block">Reset</button>
-                    </div>
-                  </div>
-                </div>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+	                <div class="page-header-custom">
+					    <h2>Order_List</h2>
+					    <p>등록된 모든 주문 정보를 확인할 수 있습니다.</p>
+					</div>
+                
+				<!-- 여기 search form 단독 삽입 -->
+			      <form class="form" method="get" action="admin_orders_list.eum">
+				    <button type="submit">
+				        <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+				            <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+				                stroke="currentColor"
+				                stroke-width="1.333"
+				                stroke-linecap="round"
+				                stroke-linejoin="round" />
+				        </svg>
+				    </button>
+				
+				    <input class="input"
+				           type="text"
+				           name="keyword"
+				           placeholder="Search..."
+				           value="${keyword}" />
+				
+				    <button type="reset" class="reset">
+				        <svg xmlns="http://www.w3.org/2000/svg"
+				             fill="none"
+				             viewBox="0 0 24 24"
+				             stroke="currentColor"
+				             stroke-width="2">
+				            <path stroke-linecap="round"
+				                  stroke-linejoin="round"
+				                  d="M6 18L18 6M6 6l12 12" />
+				        </svg>
+				    </button>
+				
+				</form>
               </div>
               
+              
               <!-- Table -->
-              <table class="table border table-hover bg-white">
+              <table class="table border table-hover bg-white orders-table">
+
                 <thead>
                   <tr role="row">
-                    <th>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="all">
-                        <label class="custom-control-label" for="all"></label>
-                      </div>
-                    </th>
-                    <th>ID</th>
-                    <th>Purchase Date</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Ship To</th>
-                    <th>Total</th>
-                    <th>Payment</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th></th>
+                    <th><strong>ID</strong></th>
+                    <th><strong>닉네임</strong></th>
+                    <th><strong>금액</strong></th>
+                    <th><strong>구매일</strong></th>
+                    <th><strong>주문상태</strong></th>
+                    <th><strong>주문번호</strong></th>
+                    <th><strong>결제번호</strong></th>
+                    <th><strong>결제방법</strong></th>
+                    <th><strong>결제상태</strong></th>
+                    <th><strong>환불</strong></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <c:forEach begin="1" end="12">
+                  <c:forEach var="orders_list" items="${orders_list }"> 
                   <tr>
                     <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-                        <label class="custom-control-label"></label>
-                      </div>
+                      
                     </td>
-                    <td>1331</td>
-                    <td>2020-12-26 01:32:21</td>
-                    <td>Kasimir Lindsey</td>
-                    <td>(697) 486-2101</td>
-                    <td>996-3523 Et Ave</td>
-                    <td>$3.64</td>
-                    <td> Paypal</td>
-                    <td><span class="dot dot-lg bg-success mr-2"></span></td>
-                    <td><span class="dot dot-lg bg-primary mr-2"></span></td>
-                    <td><span class="dot dot-lg bg-warning mr-2"></span></td>
-                    <td><span class="dot dot-lg bg-danger mr-2"></span></td>
-                    <td><span class="dot dot-lg bg-secondary mr-2"></span></td>
-                    <td><span class="dot dot-lg bg-info mr-2"></span></td>
-                    <td><span class="dot dot-lg bg-light mr-2"></span></td>
-                    <td><span class="dot dot-lg bg-dark mr-2"></span></td>
-                    <td><span class="dot dot-lg bg-white mr-2"></span></td>
-                    <td><span class="dot dot-lg bg-transparent mr-2"></span></td>
+                    <td class="text-normal">${orders_list.o_id }</td>
+                    <td>
+                    	<a href="../admin/admin_users_detail.eum?u_id=${orders_list.uvo.u_id }">
+                    		${orders_list.uvo.u_nickname }
+                    	</a>
+                    </td>
+                    <td class="text-normal">${orders_list.o_total_price }</td>
+                    <td class="text-normal">
+                    	<fmt:formatDate value="${orders_list.o_createdat}" pattern="yyyy-MM-dd" />
+                    </td>
+                    <td class="text-normal">${orders_list.o_status }</td>
+                    <td class="text-normal">${orders_list.pvo.merchant_uid }</td>
+                    <td class="text-normal">${orders_list.pvo.pay_id }</td>
+                    <td class="text-normal">${orders_list.pvo.pay_method }</td>
+                    <td class="text-normal">${orders_list.pvo.status}</td>
+                    <td class="text-normal">
+					    <c:if test="${orders_list.pvo.rfvo.rf_status != null}">
+					        <button class="btn btn-warning btn-refund"
+							    data-rfid="${orders_list.pvo.rfvo.rf_id}"
+							    data-reason="${orders_list.pvo.rfvo.rf_reason}"
+							    data-amount="${orders_list.pvo.rfvo.rf_amount}"
+							    data-status="${orders_list.pvo.rfvo.rf_status}"
+							    data-requested="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_requestedat}' pattern='yyyy-MM-dd HH:mm'/>"
+							    data-completed="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_completedat}' pattern='yyyy-MM-dd HH:mm'/>">
+							    환불보기
+							</button>
+
+					    </c:if>
+					</td>
+
+
+                    
                     <td>
                       <div class="dropdown">
                         <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <span class="text-muted sr-only">Action</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Edit</a>
-                          <a class="dropdown-item" href="#">Remove</a>
-                          <a class="dropdown-item" href="#">Assign</a>
+                          <a class="dropdown-item" href="../admin/admin_users_detail.eum?u_id=${orders_list.uvo.u_id }">프로필</a>
+                          
                         </div>
                       </div>
                     </td>
                   </tr>
                   </c:forEach>
-                  <!-- <tr>
-                    <td class="align-center">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-                        <label class="custom-control-label"></label>
-                      </div>
-                    </td>
-                    <td>1156</td>
-                    <td>2020-04-21 00:38:38</td>
-                    <td>Melinda Levy</td>
-                    <td>(748) 927-4423</td>
-                    <td>Ap #516-8821 Vitae Street</td>
-                    <td>$4.18</td>
-                    <td> Paypal</td>
-                    <td><span class="dot dot-lg bg-warning mr-2"></span></td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Edit</a>
-                          <a class="dropdown-item" href="#">Remove</a>
-                          <a class="dropdown-item" href="#">Assign</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr> -->
+                 
                  
                 </tbody>
               </table>
@@ -227,14 +249,93 @@
               <!-- pagenations -->
               <nav aria-label="Table Paging" class="my-3">
                 <ul class="pagination justify-content-end mb-0">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
+                   <c:if test="${startPage > 1 }">
+                     <li class="page-item">
+                     	<a class="page-link" href="../admin/admin_orders_list.eum?page=${startPage-1 }&keyword=${keyword}">&lt;</a>
+                     </li>
+                   </c:if>
+                   <c:forEach var="i" begin="${startPage }" end="${endPage }">
+                     <li class="page-item ${i==curpage?'active':'' }" >
+                     	<a class="page-link" href="../admin/admin_orders_list.eum?page=${i }&keyword=${keyword}">${i }</a>
+                     </li>
+                   </c:forEach>  
+                   <c:if test="${endPage < totalpage }">
+                     <li class="page-item">
+                     <a class="page-link" href="../admin/admin_orders_list.eum?page=${endPage+1 }&keyword=${keyword}">&gt;</a>
+                     </li>
+                   </c:if>
+                   </ul>
               </nav>
             </div>
           </div> <!-- .row -->
         </div> <!-- .container-fluid -->
-       
+        
+<!-- 환불 상세 모달 -->
+<div class="modal fade" id="refundModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">환불 상세 정보</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <form method="post" action="../admin/admin_refund_status.eum">
+      <div class="modal-body">
+
+        <!-- 숨겨진 값 (rf_id, page 값 전달용) -->
+        <input type="hidden" name="rf_id" id="rf-id">
+        <input type="hidden" name="page" value="${curpage}">
+
+        <p><strong>환불 상태:</strong> 
+          <select name="rf_status" id="rf-status-select" class="form-control">
+            <option value="환불취소">환불취소</option>
+            <option value="환불접수">환불접수</option>
+            <option value="환불완료">환불완료</option>
+          </select>
+        </p>
+
+        <p><strong>환불 금액:</strong> <span id="rf-amount"></span></p>
+        <p><strong>환불 사유:</strong> <span id="rf-reason"></span></p>
+        <p><strong>요청일:</strong> <span id="rf-requested"></span></p>
+        <p><strong>완료일:</strong> <span id="rf-completed"></span></p>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">변경 저장</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+$(document).on("click", ".btn-refund", function () {
+
+    $("#rf-id").val($(this).data("rfid"));               
+    $("#rf-reason").text($(this).data("reason"));    
+    $("#rf-amount").text($(this).data("amount"));      
+    $("#rf-requested").text($(this).data("requested"));  
+    $("#rf-completed").text($(this).data("completed")); 
+
+    const status = $(this).data("status");           
+    $("#rf-status").text(status);
+    $("#rf-status-select").val(status);                
+
+    $("#refundModal").modal("show");
+});
+
+document.querySelector(".form .reset").addEventListener("click", function(e){
+    e.preventDefault();   
+
+    const input = document.querySelector(".input");
+    input.value = "";
+    input.focus();
+});
+</script>

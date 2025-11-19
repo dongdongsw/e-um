@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.admin.mapper.orders-mapper">
+
+<resultMap type="OrdersVO" id="ordersMap">
+  	<result property="b_op_id" column="b_op_id"/>
+  	<result property="o_total_price" column="o_total_price"/>
+	<result property="o_id" column="o_id"/>
+	<result property="o_status" column="o_status"/>
+	<result property="o_createdat" column="o_createdat"/>
+
+	<association property="pvo" javaType="PaymentVO">
+		<result property="pay_id" column="pay_id" />
+		<result property="pay_method" column="pay_method" />
+		<result property="status" column="status" />
+		<result property="merchant_uid" column="merchant_uid" />
+		
+		<association property="rfvo" javaType="RefundVO">
+			<result property="rf_id" column="rf_id" />
+			<result property="rf_reason" column="rf_reason" />
+			<result property="rf_amount" column="rf_amount" />
+			<result property="rf_status" column="rf_status" />
+			<result property="rf_requestedat" column="rf_requestedat" />
+			<result property="rf_completedat" column="rf_completedat" />
+		</association>
+	</association>
+	<association property="uvo" javaType="UsersVO">
+		<result property="u_nickname" column="u_nickname" />
+		<result property="u_id" column="u_id" />
+	</association>
+	
+  </resultMap>
+  
+  
+  
+	<!-- <주문> 리스트  -->
+	<select id="ordersListData" resultMap="ordersMap" parameterType="hashmap">
+		SELECT o.o_id, o.o_total_price, o.o_status, o.o_createdat,
+			p.pay_id, p.pay_method, p.status, p.merchant_uid, u.u_nickname, u.u_id,
+			r.rf_id, r.rf_amount, r.rf_reason, r.rf_status, r.rf_requestedat, r.rf_completedat
+		FROM orders o
+		LEFT JOIN payment p ON o.o_id = p.o_id
+		LEFT JOIN users u ON u.u_id = o.o_u_id
+		LEFT JOIN refund r ON r.pay_id = p.pay_id
+		ORDER BY o.o_createdat DESC
+		OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+	
+	<!-- <주문> 페이징 -->
+	<select id="ordersTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM orders
+	</select>
+	
+	<!-- <주문> 검색 -->
+	<select id="ordersSearchListData" resultMap="ordersMap" parameterType="hashmap">
+		SELECT o.o_id, o.o_total_price, o.o_status, o.o_createdat,
+			p.pay_id, p.pay_method, p.status, p.merchant_uid, u.u_nickname, u.u_id
+		FROM orders o
+		LEFT JOIN payment p ON o.o_id = p.o_id
+		LEFT JOIN users u ON u.u_id = o.o_u_id
+		WHERE (
+			o.o_id LIKE '%'||#{keyword}||'%'
+			OR p.pay_id LIKE '%'||#{keyword}||'%'
+			OR p.merchant_uid LIKE '%'||#{keyword}||'%'
+			OR u.u_nickname LIKE '%'||#{keyword}||'%'
+		)
+		ORDER BY o.o_createdat DESC
+		OFFSET #{start} ROWS FETCH NEXT #{rowSize} ROWS ONLY
+	</select>
+	
+	<!-- <주문> 검색 페이징 -->
+	<select id="ordersSearchTotalPage" resultType="int" parameterType="string">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM orders o
+		LEFT JOIN payment p ON o.o_id = p.o_id
+		LEFT JOIN users u ON u.u_id = o.o_u_id
+		WHERE (
+			o.o_id LIKE '%'||#{keyword}||'%'
+			OR p.pay_id LIKE '%'||#{keyword}||'%'
+			OR p.merchant_uid LIKE '%'||#{keyword}||'%'
+			OR u.u_nickname LIKE '%'||#{keyword}||'%'
+		)
+	</select>
+	
+	<!-- <주문> 상태 변경 -->
+	<update id="ordersStatusUpdate" parameterType="hashmap">
+		UPDATE Orders 
+		SET o_status = #{o_status}
+		WHERE o_id = #{o_id}
+	</update>
+	
+	<!-- <결제> 상태 변경 -->
+	<update id="paymentStatusUpdate" parameterType="hashmap">
+		UPDATE payment 
+		SET status = #{status}
+		WHERE pay_id = #{pay_id}
+	</update>
+	
+	<!-- <환불> 상태 변경 -->
+	<update id="refundStatusUpdate" parameterType="hashmap">
+		UPDATE refund
+		SET rf_status = #{rf_status},
+			rf_completedat = SYSDATE
+		WHERE rf_id = #{rf_id}
+	</update>
+	
+</mapper>

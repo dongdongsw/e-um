@@ -1,360 +1,314 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<style>
+.bg-purple {
+  background-color: #9370DB !important; /* MediumPurple 색상 */
+}
+</style>
+
 <main role="main" class="main-content">
-        <div class="container-fluid">
-          <div class="row justify-content-center">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
             <div class="col-12">
-              <div class="row align-items-center mb-2">
-                <div class="col">
-                  <h2 class="h5 page-title">Welcome!</h2>
-                </div>
-                <div class="col-auto">
-                  <form class="form-inline">
-                    <div class="form-group d-none d-lg-inline">
-                      <label for="reportrange" class="sr-only">Date Ranges</label>
-                      <div id="reportrange" class="px-2 py-2 text-muted">
-                        <span class="small"></span>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <button type="button" class="btn btn-sm"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
-                      <button type="button" class="btn btn-sm mr-2"><span class="fe fe-filter fe-16 text-muted"></span></button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="mb-2 align-items-center">
-                <div class="card shadow mb-4">
-                  <div class="card-body">
-                    <div class="row mt-1 align-items-center">
-                      <div class="col-12 col-lg-4 text-left pl-4">
-                        <p class="mb-1 small text-muted">Balance</p>
-                        <span class="h3">$12,400</span>
-                        <span class="small text-muted">+20%</span>
-                        <span class="fe fe-arrow-up text-success fe-12"></span>
-                        <p class="text-muted mt-2"> Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui </p>
-                      </div>
-                      <div class="col-6 col-lg-2 text-center py-4">
-                        <p class="mb-1 small text-muted">Today</p>
-                        <span class="h3">$2600</span><br />
-                        <span class="small text-muted">+20%</span>
-                        <span class="fe fe-arrow-up text-success fe-12"></span>
-                      </div>
-                      <div class="col-6 col-lg-2 text-center py-4 mb-2">
-                        <p class="mb-1 small text-muted">Goal Value</p>
-                        <span class="h3">$260</span><br />
-                        <span class="small text-muted">+6%</span>
-                        <span class="fe fe-arrow-up text-success fe-12"></span>
-                      </div>
-                      <div class="col-6 col-lg-2 text-center py-4">
-                        <p class="mb-1 small text-muted">Completions</p>
-                        <span class="h3">26</span><br />
-                        <span class="small text-muted">+20%</span>
-                        <span class="fe fe-arrow-up text-success fe-12"></span>
-                      </div>
-                      <div class="col-6 col-lg-2 text-center py-4">
-                        <p class="mb-1 small text-muted">Conversion</p>
-                        <span class="h3">6%</span><br />
-                        <span class="small text-muted">-2%</span>
-                        <span class="fe fe-arrow-down text-danger fe-12"></span>
-                      </div>
-                    </div>
-                    <div class="chartbox mr-4">
-                      <div id="areaChart"></div>
-                    </div>
-                  </div> <!-- .card-body -->
-                </div> <!-- .card -->
-              </div>
-              <div class="row items-align-baseline">
-                <div class="col-md-12 col-lg-4">
-                  <div class="card shadow eq-card mb-4">
-                    <div class="card-body mb-n3">
-                      <div class="row items-align-baseline h-100">
-                        <div class="col-md-6 my-3">
-                          <p class="mb-0"><strong class="mb-0 text-uppercase text-muted">Earning</strong></p>
-                          <h3>$2,562</h3>
-                          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                        <div class="col-md-6 my-4 text-center">
-                          <div lass="chart-box mx-4">
-                            <div id="radialbarWidget"></div>
-                          </div>
-                        </div>
-                        <div class="col-md-6 border-top py-3">
-                          <p class="mb-1"><strong class="text-muted">Cost</strong></p>
-                          <h4 class="mb-0">108</h4>
-                          <p class="small text-muted mb-0"><span>37.7% Last week</span></p>
-                        </div> <!-- .col -->
-                        <div class="col-md-6 border-top py-3">
-                          <p class="mb-1"><strong class="text-muted">Revenue</strong></p>
-                          <h4 class="mb-0">1168</h4>
-                          <p class="small text-muted mb-0"><span>-18.9% Last week</span></p>
-                        </div> <!-- .col -->
-                      </div>
-                    </div> <!-- .card-body -->
-                  </div> <!-- .card -->
-                </div> <!-- .col -->
-                <div class="col-md-12 col-lg-4">
-                  <div class="card shadow eq-card mb-4">
-                    <div class="card-body">
-                      <div class="chart-widget mb-2">
-                        <div id="radialbar"></div>
-                      </div>
-                      <div class="row items-align-center">
-                        <div class="col-4 text-center">
-                          <p class="text-muted mb-1">Cost</p>
-                          <h6 class="mb-1">$1,823</h6>
-                          <p class="text-muted mb-0">+12%</p>
-                        </div>
-                        <div class="col-4 text-center">
-                          <p class="text-muted mb-1">Revenue</p>
-                          <h6 class="mb-1">$6,830</h6>
-                          <p class="text-muted mb-0">+8%</p>
-                        </div>
-                        <div class="col-4 text-center">
-                          <p class="text-muted mb-1">Earning</p>
-                          <h6 class="mb-1">$4,830</h6>
-                          <p class="text-muted mb-0">+8%</p>
-                        </div>
-                      </div>
-                    </div> <!-- .card-body -->
-                  </div> <!-- .card -->
-                </div> <!-- .col -->
-                <div class="col-md-12 col-lg-4">
-                  <div class="card shadow eq-card mb-4">
-                    <div class="card-body">
-                      <div class="d-flex mt-3 mb-4">
-                        <div class="flex-fill pt-2">
-                          <p class="mb-0 text-muted">Total</p>
-                          <h4 class="mb-0">108</h4>
-                          <span class="small text-muted">+37.7%</span>
-                        </div>
-                        <div class="flex-fill chart-box mt-n2">
-                          <div id="barChartWidget"></div>
-                        </div>
-                      </div> <!-- .d-flex -->
-                      <div class="row border-top">
-                        <div class="col-md-6 pt-4">
-                          <h6 class="mb-0">108 <span class="small text-muted">+37.7%</span></h6>
-                          <p class="mb-0 text-muted">Cost</p>
-                        </div>
-                        <div class="col-md-6 pt-4">
-                          <h6 class="mb-0">1168 <span class="small text-muted">-18.9%</span></h6>
-                          <p class="mb-0 text-muted">Revenue</p>
-                        </div>
-                      </div> <!-- .row -->
-                    </div> <!-- .card-body -->
-                  </div> <!-- .card -->
-                </div> <!-- .col-md -->
-              </div> <!-- .row -->
-              <div class="row">
-                <!-- Recent Activity -->
-                <div class="col-md-12 col-lg-4 mb-4">
-                  <div class="card timeline shadow">
-                    <div class="card-header">
-                      <strong class="card-title">Recent Activity</strong>
-                      <a class="float-right small text-muted" href="#!">View all</a>
-                    </div>
-                    <div class="card-body" data-simplebar style="height:355px; overflow-y: auto; overflow-x: hidden;">
-                      <h6 class="text-uppercase text-muted mb-4">Today</h6>
-                      <div class="pb-3 timeline-item item-primary">
-                        <div class="pl-5">
-                          <div class="mb-1"><strong>@Brown Asher</strong><span class="text-muted small mx-2">Just create new layout Index, form, table</span><strong>Tiny Admin</strong></div>
-                          <p class="small text-muted">Creative Design <span class="badge badge-light">1h ago</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="pb-3 timeline-item item-warning">
-                        <div class="pl-5">
-                          <div class="mb-3"><strong>@Hester Nissim</strong><span class="text-muted small mx-2">has upload new files to</span><strong>Tiny Admin</strong></div>
-                          <div class="row mb-3">
-                            <div class="col"><img src="./assets/products/p1.jpg" alt="..." class="img-fluid rounded"></div>
-                            <div class="col"><img src="./assets/products/p2.jpg" alt="..." class="img-fluid rounded"></div>
-                            <div class="col"><img src="./assets/products/p3.jpg" alt="..." class="img-fluid rounded"></div>
-                            <div class="col"><img src="./assets/products/p4.jpg" alt="..." class="img-fluid rounded"></div>
-                          </div>
-                          <p class="small text-muted">Front-End Development <span class="badge badge-light">1h ago</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="pb-3 timeline-item item-success">
-                        <div class="pl-5">
-                          <div class="mb-3"><strong>@Kelley Sonya</strong><span class="text-muted small mx-2">has commented on</span><strong>Advanced table</strong></div>
-                          <div class="card d-inline-flex mb-2">
-                            <div class="card-body bg-light py-2 px-3 small rounded"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dignissim nulla eu quam cursus placerat. Vivamus non odio ullamcorper, lacinia ante nec, blandit leo. </div>
-                          </div>
-                          <p class="small text-muted">Back-End Development <span class="badge badge-light">1h ago</span>
-                          </p>
-                        </div>
-                      </div>
-                      <h6 class="text-uppercase text-muted mb-4">Yesterday</h6>
-                      <div class="pb-3 timeline-item item-warning">
-                        <div class="pl-5">
-                          <div class="mb-3"><strong>@Fletcher Everett</strong><span class="text-muted small mx-2">created new group for</span><strong>Tiny Admin</strong></div>
-                          <ul class="avatars-list mb-3">
-                            <li>
-                              <a href="#!" class="avatar avatar-sm">
-                                <img alt="..." class="avatar-img rounded-circle" src="./assets/avatars/face-1.jpg">
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#!" class="avatar avatar-sm">
-                                <img alt="..." class="avatar-img rounded-circle" src="./assets/avatars/face-4.jpg">
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#!" class="avatar avatar-sm">
-                                <img alt="..." class="avatar-img rounded-circle" src="./assets/avatars/face-3.jpg">
-                              </a>
-                            </li>
-                          </ul>
-                          <p class="small text-muted">Front-End Development <span class="badge badge-light">1h ago</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="pb-3 timeline-item item-success">
-                        <div class="pl-5">
-                          <div class="mb-3"><strong>@Bertha Ball</strong><span class="text-muted small mx-2">has commented on</span><strong>Advanced table</strong></div>
-                          <div class="card d-inline-flex mb-2">
-                            <div class="card-body bg-light py-2 px-3"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dignissim nulla eu quam cursus placerat. Vivamus non odio ullamcorper, lacinia ante nec, blandit leo. </div>
-                          </div>
-                          <p class="small text-muted">Back-End Development <span class="badge badge-light">1h ago</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="pb-3 timeline-item item-danger">
-                        <div class="pl-5">
-                          <div class="mb-3"><strong>@Lillith Joseph</strong><span class="text-muted small mx-2">has upload new files to</span><strong>Tiny Admin</strong></div>
-                          <div class="row mb-3">
-                            <div class="col"><img src="./assets/products/p4.jpg" alt="..." class="img-fluid rounded"></div>
-                            <div class="col"><img src="./assets/products/p1.jpg" alt="..." class="img-fluid rounded"></div>
-                            <div class="col"><img src="./assets/products/p2.jpg" alt="..." class="img-fluid rounded"></div>
-                          </div>
-                          <p class="small text-muted">Front-End Development <span class="badge badge-light">1h ago</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div> <!-- / .card-body -->
-                  </div> <!-- / .card -->
-                </div> <!-- / .col-md-6 -->
-                <!-- Striped rows -->
-                <div class="col-md-12 col-lg-8">
-                  <div class="card shadow">
-                    <div class="card-header">
-                      <strong class="card-title">Recent Data</strong>
-                      <a class="float-right small text-muted" href="#!">View all</a>
-                    </div>
-                    <div class="card-body my-n2">
-                      <table class="table table-striped table-hover table-borderless">
-                        <thead>
-                          <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Date</th>
-                            <th>Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>2474</td>
-                            <th scope="col">Brown, Asher D.</th>
-                            <td>Ap #331-7123 Lobortis Avenue</td>
-                            <td>13/09/2020</td>
-                            <td>
-                              <div class="dropdown">
-                                <button class="btn btn-sm dropdown-toggle more-vertical" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                  <a class="dropdown-item" href="#">Edit</a>
-                                  <a class="dropdown-item" href="#">Remove</a>
-                                  <a class="dropdown-item" href="#">Assign</a>
+
+                <!-- ======================= -->
+                <!--     ROW 1 : MAIN KPI    -->
+                <!-- ======================= -->
+                <div class="row mb-2">
+
+                    <!-- 사용자 수 -->
+                    <div class="col-md-3 mb-2">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <span class="h2 mb-0">
+                                        	<fmt:formatNumber value="${userTotal }" type="number"/>
+                                        </span>
+                                        <p class="small text-muted mb-0"><strong>사용자 총 수</strong></p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <span class="fe fe-32 fe-users text-muted mb-0"></span>
+                                    </div>
                                 </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2786</td>
-                            <th scope="col">Leblanc, Yoshio V.</th>
-                            <td>287-8300 Nisl. St.</td>
-                            <td>04/05/2019</td>
-                            <td>
-                              <div class="dropdown">
-                                <button class="btn btn-sm dropdown-toggle more-vertical" type="button" id="dr2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr2">
-                                  <a class="dropdown-item" href="#">Edit</a>
-                                  <a class="dropdown-item" href="#">Remove</a>
-                                  <a class="dropdown-item" href="#">Assign</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2747</td>
-                            <th scope="col">Hester, Nissim L.</th>
-                            <td>4577 Cras St.</td>
-                            <td>04/06/2019</td>
-                            <td>
-                              <div class="dropdown">
-                                <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                  <a class="dropdown-item" href="#">Edit</a>
-                                  <a class="dropdown-item" href="#">Remove</a>
-                                  <a class="dropdown-item" href="#">Assign</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2639</td>
-                            <th scope="col">Gardner, Leigh S.</th>
-                            <td>P.O. Box 228, 7512 Lectus Ave</td>
-                            <td>04/08/2019</td>
-                            <td>
-                              <div class="dropdown">
-                                <button class="btn btn-sm dropdown-toggle more-vertical" type="button" id="dr4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr4">
-                                  <a class="dropdown-item" href="#">Edit</a>
-                                  <a class="dropdown-item" href="#">Remove</a>
-                                  <a class="dropdown-item" href="#">Assign</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2238</td>
-                            <th scope="col">Higgins, Uriah L.</th>
-                            <td>Ap #377-5357 Sed Road</td>
-                            <td>04/01/2019</td>
-                            <td>
-                              <div class="dropdown">
-                                <button class="btn btn-sm dropdown-toggle more-vertical" type="button" id="dr5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr5">
-                                  <a class="dropdown-item" href="#">Edit</a>
-                                  <a class="dropdown-item" href="#">Remove</a>
-                                  <a class="dropdown-item" href="#">Assign</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div> <!-- Striped rows -->
-              </div> <!-- .row-->
-            </div> <!-- .col-12 -->
-          </div> <!-- .row -->
-        </div> <!-- .container-fluid -->
+
+                    <!-- 판매자 수 -->
+                    <div class="col-md-3 mb-2">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <span class="h2 mb-0">
+                                        	<fmt:formatNumber value="${sellerTotal }" type="number"/>
+                                        </span>
+                                        <p class="small text-muted mb-0"><strong>셀러 총 수</strong></p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <span class="fe fe-32 fe-briefcase text-muted mb-0"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 컨텐츠 수 -->
+                    <div class="col-md-3 mb-2">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <span class="h2 mb-0">
+                                        	<fmt:formatNumber value="${contentsTotal }" type="number"/>
+                                        </span>
+                                        <p class="small text-muted mb-0"><strong>컨텐츠 총 수</strong></p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <span class="fe fe-32 fe-shopping-bag text-muted mb-0"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 리뷰 수 -->
+                    <div class="col-md-3 mb-2">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <span class="h2 mb-0">
+                                        	<fmt:formatNumber value="${reviewTotal}" type="number"/>
+                                        </span>
+                                        <p class="small text-muted mb-0"><strong>리뷰 총 수</strong></p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <span class="fe fe-32 fe-edit text-muted mb-0"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- END ROW 1 -->
+
+
+
+               <!-- ======================= -->
+				<!--     ROW 2 : Conversion + Visitors + Earning   -->
+				<!-- ======================= -->
+				<div class="row mb-3">
+				
+				    <!-- Conversion -->
+				    <div class="col-md-3">
+				        <div class="card shadow h-100">
+				        	<div class="card-body d-flex flex-column justify-content-center">
+				                <div class="row align-items-center">
+				                    <div class="col-2 text-center">
+				                        <span class="circle circle-sm bg-primary">
+				                            <i class="fe fe-16 fe-user-plus text-white mb-0"></i>
+				                        </span>
+				                    </div>
+				                    <div class="col">
+				                        <p class="small text-muted mb-0"><strong>셀러 등록 비율</strong></p>
+				                        <div class="row align-items-center no-gutters">
+				                            <div class="col-auto">
+				                                <span class="h3 mr-2 mb-0">${sellerRegTotal }%</span>
+				                            </div>
+				                            <div class="col-md-12 col-lg">
+				                                <div class="progress progress-sm mt-2" style="height:3px">
+				                                    <div class="progress-bar bg-success" role="progressbar" style="width: ${sellerRegTotal }%"></div>
+				                                </div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+				
+				    <div class="col-md-3">
+					    <div class="card shadow h-100">
+        					<div class="card-body d-flex flex-column justify-content-center">
+					
+					            <!-- 상단 (제목 + 숫자) -->
+					            <small class="text-muted mb-0"><strong>신규 셀러</strong></small>
+					            <h3 class="card-title mb-1">${sellerNew }</h3>
+					
+					            <!-- 하단 row (Total + Last week 변화율) -->
+					            <div class="d-flex justify-content-between align-items-center">
+					                <p class="small text-muted mb-0">This Week</p>
+					                <div class="d-flex align-items-center text-success small">
+					                    <span class="fe fe-arrow-up fe-12 mr-1"></span>
+					                    <span>${sellerGrowth }% Last week</span>
+					                </div>
+					            </div>
+					
+					        </div>
+					    </div>
+					</div>
+
+				
+				    <!-- EARNING (2칸) -->
+				    <div class="col-md-6 ">
+				        <div class="card shadow h-100">
+				            <div class="card-body">
+				                
+				                <div class="row align-items-center text-center">
+				
+				                    <!-- Earning -->
+				                    <div class="col-md-3 text-left">
+				                        <p class="mb-0 text-uppercase text-muted"><strong>총 환불금액</strong></p>
+				                        <h3 class="mb-1">
+											<fmt:formatNumber value="${refundAmount}" type="currency" currencySymbol="$"/>
+										</h3>
+				                        <p class="text-muted mb-0 small">Lorem ipsum dolor </p>
+				                    </div>
+				
+				                    <!-- Cost -->
+				                    <div class="col-md-2">
+				                        <p class="mb-0 text-muted"><strong>신규 환불</strong></p>
+				                        <h4 class="mb-0">${refundNew }</h4>
+				                        <p class="small text-muted mb-0">NEW</p>
+				                    </div>
+				
+									<!-- Cost -->
+				                    <div class="col-md-2">
+				                        <p class="mb-0 text-muted"><strong>환불 접수</strong></p>
+				                        <h4 class="mb-0">${refundReceiveTotal }</h4>
+				                        <p class="small text-muted mb-0">Total</p>
+				                    </div>	
+									
+				                    <!-- Revenue -->
+				                    <div class="col-md-2">
+				                        <p class="mb-0 text-muted"><strong>총 환불 수</strong></p>
+				                        <h4 class="mb-0">${refundTotal }</h4>
+				                        <p class="small text-muted mb-0">Total</p>
+				                    </div>
+				
+				                    <!-- Circle Chart -->
+				                    <div class="col-md-2 text-center">처리 완료
+				                        <div style="width: 110px; margin: 0 auto;">
+				                            <div id="radialbarWidget1"></div>
+				                        </div>
+				                    </div> 
+				
+				                </div>
+				
+				            </div>
+				        </div>
+				    </div>
+				
+				</div><!-- END ROW 2 -->
+
+
+
+
+              <!-- ======================= -->
+			<!--  ROW 3 : Line Chart + Category -->
+			<!-- ======================= -->
+			<div class="row mb-2">
+			
+			    <!-- Line Chart -->
+			    <div class="col-md-8 mb-2 d-flex">
+			        <div class="card shadow h-100 w-100">
+			            <div class="card-header">
+			                <strong class="card-title mb-0">월별 신규 가입자</strong>
+			                <span class="badge badge-secondary float-right mr-2">30 days</span>
+			            </div>
+			            <div class="card-body">
+			                <canvas id="lineChartjs"></canvas>
+			            </div>
+			        </div>
+			    </div>
+			
+			    <!-- Category Donut -->
+			    <div class="col-md-4 mb-2 d-flex">
+			        <div class="card shadow h-100 w-100">
+			            <div class="card-body">
+			                <div class="chart-box mb-3">
+			                    <div id="categoryChart"></div>
+			                </div>
+			
+			                <%-- <div class="w-70 mx-auto ">--%>
+			                    
+			                    <!-- 리스트 내용 동일 -->
+			                    <div class="row align-items-center mb-2 ">
+			                        <div class="col">
+			                            <p class="mb-0">운동건강</p>
+			                        </div>
+			                        <div class="col-auto text-right">
+			                            <p class="mb-0">
+			                            	<c:out value="${categoryCount.EXERCISE}" default="0"/> 개	
+			                            </p>
+			                            <span class="dot dot-md bg-danger"></span>
+			                        </div>
+			                    </div>
+			                    <div class="row align-items-center mb-2">
+			                        <div class="col">
+			                            <p class="mb-0">비즈니스</p>
+			                        </div>
+			                        <div class="col-auto text-right">
+			                            <p class="mb-0">
+			                            	<c:out value="${categoryCount.BUSINESS}" default="0"/> 개
+			                            </p>
+			                            <span class="dot dot-md bg-primary"></span>
+			                        </div>
+			                    </div>
+			                    <div class="row align-items-center mb-2">
+			                        <div class="col">
+			                            <p class="mb-0">취미/자기개발</p>
+			                        </div>
+			                        <div class="col-auto text-right">
+			                            <p class="mb-0">
+			                            	<c:out value="${categoryCount.HOBBY_DEV}" default="0"/> 개
+			                            </p>
+			                            <span class="dot dot-md bg-warning"></span>
+			                        </div>
+			                    </div>
+			                    <div class="row align-items-center mb-2">
+			                        <div class="col">
+			                            <p class="mb-0">생활라이프</p>
+			                        </div>
+			                        <div class="col-auto text-right">
+			                            <p class="mb-0">
+			                            	<c:out value="${categoryCount.LIFE_STYLE}" default="0"/> 개
+			                            </p>
+			                            <span class="dot dot-md bg-success"></span>
+			                        </div>
+			                    </div>
+			                    <div class="row align-items-center mb-2  ">
+			                        <div class="col">
+			                            <p class="mb-0">기타</p>
+			                        </div>
+			                        <div class="col-auto text-right">
+			                            <p class="mb-0">
+			                            <c:out value="${categoryCount.ETC}" default="0"/> 개
+			                            </p>
+			                            <span class="dot dot-md bg-purple"></span>
+			                        </div>
+			                    </div>
+			
+			 
+			
+			                <!-- </div>  -->
+			            </div>
+			        </div>
+			    </div>
+			
+			</div><!-- END ROW 3 -->
+
+				
+				
+
+            </div>
+        </div>
+    </div>
+
         <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -422,62 +376,7 @@
             </div>
           </div>
         </div>
-        <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="defaultModalLabel">Shortcuts</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body px-5">
-                <div class="row align-items-center">
-                  <div class="col-6 text-center">
-                    <div class="squircle bg-success justify-content-center">
-                      <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
-                    </div>
-                    <p>Control area</p>
-                  </div>
-                  <div class="col-6 text-center">
-                    <div class="squircle bg-primary justify-content-center">
-                      <i class="fe fe-activity fe-32 align-self-center text-white"></i>
-                    </div>
-                    <p>Activity</p>
-                  </div>
-                </div>
-                <div class="row align-items-center">
-                  <div class="col-6 text-center">
-                    <div class="squircle bg-primary justify-content-center">
-                      <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
-                    </div>
-                    <p>Droplet</p>
-                  </div>
-                  <div class="col-6 text-center">
-                    <div class="squircle bg-primary justify-content-center">
-                      <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
-                    </div>
-                    <p>Upload</p>
-                  </div>
-                </div>
-                <div class="row align-items-center">
-                  <div class="col-6 text-center">
-                    <div class="squircle bg-primary justify-content-center">
-                      <i class="fe fe-users fe-32 align-self-center text-white"></i>
-                    </div>
-                    <p>Users</p>
-                  </div>
-                  <div class="col-6 text-center">
-                    <div class="squircle bg-primary justify-content-center">
-                      <i class="fe fe-settings fe-32 align-self-center text-white"></i>
-                    </div>
-                    <p>Settings</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      
         
         <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -511,219 +410,165 @@
     <script src='js/dropzone.min.js'></script>
     <script src='js/uppy.min.js'></script>
     <script src='js/quill.min.js'></script>
-    <script>
-      $('.select2').select2(
-      {
-        theme: 'bootstrap4',
-      });
-      $('.select2-multi').select2(
-      {
-        multiple: true,
-        theme: 'bootstrap4',
-      });
-      $('.drgpicker').daterangepicker(
-      {
-        singleDatePicker: true,
-        timePicker: false,
-        showDropdowns: true,
-        locale:
-        {
-          format: 'MM/DD/YYYY'
-        }
-      });
-      $('.time-input').timepicker(
-      {
-        'scrollDefault': 'now',
-        'zindex': '9999' /* fix modal open */
-      });
-      /** date range picker */
-      if ($('.datetimes').length)
-      {
-        $('.datetimes').daterangepicker(
-        {
-          timePicker: true,
-          startDate: moment().startOf('hour'),
-          endDate: moment().startOf('hour').add(32, 'hour'),
-          locale:
-          {
-            format: 'M/DD hh:mm A'
-          }
-        });
-      }
-      var start = moment().subtract(29, 'days');
-      var end = moment();
+    
+    
+<script>
+	var labels = [];
+	var data = [];
+	
+	<c:forEach var="row" items="${usersGraph}">
+	    labels.push("${row.MONTHS}");
+	    data.push(${row.SIGNUP_COUNT});
+	</c:forEach>
+	
+    var lineChartData = {
+        labels: labels,
+        datasets: [{
+            label: "월별 신규 유저",
+            borderColor: "rgba(75,192,192,1)",
+            data: data,
+            fill: false,
+            lineTension: 0.2
+        }]
+    };
 
-      function cb(start, end)
-      {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-      }
-      $('#reportrange').daterangepicker(
-      {
-        startDate: start,
-        endDate: end,
-        ranges:
-        {
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month': [moment().startOf('month'), moment().endOf('month')],
-          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-      }, cb);
-      cb(start, end);
-      $('.input-placeholder').mask("00/00/0000",
-      {
-        placeholder: "__/__/____"
-      });
-      $('.input-zip').mask('00000-000',
-      {
-        placeholder: "____-___"
-      });
-      $('.input-money').mask("#.##0,00",
-      {
-        reverse: true
-      });
-      $('.input-phoneus').mask('(000) 000-0000');
-      $('.input-mixed').mask('AAA 000-S0S');
-      $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
-      {
-        translation:
-        {
-          'Z':
-          {
-            pattern: /[0-9]/,
-            optional: true
-          }
+    var ChartOptions = {
+        maintainAspectRatio: false,
+        responsive: true
+    };
+
+    var ctx = document.getElementById("lineChartjs");
+
+    ctx && new Chart(ctx, {
+        type: "line",
+        data: lineChartData,
+        options: ChartOptions
+    });
+    
+ 	// 카테고리 그래프
+    var categoryCountData = {
+        BUSINESS: <c:out value="${categoryCount.BUSINESS}" default="0"/>,
+        LIFE_STYLE: <c:out value="${categoryCount.LIFE_STYLE}" default="0"/>,
+        HOBBY_DEV: <c:out value="${categoryCount.HOBBY_DEV}" default="0"/>,
+        EXERCISE: <c:out value="${categoryCount.EXERCISE}" default="0"/>,
+        ETC: <c:out value="${categoryCount.ETC}" default="0"/>
+    };
+	
+    var totalCount = 
+        categoryCountData.BUSINESS + 
+        categoryCountData.LIFE_STYLE + 
+        categoryCountData.HOBBY_DEV + 
+        categoryCountData.EXERCISE + 
+        categoryCountData.ETC;
+ 
+    var categoryChartOptions = {
+        series: [
+            (categoryCountData.BUSINESS / totalCount)* 100,
+            (categoryCountData.LIFE_STYLE / totalCount)* 100,
+            (categoryCountData.HOBBY_DEV / totalCount)* 100,
+            (categoryCountData.EXERCISE / totalCount)* 100,
+            (categoryCountData.ETC / totalCount)* 100
+        ],
+        chart: {
+            id: "category_cta", 
+            height: 200,
+            type: "radialBar"
         },
-        placeholder: "___.___.___.___"
-      });
-      // editor
-      var editor = document.getElementById('editor');
-      if (editor)
-      {
-        var toolbarOptions = [
-          [
-          {
-            'font': []
-          }],
-          [
-          {
-            'header': [1, 2, 3, 4, 5, 6, false]
-          }],
-          ['bold', 'italic', 'underline', 'strike'],
-          ['blockquote', 'code-block'],
-          [
-          {
-            'header': 1
-          },
-          {
-            'header': 2
-          }],
-          [
-          {
-            'list': 'ordered'
-          },
-          {
-            'list': 'bullet'
-          }],
-          [
-          {
-            'script': 'sub'
-          },
-          {
-            'script': 'super'
-          }],
-          [
-          {
-            'indent': '-1'
-          },
-          {
-            'indent': '+1'
-          }], // outdent/indent
-          [
-          {
-            'direction': 'rtl'
-          }], // text direction
-          [
-          {
-            'color': []
-          },
-          {
-            'background': []
-          }], // dropdown with defaults from theme
-          [
-          {
-            'align': []
-          }],
-          ['clean'] // remove formatting button
-        ];
-        var quill = new Quill(editor,
-        {
-          modules:
-          {
-            toolbar: toolbarOptions
-          },
-          theme: 'snow'
-        });
-      }
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      (function()
-      {
-        'use strict';
-        window.addEventListener('load', function()
-        {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation');
-          // Loop over them and prevent submission
-          var validation = Array.prototype.filter.call(forms, function(form)
-          {
-            form.addEventListener('submit', function(event)
-            {
-              if (form.checkValidity() === false)
-              {
-                event.preventDefault();
-                event.stopPropagation();
-              }
-              form.classList.add('was-validated');
-            }, false);
-          });
-        }, false);
-      })();
-    </script>
-    <script>
-      var uptarg = document.getElementById('drag-drop-area');
-      if (uptarg)
-      {
-        var uppy = Uppy.Core().use(Uppy.Dashboard,
-        {
-          inline: true,
-          target: uptarg,
-          proudlyDisplayPoweredByUppy: false,
-          theme: 'dark',
-          width: 770,
-          height: 210,
-          plugins: ['Webcam']
-        }).use(Uppy.Tus,
-        {
-          endpoint: 'https://master.tus.io/files/'
-        });
-        uppy.on('complete', (result) =>
-        {
-          console.log('Upload complete! We’ve uploaded these files:', result.successful)
-        });
-      }
-    </script>
-    <script src="js/apps.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
+        
+        labels: ["비즈니스", "생활라이프", "취미/자기개발", "운동건강", "기타"],
+    };
 
-      function gtag()
-      {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-56159088-1');
-    </script>
+    var categoryChartElement = document.querySelector("#categoryChart");
+    if (categoryChartElement) {
+        var finalCategoryChart = new ApexCharts(categoryChartElement, categoryChartOptions);
+        finalCategoryChart.render();
+    }
+    
+    
+    var refundNew = ${refundNew};
+    var refundTotal = ${refundTotal};
+
+    var percent = 0;
+    if (refundTotal > 0) {
+        percent = (refundNew / refundTotal) * 100;
+    }
+
+	/* 환불 완료 처리 */
+var refundNew = ${refundNew};             // 신규 환불 (미처리)
+var refundReceiveTotal = ${refundReceiveTotal}; // 환불 접수 (미처리)
+var refundTotal = ${refundTotal};         // 총 환불 수
+
+// ★ 처리 완료 건수 계산
+var completed = refundTotal - (refundNew + refundReceiveTotal);
+if (completed < 0) completed = 0;
+
+// ★ 비율 계산
+var percent = 0;
+if (refundTotal > 0) {
+    percent = (completed / refundTotal) * 100;
+}
+
+// ★ 다크모드 대응
+var isDarkMode = document.body.classList.contains("dark-mode");
+var textColor = isDarkMode ? "#fff" : "#333";
+
+// ★ 차트 설정
+var radialbarWidgetOptions = {
+    series: [percent],
+    chart: {
+        height: 120,
+        type: "radialBar"
+    },
+    plotOptions: {
+        radialBar: {
+            hollow: {
+                size: "70%",
+                margin: 0
+            },
+            dataLabels: {
+                name: { show: false },
+                value: {
+                    formatter: function() {
+                        return completed; // ★ 처리 완료 개수
+                    },
+                    fontSize: "1.53125rem",
+                    fontWeight: 700,
+                    show: true,
+                    color: textColor,
+                    offsetY: 8
+                }
+            }
+        }
+    },
+    fill: {
+        type: "gradient",
+        gradient: {
+            shade: "light",
+            type: "diagonal2",
+            shadeIntensity: 0.2,
+            gradientFromColors: ["#BB86FC"],
+            gradientToColors: ["#6200EE"],
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [20, 100]
+        }
+    },
+    stroke: {
+        lineCap: "round"
+    }
+};
+
+var radialbarWidget1 = document.querySelector("#radialbarWidget1");
+
+if (radialbarWidget1) {
+    new ApexCharts(radialbarWidget1, radialbarWidgetOptions).render();
+}
+
+
+
+
+
+</script>
+
+    
+   

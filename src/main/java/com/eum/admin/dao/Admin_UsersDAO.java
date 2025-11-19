@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.eum.commons.CreateSqlSessionFactory;
+import com.eum.main.vo.OrdersVO;
 import com.eum.main.vo.ReviewVO;
 import com.eum.main.vo.Review_ImageVO;
 import com.eum.main.vo.UsersVO;
@@ -20,7 +21,7 @@ public class Admin_UsersDAO {
 		
 	}
 	
-	private static final String NS = "com.eum.seller.mapper.contents-mapper.";
+	private static final String NS = "com.eum.admin.mapper.delete-mapper.";
 
 	// 유저 리스트 조회
 	public static List<UsersVO> usersListData(Map map){
@@ -70,13 +71,16 @@ public class Admin_UsersDAO {
 	public static void userDel(String u_id) {
 	    try {
 	        SqlSession session = ssf.openSession();
+	        
 
+	        session.delete(NS + "usersLikeDelete", u_id);
+	        session.delete(NS + "usersFavoriteDelete", u_id);
+	        
 	        List<String> reviewIds = session.selectList(NS + "findUserReviewIds", u_id);
 	        for (String rId : reviewIds) {
 	            session.delete(NS + "deleteReviewImagesByReviewId", rId);
 	        }
 	        session.delete(NS + "deleteReviewsByUserId", u_id);
-
 	        Integer u_s_id = session.selectOne(NS + "findUserSellerId", u_id);
 	        if (u_s_id != null) {
 	            List<String> bList = session.selectList(NS + "findSellerBoardIds", u_s_id);
@@ -186,4 +190,32 @@ public class Admin_UsersDAO {
         return total;
     }
 	
+    // 각 사용자 주문 리스트 조회
+ 	public static List<OrdersVO> ordersUsersListData(Map map){
+ 		
+ 		List<OrdersVO> list = null;
+ 		try {
+ 			SqlSession session = ssf.openSession();
+ 			list = session.selectList("ordersUsersListData",map);
+ 			session.close();
+ 		} catch (Exception ex) {
+ 			ex.printStackTrace();
+ 		}
+ 		return list;
+ 	}
+ 	
+ 	// 각 사용자 주문 페이징 조회
+ 	public static int ordersUsersTotalPage(String u_id) {
+ 		int total = 0;
+ 		try {
+ 			SqlSession session = ssf.openSession();
+ 			total = session.selectOne("ordersUsersTotalPage",u_id);
+ 			session.close();
+ 		} catch (Exception ex) {
+ 			ex.printStackTrace();
+ 		}
+ 		return total;
+ 	}
+    
+    
 }

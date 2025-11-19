@@ -1,6 +1,7 @@
 package com.eum.admin.model;
 
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ public class Admin_Review_Model {
 		
 		
 		String page = request.getParameter("page");
+		String keyword = request.getParameter("keyword");
 		if(page==null) page ="1";
 		
 		Map map = new HashMap();
@@ -40,9 +42,18 @@ public class Admin_Review_Model {
 		map.put("start", (start-1));
 		map.put("rowSize", rowSize);
 		
-		List<ReviewVO> review_list = Admin_ReviewDAO.admin_reviewListData(map);
-		int totalpage = Admin_ReviewDAO.reviewTotalData();
-		
+		List<ReviewVO> review_list = null;
+		int totalpage = 0;
+		if(keyword==null || keyword.trim().equals("")  ) {
+			
+			review_list = Admin_ReviewDAO.reviewListsData(map);
+			totalpage = Admin_ReviewDAO.reviewTotalData();
+			
+		}else {
+			map.put("keyword", keyword);
+			review_list = Admin_ReviewDAO.reviewSearchListData(map);
+			totalpage = Admin_ReviewDAO.reviewSearchTotalData(keyword);
+		}
 		final int BLOCK = 10;
 		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
 		int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
@@ -53,6 +64,8 @@ public class Admin_Review_Model {
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("review_list", review_list);
+		
+		request.setAttribute("keyword", keyword);
 		
 		request.setAttribute("admin_main_jsp", "../review/admin_review_list.jsp");
 		return "../admin/common/admin_main.jsp";
@@ -80,7 +93,58 @@ public class Admin_Review_Model {
 	    
 	}
 
+	// 리뷰 전체 삭제
+	@RequestMapping("admin/admin_review_delete.eum")
+	public String admin_review_delete(HttpServletRequest request, HttpServletResponse response) {
+
+		String page = request.getParameter("page");
+		String keyword = request.getParameter("keyword");
+		String b_review_id = request.getParameter("b_review_id");
+		String redirect = request.getParameter("redirect"); 
+	    String u_id = request.getParameter("u_id"); 
+	    String u_s_id = request.getParameter("u_s_id"); 
+	    String page_r = request.getParameter("page_r");
+		if(page == null) page = "1";
+	    if(keyword == null) keyword = "";
+	    
+	    try {
+		    keyword = URLEncoder.encode(keyword, "UTF-8");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	    
+		Admin_ReviewDAO.reviewDel(Integer.parseInt(b_review_id));
 	
+		if("user_detail".equals(redirect)) {
+	        return "redirect:../admin/admin_users_detail.eum?u_id=" + u_id + "#home";
+	    }
+		
+		if("seller_detail".equals(redirect)) {
+	        return "redirect:../admin/admin_seller_detail.eum?page_r="+page_r +"&u_s_id=" + u_s_id + "#home";
+	    }
+		
+		return "redirect:../admin/admin_review_list.eum?page="+page+"&keyword="+keyword;
+	}
 	
+	// 리뷰 답글 삭제
+	@RequestMapping("admin/admin_review_replydelete.eum")
+	public String admin_review_replydelete(HttpServletRequest request, HttpServletResponse response) {
+
+		String page = request.getParameter("page");
+		String keyword = request.getParameter("keyword");
+		String b_review_id = request.getParameter("b_review_id");
+
+		if(page == null) page = "1";
+	    if(keyword == null) keyword = "";
+	    
+	    try {
+		    keyword = URLEncoder.encode(keyword, "UTF-8");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	    
+		Admin_ReviewDAO.reviewDelete(Integer.parseInt(b_review_id));
 	
+		return "redirect:../admin/admin_review_list.eum?page="+page+"&keyword="+keyword;
+	}	
 }

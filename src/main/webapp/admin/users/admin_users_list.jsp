@@ -21,6 +21,109 @@
     color: #4a4a4a !important;
 }
 
+.page-header-custom h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.page-header-custom p {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0;
+}
+
+/* 검색 디자인 */
+.form {
+  --timing: 0.3s;
+  --width-of-input: 400px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #9755F6;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg,#fff);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.form:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.form:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+input:focus {
+  outline: none;
+}
+
+.form:focus-within:before {
+  transform: scale(1);
+}
+
+.reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.form svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+.search-input:not(:placeholder-shown) ~ .reset-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-form svg {
+  width: 17px;
+  
+}
+
+.form button {
+  border: none;
+  background: none;
+}
+
 </style>
 	 <main role="main" class="main-content">
         <div class="container-fluid">
@@ -30,62 +133,53 @@
               
                 <!-- Small table -->
                 <div class="col-md-12 my-1">
-                  <h2 class="h4 mb-1">사용자 리스트</h2>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+	                <div class="page-header-custom">
+					    <h2>User_List</h2>
+					    <p>등록된 모든 사용자 정보를 확인할 수 있습니다.</p>
+					</div>
+					
+					<form class="form" method="get" action="admin_users_list.eum">
+								    <button type="submit">
+								        <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+								            <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+								                stroke="currentColor"
+								                stroke-width="1.333"
+								                stroke-linecap="round"
+								                stroke-linejoin="round" />
+								        </svg>
+								    </button>
+								
+								    <input class="input"
+								           type="text"
+								           name="keyword"
+								           placeholder="Search..."
+								           value="${keyword}" />
+								
+								    <button type="reset" class="reset">
+								        <svg xmlns="http://www.w3.org/2000/svg"
+								             fill="none"
+								             viewBox="0 0 24 24"
+								             stroke="currentColor"
+								             stroke-width="2">
+								            <path stroke-linecap="round"
+								                  stroke-linejoin="round"
+								                  d="M6 18L18 6M6 6l12 12" />
+								        </svg>
+								    </button>
+								
+								</form>
+							</div>
                   <p class="mb-3"> </p>
                   <div class="card shadow">
                     <div class="card-body">
-                      <div class="toolbar row mb-3">
-                        <div class="col">
-                          <form class="form-inline">
-                            <div class="form-row">
-                              <div class="form-group col-auto">
-                               <form method="get" action="admin_users_list.eum" class="form-inline">
-								  <div class="form-row">
-								    <div class="form-group col-auto">
-								      <label for="search" class="sr-only">Search</label>
-								      <input type="text" class="form-control" id="search"
-								             name="keyword"  
-								             value="${keyword}"
-								             placeholder="Search">
-								    </div>
-								  </div>
-								</form>
-                              </div>
-                              <div class="form-group col-auto ml-3">
-                                <label class="my-1 mr-2 sr-only" for="inlineFormCustomSelectPref">Status</label>
-                                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                                  <option selected>Choose...</option>
-                                  <option value="1">Processing</option>
-                                  <option value="2">Success</option>
-                                  <option value="3">Pending</option>
-                                  <option value="3">Hold</option>
-                                </select>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                        <div class="col ml-auto">
-                          <div class="dropdown float-right">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
-                            <div class="dropdown-menu" aria-labelledby="actionMenuButton">
-                              <a class="dropdown-item" href="#">Export</a>
-                              <a class="dropdown-item" href="#">Delete</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      
                       
                       <!-- table -->
                       <table class="table table-borderless table-hover">
                         <thead>
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="all2">
-                                <label class="custom-control-label" for="all2"></label>
-                              </div>
-                            </td>
+                            <th></th>
                             <th></th>
                             <th><strong>NO</strong></th>
                             <th><strong>닉네임</strong></th>
@@ -103,12 +197,7 @@
                         
                           <c:forEach var="users" items="${ users_list}">
                           <tr>
-                            <td>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2474">
-                                <label class="custom-control-label" for="2474"></label>
-                              </div>
-                            </td>
+                            <td></td>
                             
                             <td>
                               <div class="avatar avatar-md">
@@ -220,5 +309,13 @@
           </div> <!-- .row -->
         </div> <!-- .container-fluid -->
         
-        
+<script type="text/javascript">
+document.querySelector(".form .reset").addEventListener("click", function(e){
+    e.preventDefault(); 
+
+    const input = document.querySelector(".input");
+    input.value = "";
+    input.focus();
+});
+</script>       
     

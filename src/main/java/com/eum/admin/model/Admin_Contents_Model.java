@@ -25,6 +25,7 @@ public class Admin_Contents_Model {
 	public String admin_contents_list(HttpServletRequest request, HttpServletResponse response) {
 					
 		String page = request.getParameter("page");
+		String keyword = request.getParameter("keyword");
 		if(page==null) page ="1";
 		
 		Map map = new HashMap();
@@ -36,9 +37,19 @@ public class Admin_Contents_Model {
 		
 		map.put("start", (start-1));
 		map.put("rowSize", rowSize);
+		List<BoardVO> contents_list = null;
+		int totalpage = 0;
 		
-		List<BoardVO> contents_list = Admin_ContentsDAO.contentsListData(map);
-		int totalpage = Admin_ContentsDAO.contentsTotalData();
+		if(keyword==null || keyword.trim().equals("") ) {
+			contents_list = Admin_ContentsDAO.contentsListData(map);
+			totalpage = Admin_ContentsDAO.contentsTotalData();
+			
+		}
+		else {
+			map.put("keyword", keyword);
+			contents_list = Admin_ContentsDAO.contentSearchListData(map);
+			totalpage = Admin_ContentsDAO.contentSearchTotalData(keyword);
+		}
 		
 		final int BLOCK = 10;
 		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
@@ -50,6 +61,8 @@ public class Admin_Contents_Model {
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("contents_list", contents_list);
+		
+		request.setAttribute("keyword", keyword);
 		
 		request.setAttribute("admin_main_jsp", "../contents/admin_contents_list.jsp");
 		return "../admin/common/admin_main.jsp";
@@ -89,4 +102,17 @@ public class Admin_Contents_Model {
 		
 		return "redirect:../admin/admin_contents_detail.eum?b_id="+b_id;
 	}
+	
+	// 관리자 컨텐츠 삭제 
+	@RequestMapping("admin/admin_contents_delete.eum")
+	public String admin_contents_delete(HttpServletRequest request, HttpServletResponse response) {
+		String page = request.getParameter("page");
+		String b_id = request.getParameter("b_id");
+		String keyword = request.getParameter("keyword");
+		
+		Admin_ContentsDAO.contentsDel(b_id);
+		
+		return "redirect:../admin/admin_contents_list.eum?page="+page+"&keyword="+keyword;
+	}
+	
 }
