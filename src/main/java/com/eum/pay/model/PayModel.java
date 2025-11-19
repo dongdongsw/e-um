@@ -207,8 +207,10 @@ public class PayModel {
            List<OrdersVO> uspay_vo=PayDAO.usPayList(u_s_id);
            System.out.println(uspay_vo);
            request.setAttribute("uspay_vo", uspay_vo);
-           
+
       }catch(Exception ex) {ex.printStackTrace();}
+      
+      
          
          request.setAttribute("main_jsp", "../seller/sell.jsp");
          return "../main/main.jsp";

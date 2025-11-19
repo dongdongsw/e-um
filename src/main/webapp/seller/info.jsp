@@ -155,6 +155,9 @@ h2 {
   border-radius: 15px;
   font-weight: bold;
 }
+.nav__title {
+  margin-bottom:0;
+}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
@@ -201,11 +204,9 @@ $(function() {
     <h2 style="color:black">셀러 페이지</h2>
     <nav class="menu">
       <a href="../seller/info.eum" class="active">셀러 정보</a>
-      <a href="../seller/create_contents.eum">컨텐츠 작성</a>
-      <a href="../seller/my_contents.eum">내 컨텐츠</a>
+      <a href="../seller/my_contents.eum">컨텐츠 관리</a>
       <a href="../seller/review.eum">구매자 리뷰</a>
-      <a href="../seller/chat.eum">채팅 문의</a>
-      <a href="#">판매 내역</a>
+      <a href="../seller/sell.eum">판매 내역</a>
     </nav>
   </aside>
 

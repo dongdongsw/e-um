@@ -46,4 +46,12 @@ FROM (
 WHERE num BETWEEN 1 AND 6
 
 </select>
+
+<!-- 최근 올라온 게시물 -->
+   <select id="mainRecentContents" resultType="BoardVO">
+     SELECT b_title, b_thumbnail, b_content, b_id
+     FROM board
+     ORDER BY b_createdat
+     FETCH FIRST 3 ROWS ONLY
+   </select>
 </mapper>

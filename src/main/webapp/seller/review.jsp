@@ -66,13 +66,11 @@ a {
 
   <!-- ===================== 왼쪽 메뉴 ===================== -->
   <aside class="sidebar">
-    <h2 style="color:black">셀러 페이지</h2>
+    <h2 style="color:black">구매자 리뷰</h2>
     <nav class="menu">
       <a href="../seller/info.eum">셀러 정보</a>
-      <a href="../seller/create.eum">컨텐츠 작성</a>
-      <a href="../seller/my_contents.eum">내 컨텐츠</a>
+      <a href="../seller/my_contents.eum">컨텐츠 관리</a>
       <a href="../seller/review.eum" class="active">구매자 리뷰</a>
-      <a href="../seller/chat.eum">채팅 문의</a>
       <a href="../seller/sell.eum">판매 내역</a>
     </nav>
   </aside>

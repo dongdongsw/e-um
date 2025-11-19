@@ -226,21 +226,6 @@ public class SellerModel {
 	}
 	
 	
-	
-	@RequestMapping("seller/sell.eum")
-	public String seller_sell(HttpServletRequest request, HttpServletResponse response) {
-		
-		request.setAttribute("main_jsp", "../seller/sell.jsp");
-		return "../main/main.jsp";
-	}
-	
-	@RequestMapping("seller/chat.eum")
-	public String seller_chat(HttpServletRequest request, HttpServletResponse response) {
-		
-		request.setAttribute("main_jsp", "../seller/chat.jsp");
-		return "../main/main.jsp";
-	}
-	
 	// 프로필 이미지 업로드
 		@RequestMapping("seller/profile_upload.eum")
 		public String users_profile_upload(HttpServletRequest request, HttpServletResponse response) {

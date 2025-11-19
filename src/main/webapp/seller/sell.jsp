@@ -138,23 +138,25 @@ body {background-color: #fff !important;}
 <div class="seller-container">
   <!-- 좌측 메뉴 -->
   <aside class="sidebar">
-    <h2 style="color:black">셀러 페이지</h2>
+    <h2 style="color:black">판매 내역</h2>
     <nav class="menu">
       <a href="../seller/info.eum">셀러 정보</a>
-      <a href="../seller/create.eum">컨텐츠 작성</a>
-      <a href="../seller/my_contents.eum">내 컨텐츠</a>
+      <a href="../seller/my_contents.eum">컨텐츠 관리</a>
       <a href="../seller/review.eum">구매자 리뷰</a>
-      <a href="../seller/chat.eum">채팅 문의</a>
       <a href="../seller/sell.eum" class="active">판매 내역</a>
-      <a href="../seller/info_update.eum">정보 수정</a>
     </nav>
   </aside>
   <!-- 오른쪽 본문 -->
   <main class="content">
-    <h2 style="color:black;">내 컨텐츠</h2>
+    <h2 style="color:black;">판매 내역</h2>
 
     <div class="content-list">
-
+      <c:if test="${empty uspay_vo}">
+          <div class="content-item">
+		    <div style="padding:24px;color:#666;">판매 내역이 없습니다.</div>
+		  </div>
+      </c:if>
+		
           <c:forEach var="vo" items="${uspay_vo}">
            <div class="content-item">
              <!-- 정보 -->

@@ -497,6 +497,19 @@ public class ContentDAO {
 			}
 			return list;
 		}
+		
+		 // 최근 올라온 게시물 
+		   public static List<BoardVO> mainRecentContents() {
+			   List<BoardVO> list=null;
+			   try {
+				   SqlSession session=ssf.openSession();
+				   list=session.selectList("mainRecentContents");
+				   session.close();
+			   } catch (Exception ex) {
+				   ex.printStackTrace();
+			   }
+			   return list;
+		   }
 }
 	   
 	

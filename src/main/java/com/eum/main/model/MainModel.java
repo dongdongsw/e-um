@@ -13,8 +13,13 @@ public class MainModel {
 	
 	@RequestMapping("main/main.eum")
 	public String main_main(HttpServletRequest request, HttpServletResponse response) {
+		
 		List<BoardVO> hotList=ContentDAO.homeHotContents();
+		List<BoardVO> resList=ContentDAO.mainRecentContents();
+		
 		request.setAttribute("hotList", hotList);
+		request.setAttribute("resList", resList);
+		
 		request.setAttribute("main_jsp", "../main/home.jsp");
 		return "../main/main.jsp";
 	}

@@ -64,7 +64,7 @@ html {
 .content h2 {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 /* ===== 가로형 컨텐츠 리스트 ===== */
@@ -130,6 +130,17 @@ html {
   font-weight: 700;
   color: #8e4dff;
 }
+
+.creBtn {
+  color: white;
+  background-color: black;
+  width: 80px;
+  height: 40px;
+  align-content: flex-end;
+  border-radius: 15px;
+  font-weight: bold; 
+  margin-bottom: 30px;
+}
 </style>
 </head>
 <body>
@@ -141,17 +152,17 @@ html {
     <h2 style="color:black">셀러 페이지</h2>
     <nav class="menu">
       <a href="../seller/info.eum">셀러 정보</a>
-      <a href="../seller/create_contents.eum">컨텐츠 작성</a>
-      <a href="../seller/my_contents.eum" class="active">내 컨텐츠</a>
+      <a href="../seller/my_contents.eum" class="active">컨텐츠 관리</a>
       <a href="../seller/review.eum">구매자 리뷰</a>
-      <a href="../seller/chat.eum">채팅 문의</a>
       <a href="../seller/sell.eum">판매 내역</a>
     </nav>
   </aside>
 
   <!-- 오른쪽 본문 -->
   <main class="content">
-    <h2 style="color:black; margin-bottom: 50px">내 컨텐츠</h2>
+    <h2 style="color:black; margin-bottom: 20px">내 컨텐츠</h2>
+	
+	
 
     <div class="content-list">
       <c:choose>
@@ -209,7 +220,11 @@ html {
 			</c:forEach>
 		  </c:otherwise>
 		</c:choose>
-     
+     <div style="text-align: right;">
+         <a href="../seller/create_contents.eum">
+          <button class="creBtn">작성</button>
+         </a>
+        </div>
     </div>
   </main>
 </div>
