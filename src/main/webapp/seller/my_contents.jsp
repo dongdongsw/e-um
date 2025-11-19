@@ -64,7 +64,7 @@ html {
 .content h2 {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 /* ===== 가로형 컨텐츠 리스트 ===== */
@@ -130,6 +130,17 @@ html {
   font-weight: 700;
   color: #8e4dff;
 }
+
+.creBtn {
+  color: white;
+  background-color: black;
+  width: 80px;
+  height: 40px;
+  align-content: flex-end;
+  border-radius: 15px;
+  font-weight: bold; 
+  margin-bottom: 30px;
+}
 </style>
 </head>
 <body>
@@ -151,7 +162,9 @@ html {
 
   <!-- 오른쪽 본문 -->
   <main class="content">
-    <h2 style="color:black; margin-bottom: 50px">내 컨텐츠</h2>
+    <h2 style="color:black; margin-bottom: 20px">내 컨텐츠</h2>
+	
+	
 
     <div class="content-list">
       <c:choose>
@@ -209,7 +222,11 @@ html {
 			</c:forEach>
 		  </c:otherwise>
 		</c:choose>
-     
+     <div style="text-align: right;">
+         <a href="../seller/create_contents.eum">
+          <button class="creBtn">작성</button>
+         </a>
+        </div>
     </div>
   </main>
 </div>

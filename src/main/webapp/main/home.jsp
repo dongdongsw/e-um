@@ -82,6 +82,38 @@ border-bottom: 1px solid #e6e6f8;
   transform: scale(1.1) rotate(5deg);
 }
 
+.con {
+	display: -webkit-box;
+    -webkit-line-clamp: 3;   /* 보일 최대 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;       /* 줄 간격 */
+    max-height: calc(1.4em * 3);
+}
+
+.sub {
+	font-size: 15px !important;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.sub:hover {
+ 	color: #dcdcdc;
+}
+
+.thumb {
+  width: 380px;
+  border-radius: 15px;
+  background: #f9f9f9;
+}
+
+.thumb > img {
+	width: 100%;
+	padding:20px; 
+	height: 250px; 
+}
 </style>
 </head>
 <body>
@@ -327,45 +359,48 @@ border-bottom: 1px solid #e6e6f8;
         <div class="col-lg-8">
           <div class="section-heading">
             <div class="line-dec"></div>
-            <h2>Create Your NFT & Put It On The Market.</h2>
+            <h2>최근 컨텐츠</h2>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="main-button">
-            <a href="create.html">Create Your NFT Now</a>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="item first-item">
             <div class="number">
-              <h6>1</h6>
             </div>
-            <div class="icon">
-              <img src="../assets/images/icon-02.png" alt="">
+            <div class="thumb">
+              <img src="${resList[0].b_thumbnail }">
             </div>
-            <h4>Set Up Your Wallet</h4>
-            <p>NFT means Non-Fungible Token that are used in digital cryptocurrency markets. There are many different kinds of NFTs in the industry.</p>
+            <a href="../talent/detail.eum?b_id=${resList[0].b_id}">
+			  <h4 class="sub">${resList[0].b_title}</h4>
+			</a>
+            <p class="con">${resList[0].b_content }</p>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="item second-item">
             <div class="number">
-              <h6>2</h6>
             </div>
-            <div class="icon">
-              <img src="../assets/images/icon-04.png" alt="">
+           <div class="thumb">
+              <img src="${resList[1].b_thumbnail }">
             </div>
-            <h4>Add Your Digital NFT</h4>
-            <p>There are 5 different HTML pages included in this NFT <a href="https://templatemo.com/page/1" target="_blank" rel="nofollow">website template</a>. You can edit or modify any section on any page as you required.</p>
+            <a href="../talent/detail.eum?b_id=${resList[1].b_id}">
+			  <h4 class="sub">${resList[1].b_title}</h4>
+			</a>
+            <p class="con">${resList[1].b_content }</p>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="item">
-            <div class="icon">
-              <img src="../assets/images/icon-06.png" alt="">
+           <div class="thumb">
+              <img src="${resList[2].b_thumbnail }">
             </div>
-            <h4>Sell Your NFT &amp; Make Profit</h4>
-            <p>If you would like to support our TemplateMo website, please visit <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">our contact page</a> to make a PayPal contribution. Thank you.</p>
+            <a href="../talent/detail.eum?b_id=${resList[1].b_id}">
+			  <h4 class="sub">${resList[1].b_title}</h4>
+			</a>
+            <p class="con">${resList[2].b_content }</p>
           </div>
         </div>
       </div>
