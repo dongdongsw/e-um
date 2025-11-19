@@ -1,25 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <style type="text/css">
 /* ===============================
    LIBERTY NFT - Category Buttons
 ================================= */
 .category-section {
   width: 100%;
-  background: #ffffff;  
-  border-bottom: 1px solid #e6e6f8;
-  padding: 40px 0 50px 0;  /* ✅ 위 공간 확장 */
+background: #ffffff;  
+border-bottom: 1px solid #e6e6f8;
+  padding: 40px 0 50px 0; 
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* ✅ 위로 여유 공간 확보 */
-  overflow: visible; /* ✅ hover 시 위쪽 짤림 방지 */
-  margin-top: 30px !important;
+  align-items: flex-start; 
+  overflow: visible; 
+  margin-top: 0 !important;
   margin-bottom: 30px !important;
 }
 
@@ -30,25 +31,22 @@
   gap: 32px;
   overflow-x: auto;
   max-width: 100%;
-  padding: 10px 40px; /* ✅ 좌우 여백 추가 */
+  padding: 10px 40px;
   box-sizing: border-box;
 }
 
-
-
-/* 버튼 스타일 */
 .brutalist-button.button-1 {
-  width: 160px;
-  height: 160px;
+  width: 150px;
+  height: 150px;
   background: #ffffff;
   border: 2px solid #b3aaff;
   border-radius: 18px;
-  box-shadow: 5px 5px 0 #d5cbf7;
+  box-shadow: 5px 5px 0 #00000022;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   color: #333;
@@ -56,23 +54,19 @@
   font-weight: 600;
 }
 
-/* hover 시 효과 */
 .brutalist-button.button-1:hover {
   background: #fff;
   color: black;
   border-color: #4c43e2;
   transform: translate(-5px, -5px);
   box-shadow: 8px 8px 0 #c6b7f5;
-  
 }
 
-/* 클릭 시 */
 .brutalist-button.button-1:active {
   transform: translate(0, 0);
-   box-shadow: 3px 3px 0 #e3dcfb;
+  box-shadow: 3px 3px 0 #e3dcfb;
 }
 
-/* 아이콘 */
 .category-icon {
   width: 60px;
   height: 60px;
@@ -83,9 +77,74 @@
 .brutalist-button.button-1:hover .category-icon {
   transform: scale(1.1) rotate(5deg);
 }
+.item > img {
+  border-radius: 20px;
+  
+  align-items: center;
+}
+.main-banner {
+  background-color: #f7f7f7;
+}
+.popular-section {
+    max-width: 1200px;
+    margin: 15px 0 0 0;
+    padding: 0;
+}
 
+.popular-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.popular-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.popluar-tags:hover {
+    color: white;
+    border-color: black;
+    background: #7453FC;
+}
+.tag-btn {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tag-btn:hover {
+    background: #7453FC;
+    color: white;
+    border-color: black;
+}
+.title{
+	font-size: 18px !important;
+	display: -webkit-box;
+    -webkit-line-clamp: 1;   /* 보일 최대 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;       /* 줄 간격 */
+    max-height: calc(1.4em * 1);
+    margin-bottom: 30px;
+}
+.com{
+	display: -webkit-box;
+    -webkit-line-clamp: 1;   /* 보일 최대 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;       /* 줄 간격 */
+    max-height: calc(1.4em * 1);
+}
+  
 </style>
-
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 $(function(){
@@ -98,15 +157,14 @@ $(function(){
     });
 });
 </script>
-
 </head>
 <body>
   <div class="main-banner" style="background-color: #fff">
     <div class="container" style="width:1180px;">
       <div class="row">
         <div class="col-lg-6 align-self-center">
-          <div class="header-text">
-           <div>
+          <div class="header-text" style="margin-left:50px">
+           <div style="margin-left:15px">
              <h2 style="color:black">이음,<br>
 				</h2>
 				<h3 style="color: black;font-size: 40px;">딱 맞는 전문가와 이어드립니다</h3>
@@ -121,22 +179,38 @@ $(function(){
 			        </div>
 			        <div class="col-lg-2">                        
 			            <fieldset>
-			                <button class="main-button">검색</button>
+			                <button class="main-button" style="width:80px;">검색</button>
 			            </fieldset>
 			        </div>
 			    </div>
 			</form>
+			<div class="popular-section">
+			    <div class="popular-tags" style="display: inline-flex; gap: 6px;">
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=개발'">개발</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=마케팅'">마케팅</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=골프'">골프</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</button>
+			    </div>
+			</div>
           </div>
           </div>
         </div>
         
-        <div class="col-lg-5 offset-lg-1">
-          <div class="owl-banner owl-carousel">
+        <div class="col-lg-5 col-lg-5">
+          <div class="owl-banner owl-carousel" style="margin-left: 50px;">
             <div class="item">
-              <img src="../assets/images/banner-01.png" alt="">
+              <img src="../images/banner1.png">
             </div>
             <div class="item">
-              <img src="../assets/images/banner-02.png" alt="">
+              <img src="../images/banner2.png">
+            </div>
+            <div class="item">
+              <img src="../images/banner3.png">
+            </div>
+            <div class="item">
+              <img src="../images/banner4.jpg">
             </div>
           </div>
         </div>
@@ -151,39 +225,45 @@ $(function(){
                 </div>
               </div>
               <section class="category-section">
-  <div class="category-container">
-  <a href="../talent/b_type_list.eum?b_type=운동건강">
-    <button class="brutalist-button button-1">
-      <img src="../images/운동11.gif" alt="디자인" class="category-icon">
-      <span>운동/건강</span>
-    </button>
-    </a>
-   <a href="../talent/b_type_list.eum?b_type=비즈니스">
-    <button class="brutalist-button button-1">
-      <img src="../images/비즈니스.gif" alt="비즈니스" class="category-icon">
-      <span>비즈니스</span>
-    </button>
-    </a>
-    <a href="../talent/b_type_list.eum?b_type=취미/자기개발">
-    <button class="brutalist-button button-1">
-      <img src="../images/프라이팬.gif" alt="음악" class="category-icon">
-      <span>취미/자기개발</span>
-    </button>
-    </a>
-   <a href="../talent/b_type_list.eum?b_type=생활라이프">
-    <button class="brutalist-button button-1">
-      <img src="../images/생활.gif" alt="AI/테크" class="category-icon">
-      <span>생활/라이프</span>
-    </button>
-    </a>
-	<a href="../talent/b_type_list.eum?b_type=기타">
-    <button class="brutalist-button button-1">
-      <img src="../images/기타.gif" alt="기타" class="category-icon">
-      <span>기타</span>
-    </button>
-    </a>
-  </div>
-</section>
+				  <div class="category-container">
+				  <a href="../talent/b_type_list.eum?b_type=운동건강">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/운동11.gif" alt="디자인" class="category-icon">
+				      <span>운동/건강</span>
+				    </button>
+				    </a>
+				   <a href="../talent/b_type_list.eum?b_type=비즈니스">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/비즈니스.gif" alt="비즈니스" class="category-icon">
+				      <span>비즈니스</span>
+				    </button>
+				    </a>
+				    <a href="../talent/b_type_list.eum?b_type=취미/자기개발">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/프라이팬.gif" alt="음악" class="category-icon">
+				      <span>취미/자기개발</span>
+				    </button>
+				    </a>
+				   <a href="../talent/b_type_list.eum?b_type=생활라이프">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/생활.gif" alt="AI/테크" class="category-icon">
+				      <span>생활/라이프</span>
+				    </button>
+				    </a>
+					<a href="../talent/b_type_list.eum?b_type=기타">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/기타.gif" alt="기타" class="category-icon">
+				      <span>기타</span>
+				    </button>
+				    </a>
+				    <a href="../talent/b_type_list.eum?b_type=all">
+				    <button class="brutalist-button button-1">
+				      <img src="../images/ALL.png" alt="전체보기" class="category-icon">
+				      <span>전체보기</span>
+				    </button>
+				    </a>
+				  </div>
+				</section>
               
               </div>
           </div>
@@ -203,55 +283,29 @@ $(function(){
               <div class="col-lg-12">
                 <div class="section-heading">
                   <div class="line-dec"></div>
-                  <h2><em>신뢰할 수 있는 결과물<br> 고객 만족도 4.9점</em></h2>
+                  <h2><em>인기 급상승 서비스</em></h2>
                 </div>
               </div>
               <div class="col-lg-12">
                 <div class="owl-collection owl-carousel">
-                  <div class="item">
-                    <img src="../assets/images/collection-01.jpg" alt="">
-                    <div class="down-content">
-                      <h4>Mutant Bored Ape Yacht Club</h4>
-                      <span class="collection">Items In Collection:<br><strong>310/340</strong></span>
-                      <span class="category">Category:<br><strong>Digital Crypto</strong></span>
-                      <div class="main-button">
-                        <a href="explore.html">Explore Mutant</a>
+                  <c:forEach var="vo" items="${hotList}">
+                    <div class="item">
+                      <div class="image">
+                        <a href="../talent/detail.eum?b_id=${vo.b_id }"><img src="${vo.b_thumbnail}" width="250" height="300" style="border-radius: 15px;">
                       </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="../assets/images/collection-01.jpg" alt="">
-                    <div class="down-content">
-                      <h4>Bored Ape Kennel Club</h4>
-                      <span class="collection">Items In Collection:<br><strong>324/324</strong></span>
-                      <span class="category">Category:<br><strong>Visual Art</strong></span>
-                      <div class="main-button">
-                        <a href="explore.html">Explore Bored Ape</a>
+                      <div class="down-content">
+                       <h6 style="margin-bottom: 10px; color: #999999">${vo.b_type}</h6>
+                        <h5 class="title">${vo.b_title}</h5>
+                        <span class="collection">
+                          ⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0}.0
+                        </span>
+                        <span class="category com">
+                          <strong>${vo.usvo.u_s_com}</strong>
+                        </span></a>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="../assets/images/collection-01.jpg" alt="">
-                    <div class="down-content">
-                      <h4>Genesis Collective Statue</h4>
-                      <span class="collection">Items In Collection:<br><strong>380/394</strong></span>
-                      <span class="category">Category:<br><strong>Music Art</strong></span>
-                      <div class="main-button">
-                        <a href="explore.html">Explore Genesis</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="../assets/images/collection-01.jpg" alt="">
-                    <div class="down-content">
-                      <h4>Worldwide Artwork Ground</h4>
-                      <span class="collection">Items In Collection:<br><strong>426/468</strong></span>
-                      <span class="category">Category:<br><strong>Blockchain</strong></span>
-                      <div class="main-button">
-                        <a href="explore.html">Explore Worldwide</a>
-                      </div>
-                    </div>
-                  </div>
+                  </c:forEach>
+                </div>
                 </div>
               </div>
             </div> 
@@ -259,7 +313,8 @@ $(function(){
         </div>
       </div>
     </div>
-  </div>
+</div>
+
 
   <div class="create-nft">
     <div class="container">
@@ -267,7 +322,7 @@ $(function(){
         <div class="col-lg-8">
           <div class="section-heading">
             <div class="line-dec"></div>
-            <h2>Create Your NFT & Put It On The Market.</h2>
+            <h2></h2>
           </div>
         </div>
         <div class="col-lg-4">
@@ -306,178 +361,6 @@ $(function(){
             </div>
             <h4>Sell Your NFT &amp; Make Profit</h4>
             <p>If you would like to support our TemplateMo website, please visit <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">our contact page</a> to make a PayPal contribution. Thank you.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="currently-market">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="section-heading">
-            <div class="line-dec"></div>
-            <h2><em>Items</em> Currently In The Market.</h2>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="filters">
-            <ul>
-              <li data-filter="*"  class="active">All Items</li>
-              <li data-filter=".msc">Music Art</li>
-              <li data-filter=".dig">Digital Art</li>
-              <li data-filter=".blc">Blockchain</li>
-              <li data-filter=".vtr">Virtual</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="row grid">
-            <div class="col-lg-6 currently-market-item all msc">
-              <div class="item">
-                <div class="left-image">
-                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
-                </div>
-                <div class="right-content">
-                  <h4>Music Art Super Item</h4>
-                  <span class="author">
-                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
-                    <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
-                  </span>
-                  <div class="line-dec"></div>
-                  <span class="bid">
-                    Current Bid<br><strong>2.03 ETH</strong><br><em>($8,240.50)</em>
-                  </span>
-                  <span class="ends">
-                    Ends In<br><strong>4D 08H 15M 42S</strong><br><em>(July 24th, 2022)</em>
-                  </span>
-                  <div class="text-button">
-                    <a href="details.html">View Item Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 currently-market-item all dig">
-              <div class="item">
-                <div class="left-image">
-                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
-                </div>
-                <div class="right-content">
-                  <h4>Digital Crypto Artwork</h4>
-                  <span class="author">
-                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
-                    <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
-                  </span>
-                  <div class="line-dec"></div>
-                  <span class="bid">
-                    Current Bid<br><strong>2.03 ETH</strong><br><em>($7,200.50)</em>
-                  </span>
-                  <span class="ends">
-                    Ends In<br><strong>2D 06H 30M 25S</strong><br><em>(July 26th, 2022)</em>
-                  </span>
-                  <div class="text-button">
-                    <a href="details.html">View Item Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 currently-market-item all blc">
-              <div class="item">
-                <div class="left-image">
-                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
-                </div>
-                <div class="right-content">
-                  <h4>Blockchain Item One</h4>
-                  <span class="author">
-                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
-                    <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
-                  </span>
-                  <div class="line-dec"></div>
-                  <span class="bid">
-                    Current Bid<br><strong>3.64 ETH</strong><br><em>($6,600.00)</em>
-                  </span>
-                  <span class="ends">
-                    Ends In<br><strong>6D 05H 40M 50S</strong><br><em>(July 28th, 2022)</em>
-                  </span>
-                  <div class="text-button">
-                    <a href="details.html">View Item Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 currently-market-item all vtr">
-              <div class="item">
-                <div class="left-image">
-                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
-                </div>
-                <div class="right-content">
-                  <h4>Virtual Currency Art</h4>
-                  <span class="author">
-                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
-                    <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
-                  </span>
-                  <div class="line-dec"></div>
-                  <span class="bid">
-                    Current Bid<br><strong>2.44 ETH</strong><br><em>($8,800.50)</em>
-                  </span>
-                  <span class="ends">
-                    Ends In<br><strong>3D 05H 20M 58S</strong><br><em>(July 14th, 2022)</em>
-                  </span>
-                  <div class="text-button">
-                    <a href="details.html">View Item Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 currently-market-item all vrt dig">
-              <div class="item">
-                <div class="left-image">
-                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
-                </div>
-                <div class="right-content">
-                  <h4>Digital Art Item</h4>
-                  <span class="author">
-                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
-                    <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
-                  </span>
-                  <div class="line-dec"></div>
-                  <span class="bid">
-                    Current Bid<br><strong>2.50 ETH</strong><br><em>($8,400.50)</em>
-                  </span>
-                  <span class="ends">
-                    Ends In<br><strong>4D 08H 32M 18S</strong><br><em>(July 16th, 2022)</em>
-                  </span>
-                  <div class="text-button">
-                    <a href="details.html">View Item Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 currently-market-item all msc blc">
-              <div class="item">
-                <div class="left-image">
-                  <img src="../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
-                </div>
-                <div class="right-content">
-                  <h4>Blockchain Music Design</h4>
-                  <span class="author">
-                    <img src="../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
-                    <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
-                  </span>
-                  <div class="line-dec"></div>
-                  <span class="bid">
-                    Current Bid<br><strong>2.44 ETH</strong><br><em>($8,200.50)</em>
-                  </span>
-                  <span class="ends">
-                    Ends In<br><strong>5D 10H 22M 24S</strong><br><em>(July 18th, 2022)</em>
-                  </span>
-                  <div class="text-button">
-                    <a href="details.html">View Item Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

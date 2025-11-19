@@ -189,6 +189,32 @@
     FROM board
     WHERE b_type = #{b_type}
 </select>
+<select id="homeHotContents" resultMap="boardMap">
+   SELECT *
+FROM (
+    SELECT ROWNUM AS num, A.*
+    FROM (
+        SELECT 
+            b.b_id,
+            b.b_title,
+            b.b_thumbnail,
+            ROUND(AVG(r.b_review_score),1) AS b_review_score,
+            MIN(op.b_op_price) AS b_op_price,
+            s.u_s_com,
+            b.b_type
+        FROM board b
+        JOIN board_option op ON b.b_id = op.b_id
+        JOIN users_seller s ON b.u_s_id = s.u_s_id
+        JOIN review r ON b.b_id = r.b_id
+        GROUP BY b.b_id, b.b_title, b.b_thumbnail, s.u_s_com, b.b_type
+        ORDER BY 
+            AVG(r.b_review_score) DESC,    
+            b.b_id DESC                   
+    ) A
+)
+WHERE num BETWEEN 1 AND 6
+
+</select>
 
 
    

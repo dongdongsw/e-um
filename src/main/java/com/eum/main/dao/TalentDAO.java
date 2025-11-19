@@ -261,19 +261,41 @@ import oracle.net.ns.SessionAtts;
 				</select>
 		     */
 		}
-		/*public static List<BoardVO> homePopularContents()
+		/*
+		 * <select id="homeHotContents" resultMap="boardMap" parameterType="hashmap">
+			 SELECT
+			  b.b_id,
+			  b.b_title,
+			  b.b_thumbnail,
+			  b.b_type
+			  s.u_s_com,
+			  ROUND(AVG(b_review_score),1) AS b_review_score,
+			  COUNT(*) AS review_count,
+			  MIN(b_op_price) AS b_op_price,
+			  FROM board b
+			  JOIN board_option o ON b.b_id=o.b_id
+			  JOIN board_image i ON b.u_s_id=i.b_id
+			  JOIN users_seller s ON b.b_id=s.u_s_id
+			  JOIN review r ON b.b_id=r.b_id
+			  WHERE b.b_type=#{b_type}
+			  GROUP BY
+			  b.b_id,b.b_title,b.b_thumbnail,s.u_s_com,b.b_type
+			  ORDER BY b.b_id DESC
+			  OFFSET 0 ROWS RETCH NEXT 6 ROWS ONLY
+			</select>
+		 */
+		public static List<BoardVO> homeHotContents()
 		{
-			List<BoardVO> topList=null;
+			List<BoardVO> list=null;
 			try
 			{
 				SqlSession session=ssf.openSession();
-				topList=session.selectList("homePopularContents");
+				list=session.selectList("homeHotContents");
 				session.close();
 			}catch(Exception ex)
 			{
 				ex.printStackTrace();
 			}
-			return topList;
-		}*/
-
+			return list;
+		}
 	}
