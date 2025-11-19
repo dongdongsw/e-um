@@ -17,7 +17,7 @@ body {
 }
 .background-header {
   background-color: #fff !important;
-  height: 100px!important;
+  height: 70px!important;
   position: fixed!important;
   top: 0!important;
   left: 0;
@@ -33,7 +33,7 @@ body {
   background-color: transparent;
   position: absolute;
   height: 70px;
-  top: 30px;
+  top: 5px;
   left: 0;
   right: 0;
   z-index: 100;
@@ -62,21 +62,17 @@ body {
 }
 
 .header-area .main-nav .logo-image {
-	margin-left: 30px;
-  	width: 75px;
+	margin-left: 10px;
+  	width: 70px;
 }
 
 .background-header .main-nav .logo {
-  margin-top: 8px;
+  margin-top: 2px;
 }
 
 .background-header .main-nav .logo-image {
-	margin-left: 30px;
-  	width: 75px;
-}
-.background-header .main-nav .logo-text {
-	/* 로고 텍스트 블록 전체를 아래로 이동시켜 스크롤 시 헤더 높이에 맞춥니다. */
-	margin-top: -5px !important; 
+	margin-left: 10px;
+  	width: 70px;
 }
 
 .header-area .main-nav .nav {
@@ -174,7 +170,8 @@ body {
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
+  margin-top: -5px;
   right: 0;
   background-color: #ffffff;
   border-radius: 8px;
@@ -531,17 +528,19 @@ body {
 }
 
 .logo-name {
-	margin-left: 30px;
-	margin-top: 5px;
+	margin-left: 15px;
+	margin-top: 0px;
 	color: #7453fc;
 	font-weight: bold;
+	font-size: 24px;
 }
 
 .logo-intro {
-	margin-left: 32px;
-	margin-bottom: 1px;
+	margin-left: 15px;
+	margin-bottom: 0px;
 	color: #999999;
 	font-weight: bold;
+	font-size: 12px;
 }
 .logo {
     display: flex;
@@ -576,6 +575,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!e.target.closest('.profile-dropdown')) {
                 dropdownMenu.classList.remove('show');
             }
+        });
+        
+        // 스크롤 시 드롭다운 닫기
+        window.addEventListener('scroll', function() {
+            dropdownMenu.classList.remove('show');
         });
         
         // 드롭다운 메뉴 내부 클릭 시 이벤트 전파 방지 (링크 클릭은 허용)
