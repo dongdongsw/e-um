@@ -47,7 +47,6 @@
                    ${vo.o_status} 
                  </span>
                  
-                 <span style="margin-left: 20px">주문 유저 닉네임 : ${vo.uvo.u_nickname}</span>
                  &nbsp;
                </div>
               
