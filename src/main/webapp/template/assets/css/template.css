@@ -818,7 +818,7 @@ Categories & Collections Style
   background-size: cover;
   padding: 120px 0px 150px 0px;
   position: relative;
-  background-color: #f7f7f7;
+  background-color: #ffffff !important;
 }
 
 .categories-collections:after {

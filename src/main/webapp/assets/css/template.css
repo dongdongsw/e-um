@@ -430,7 +430,7 @@ Categories & Collections Style
   background-position: center center;
   background-size: cover;
   position: relative;
-  background-color: #f7f7f7;
+  background-color: #ffffff !important;
 }
 
 .categories-collections:after {
