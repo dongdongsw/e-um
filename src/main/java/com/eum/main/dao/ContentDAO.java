@@ -301,6 +301,7 @@ public class ContentDAO {
 		                r.getRvo().setImgList(imgs);               
 		            }
 		        }
+		        session.close();
 		    } catch (Exception ex) {
 		        ex.printStackTrace();
 		    } 
@@ -443,6 +444,7 @@ public class ContentDAO {
 		    	
 		        SqlSession session = ssf.openSession();
 		        list = session.selectList("talentSearchKeywordData", map);
+		        session.close();
 		    } catch (Exception ex) {
 		        ex.printStackTrace();
 		    } 
@@ -455,6 +457,7 @@ public class ContentDAO {
 		    	
 		        SqlSession session = ssf.openSession();
 		        total = session.selectOne("talentSearchKeywordTotalPage", map);
+		        session.close();
 		    } catch (Exception ex) {
 		        ex.printStackTrace();
 		    } 
@@ -467,6 +470,7 @@ public class ContentDAO {
 		    try {
 		        SqlSession session = ssf.openSession();
 		        list = session.selectList("talentSearchTypeData", map);
+		        session.close();
 		    } catch (Exception ex) {
 		        ex.printStackTrace();
 		    } 
@@ -478,6 +482,7 @@ public class ContentDAO {
 		    try {
 		        SqlSession session = ssf.openSession();
 		        total = session.selectOne("talentSearchTypeTotalPage", map);
+		        session.close();
 		    } catch (Exception ex) {
 		        ex.printStackTrace();
 		    } 
