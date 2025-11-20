@@ -345,8 +345,8 @@ Banner Style
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  padding-top: 290px;
-  padding-bottom: 50px;
+  padding-top: 210px;
+  padding-bottom: 45px;
 }
 
 .main-banner h6 {
@@ -429,7 +429,6 @@ Categories & Collections Style
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  padding: 120px 0px 150px 0px;
   position: relative;
   background-color: #f7f7f7;
 }
@@ -501,7 +500,7 @@ Categories & Collections Style
 }
 
 .collections {
-  margin-top: 140px;
+  margin-top: 50px;
 }
 
 .collections .item img {
@@ -1866,4 +1865,3 @@ body {
     font-weight:600
   }
 }
-

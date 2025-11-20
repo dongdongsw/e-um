@@ -251,8 +251,8 @@ label {
   height: 15px;
   margin: 3rem auto;
   border-radius: 0.6rem;
-  background: #ffffff;
-  box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+  background: transparent;
+  box-shadow: none;
 }
 
 /* 각 요소 공통 */
@@ -271,27 +271,53 @@ label {
   height: 20px;
   border-radius: 0.4rem;
   transition: all 0.3s ease;
+  font-size: 17px;
 }
+
+.page__numbers a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .page__numbers:hover {
   color: var(--primary);
 }
+
 .page__numbers.active {
   color: #fff;
   background: var(--primary);
   font-weight: 600;
-  border: 1px solid var(--primary);
+  border: 12px solid var(--primary);
 }
+
 .page__btn {
   color: var(--greyLight);
   pointer-events: none;
 }
+
+.page__btn a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .page__btn.active {
   color: var(--greyDark);
   pointer-events: initial;
 }
+
 .page__btn.active:hover {
   color: var(--primary);
 }
+
 .number {
   position: absolute;
   top: 2.1875rem;
@@ -309,6 +335,8 @@ label {
 .list__item {
   margin: 0 0 0.5rem 0;
   padding: 0;
+  list-style: none;
+  margin-bottom: 6px;
 }
 
 .label--checkbox,
@@ -365,18 +393,20 @@ label {
   cursor: pointer;
 }
 .label--radio {
-    cursor: pointer;
-    pointer-events: auto !important;
-}
-
-.radio {
-    pointer-events: auto !important;
+  cursor: pointer;
+  pointer-events: auto !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .radio {
   position: relative;
-  margin: 0 1rem 0 0;
+  margin: 0;
   cursor: pointer;
+  pointer-events: auto !important;
+  display: inline-block;
+  vertical-align: middle;
 }
 .radio:before {
   -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
@@ -415,22 +445,7 @@ label {
   border: 2px solid #f2f2f2;
   border-radius: 50%;
 }
-.label--radio {
-  display: flex;
-  align-items: center;  /* 세로 가운데 정렬 */
-  gap: 6px;             /* 버튼과 텍스트 사이 여백 */
-}
 
-.label--radio .radio {
-  display: inline-block;
-  margin: 0;            /* 브라우저 기본 여백 제거 */
-  vertical-align: middle;
-}
-
-.list__item {
-  list-style: none;
-  margin-bottom: 6px;
-}
 ::selection {
   color: #fff;
   background: #7453fc;
@@ -625,83 +640,4 @@ input:not(:placeholder-shown) ~ .reset {
   width: 17px;
   margin-top: 3px;
 }
-/* end 검색바 */ 
-/* 페이지네이션 컨테이너 */
-.page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 15px;
-  margin: 3rem auto;
-  border-radius: 0.6rem;
-  background: #ffffff;
-  box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
-}
-
-/* 각 요소 공통 */
-.page__numbers, .page__btn, .page__dots {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* 숫자 버튼 */
-.page__numbers {
-  width: 20px;
-  height: 20px;
-  border-radius: 0.4rem;
-  transition: all 0.3s ease;
-}
-
-.page__numbers a {
-  color: inherit;
-  text-decoration: none;
-  display: block;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.page__numbers:hover {
-  color: var(--primary);
-}
-
-.page__numbers.active {
-  color: #fff;
-  background: var(--primary);
-  font-weight: 600;
-  border: 1px solid var(--primary);
-}
-
-.page__btn {
-  color: var(--greyLight);
-  pointer-events: none;
-}
-
-.page__btn a {
-  color: inherit;
-  text-decoration: none;
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.page__btn.active {
-  color: var(--greyDark);
-  pointer-events: initial;
-}
-
-.page__btn.active:hover {
-  color: var(--primary);
-}
-
-:root {
-  --primary: #7453fc;
-  --greyLight: #7453fc;
-  --greyDark: #2d4848;
-}
+/* end 검색바 */

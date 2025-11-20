@@ -507,16 +507,16 @@ $(document).ready(function() {
             <div class="category-group">
                 <h4>비즈니스</h4>
                 <div class="category-items">
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=컨설팅'">컨설팅</div>
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=마케팅'">마케팅</div>
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=개발'">개발</div>
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=디자인'">디자인</div>
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=제작'">제작</div>
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=데이터'">데이터</div>
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=번역'">번역</div>
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=PPT'">PPT</div>
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=유튜브'">유튜브</div>
-                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=제작'">제작</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=보컬'">컨설팅</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=작곡'">마케팅</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=디제잉'">개발</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=캘리그라피'">디자인</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=가죽'">제작</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=레진'">데이터</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=영상'">번역</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=요리'">PPT</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=한국무용'">유튜브</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=사진촬영'">제작</div>
                 </div>
             </div>
         </div>
@@ -593,18 +593,25 @@ $(document).ready(function() {
             </c:forEach>
         </div>
 
-        <!-- 페이지네이션 -->
-        <div class="pagination">
+        <!-- 페이지네이션 (keyword 유지) -->
+        <div id="pagination-area" class="container">
+          <ul class="page">
             <c:if test="${startPage > 1}">
-                <button onclick="location.href='../content/biz_list.eum?page=${startPage-1}&b_type=비즈니스'">&lt;</button>
+              <li class="page__btn active">
+                <a href="../talent/keyword_list.eum?page=${startPage-1}&keyword=${keyword}">&lt;</a>
+              </li>
             </c:if>
             <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                <span class="${i==curpage?'active':''}" 
-                      onclick="location.href='../content/biz_list.eum?page=${i}&b_type=비즈니스'">${i}</span>
+              <li class="page__numbers ${i==curpage?'active':''}">
+                <a href="../talent/keyword_list.eum?page=${i}&keyword=${keyword}">${i}</a>
+              </li>
             </c:forEach>
             <c:if test="${endPage < totalpage}">
-                <button onclick="location.href='../content/biz_list.eum?page=${endPage+1}&b_type=비즈니스'">&gt;</button>
+              <li class="page__btn active">
+                <a href="../talent/keyword_list.eum?page=${endPage+1}&keyword=${keyword}">&gt;</a>
+              </li>
             </c:if>
+          </ul>
         </div>
     </main>
 </div>

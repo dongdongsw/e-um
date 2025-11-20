@@ -1,0 +1,175 @@
+@charset "UTF-8";
+/* ===============================
+   LIBERTY NFT - Category Buttons
+================================= */
+.category-section {
+  width: 100%;
+  background: #ffffff;  
+  border-bottom: 1px solid #e6e6f8;
+  padding: 40px 0 50px 0; 
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  overflow: visible; 
+  margin-top: 0 !important;
+  margin-bottom: 30px !important;
+}
+
+.category-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 32px;
+  overflow-x: auto;
+  max-width: 100%;
+  padding: 10px 40px;
+  box-sizing: border-box;
+}
+
+.brutalist-button.button-1 {
+  width: 150px;
+  height: 150px;
+  background: #ffffff;
+  border: 2px solid #b3aaff;
+  border-radius: 18px;
+  box-shadow: 5px 5px 0 #00000022;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.brutalist-button.button-1:hover {
+  background: #fff;
+  color: black;
+  border-color: #4c43e2;
+  transform: translate(-5px, -5px);
+  box-shadow: 8px 8px 0 #c6b7f5;
+}
+
+.brutalist-button.button-1:active {
+  transform: translate(0, 0);
+  box-shadow: 3px 3px 0 #e3dcfb;
+}
+
+.category-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.brutalist-button.button-1:hover .category-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+.item > img {
+  border-radius: 20px;
+  
+  align-items: center;
+}
+.main-banner {
+  background-color: #f7f7f7;
+}
+.popular-section {
+    max-width: 1200px;
+    margin: 15px 0 0 0;
+    padding: 0;
+}
+
+.popular-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.popular-tags {
+    display: flex;
+    flex-wrap: nowrap;   
+    gap: 10px;
+    overflow-x: auto;    
+    white-space: nowrap;
+}
+.popluar-tags:hover {
+    color: white;
+    border-color: black;
+    background: #7453FC;
+}
+.tag-btn {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tag-btn:hover {
+    background: #7453FC;
+    color: white;
+    border-color: black;
+}
+/* 인기 컨텐츠 */
+.title{
+	font-size: 18px !important;
+	display: -webkit-box;
+    -webkit-line-clamp: 1;  
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;       
+    max-height: calc(1.4em * 1);
+    margin-bottom: 30px;
+}
+.com{
+	display: -webkit-box;
+    -webkit-line-clamp: 1;   
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;       
+    max-height: calc(1.4em * 1);
+}
+.con {
+	display: -webkit-box;
+    -webkit-line-clamp: 3;   
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;       
+    max-height: calc(1.4em * 3);
+}
+
+.sub {
+	font-size: 15px !important;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.sub:hover {
+ 	color: #dcdcdc;
+}
+
+.thumb {
+  width: 380px;
+  border-radius: 15px;
+  background: #f9f9f9;
+}
+
+.thumb > img {
+	width: 100%;
+	padding:20px; 
+	height: 250px; 
+
+.item > img{
+ border-radius: 20px;
+	}
+}
