@@ -25,7 +25,7 @@ body {background-color: #fff !important;}
   gap: 10px;
 }
 
-.menu a {
+.menu span {
   color: #333;
   text-decoration: none;
   font-size: 15px;
@@ -35,13 +35,9 @@ body {background-color: #fff !important;}
   cursor: pointer;
 }
 
-.menu a.active {
+.menu span.active {
   font-weight: 600;
   color: #8e4dff;
-}
-
-.menu a:hover {
-  background: #f9fafb;
 }
 
 /* ===== 오른쪽 본문 ===== */

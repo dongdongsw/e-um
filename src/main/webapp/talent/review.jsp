@@ -45,20 +45,17 @@ $(function(){
 	    })
 	    
 	    $('.upBtn').click(function () {
-	    	  let id = $(this).data('up');   // b_review_id
+	    	  let id = $(this).data('up');   
 
-	    	  // 읽기 모드 숨기고 수정 폼 보여주기
 	    	  $('#re-up' + id).show();
 	    	  $('#re-read' + id).hide();
 
-	    	  // hidden input에 저장된 기존 점수
 	    	  let score = parseInt($('#upscore-' + id).val(), 10) || 0;
 
-	    	  // 먼저 다 회색으로
 	    	  for (let i = 1; i <= 5; i++) {
 	    	    $('#up-star-' + id + '-' + i).css('color', '#ccc');
 	    	  }
-	    	  // score 만큼 노란색으로
+
 	    	  for (let i = 1; i <= score; i++) {
 	    	    $('#up-star-' + id + '-' + i).css('color', '#facc15');
 	    	  }
@@ -124,7 +121,7 @@ $(function(){
 		<aside class="side-sticky">
 			
 		    <!----------------------------- 리뷰 작성 폼 start ----------------------------------->
-		    <c:if test="${buy>0 }">
+		    <c:if test="${buy>0 and rcount<1}">
 		      <div class="review-write form-box">
 		        <form action="../review/insert_ok.eum" method="post" id="reviewIn">
 		          <input type="hidden" name="b_id" value="${detail_vo.b_id}">

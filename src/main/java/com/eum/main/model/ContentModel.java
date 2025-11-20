@@ -321,25 +321,37 @@ public class ContentModel {
 	   
 	   String b_id=request.getParameter("b_id");
 	   String page=request.getParameter("page");
-	   
-	   Map map=new HashMap();
-	   map.put("u_id", id);
-	   map.put("b_id", b_id);
-	   
-	   int buy=ContentDAO.buyCheck(map);
+
 	   BoardVO detail_vo=ContentDAO.talentDetailData(b_id);
 	   BoardVO board_vo=ContentDAO.talentDetailboard(b_id);
 	   List<BoardVO> review_vo=ContentDAO.talentDetailreview(b_id);
 	   BoardVO score_vo=ContentDAO.talentDetailscore(b_id);
 	   List<Board_OptionVO> price_vo=ContentDAO.talentDetailprice(b_id);
 	   
-	   request.setAttribute("buy", buy);
+	   
+	   if (id != null) {
+			  Map map=new HashMap();
+			  map.put("u_id", id);
+			  map.put("b_id", b_id);
+			  
+			 ReviewVO rvo=new ReviewVO();
+			 rvo.setB_id(b_id);
+			 rvo.setU_id(id);
+			 
+			 int buy=ContentDAO.buyCheck(map);
+			 int rcount=ContentDAO.reviewOk(rvo);
+			 
+			 request.setAttribute("buy", buy);
+			 request.setAttribute("rcount", rcount);
+	   }
+	   
 	   request.setAttribute("page", page);
 	   request.setAttribute("detail_vo", detail_vo);
 	   request.setAttribute("board_vo", board_vo);
 	   request.setAttribute("review_vo", review_vo);
 	   request.setAttribute("score_vo", score_vo);
 	   request.setAttribute("price_vo", price_vo);
+	   
 
 	   return "../talent/review.jsp";
    }

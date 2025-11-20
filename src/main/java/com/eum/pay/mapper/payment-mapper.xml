@@ -176,21 +176,39 @@
    
   </resultMap>
    <!-- 셀러 페이지 유저 결제 목록 -->
-   <select id="usPayList" resultMap="uspayMap" parameterType="int">
-        SELECT DISTINCT
-       o.o_id,
-       o.o_createdat,
-       o.o_total_price,
-       o.o_status,
-       bo.b_op_id,
-       bo.b_op_title,
-       us.u_s_id,
-       u.u_nickname
-   FROM orders o
-   LEFT JOIN board_option bo ON o.b_op_id = bo.b_op_id
-   LEFT JOIN board b ON bo.b_id = b.b_id
-   LEFT JOIN users_seller us ON b.u_s_id = us.u_s_id
-   LEFT JOIN users u ON u.u_id = us.u_id
-   WHERE us.u_s_id = #{u_s_id}
+   <select id="usPayList" resultMap="uspayMap" parameterType="hashmap">
+	  SELECT *
+	  FROM (
+	    SELECT a.*, ROWNUM AS num
+	    FROM (
+	      SELECT DISTINCT 
+	             o.o_id,
+	             o.o_createdat,
+	             o.o_total_price,
+	             o.o_status,
+	             bo.b_op_id,
+	             bo.b_op_title,
+	             us.u_s_id,
+	             u.u_nickname
+	      FROM orders o
+	      LEFT JOIN board_option bo ON o.b_op_id = bo.b_op_id
+	      LEFT JOIN board b         ON bo.b_id   = b.b_id
+	      LEFT JOIN users_seller us ON b.u_s_id  = us.u_s_id
+	      LEFT JOIN users u         ON u.u_id    = us.u_id
+	      WHERE us.u_s_id = #{u_s_id}
+	      ORDER BY o.o_createdat DESC 
+	    ) a
+	  ) b
+	  WHERE b.num BETWEEN #{start} AND #{end}
+   </select>
+   
+   <select id="usPayTotalPage" resultType="int" parameterType="int">
+	  SELECT CEIL(COUNT(DISTINCT o.o_id) / 6.0)
+	  FROM orders o
+	  LEFT JOIN board_option bo ON o.b_op_id = bo.b_op_id
+	  LEFT JOIN board b         ON bo.b_id   = b.b_id
+	  LEFT JOIN users_seller us ON b.u_s_id  = us.u_s_id
+	  LEFT JOIN users u         ON u.u_id    = us.u_id
+	  WHERE us.u_s_id = #{u_s_id}
    </select>
 </mapper>

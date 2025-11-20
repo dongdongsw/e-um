@@ -130,6 +130,72 @@ body {background-color: #fff !important;}
   font-weight: 700;
   color: #8e4dff;
 }
+
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15px;
+  margin: 3rem auto;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+}
+
+/* 각 요소 공통 */
+.page__numbers, .page__btn, .page__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 숫자 버튼 */
+.page__numbers {
+  width: 20px;
+  height: 20px;
+  border-radius: 0.4rem;
+  transition: all 0.3s ease;
+}
+
+.page__numbers:hover {
+  color: var(--primary);
+}
+
+.page__numbers.active {
+  color: #fff;
+  background: var(--primary);
+  font-weight: 600;
+  border: 1px solid var(--primary);
+}
+
+.page__btn {
+  color: var(--greyLight);
+  pointer-events: none;
+}
+
+.page__btn.active {
+  color: var(--greyDark);
+  pointer-events: initial;
+}
+
+.page__btn.active:hover {
+  color: var(--primary);
+}
+.number {
+  position: absolute;
+  top: 2.1875rem;
+  left: -1.25rem;
+  color: #16a085;
+  font-size: 2rem;
+  font-family: Helvetiva, Arial, sans-serif;
+}
+a {
+    color: #7453fc;
+}
+
 </style>
 </head>
 <body>
@@ -188,6 +254,29 @@ body {background-color: #fff !important;}
              </div>
            </div>
          </c:forEach>
+         
+          <ul class="page"> 
+	  <c:if test="${startPage > 1}">
+	    <li class="page__btn active">
+	      <a class="material-icons"
+	         href="../seller/sell.eum?page=${startPage-1 }">&lt;</a>
+	    </li>
+	  </c:if>
+	
+	  <c:forEach var="i" begin="${startPage}" end="${endPage}">
+	    <li class="page__numbers ${i==curpage?'active':''}">
+	      <a href="../seller/sell.eum?page=${i}">${i}</a>
+	    </li>
+	  </c:forEach>
+	
+	  <c:if test="${endPage < totalpage}">
+	    <li class="page__btn active">
+	      <a class="material-icons"
+	         href="../seller/sell.eum?page=${endPage+1}">&gt;</a>
+	    </li>
+  	</c:if>
+
+</ul>
 
      
     </div>

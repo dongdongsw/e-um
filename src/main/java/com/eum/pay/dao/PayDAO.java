@@ -130,7 +130,7 @@ public class PayDAO {
    }
 
    // 셀러 -> 유저 결제 내역 리스트
-   public static List<OrdersVO> usPayList(int u_s_id)
+   public static List<OrdersVO> usPayList(Map map)
    {
          List<OrdersVO> list=null;
         
@@ -139,7 +139,7 @@ public class PayDAO {
             
             SqlSession session = ssf.openSession();
             session.clearCache();
-            list=session.selectList(NS+"usPayList",u_s_id);
+            list=session.selectList(NS+"usPayList",map);
             session.close();
          }catch(Exception ex)
          {
@@ -148,4 +148,18 @@ public class PayDAO {
         
          return list;
    }
+   
+// 셀러 토탈 리뷰
+	public static int usPayTotalPage(int sid) {
+		   int count=0;
+		   try {
+			   SqlSession session=ssf.openSession();
+			   count=session.selectOne("usPayTotalPage",sid);
+			   session.close();
+			
+		   } catch (Exception ex) {
+			   ex.printStackTrace();
+		   }
+		   return count;
+	   }
 }

@@ -10,6 +10,7 @@ import com.eum.main.vo.OrdersVO;
 import com.eum.main.vo.PaymentVO;
 import com.eum.main.vo.RefundVO;
 import com.eum.pay.dao.PayDAO;
+import com.eum.seller.dao.SellerDAO;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
@@ -196,23 +197,50 @@ public class PayModel {
         return "redirect:../pay/mypage_payment.eum";
     }
    
-   // 셀러 -> 유저 결제 내역 페이지
+	// 셀러 -> 유저 결제 내역 페이지
    @RequestMapping("seller/sell.eum")
    public String usPayList(HttpServletRequest request,
-            HttpServletResponse response)
-      {
-      try {
+           HttpServletResponse response)
+   {
+       try {
            HttpSession session = request.getSession();
-           int u_s_id=(int)session.getAttribute("sid");
-           List<OrdersVO> uspay_vo=PayDAO.usPayList(u_s_id);
-           System.out.println(uspay_vo);
-           request.setAttribute("uspay_vo", uspay_vo);
+           int u_s_id = (int)session.getAttribute("sid");
 
-      }catch(Exception ex) {ex.printStackTrace();}
-      
-      
-         
-         request.setAttribute("main_jsp", "../seller/sell.jsp");
-         return "../main/main.jsp";
-      }
+           String page = request.getParameter("page");
+           if (page == null) page = "1";
+           int curpage = Integer.parseInt(page);
+
+           int rowSize = 6;
+           int start = (rowSize * curpage) - (rowSize - 1);
+           int end   = rowSize * curpage;
+
+           Map map = new HashMap();
+           map.put("start", start);
+           map.put("end", end);
+           map.put("u_s_id", u_s_id);
+
+           List<OrdersVO> uspay_vo = PayDAO.usPayList(map);
+           
+           int totalpage = PayDAO.usPayTotalPage(u_s_id); 
+
+           final int BLOCK = 10;
+           int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
+           int endPage   = startPage + BLOCK - 1;
+           if (endPage > totalpage)
+               endPage = totalpage;
+
+           request.setAttribute("uspay_vo", uspay_vo);
+           request.setAttribute("curpage", curpage);
+           request.setAttribute("totalpage", totalpage);
+           request.setAttribute("startPage", startPage);
+           request.setAttribute("endPage", endPage);
+
+       } catch(Exception ex) {
+           ex.printStackTrace();
+       }
+
+       request.setAttribute("main_jsp", "../seller/sell.jsp");
+       return "../main/main.jsp";
+   }
+
 }
