@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>주문 상세 내역</title>
+<link rel="stylesheet" href="../css/find.css">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script>
