@@ -32,6 +32,10 @@ body {
   color: #2f2f2f;
   background-color: #fff;
   border-top: 1px solid #e5e5e5;
+  width: 100%;
+  max-width: 100%;
+  min-height: 200px;
+  position: relative;
 }
 
 .footer > * {
@@ -42,9 +46,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  margin-right: 0px; /* nav와 간격 */
+  margin-right: 0px;
   min-height: 100%;
-  flex: 0 0 auto;  /* 추가: addr은 좌측 크기만 차지 */
+  flex: 0 0 auto;
 }
 
 .footer__logo {
@@ -61,14 +65,18 @@ body {
 }
 
 .nav__title {
-  font-weight: 400;
+  font-weight: bold;
   font-size: 15px;
   color: #2f2f2f;
+  margin-bottom: 10px;
+  margin-top: 0;
+  white-space: nowrap;
 }
 
 .footer address {
   font-style: normal;
   color: #999;
+  margin: 0;
 }
 
 .footer__btn {
@@ -84,15 +92,19 @@ body {
   margin: 0.6em 0;
   font-size: 1rem;
   padding: 0 1.3em;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .footer ul {
   list-style: none;
   padding-left: 0;
+  margin: 0;
 }
 
 .footer li {
   line-height: 2em;
+  white-space: nowrap;
 }
 
 .footer a {
@@ -102,8 +114,8 @@ body {
 .footer__nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25em; /* nav_item 간격 유지 */
-  margin-left: 0; /* addr쪽으로 붙임 */
+  gap: 1.25em;
+  margin-left: 0;
   margin-right: 200px;
 }
 
@@ -112,8 +124,20 @@ body {
   margin-right: 1.25em;
 }
 
+.nav__ul {
+  margin-top: 0;
+}
+
 .nav__ul a {
   color: #999;
+  font-size: 12px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.nav__ul a:hover {
+  background: #fff;
+  color: #7453fc;
 }
 
 .nav__ul--extra {
@@ -125,15 +149,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   color: #999;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .legal__links {
   display: flex;
   align-items: center;
-}
-
-.heart {
-  color: #2f2f2f;
+  font-size: 12px;
 }
 
 @media screen and (min-width: 24.375em) {
@@ -142,6 +165,44 @@ body {
   }
 }
 
+.heart {
+  color: #2f2f2f;
+}
+
+.sist-logo {
+  margin-top: 0px;
+  margin-left: 7px;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.sist-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.intro-eum {
+  margin-top: auto;
+  margin-left: 5px;
+  font-style: normal;
+  color: #999;
+  font-size: 12px;
+}
+
+/* 반응형 - 작은 화면 */
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 20px;
+  }
+  
+  .footer__nav {
+    margin-right: 0;
+  }
+}
+
+/* 반응형 - 중간 화면 이상 */
 @media screen and (min-width: 40.375em) {
   .footer__nav > * {
     flex: 1;
@@ -164,30 +225,20 @@ body {
   }
 }
 
-.sist-logo {
-  margin-top: 0px;
-  margin-left: 7px;
-  width: 80px;
-  height: 80px;
-}
-
-.intro-eum {
-  margin-top: auto;
-  margin-left: 5px;
-  font-style: normal;
-  color: #999;
+/* 더 큰 화면 */
+@media screen and (min-width: 1025px) {
+  .footer {
+    padding: 30px 50px 20px 50px;
+  }
 }
 </style>
 </head>
 <body>
 
-
-
  <footer class="footer">
   <div class="footer__addr">
-  
     <div class="sist-logo">
-      <img src="../images/sist.png">
+      <img src="../images/sist.png" alt="SIST Logo">
     </div>
     <div class="intro-eum">Copyright @2025 1조 이음(E-UM)프로젝트</div>
     <address>
@@ -198,24 +249,19 @@ body {
   <ul class="footer__nav">
     <li class="nav__item">
       <h2 class="nav__title">카테고리별</h2>
-
       <ul class="nav__ul">
         <li>
           <a href="../talent/b_type_list.eum?b_type=생활라이프">생활/라이프</a>
         </li>
-
         <li>
           <a href="./talent/b_type_list.eum?b_type=운동건강">운동/건강</a>
         </li>
-            
         <li>
           <a href="../talent/b_type_list.eum?b_type=취미/자기개발">취미/자기개발</a>
         </li>
-        
         <li>
           <a href="../talent/b_type_list.eum?b_type=비즈니스">비즈니스</a>
         </li>
-        
         <li>
           <a href="../talent/b_type_list.eum?b_type=기타">기타</a>
         </li>
@@ -224,12 +270,10 @@ body {
     
     <li class="nav__item">
       <h2 class="nav__title">회원</h2>
-      
       <ul class="nav__ul">
         <li>
           <a href="../users/join.eum">회원가입</a>
         </li>
-        
         <li>
           <a href="../users/login.eum">로그인</a>
         </li>
@@ -238,7 +282,6 @@ body {
     
     <li class="nav__item">
       <h2 class="nav__title">셀러</h2>
-      
       <ul class="nav__ul">
         <li>
           <a href="../seller/join.eum">셀러등록</a>
@@ -248,7 +291,6 @@ body {
     
     <li class="nav__item">
       <h2 class="nav__title">게시판</h2>
-      
       <ul class="nav__ul">
         <li>
           <a href="../notice/list.eum">공지사항</a>
@@ -263,5 +305,6 @@ body {
     </div>
   </div>
 </footer>
+
 </body>
 </html>
