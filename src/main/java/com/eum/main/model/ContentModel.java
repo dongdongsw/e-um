@@ -736,5 +736,45 @@ public class ContentModel {
         request.setAttribute("main_jsp", "../content/all_list.jsp");
         return "../main/main.jsp";
     }
+   	
+   	// 소 카테고리별 리스트
+   	// 운동건강
+   	@RequestMapping("content/exer_filter_list.eum")
+   	public String exercise_filter_list(HttpServletRequest request, HttpServletResponse response) {
+        String b_type = "운동건강";
+        String b_filter = request.getParameter("b_filter");
+        
+        String page = request.getParameter("page");
+        int curpage = (page == null) ? 1 : Integer.parseInt(page);
+
+        int rowSize = 12;
+        int start = (curpage - 1) * rowSize + 1;
+        int end = curpage * rowSize;
+
+        Map map = new HashMap();
+        map.put("b_type", b_type);
+        map.put("b_filter", b_filter);
+        map.put("start", start);
+        map.put("end", end);
+
+        List<BoardVO> list = ContentDAO.exerFilterListData(map);
+        int totalpage = ContentDAO.filterTotalPage();
+
+        final int BLOCK = 10;
+	    int startPage = ((curpage-1)/BLOCK*BLOCK)+1;
+	    int endPage = ((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	    if(endPage > totalpage) {
+	    	endPage = totalpage;
+	    }
+
+	    request.setAttribute("startPage", startPage);
+	    request.setAttribute("endPage", endPage);
+        request.setAttribute("list", list);
+        request.setAttribute("curpage", curpage);
+        request.setAttribute("totalpage", totalpage);
+
+        request.setAttribute("main_jsp", "../content/exercise_filter_list.jsp");
+        return "../main/main.jsp";
+    }
 }
 

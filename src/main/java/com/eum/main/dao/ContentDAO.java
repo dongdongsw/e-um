@@ -232,6 +232,85 @@ public class ContentDAO {
 		return total;
 	}
 	
+	// 소 카테고리 별 리스트
+	// 생활라이프
+	public static List<BoardVO> talentFilterListData(Map map) {
+		List<BoardVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("talentFilterListData", map);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+
+	// 운동건강
+	public static List<BoardVO> exerFilterListData(Map map) {
+		List<BoardVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("exerFilterListData", map);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+	// 취미/자기개발
+	public static List<BoardVO> hobbyFilterListData(Map map) {
+		List<BoardVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("hobbyFilterListData", map);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+	// 비즈니스
+	public static List<BoardVO> bizFilterListData(Map map) {
+		List<BoardVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("bizFilterListData", map);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+	// 기타
+	public static List<BoardVO> etcFilterListData(Map map) {
+		List<BoardVO> list = null;
+		try {
+			SqlSession session = ssf.openSession();
+			list = session.selectList("etcFilterListData", map);
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+	// 소카테고리별 총페이지
+	public static int filterTotalPage() {
+		int total = 0;
+		try {
+			SqlSession session = ssf.openSession();
+			total = session.selectOne("filterTotalPage");
+			session.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return total;
+	}
+		
 	// 상세보기 페이지
 	   public static BoardVO talentDetailData(String b_id)
 	   {
@@ -289,7 +368,7 @@ public class ContentDAO {
 		    return list;
 		}
 	   
-	// 리뷰
+	   // 리뷰
 	   public static List<BoardVO> talentDetailreview(String b_id) {
 		    List<BoardVO> list = null;
 		    try {
