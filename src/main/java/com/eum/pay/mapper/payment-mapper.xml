@@ -139,7 +139,7 @@
       JOIN board b ON b.b_id = bo.b_id
       JOIN users_seller us ON b.u_s_id = us.u_s_id
        WHERE o.o_u_id = #{o_u_id}
-       ORDER BY o_id DESC
+       ORDER BY TO_NUMBER(o.o_id) DESC
    </select>
 
    <!-- 환불 인서트 -->
@@ -203,7 +203,7 @@
       <if test="column=='u_s_com'">
       WHERE o.o_u_id = #{o_u_id} AND u_s_com LIKE '%'||#{find}||'%'
       </if> 
-       ORDER BY o_id DESC
+       ORDER BY BY TO_NUMBER(o.o_id) DESC
    </select>
 	
    <resultMap type="OrdersVO" id="uspayMap">
