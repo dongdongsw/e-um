@@ -146,7 +146,7 @@ body {
 }
 
 .category-items {
-    display: none;
+    display: flex !important;
     flex-direction: column;
     gap: 8px;
     padding-left: 12px;
@@ -461,11 +461,11 @@ $(document).ready(function() {
         }
     });
     
-    // 카테고리 드롭다운 토글
+/*     // 카테고리 드롭다운 토글
     $(".category-group h4").on("click", function() {
         $(this).toggleClass("active");
         $(this).next(".category-items").toggleClass("show");
-    });
+    }); */
 });
 </script>
 </head>
