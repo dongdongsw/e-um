@@ -507,16 +507,16 @@ $(document).ready(function() {
             <div class="category-group">
                 <h4>비즈니스</h4>
                 <div class="category-items">
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=보컬'">컨설팅</div>
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=작곡'">마케팅</div>
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=디제잉'">개발</div>
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=캘리그라피'">디자인</div>
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=가죽'">제작</div>
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=레진'">데이터</div>
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=영상'">번역</div>
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=요리'">PPT</div>
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=한국무용'">유튜브</div>
-                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=사진촬영'">제작</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=컨설팅'">컨설팅</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=마케팅'">마케팅</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=개발'">개발</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=디자인'">디자인</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=제작'">제작</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=데이터'">데이터</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=번역'">번역</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=PPT'">PPT</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=유튜브'">유튜브</div>
+                    <div class="category-item" onclick="location.href='../talent/biz_keyword_list.eum?keyword=제작'">제작</div>
                 </div>
             </div>
         </div>
