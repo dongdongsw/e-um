@@ -169,6 +169,24 @@ public class PayModel {
          return "../main/main.jsp";
       }
 
+	@RequestMapping("users/order_find.eum")
+   public String food_find(HttpServletRequest request,
+ 		  HttpServletResponse response)
+   {
+	  HttpSession session = request.getSession();
+	  String o_u_id=(String)session.getAttribute("id");
+	  String column=request.getParameter("column");
+ 	  String find=request.getParameter("find");
+ 	  Map map=new HashMap();
+ 	  map.put("o_u_id", o_u_id);
+ 	  map.put("find", find);
+ 	  map.put("column", column);
+ 	  List<OrdersVO> pay_vo1=PayDAO.mypagePaymentFind(map);
+ 	  request.setAttribute("pay_vo1", pay_vo1);
+ 	  request.setAttribute("main_jsp", "../pay/find.jsp");
+ 	  return "../main/main.jsp";
+   }
+
    // refund table insert
    @RequestMapping("pay/refund_insert.eum")
     public String refund_insert_ok(HttpServletRequest request, HttpServletResponse response)
