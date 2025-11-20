@@ -7,47 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../css/seller_review.css">
-<style type="text/css">
-/* 숫자 버튼 */
-.page__numbers {
-  width: 20px;
-  height: 20px;
-  border-radius: 0.4rem;
-  transition: all 0.3s ease;
-}
-.page__numbers:hover {
-  color: var(--primary);
-}
-.page__numbers.active {
-  color: #fff;
-  background: var(--primary);
-  font-weight: 600;
-  border: 1px solid var(--primary);
-}
-.page__btn {
-  color: var(--greyLight);
-  pointer-events: none;
-}
-.page__btn.active {
-  color: var(--greyDark);
-  pointer-events: initial;
-}
-.page__btn.active:hover {
-  color: var(--primary);
-}
-.number {
-  position: absolute;
-  top: 2.1875rem;
-  left: -1.25rem;
-  color: #16a085;
-  font-size: 2rem;
-  font-family: Helvetiva, Arial, sans-serif;
-}
-
-</style>
 </head>
 <body>
-  
       <c:choose>
         <c:when test="${empty list}">
           <div class="content-item">
@@ -134,10 +95,7 @@
 	         onclick="next(${endPage + 1})">&gt;</a>
 	    </li>
   	</c:if>
-
 </ul>
-
-
       <div style="height: 100px"></div>
 </body>
 </html>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eum.main.mapper.review-mapper">
+  <resultMap type="com.eum.main.vo.BoardVO" id="boardMap">
+  	<result property="rvo.b_review_score" column="b_review_score"/>
+  	<result property="rvo.u_s_id" column="u_s_id"/>
+	<result property="rvo.b_review_id" column="b_review_id"/>
+	<result property="rvo.b_review_createdat" column="b_review_createdat"/>
+	<result property="rvo.b_review_content" column="b_review_content"/>
+	<result property="rvo.review_count" column="review_count"/>
+	<result property="rvo.group_id" column="group_id"/>
+	<result property="rvo.root" column="root"/>
+	<result property="rvo.depth" column="depth"/>
+	<result property="rvo.reply" column="reply"/>
+  	<result property="bovo.b_op_price" column="b_op_price"/>
+  	<result property="bivo.b_img_url" column="b_img_url"/>
+  	<result property="usvo.u_s_com" column="u_s_com"/>
+	<result property="usvo.u_s_profileimg_url" column="u_s_profileimg_url"/>
+	<result property="usvo.u_s_carrer" column="u_s_carrer"/>
+	<result property="usvo.u_s_zone" column="u_s_zone"/>
+	<result property="uvo.u_id" column="u_id"/>
+	<result property="uvo.u_nickname" column="u_nickname"/>
+	<result property="uvo.u_profileimg_url" column="u_profileImg_url"/>
+  </resultMap>
+      <!-- 리뷰 작성 -->
+   <insert id="reviewInsert" parameterType="com.eum.main.vo.ReviewVO">
+     INSERT INTO review 
+     	(b_review_id, u_s_id, b_id, u_id, b_review_createdat, b_review_content,
+      	 b_review_score, depth, group_id)
+     VALUES
+         (re_id_seq.nextval, #{u_s_id}, #{b_id}, #{u_id}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+          #{b_review_content}, #{b_review_score}, 1, re_id_seq.CURRVAL 
+         )
+   </insert>
+   
+   <!-- 답변 작성 --> 
+    <insert id="replyInsert" parameterType="com.eum.main.vo.ReviewVO">
+     INSERT INTO review 
+     	(b_review_id, u_s_id, b_id, u_id, b_review_createdat, b_review_content,
+      	 depth, group_id)
+     VALUES
+         (re_id_seq.nextval, #{u_s_id}, #{b_id}, #{u_id}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+          #{b_review_content}, 2, #{group_id}
+         )
+   </insert>
+   
+   <!-- 리뷰 수정 -->
+   <insert id="reviewUpdate" parameterType="com.eum.main.vo.ReviewVO">
+     UPDATE review SET 
+     b_review_content=#{b_review_content},
+     b_review_score=#{b_review_score}
+     WHERE
+     b_review_id=#{b_review_id}
+   </insert>
+   
+   <!-- 답변 수정 --> 
+   <insert id="replyUpdate" parameterType="com.eum.main.vo.ReviewVO">
+     UPDATE review SET 
+     b_review_content=#{b_review_content}
+     WHERE
+     b_review_id=#{b_review_id}
+   </insert>
+   
+   <!-- 리뷰 이미지 삭제 -->
+   <delete id="reviewImageDelete" parameterType="int">
+     DELETE FROM review_image
+     WHERE b_review_id = #{b_review_id}
+   </delete>
+   
+   <!-- 리뷰와 리뷰의 대한 답변 삭제 -->
+   <delete id="reviewReplyDelete" parameterType="int">
+     DELETE FROM review
+     WHERE group_id = #{b_review_id}
+   </delete>
+   
+   <!-- 답변 삭제 -->
+   <delete id="replyDelete" parameterType="int">
+     DELETE FROM review
+     WHERE
+     b_review_id=#{b_review_id}
+   </delete>
+   
+   <!-- 이미 리뷰 작성자인지 -->
+   <select id="reviewOk" resultType="int" parameterType="com.eum.main.vo.ReviewVO">
+     SELECT COUNT(*) FROM review
+     WHERE u_id = #{u_id} AND b_id = #{b_id}
+   </select>
+   
+   <!-- 구매자 검사 -->
+   <select id="buyCheck" resultType="int" parameterType="hashmap">
+   	 SELECT COUNT(*) 
+		FROM orders o
+		JOIN board_option bo 
+		  ON o.b_op_id = bo.b_op_id
+		WHERE o.o_u_id = #{u_id}
+		  AND bo.b_id = #{b_id}
+   </select>
+</mapper>

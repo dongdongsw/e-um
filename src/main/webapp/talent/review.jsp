@@ -117,14 +117,13 @@ $(function(){
 		 
 	});
 	
-	
-		</script>
-		</head>
+</script>
+</head>
 		<body>
 		<aside class="side-sticky">
 			
 		    <!----------------------------- 리뷰 작성 폼 start ----------------------------------->
-		    <c:if test="${buy>0 }">
+		    <c:if test="${buy>0 and rcount<1}">
 		      <div class="review-write form-box">
 		        <form action="../review/insert_ok.eum" method="post" id="reviewIn">
 		          <input type="hidden" name="b_id" value="${detail_vo.b_id}">
@@ -393,8 +392,6 @@ $(function(){
 		           <!--------------------------- 답글 수정 end ----------------------------->
 		      <c:set var="groupId" value="${rvo.rvo.group_id}" />
 		    </c:forEach>
-
-		    
-		  </aside>
-</body>
+		</aside>
+	</body>
 </html>

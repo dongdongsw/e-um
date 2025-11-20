@@ -213,7 +213,6 @@ public class SellerModel {
 	    if (endPage > totalpage) 
 	    	endPage=totalpage;
 
-	    // JSP에서 쓸 값들 세팅
 	    request.setAttribute("list", list);
 	    request.setAttribute("curpage", curpage);
 	    request.setAttribute("totalpage", totalpage);

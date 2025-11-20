@@ -44,6 +44,7 @@
     <mapper resource="com/eum/users/mapper/favorite-mapper.xml"/>
 	<mapper resource="com/eum/users/mapper/review-mapper.xml"/>
 	<mapper resource="com/eum/pay/mapper/like-mapper.xml"/>
+	<mapper resource="com/eum/main/mapper/review-mapper.xml"/>
 	
     
     <!-- 관리자 -->

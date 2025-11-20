@@ -109,7 +109,7 @@ border-bottom: 1px solid #e6e6f8;
 .tag-btn {
     background: #f0f0f0;
     border: 1px solid #ddd;
-    padding: 8px 16px;
+    padding: 8px 15px;
     border-radius: 20px;
     font-size: 14px;
     color: #333;
@@ -207,14 +207,9 @@ $(function(){
           <div class="discover-items">
 			  <form id="search-form" method="GET" class="search" action="../talent/keyword_list.eum">
 			      <div class="row">
-			        <div class="col-lg-9">
+			        <div class="col-lg-12">
 			            <fieldset>
 			                <input type="text" name="keyword" class="searchText" placeholder="어떤 재능이 필요하세요?" autocomplete="on" required>
-			            </fieldset>
-			        </div>
-			        <div class="col-lg-2">                        
-			            <fieldset>
-			                <button class="main-button" style="width:80px;">검색</button>
 			            </fieldset>
 			        </div>
 			    </div>
@@ -227,6 +222,7 @@ $(function(){
 			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button>
 			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button>
 			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</button>
+			        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=시공'">시공</button>
 			    </div>
 			</div>
           </div>

@@ -17,6 +17,8 @@ public class ContentDAO {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
 	
+	private static final String NS = "com.eum.main.mapper.review-mapper.";
+	
 	// 생활라이프 리스트
 	public static List<BoardVO> talentTypeListData(Map map) {
 		List<BoardVO> list=null;
@@ -398,7 +400,7 @@ public class ContentDAO {
 		   String res=null;
 		   try {
 			   SqlSession session=ssf.openSession(true);
-			   session.delete("replyDelete",b_review_id);
+			   session.delete(NS+"replyDelete",b_review_id);
 			   session.close();
 			   res="YES";
 		   } catch (Exception ex) {
@@ -413,8 +415,8 @@ public class ContentDAO {
 		   String res=null;
 		   try {
 			   SqlSession session=ssf.openSession();
-			   session.delete("reviewImageDelete",b_review_id);
-			   session.delete("reviewReplyDelete",b_review_id);
+			   session.delete(NS+"reviewImageDelete",b_review_id);
+			   session.delete(NS+"reviewReplyDelete",b_review_id);
 			   session.commit();
 			   session.close();
 			   res="YES";
@@ -437,6 +439,20 @@ public class ContentDAO {
      	   }
 		   return buy;
 	   }
+	   
+	   // 이미 리뷰 작성자인지
+	   public static int reviewOk(ReviewVO rvo) {
+		   int rcount=0;
+		   try {
+			   SqlSession session=ssf.openSession();
+			   rcount=session.selectOne("reviewOk",rvo);
+			   session.close();
+		   } catch (Exception ex) {
+			   ex.printStackTrace();
+		   }
+		   return rcount;
+	   }
+	
 	   // 키워드 검색
 	   public static List<BoardVO> talentSearchKeywordData(Map map) {
 		    List<BoardVO> list = null;
