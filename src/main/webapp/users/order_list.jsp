@@ -537,27 +537,14 @@ body {
     <h2>결제 내역</h2>
     
     <!-- 🔍 상단 필터 영역 -->
-    <form class="filter-bar" method="get" action="order_search.eum">
-      <select name="product_type">
-        <option value="">전체 상품</option>
-        <option value="life">생활라이프</option>
-        <option value="food">푸드</option>
-        <option value="music">음악</option>
+    <form class="filter-bar" method="get" action="../users/order_find.eum">
+      <select name="column">
+        <option value="all">전체 상품</option>
+        <option value="b_op_title">타이틀 명</option>
+        <option value="u_s_com">셀러명</option>
       </select>
-
-      <select name="order_status">
-        <option value="">전체 상태</option>
-        <option value="paid">결제완료</option>
-        <option value="working">작업중</option>
-        <option value="done">작업완료</option>
-        <option value="refund">환불완료</option>
-      </select>
-
-      <input type="date" name="start_date">
-      <span>~</span>
-      <input type="date" name="end_date">
-
-      <input type="text" name="nickname" placeholder="닉네임">
+      
+      <input type="text" name="find" placeholder="검색어를 입력해주세요.">
       <button type="submit">조회</button>
     </form>
     
