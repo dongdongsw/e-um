@@ -154,6 +154,58 @@
             SYSDATE,
             NULL)
    </insert>
+	
+	<resultMap type="OrdersVO" id="FindMap">
+   <result property="o_id" column="o_id"/>
+   <result property="o_createdat" column="o_createdat"/>
+
+   <association property="bopvo" javaType="Board_OptionVO">
+      <result property="b_op_title" column="b_op_title" />
+      <result property="b_op_detail" column="b_op_detail" />
+      <result property="b_op_id" column="b_op_id" />
+   </association>
+   
+   <association property="bvo" javaType="BoardVO">
+      <result property="b_thumbnail" column="b_thumbnail" />
+      
+      <association property="usvo" javaType="Users_SellerVO">
+         <result property="u_s_com" column="u_s_com" />
+      </association>
+   </association>
+   
+   <association property="pvo" javaType="PaymentVO">
+      <result property="o_u_id" column="o_u_id" />
+      <result property="amount" column="amount" />
+      <result property="pay_id" column="pay_id" />
+      <result property="imp_uid" column="imp_uid" />
+   </association>
+   
+  </resultMap>
+   
+   <select id="mypagePaymentFind" resultMap="FindMap" parameterType="hashmap">
+    SELECT
+         p.o_u_id, p.amount, p.pay_id, p.imp_uid,
+         o.o_id, o.o_createdat, o.o_status,
+         bo.b_op_title, bo.b_op_detail, bo.b_op_id,
+         b.b_thumbnail,
+         us.u_s_com
+      FROM orders o
+      JOIN board_option bo ON o.b_op_id = bo.b_op_id
+       JOIN payment p ON o.o_id = p.o_id
+      JOIN board b ON b.b_id = bo.b_id
+      JOIN users_seller us ON b.u_s_id = us.u_s_id
+      <if test="column=='all'">
+      WHERE o.o_u_id = #{o_u_id} AND (bo.b_op_title LIKE '%'||#{find}||'%' OR us.u_s_com LIKE '%'||#{find}||'%')
+      </if>
+      <if test="column=='b_op_title'">
+      WHERE o.o_u_id = #{o_u_id} AND b_op_title LIKE '%'||#{find}||'%'
+      </if> 
+      <if test="column=='u_s_com'">
+      WHERE o.o_u_id = #{o_u_id} AND u_s_com LIKE '%'||#{find}||'%'
+      </if> 
+       ORDER BY o_id DESC
+   </select>
+	
    <resultMap type="OrdersVO" id="uspayMap">
    <result property="o_id" column="o_id"/>
    <result property="o_createdat" column="o_createdat"/>
