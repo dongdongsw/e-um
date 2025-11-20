@@ -10,14 +10,12 @@
 <link rel="stylesheet" href="notice.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 </head>
-
 <body class="notice-page">
 	<div class="header-text" style="height: 150px; background-color: #fff;"></div>
-
-	<!-- ========== 공지사항 리스트 영역 ========== -->
 	<div class="notice-container">
-		<h1 class="notice-title"><span>공지사항</span></h1>
-
+		<h1 class="notice-title">
+			<span>공지사항</span>
+		</h1>
 		<table>
 			<thead>
 				<tr>
@@ -31,7 +29,7 @@
 				<c:forEach var="vo" items="${list}">
 					<tr onclick="location.href='../notice/detail.eum?n_id=${vo.n_id}'">
 						<td>${vo.n_id}</td>
-						<td>${vo.n_title} <c:if test="${vo.n_createdAt == today}">
+						<td>${vo.n_title}<c:if test="${vo.n_createdAt == today}">
 								<sup style="color: red; font-weight: bold;">NEW</sup>
 							</c:if>
 						</td>
@@ -42,7 +40,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-
 		<!-- 페이지네이션 -->
 		<div class="pagination">
 			<c:if test="${startPage > 1}">
@@ -68,7 +65,6 @@
 				<a href="list.eum?page=${startPage + 10}">&raquo;</a>
 			</c:if>
 		</div>
-
 	</div>
 </body>
 </html>
