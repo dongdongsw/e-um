@@ -212,9 +212,10 @@ body {
 /* 필터 바 */
 .filter-bar {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    gap: 20px;
 }
 
 .filter-left {
@@ -230,6 +231,54 @@ body {
     background: white;
     cursor: pointer;
     min-width: 140px;
+}
+
+/* 검색 박스 */
+.search {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 4px 8px;
+    width: 400px;
+    transition: border-color 0.2s;
+}
+
+.search:focus-within {
+    border-color: #7453FC;
+}
+
+.search button[type="submit"] {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.search_input {
+    flex: 1;
+    border: none;
+    padding: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search .reset {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #999;
+    display: none;
+}
+
+.search_input:not(:placeholder-shown) ~ .reset {
+    display: flex;
+    align-items: center;
 }
 
 /* 카드 그리드 */
@@ -389,18 +438,29 @@ body {
 <script>
 $(document).ready(function() {
     // 검색 기능
-    $(".search-btn").on("click", function (e) {
-        e.preventDefault();
-        let keyword = $(".search-box input").val().trim();
-        if (!keyword) {
-            alert("검색어를 입력해주세요");
-            return;
+    $(".search button[type='submit']").on("click", function(e) {
+    e.preventDefault();
+    let keyword = $(".search_input").val().trim();
+    if (!keyword) {
+        alert("검색어를 입력해주세요");
+        return;
+    }
+    location.href = "../talent/keyword_list.eum?keyword=" 
+                  + encodeURIComponent(keyword) 
+                  + "&page=1";
+	});
+	
+    $("#sort-select").on("change", function() {
+        let sortValue = $(this).val(); // 선택된 정렬값
+        if (sortValue) {
+            // 현재 페이지와 키워드를 유지하면서 URL에 sort 파라미터 추가
+            let currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('sort', sortValue); // sort 파라미터 추가
+            currentUrl.searchParams.set('page', 1); // 정렬 변경 시 첫 페이지로 이동
+            window.location.href = currentUrl.toString(); // 페이지 이동
         }
-        location.href = "../talent/keyword_list.eum?keyword=" 
-                      + encodeURIComponent(keyword) 
-                      + "&page=1";
     });
-
+    
     // 카테고리 드롭다운 토글
     $(".category-group h4").on("click", function() {
         $(this).toggleClass("active");
@@ -432,13 +492,13 @@ $(document).ready(function() {
         <div class="filter-section">
             <h3>키워드</h3>
             <div class="filter-buttons">
-                <button class="filter-btn">개발</button>
-                <button class="filter-btn">마케팅</button>
-                <button class="filter-btn">사진</button>
-                <button class="filter-btn">골프</button>
-                <button class="filter-btn">청소</button>
-                <button class="filter-btn">보컬</button>
-                <button class="filter-btn">골프</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=개발'">개발</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=마케팅'">마케팅</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=골프'">골프</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=시공'">시공</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</button>
             </div>
         </div>
 
@@ -447,8 +507,16 @@ $(document).ready(function() {
             <div class="category-group">
                 <h4>취미/자기개발</h4>
                 <div class="category-items">
-                    <div class="category-item">사진</div>
-                    <div class="category-item">보컬</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=작곡'">작곡-편곡</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=디제잉'">디제잉</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=캘리그라피'">캘리그라피</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=가죽'">가죽공예</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=레진'">레진아트-레슨</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=영상'">영상-촬영-편집</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=요리'">요리-조리</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=한국무용'">한국무용</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=사진촬영'">사진촬영</div>
                 </div>
             </div>
         </div>
@@ -468,8 +536,8 @@ $(document).ready(function() {
         <!-- 필터 바 -->
         <div class="filter-bar">
             <div class="filter-left">
-                <select class="dropdown-select">
-                    <option>정렬 기준</option>
+                <select class="dropdown-select" name="fd" id="sort-select">
+                    <option value="">정렬 기준</option>
                     <option value="view">조회수</option>
                     <option value="review_score">평점순</option>
                     <option value="price_asc">낮은 가격순</option>
@@ -477,6 +545,26 @@ $(document).ready(function() {
                     <option value="review">리뷰 많은 순</option>
                 </select>
             </div>
+            
+            <!-- 검색창 -->
+            <form class="search">
+                <button type="submit">
+                    <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                              stroke="currentColor" stroke-width="1.333"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+                <input class="search_input" placeholder="어떤 서비스가 필요하세요?" type="text">
+                <button class="reset" type="reset">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                          fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </form>
         </div>
 
         <!-- 카드 그리드 -->

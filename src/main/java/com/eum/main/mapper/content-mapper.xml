@@ -395,36 +395,34 @@
   
     <!-- 타입 검색 -->
 	<select id="talentSearchTypeData" resultMap="boardMap" parameterType="hashmap">
-		SELECT * FROM (
-		  SELECT ROWNUM AS num, A.*
-		  FROM (
-		    SELECT
-		      board.b_id,
-		      b_title,
-		      b_thumbnail,
-		      ROUND(AVG(b_review_score),1) AS b_review_score,
-		      COUNT(DISTINCT b_review_id) AS review_count,
-		      MIN(b_op_price) AS b_op_price,
-		      u_s_com,
-		      b_type,
-		      board.b_view_count
-		    FROM board
-		    JOIN board_option ON board.b_id = board_option.b_id
-		    JOIN users_seller ON board.u_s_id = users_seller.u_s_id
-		    JOIN review ON board.b_id = review.b_id
-		    WHERE b_type = #{b_type}
-		    GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type,board.b_view_count
-		    <choose>
-		      <when test="fd == 'price_asc'">ORDER BY b_op_price ASC</when>
-		      <when test="fd == 'price_desc'">ORDER BY b_op_price DESC</when>
-		      <when test="fd == 'review'">ORDER BY review_count DESC</when>
-		      <when test="fd == 'view'">ORDER BY board.b_view_count DESC</when>
-		      <when test="fd == 'review_score'">ORDER BY b_review_score DESC</when>
-		      <otherwise>ORDER BY board.b_id DESC</otherwise>
-		    </choose>
-		  ) A
-		)
-		WHERE num BETWEEN #{start} AND #{end}
+		SELECT *
+    FROM (
+        SELECT ROWNUM AS num, A.*
+        FROM (
+            SELECT b.b_id, b.b_title, b.b_thumbnail, b.b_type, b.b_op_price,
+                   u.u_s_com,
+                   ROUND(NVL(r.b_review_score, 0), 1) AS b_review_score,
+                   NVL(r.review_count, 0) AS review_count
+            FROM board b
+            LEFT JOIN users u ON b.u_id = u.u_id
+            LEFT JOIN (
+                SELECT b_id, AVG(b_review_score) AS b_review_score, COUNT(*) AS review_count
+                FROM b_review
+                GROUP BY b_id
+            ) r ON b.b_id = r.b_id
+            WHERE b.b_type = #{b_type}
+            ORDER BY 
+                <choose>
+                    <when test="sort == 'view'">b_view_count DESC</when>
+                    <when test="sort == 'review_score'">b_review_score DESC</when>
+                    <when test="sort == 'price_asc'">b_op_price ASC</when>
+                    <when test="sort == 'price_desc'">b_op_price DESC</when>
+                    <when test="sort == 'review'">review_count DESC</when>
+                    <otherwise>b_id DESC</otherwise>
+                </choose>
+        ) A
+    ) 
+    WHERE num BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 타입 페이지네이션 -->
 	<select id="talentSearchTypeTotalPage" resultType="int" parameterType="hashmap">

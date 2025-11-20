@@ -27,7 +27,7 @@ public class ContentModel {
 	    public String talent_search(HttpServletRequest request, HttpServletResponse response) {
 	        
 	        String keyword = request.getParameter("keyword");
-	        if (keyword == null) keyword = "";
+	        keyword = (keyword == null) ? "" : keyword.trim();
 
 	        String page = request.getParameter("page");
 	        int curpage = (page == null) ? 1 : Integer.parseInt(page);
@@ -71,7 +71,7 @@ public class ContentModel {
 	    public String talent_category(HttpServletRequest request, HttpServletResponse response) {
 	        
 	        String b_type = request.getParameter("b_type");
-	        if (b_type == null) b_type = "";
+	        b_type = (b_type == null) ? "" : b_type.trim();
 
 	        String page = request.getParameter("page");
 	        int curpage = (page == null) ? 1 : Integer.parseInt(page);
@@ -120,7 +120,7 @@ public class ContentModel {
 	            int curpage = (page == null) ? 1 : Integer.parseInt(page);
 
 	            Map map = new HashMap();
-	            map.put("keyword", keyword);
+	            map.put("keyword", keyword == null ? "" : keyword.trim());
 	            map.put("fd", fd);
 	            map.put("start", (curpage - 1) * 12 + 1);
 	            map.put("end", curpage * 12);
@@ -197,7 +197,7 @@ public class ContentModel {
 	            int curpage = (page == null) ? 1 : Integer.parseInt(page);
 
 	            Map<String, Object> map = new HashMap<>();
-	            map.put("b_type", b_type);
+	            map.put("b_type", b_type == null ? "" : b_type.trim());
 	            map.put("fd", fd);
 	            map.put("start", (curpage - 1) * 12 + 1);
 	            map.put("end", curpage * 12);

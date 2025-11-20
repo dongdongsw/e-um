@@ -6,613 +6,593 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/list.css">
+<link rel="stylesheet" href="../css/list.css?v=1.0">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-// URL 파라미터 읽기
-function getParam(name) {
-    return new URLSearchParams(window.location.search).get(name);
-}
-
-function loadList(page, fd) {
-    let keyword = getParam("keyword");
-    let b_type = getParam("b_type");
-
-    if (!keyword) keyword = "";
-    if (!b_type) b_type = "";
-    if (!fd) fd = $("input[name=fd]:checked").val() || "view";
-
-    let ajaxUrl = "../main/main.jsp";
-    if (keyword !== "") ajaxUrl = "../talent/keyword_ajax.eum";
-    else if (b_type !== "") ajaxUrl = "../talent/b_type_ajax.eum";
-    else return;
-
-    console.log("AJAX SEND:", { keyword, b_type, fd, page });
-
-    $.ajax({
-        url: ajaxUrl,
-        type: "GET",
-        data: { 
-            keyword: keyword,
-            b_type: b_type,
-            fd: fd,
-            page: page
-        },
-        dataType: "json",
-        success: function(json) {
-
-            console.log("AJAX RESULT:", json);
-            console.log(JSON.stringify(json.list[0], null, 2));
-            
-
-            let rawList = json.list;
-            let list = [];
-            
-            if (rawList && typeof rawList === 'object' && !Array.isArray(rawList)) {
-                list = Object.keys(rawList).map(key => rawList[key]).filter(item => item !== undefined);
-            } else if (Array.isArray(rawList)) {
-                list = rawList; 
-            }
-            
-            $("#default-list").hide();   // ★ 위로 이동시키고 한 번만 실행
-            $(".card-area").empty();
-            
-            if (!list || list.length === 0) {
-                $(".card-area").html('<div class="col-md-12"><p style="text-align:center; padding:50px 0;">검색 결과가 없습니다.</p></div>');
-                $("#pagination-area .page").empty();
-                return;
-            }
-         // loadList 함수 내부의 카드 생성 부분을 다음과 같이 수정:
-
-            list.forEach(function(vo) {
-                var reviewScore = vo.rvo && vo.rvo.b_review_score ? vo.rvo.b_review_score : 0;
-                var reviewCount = vo.rvo && vo.rvo.review_count ? vo.rvo.review_count : 0;
-                var price       = vo.bovo && vo.bovo.b_op_price ? Number(vo.bovo.b_op_price).toLocaleString() : 0;
-                var company     = vo.usvo && vo.usvo.u_s_com ? vo.usvo.u_s_com : "";
-
-                var html  = '';
-                html += '<div class="col-md-3">';
-                html += '  <div class="temporary__storage" style="border:none">';
-                html += '    <div class="list-card" onclick="location.href=\'../talent/detail.eum?b_id=' + vo.b_id + '\'">';
-                html += '      <div class="image">';
-                html += '        <img src="' + vo.b_thumbnail + '" width="200" height="160" style="border-radius: 15px;">';
-                html += '      </div>';
-                html += '      <div class="image__overlay"></div>';  // 이 줄 추가!
-                html += '      <div class="content">';  // contents → content로 변경
-                html += '        <div class="avatar"></div>';  // 이 줄 추가!
-                html += '        <div class="content__text">';
-                html += '          <span class="stream__title">' + vo.b_title + '</span>';
-                html += '          <span class="event" style="font-size: 10px">';
-                html += '            ⭐️ ' + reviewScore + ' (' + reviewCount + ')';
-                html += '          </span>';
-                html += '          <span class="streamer__name" style="font-size: 12px">';
-                html += '            ' + price + '원';
-                html += '          </span>';
-                html += '          <span class="streamer__name" style="font-size: 10px">';
-                html += '            ' + company;
-                html += '          </span>';
-                html += '          <span class="categories">';  // 이 부분도 추가
-                html += '            <div class="categories__btn" style="width:55px; text-align: center; font-size: 10px">';
-                html += '              ' + (vo.b_type || '');
-                html += '            </div>';
-                html += '          </span>';
-                html += '        </div>';
-                html += '      </div>';
-                html += '    </div>';
-                html += '  </div>';
-                html += '</div>';
-
-                $(".card-area").append(html);
-            });
-
-
-
-         // 페이지 정보
-            let cur = json.curpage;
-            let total = json.totalpage;
-            let sp = json.startpage;
-            let ep = json.endpage;
-
-            let p_html = "";
-
-            // 이전 페이지 버튼
-            if (sp > 1) {
-                p_html += '<li class="page__btn active">';
-                p_html += '<a href="#" data-page="' + (sp - 1) + '">&lt;</a>';
-                p_html += '</li>';
-            }
-
-            // 페이지 번호들
-            for (let i = sp; i <= ep; i++) {
-                if (i == cur) {
-                    p_html += '<li class="page__numbers active">';
-                    p_html += '<a href="#" data-page="' + i + '" data-fd="' + fd + '">' + i + '</a>';
-                    p_html += '</li>';
-                } else {
-                    p_html += '<li class="page__numbers">';
-                    p_html += '<a href="#" data-page="' + i + '" data-fd="' + fd + '">' + i + '</a>';
-                    p_html += '</li>';
-                }
-            }
-
-            // 다음 페이지 버튼
-            if (ep < total) {
-                p_html += '<li class="page__btn active">';
-                p_html += '<a href="#" data-page="' + (ep + 1) + '">&gt;</a>';
-                p_html += '</li>';
-            }
-
-            $("#pagination-area .page").html(p_html);
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX 에러:", error);
-            $(".card-area").html('<div class="col-md-12"><p style="text-align:center; padding:50px 0;">데이터를 불러오는데 실패했습니다.</p></div>');
-        }
-    });
-}
-
-
-$(document).ready(function() {
-    // 정렬 라디오 버튼 변경
-   $(document)
-  .off("change", "input[name=fd]")
-  .on("change", "input[name=fd]", function () {
-      loadList(1, $(this).val());
-});
-
-    // 페이지네이션 클릭
-    $(document)
-  .off("click", "#pagination-area a")
-  .on("click", "#pagination-area a", function(e) {
-      e.preventDefault();
-      let nextPage = $(this).data("page");
-      let currentFd = $("input[name=fd]:checked").val() || "view";
-      loadList(nextPage, currentFd);
-});
-
-    // 검색창 제출
-    $(".search").on("submit", function (e) {
-        e.preventDefault();
-        let keyword = $(".search_input").val().trim();
-        if (!keyword) {
-            alert("검색어를 입력해주세요");
-            return;
-        }
-        location.href = "../talent/keyword_list.eum?keyword=" + encodeURIComponent(keyword) + "&page=1";
-    });
-});
-</script>
 <style>
-/* 카테고리 탭 스타일 */
-.category-tabs {
-    background: #fff;
-    padding: 20px 0;
-    border-bottom: 1px solid #e0e0e0;
-    margin-bottom: 30px;
-}
-
-.category-tabs-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.category-tabs ul {
-    list-style: none;
-    padding: 0;
+* {
     margin: 0;
-    display: flex;
-    gap: 30px;
-    overflow-x: auto;
-    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.category-tabs li {
-    white-space: nowrap;
-}
-
-.category-tabs a {
-    color: #666;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 10px 0;
-    display: block;
-    transition: color 0.2s;
-}
-
-.category-tabs a:hover {
-    color: #000;
-}
-
-.category-tabs a.active {
-    color: #000;
-    font-weight: 700;
-    border-bottom: 2px solid #000;
-}
-
-/* 히어로 배너 */
-.hero-banner {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 60px 20px;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.hero-banner h1 {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-.hero-banner p {
-    font-size: 18px;
-    opacity: 0.9;
-}
-
-/* 통계 섹션 */
-.stats-section {
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background: #f8f9fa;
-    padding: 40px 20px;
-    margin-bottom: 30px;
 }
 
-.stats-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    gap: 30px;
-}
-
-.stat-item {
-    text-align: center;
-}
-
-.stat-number {
-    font-size: 32px;
-    font-weight: 700;
-    color: #667eea;
-    margin-bottom: 5px;
-}
-
-.stat-label {
-    font-size: 14px;
-    color: #666;
-}
-
-/* 인기 서비스 섹션 */
-.popular-section {
-    max-width: 1200px;
-    margin: 0 auto 40px;
-    padding: 0 20px;
-}
-
-.popular-section h2 {
-    font-size: 24px;
-    font-weight: 700;
+/* 상단 카테고리 네비게이션 */
+.top-category-nav {
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
     margin-bottom: 20px;
 }
 
-.popular-tags {
+.category-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+}
+
+.category-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 0;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+}
+
+.category-link:hover {
+    color: #000;
+}
+
+.category-link.active {
+    color: #7453FC;
+    font-weight: 700;
+    border-bottom: 2px solid #7453FC;
+}
+
+/* 메인 레이아웃 */
+.main-layout {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* 좌측 사이드바 */
+.left-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+}
+
+/* 필터 섹션 */
+.filter-section {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.filter-section h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
+    margin-bottom: 20px;
 }
-.popluar-tags:hover {
-    color: white;
-    border-color: black;
-    background: #7453FC;
-}
-.tag-btn {
-    background: #f0f0f0;
+
+.filter-btn {
+    background: white;
     border: 1px solid #ddd;
     padding: 8px 16px;
     border-radius: 20px;
-    font-size: 14px;
-    color: #333;
+    font-size: 13px;
+    color: #666;
     cursor: pointer;
     transition: all 0.2s;
 }
 
-.tag-btn:hover {
+.filter-btn:hover,
+.filter-btn.active {
+    background: #f0f0f0;
+    border-color: #999;
+    color: #333;
+}
+
+/* 카테고리 그룹 */
+.category-group {
+    margin-bottom: 15px;
+}
+
+.category-group h4 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    transition: color 0.2s;
+}
+
+.category-group h4:hover {
+    color: #7453FC;
+}
+
+.category-group h4:after {
+    content: '∨';
+    font-size: 12px;
+    color: #999;
+    transition: transform 0.3s;
+}
+
+.category-group h4.active:after {
+    transform: rotate(180deg);
+}
+
+.category-items {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 12px;
+    margin-top: 8px;
+}
+
+.category-items.show {
+    display: flex;
+}
+
+.category-item {
+    font-size: 13px;
+    color: #666;
+    padding: 6px 0;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.category-item:hover {
+    color: #7453FC;
+}
+
+/* 메인 콘텐츠 */
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* 배너 영역 */
+.banner-section {
+    background: linear-gradient(135deg, #A8E6CF 0%, #FFD3B6 100%);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.banner-content h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.banner-content p {
+    font-size: 14px;
+    color: #666;
+}
+
+.banner-button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* 필터 바 */
+.filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.filter-left {
+    display: flex;
+    gap: 10px;
+}
+
+.dropdown-select {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    background: white;
+    cursor: pointer;
+    min-width: 140px;
+}
+
+/* 검색 박스 */
+.search {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 4px 8px;
+    width: 400px;
+    transition: border-color 0.2s;
+}
+
+.search:focus-within {
+    border-color: #7453FC;
+}
+
+.search button[type="submit"] {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.search_input {
+    flex: 1;
+    border: none;
+    padding: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search .reset {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #999;
+    display: none;
+}
+
+.search_input:not(:placeholder-shown) ~ .reset {
+    display: flex;
+    align-items: center;
+}
+
+/* 카드 그리드 */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* 카드 스타일 */
+.service-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.card-image {
+    position: relative;
+    width: 100%;
+    padding-top: 75%;
+    background: #f5f5f5;
+    overflow: hidden;
+}
+
+.card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 16px;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-rating {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.card-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.card-seller {
+    font-size: 12px;
+    color: #999;
+}
+
+.card-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.card-tag {
+    background: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #666;
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 40px 0;
+}
+
+.pagination button,
+.pagination span {
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination button:hover {
+    border-color: #7453FC;
+    color: #7453FC;
+}
+
+.pagination .active {
     background: #7453FC;
     color: white;
-    border-color: black;
+    border-color: #7453FC;
+    font-weight: 600;
+}
+
+/* 반응형 */
+@media (max-width: 1200px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .main-layout {
+        flex-direction: column;
+    }
+    
+    .left-sidebar {
+        width: 100%;
+    }
+    
+    .filter-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .category-container {
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
 }
 </style>
+
+<script>
+$(document).ready(function() {
+    // 검색 기능
+    $(".search button[type='submit']").on("click", function(e) {
+    e.preventDefault();
+    let keyword = $(".search_input").val().trim();
+    if (!keyword) {
+        alert("검색어를 입력해주세요");
+        return;
+    }
+    location.href = "../talent/keyword_list.eum?keyword=" 
+                  + encodeURIComponent(keyword) 
+                  + "&page=1";
+	});
+	
+    $("#sort-select").on("change", function() {
+        let sortValue = $(this).val(); // 선택된 정렬값
+        if (sortValue) {
+            // 현재 페이지와 키워드를 유지하면서 URL에 sort 파라미터 추가
+            let currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('sort', sortValue); // sort 파라미터 추가
+            currentUrl.searchParams.set('page', 1); // 정렬 변경 시 첫 페이지로 이동
+            window.location.href = currentUrl.toString(); // 페이지 이동
+        }
+    });
+    
+    // 카테고리 드롭다운 토글
+    $(".category-group h4").on("click", function() {
+        $(this).toggleClass("active");
+        $(this).next(".category-items").toggleClass("show");
+    });
+});
+</script>
 </head>
 <body>
+
 <div class="header-text" style="height: 120px;"></div>
 
-<!-- 🔹 카테고리 탭 추가 -->
-<div class="category-tabs">
-    <div class="category-tabs-container" style="text-align: center;">
-        <ul style="display: inline-flex; gap: 50px;">
-            <li><a href="../talent/b_type_list.eum?b_type=운동건강" data-type="운동건강" class="${b_type == '운동건강' ? 'active' : ''}">운동/건강</a></li>
-            <li><a href="../talent/b_type_list.eum?b_type=비즈니스" data-type="비즈니스" class="${b_type == '비즈니스' ? 'active' : ''}">비즈니스</a></li>
-            <li><a href="../talent/b_type_list.eum?b_type=취미/자기개발" data-type="취미/자기개발" class="${b_type == '취미/자기개발' ? 'active' : ''}">취미/자기계발</a></li>
-            <li><a href="../talent/b_type_list.eum?b_type=생활라이프" data-type="생활라이프" class="${b_type == '생활라이프' ? 'active' : ''}">생활/라이프</a></li>
-            <li><a href="../talent/b_type_list.eum?b_type=기타" data-type="기타" class="${b_type == '기타' ? 'active' : ''}">기타</a></li>
-        </ul>
+<!-- 상단 카테고리 네비게이션 -->
+<div class="top-category-nav">
+    <div class="category-container">
+        <a href="../content/exer_list.eum?b_type=운동건강" class="category-link">운동/건강</a>
+        <a href="../content/biz_list.eum?b_type=비즈니스" class="category-link">비즈니스</a>
+        <a href="../content/hobby_list.eum?b_type=취미/자기개발" class="category-link">취미/자기개발</a>
+        <a href="../content/talent_list.eum?b_type=생활라이프" class="category-link">생활/라이프</a>
+        <a href="../content/etc_list.eum?b_type=기타" class="category-link">기타</a>
     </div>
 </div>
 
-<!-- 🔹 인기 검색어 섹션 -->
-<div class="popular-section">
-    <h2>🔥 인기 키워드</h2>
-    <div class="popular-tags">
-        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=개발'">개발</button>
-        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=마케팅'">마케팅</button>
-        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=골프'">골프</button>
-        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button>
-        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=시공'">시공</button>
-        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button>
-        <button class="tag-btn" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</button>
-    </div>
-</div>
-  <div class="list-container">
-    <!-- 정렬 -->
-    <div class="sidebar">
-    <h2 style="font-weight: bold; position:relative; top:-30px;">
-  <c:choose>
-    <c:when test="${not empty keyword}">
-      ${keyword}
-    </c:when>
-    <c:when test="${not empty b_type}">
-      ${b_type}
-    </c:when>
-    </c:choose>
-    </h2>
-     <h3>정렬</h3>
-     <div style="height: 10px"></div>
-        <ul class="list">
-    <li class="list__item">
-      <label class="label--radio">
-        <input type="radio" class="radio" name="fd" value="view">
-          조회수
-      </label>
-    </li>   
-    <li class="list__item">
-      <label class="label--radio">
-        <input type="radio" class="radio" name="fd" value="review_score">
-         평점순
-      </label>
-    </li> 
-    <li class="list__item">
-      <label class="label--radio">
-        <input type="radio" class="radio" name="fd" value="price_asc">
-          낮은 가격순
-      </label>
-    </li>
-    <li class="list__item">
-      <label class="label--radio">
-        <input type="radio" class="radio" name="fd" value="price_desc">
-          높은 가격순
-      </label>
-    </li>
-    <li class="list__item">
-      <label class="label--radio">
-        <input type="radio" class="radio" name="fd" value="review">
-          리뷰 많은 순
-      </label>
-    </li>
-  </ul>
-   
-<hr style="border:0; height:1px; background:#e0e0e0; margin:50px 0;">
-
-      <ul class="accordion" id="sidebar-accordion" style="margin-top: 60px;">
-      <!-- 섹션 1 -->
-      <li class="accordion__section">
-        <button class="accordion__toggle" type="button"
-                aria-expanded="false" aria-controls="panel-activate" id="toggle-activate">
-          <span>운동/건강</span>
-          <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </button>
-        <div class="accordion__panel" id="panel-activate" role="region" aria-labelledby="toggle-activate" hidden>
-          <ul class="submenu">
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=퍼스널트레이닝'">퍼스널트레이닝</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=축구'">축구</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=골프'">골프</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=댄스'">댄스</button></li>
-          </ul>
-        </div>
-      </li>
-
-      <!-- 섹션 2 -->
-      <li class="accordion__section">
-        <button class="accordion__toggle" type="button"
-                aria-expanded="false" aria-controls="panel-instagram" id="toggle-instagram">
-          <span>비즈니스</span>
-          <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </button>
-        <div class="accordion__panel" id="panel-instagram" role="region" aria-labelledby="toggle-instagram">
-          <ul class="submenu">
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=개발'">개발</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=컨설팅'">컨설팅</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=제작'">제작</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=디자인'">디자인</button></li>
-          </ul>
-        </div>
-      </li>
-
-      <!-- 섹션 3 -->
-      <li class="accordion__section">
-        <button class="accordion__toggle" type="button"
-                aria-expanded="false" aria-controls="panel-youtube" id="toggle-youtube">
-          <span>취미/자기계발</span>
-          <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </button>
-        <div class="accordion__panel" id="panel-youtube" role="region" aria-labelledby="toggle-youtube" hidden>
-          <ul class="submenu">
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=촬영'">촬영</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=무용'">무용</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=영상'">영상</button></li>
-          </ul>
-        </div>
-      </li>
-
-      <!-- 섹션 4 -->
-      <li class="accordion__section">
-        <button class="accordion__toggle" type="button"
-                aria-expanded="false" aria-controls="panel-shorts" id="toggle-shorts">
-          <span>생활/라이프</span>
-          <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </button>
-        <div class="accordion__panel" id="panel-shorts" role="region" aria-labelledby="toggle-shorts" hidden>
-          <ul class="submenu">
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=시공'">시공</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=심리검사'">심리검사</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=심리상담'">심리상담</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=설치'">설치</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=수리'">수리</button></li>
-          </ul>
-        </div>
-      </li>
-
-      <!-- 섹션 5 -->
-      <li class="accordion__section">
-        <button class="accordion__toggle" type="button"
-                aria-expanded="false" aria-controls="panel-viral" id="toggle-viral">
-          <span>기타</span>
-          <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </button>
-        <div class="accordion__panel" id="panel-viral" role="region" aria-labelledby="toggle-viral" hidden>
-          <ul class="submenu">
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=영어'">영어</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=수학'">수학</button></li>
-            <li><button class="submenu__item" type="button" onclick="location.href='../talent/keyword_list.eum?keyword=행사'">행사</button></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-    </div>
-	<script>
-  // 하나만 펼쳐지는 아코디언
-  (function () {
-    const accordion = document.getElementById('sidebar-accordion');
-    const toggles = accordion.querySelectorAll('.accordion__toggle');
-
-    function closeAll(exceptId) {
-      toggles.forEach(btn => {
-        const panelId = btn.getAttribute('aria-controls');
-        if (panelId !== exceptId) {
-          btn.setAttribute('aria-expanded', 'false');
-          const panel = document.getElementById(panelId);
-          if (panel) panel.hidden = true;
-        }
-      });
-    }
-
-    toggles.forEach(btn => {
-      const panelId = btn.getAttribute('aria-controls');
-      const panel = document.getElementById(panelId);
-
-      // 초기 hidden 동기화 (HTML의 hidden / aria-expanded 상태 반영)
-      if (btn.getAttribute('aria-expanded') === 'true') {
-        panel.hidden = false;
-      } else {
-        panel.hidden = true;
-      }
-
-      btn.addEventListener('click', () => {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        const willOpen = !expanded;
-
-        // 다른 패널은 닫기
-        closeAll(willOpen ? panelId : null);
-
-        // 현재 토글 토글링
-        btn.setAttribute('aria-expanded', String(willOpen));
-        panel.hidden = !willOpen;
-      });
-
-      // 키보드 접근성 (Space/Enter)
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === ' ' || e.key === 'Enter') {
-          e.preventDefault();
-          btn.click();
-        }
-      });
-    });
-  })();
-</script>
-<!-- 검색 -->
-
-    <!-- 🔹 결과 영역 -->
-    <div class="main">
-		<form class="search">
-          <button type="submit">
-              <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
-                        stroke="currentColor" stroke-width="1.333"
-                        stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-          </button>
-          <input class="search_input" placeholder="어떤 서비스가 필요하세요?" required type="text">
-          <button class="reset" type="reset">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                    fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-          </button>
-        </form>
-        <div class="header-text" style="height: 10px;"></div>
-      <div class="card-area row"></div>
-        <div id="default-list" class="row">
-          <c:forEach var="vo" items="${list}">
-            <div class="col-md-3">
-              <div class="temporary__storage" style="border:none">
-                <div class="list-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
-                  <div class="image">
-                    <img src="${vo.b_thumbnail}" width="200" height="160" style="border-radius: 15px;">
-                  </div>
-                  <div class="image__overlay"></div>
-                  <div class="content">
-                    <div class="avatar"></div>
-                    <div class="content__text">
-                      <span class="stream__title">${vo.b_title}</span>
-                        <span class="event" style="font-size: 10px">
-                          ⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0}
-                          (${vo.rvo.review_count != null ? vo.rvo.review_count : 0})
-                        </span>
-                        <span class="streamer__name" style="font-size: 12px">
-                          <fmt:formatNumber value="${empty vo.bovo.b_op_price ? 0 : vo.bovo.b_op_price}"
-                                            pattern="#,###"/>원
-                        </span>
-                        <span class="streamer__name" style="font-size: 10px">
-                          ${vo.usvo.u_s_com}
-                        </span>
-                      <span class="categories">
-                        <div class="categories__btn"
-                             style="width:55px; text-align: center; font-size: 10px">
-                          ${vo.b_type}
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<!-- 메인 레이아웃 -->
+<div class="main-layout">
+    <!-- 좌측 사이드바 -->
+    <aside class="left-sidebar">
+        <!-- 필터 섹션 -->
+        <div class="filter-section">
+            <h3>키워드</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=개발'">개발</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=마케팅'">마케팅</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=골프'">골프</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=청소'">청소</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=시공'">시공</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=자동차'">자동차</button>
+                <button class="filter-btn" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</button>
             </div>
-          </c:forEach>
-          </div>
-		
+        </div>
+
+        <!-- 카테고리 그룹 -->
+        <div class="filter-section">
+            <div class="category-group">
+                <h4>취미/자기개발</h4>
+                <div class="category-items">
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=보컬'">보컬</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=작곡'">작곡-편곡</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=디제잉'">디제잉</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=캘리그라피'">캘리그라피</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=가죽'">가죽공예</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=레진'">레진아트-레슨</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=영상'">영상-촬영-편집</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=요리'">요리-조리</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=한국무용'">한국무용</div>
+                    <div class="category-item" onclick="location.href='../talent/keyword_list.eum?keyword=사진촬영'">사진촬영</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <!-- 배너 -->
+        <div class="banner-section">
+            <div class="banner-content">
+                <h2>🍌 지금 도배전 가입하면 온라인 창업 준비 끝!</h2>
+                <p>창업가들 보러가기 ></p>
+            </div>
+            <button class="banner-button">2,000P</button>
+        </div>
+
+        <!-- 필터 바 -->
+        <div class="filter-bar">
+            <div class="filter-left">
+                <select class="dropdown-select" name="fd" id="sort-select">
+                    <option value="">정렬 기준</option>
+                    <option value="view">조회수</option>
+                    <option value="review_score">평점순</option>
+                    <option value="price_asc">낮은 가격순</option>
+                    <option value="price_desc">높은 가격순</option>
+                    <option value="review">리뷰 많은 순</option>
+                </select>
+            </div>
+            
+            <!-- 검색창 -->
+            <form class="search">
+                <button type="submit">
+                    <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                              stroke="currentColor" stroke-width="1.333"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+                <input class="search_input" placeholder="어떤 서비스가 필요하세요?" type="text">
+                <button class="reset" type="reset">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                          fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <!-- 카드 그리드 -->
+        <div class="card-grid">
+            <c:forEach var="vo" items="${list}">
+                <div class="service-card" onclick="location.href='../talent/detail.eum?b_id=${vo.b_id}'">
+                    <div class="card-image">
+                        <img src="${vo.b_thumbnail}" alt="${vo.b_title}" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">${vo.b_title}</div>
+                        <div class="card-rating">
+                            ⭐️ ${vo.rvo.b_review_score != null ? vo.rvo.b_review_score : 0}
+                            (${vo.rvo.review_count != null ? vo.rvo.review_count : 0})
+                        </div>
+                        <div class="card-price">
+                            <fmt:formatNumber value="${empty vo.bovo.b_op_price ? 0 : vo.bovo.b_op_price}"
+                                              pattern="#,###"/>원
+                        </div>
+                        <div class="card-seller">${vo.usvo.u_s_com}</div>
+                        <div class="card-tags">
+                            <span class="card-tag">${vo.b_type}</span>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+
         <!-- 페이지네이션 (keyword 유지) -->
         <div id="pagination-area" class="container">
           <ul class="page">
@@ -633,8 +613,8 @@ $(document).ready(function() {
             </c:if>
           </ul>
         </div>
-    </div>
-    </div>
+    </main>
+</div>
 
 </body>
 </html>
