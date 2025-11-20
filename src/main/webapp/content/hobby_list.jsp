@@ -114,7 +114,7 @@ body {
 
 /* 카테고리 그룹 */
 .category-group {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .category-group h4 {
@@ -126,18 +126,35 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 8px 0;
+    transition: color 0.2s;
+}
+
+.category-group h4:hover {
+    color: #7453FC;
 }
 
 .category-group h4:after {
     content: '∨';
     font-size: 12px;
     color: #999;
+    transition: transform 0.3s;
+}
+
+.category-group h4.active:after {
+    transform: rotate(180deg);
 }
 
 .category-items {
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 8px;
+    padding-left: 12px;
+    margin-top: 8px;
+}
+
+.category-items.show {
+    display: flex;
 }
 
 .category-item {
@@ -382,6 +399,12 @@ $(document).ready(function() {
         location.href = "../talent/keyword_list.eum?keyword=" 
                       + encodeURIComponent(keyword) 
                       + "&page=1";
+    });
+
+    // 카테고리 드롭다운 토글
+    $(".category-group h4").on("click", function() {
+        $(this).toggleClass("active");
+        $(this).next(".category-items").toggleClass("show");
     });
 });
 </script>
