@@ -15,12 +15,11 @@
   <!-- 좌측 메뉴 -->
   <aside class="sidebar">
     <h2 style="color:black;">컨텐츠 수정</h2>
-    <nav class="menu">
-      <a class="tab-link active" data-step="0">컨텐츠 정보</a>
-      <a class="tab-link" data-step="1">상세정보 작성</a>
-      <a class="tab-link" data-step="2">대표 이미지</a>
-      <a class="tab-link" data-step="3">가격옵션 설정</a>
-    </nav>
+   <nav class="menu">
+				<span class="tab-link active" data-step="0">컨텐츠 정보</span> <span
+					class="tab-link" data-step="1">상세정보 작성</span> <span
+					class="tab-link" data-step="2">이미지 삽입</span> <span class="tab-link"data-step="3">가격옵션 설정</span>
+			</nav>
   </aside>
 
   <!-- 오른쪽 본문 -->

@@ -220,7 +220,6 @@
 
 		  let $box = $(this).closest('.re-review');      
 		  let rid  = $box.attr('id').replace('rep-read',''); 
-		  alert(rid);   
 		  if (!confirm("정말로 삭제하시겠습니까?")) {
 		        return;  
 		    }

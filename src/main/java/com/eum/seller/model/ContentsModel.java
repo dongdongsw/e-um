@@ -252,7 +252,6 @@ import jakarta.servlet.http.Part;
 		    
 		    ContentsDAO.contentsUpdate(bvo, opList);
 		
-		    System.out.println("contents update 완료");
 		    return "redirect:../talent/detail.eum?b_id="+b_id;
 		}
 		
