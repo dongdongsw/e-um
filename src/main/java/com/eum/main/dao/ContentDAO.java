@@ -525,6 +525,42 @@ public class ContentDAO {
 			   }
 			   return list;
 		   }
-}
+		   
+
+			    // 통합 리스트
+			    public static List<BoardVO> contentList(Map map) {
+			        List<BoardVO> list = null;
+			        SqlSession session = null;
+			        try {
+			            session = ssf.openSession();
+			            list = session.selectList("contentList", map);
+			        } catch (Exception ex) {
+			            ex.printStackTrace();
+			        } finally {
+			            if (session != null) session.close();
+			        }
+			        return list;
+			    }
+
+			    // 통합 총페이지
+			    public static int contentTotalPage(Map map) {
+			        int total = 0;
+			        SqlSession session = null;
+			        try {
+			            session = ssf.openSession();
+			            total = session.selectOne("contentTotalPage", map);
+			        } catch (Exception ex) {
+			            ex.printStackTrace();
+			        } finally {
+			            if (session != null) session.close();
+			        }
+			        return total;
+			    }
+
+			    // === 아래 기존 타입별/키워드별 메서드들은
+			    // content_list.eum 쪽으로 전부 옮기고 나면 삭제 가능 ===
+			}
+
+
 	   
 	
