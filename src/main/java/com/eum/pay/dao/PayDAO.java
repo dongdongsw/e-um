@@ -115,6 +115,22 @@ public class PayDAO {
         
          return list;
    }
+	
+	// mypage payment find
+   public static List<OrdersVO> mypagePaymentFind(Map map)
+   {
+	   List<OrdersVO> list=null;
+	   try
+	   {
+		   SqlSession session=ssf.openSession();
+	       list=session.selectList("mypagePaymentFind",map);
+	       session.close();
+	   }catch(Exception ex)
+	   {
+		  ex.printStackTrace();
+	   }
+	   return list;
+   }
 
    // 환불 인서트
    public static void refundInsert(RefundVO vo) {
