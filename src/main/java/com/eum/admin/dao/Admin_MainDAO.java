@@ -112,7 +112,8 @@ public class Admin_MainDAO {
 		Double sellerGrowth = 0.0;
 		try {
 			SqlSession session = ssf.openSession();
-			sellerGrowth = session.selectOne("sellerNewRegistGrowth");
+			Double result = session.selectOne("sellerNewRegistGrowth");
+			if (result != null) sellerGrowth = result;
 			session.close();
 			
 		} catch (Exception ex) {
@@ -127,7 +128,10 @@ public class Admin_MainDAO {
 		int refundAmount = 0;
 		try {
 			SqlSession session = ssf.openSession();
-			refundAmount = session.selectOne("refundTotalAmount");
+			Integer result = session.selectOne("refundTotalAmount");
+			 if (result != null) {
+		            refundAmount = result;
+		        }
 			session.close();
 			
 		} catch (Exception ex) {

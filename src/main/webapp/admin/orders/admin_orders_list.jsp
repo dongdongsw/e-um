@@ -1,161 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<link rel="stylesheet" href="css/admin-orders.css">
 
-<style>
-
-body:not(.dark-mode) .text-normal {
-    color: var(--body-color) !important;
-}
-
-
-body.dark-mode .text-normal {
-    color: var(--body-color) !important;
-}
-
-a {
-    color: var(--body-color) !important;
-}
-
-.pagination .page-link {
-    color: #A67CFF;
-}
-.pagination .page-link:hover {
-    color: #fff;
-    background-color: #A67CFF;
-    border-color: #A67CFF;
-}
-.pagination .page-item.active .page-link {
-    background-color: #A67CFF;
-    border-color: #A67CFF;
-    color: #fff;
-}
-
-
-.text-normal {
-    color: #4a4a4a !important;
-}
-/* 금액, 주문번호, 결제번호, 결제방법 열 중앙 정렬 */
-.orders-table td:nth-child(4),
-.orders-table td:nth-child(7),
-.orders-table td:nth-child(8),
-.orders-table td:nth-child(9),
-.orders-table th:nth-child(4),
-.orders-table th:nth-child(7),
-.orders-table th:nth-child(8),
-.orders-table th:nth-child(9) {
-    text-align: center !important;
-}
-
-td a{
-	text-decoration: none;
-	color:black;
-}
-
-.page-header-custom h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 2px;
-}
-
-.page-header-custom p {
-    font-size: 0.85rem;
-    color: #888;
-    margin: 0;
-}
-
-/* 검색 디자인 */
-.form {
-  --timing: 0.3s;
-  --width-of-input: 400px;
-  --height-of-input: 40px;
-  --border-height: 2px;
-  --input-bg: #fff;
-  --border-color: #9755F6;
-  --border-radius: 30px;
-  --after-border-radius: 1px;
-  position: relative;
-  width: var(--width-of-input);
-  height: var(--height-of-input);
-  display: flex;
-  align-items: center;
-  padding-inline: 0.8em;
-  border-radius: var(--border-radius);
-  transition: border-radius 0.5s ease;
-  background: var(--input-bg,#fff);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.input {
-  font-size: 0.9rem;
-  background-color: transparent;
-  width: 100%;
-  height: 100%;
-  padding-inline: 0.5em;
-  padding-block: 0.7em;
-  border: none;
-}
-
-.form:before {
-  content: "";
-  position: absolute;
-  background: var(--border-color);
-  transform: scaleX(0);
-  transform-origin: center;
-  width: 100%;
-  height: var(--border-height);
-  left: 0;
-  bottom: 0;
-  border-radius: 1px;
-  transition: transform var(--timing) ease;
-}
-
-.form:focus-within {
-  border-radius: var(--after-border-radius);
-}
-
-input:focus {
-  outline: none;
-}
-
-.form:focus-within:before {
-  transform: scale(1);
-}
-
-.reset {
-  border: none;
-  background: none;
-  opacity: 0;
-  visibility: hidden;
-}
-
-input:not(:placeholder-shown) ~ .reset {
-  opacity: 1;
-  visibility: visible;
-}
-
-.form svg {
-  width: 17px;
-  margin-top: 3px;
-}
-
-.search-input:not(:placeholder-shown) ~ .reset-btn {
-  opacity: 1;
-  visibility: visible;
-}
-
-.search-form svg {
-  width: 17px;
-  
-}
-
-.form button {
-  border: none;
-  background: none;
-}
-
-</style>
 <main role="main" class="main-content">
         <div class="container-fluid">
           <div class="row justify-content-center">
@@ -241,11 +88,11 @@ input:not(:placeholder-shown) ~ .reset {
                     <td class="text-normal">${orders_list.pvo.pay_method }</td>
                     <td class="text-normal">${orders_list.pvo.status}</td>
                     <td class="text-normal">
-					    <c:if test="${orders_list.pvo.rfvo.rf_status != null}">
-					        <button class="btn btn-warning btn-refund"
+					    <c:if test="${orders_list.pvo.rfvo.rf_status != null}"> 
+					        <button class="btn btn-refund" style="background: #CDBAFF;"
 							    data-rfid="${orders_list.pvo.rfvo.rf_id}"
 							    data-reason="${orders_list.pvo.rfvo.rf_reason}"
-							    data-amount="${orders_list.pvo.rfvo.rf_amount}"
+							    data-amount="${orders_list.pvo.rfvo.rf_amount}" 
 							    data-status="${orders_list.pvo.rfvo.rf_status}"
 							    data-requested="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_requestedat}' pattern='yyyy-MM-dd HH:mm'/>"
 							    data-completed="<fmt:formatDate value='${orders_list.pvo.rfvo.rf_completedat}' pattern='yyyy-MM-dd HH:mm'/>">
@@ -334,7 +181,7 @@ input:not(:placeholder-shown) ~ .reset {
       </div>
 
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">변경 저장</button>
+        <button type="submit" class="btn" style="background:#CDBAFF;">변경 저장</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
       </div>
       </form>

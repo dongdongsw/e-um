@@ -3,112 +3,8 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet" href="css/admin-seller-detail.css">
 
-<style>
-
-.pagination .page-link {
-    color: #A67CFF;
-}
-.pagination .page-link:hover {
-    color: #fff;
-    background-color: #A67CFF;
-    border-color: #A67CFF;
-}
-.pagination .page-item.active .page-link {
-    background-color: #A67CFF;
-    border-color: #A67CFF;
-    color: #fff;
-}
-
-
-#home .container-fluid {
-    max-height: 1000px;  
-  }
-  
-#profile {
-    height: 650px;
-}
-	
-.profile-header {
-    min-height: 150px; 
-    display: flex;
-    align-items: center;
-}
-
-#home .card {
-  	min-height: 230px;
-    height: auto;     
-  }
-
-#home .card-body {
-    overflow: hidden;
-  }
-  
-.td-title {
-    white-space: nowrap;
-    max-width: 180px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.review-content-wrapper {
-  max-height: 120px;       
-  overflow: hidden;
-  position: relative;
-  transition: max-height 0.4s ease;
-}
-
-.review-content-wrapper.expanded {
-  max-height: 1000px;        
-  overflow: visible;
-}
-
-.review-content {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;          
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.review-content.expanded {
-  -webkit-line-clamp: unset;
-}
-
-.review-images {
-  display: none;
-  margin-top: 10px;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.review-images img {
-  width: 80px;
-  height: 80px;
-  border-radius: 6px;
-  object-fit: cover;
-  border: 1px solid #eee;
-}
-
-.review-content-wrapper.expanded .review-images {
-  display: flex;
-}
-
-.more-toggle {
-  color: #007bff;
-  font-size: 13px;
-  cursor: pointer;
-  display: inline-block;
-  margin-top: 5px;
-}
-.more-toggle:hover {
-  text-decoration: underline;
-}
-
-
-</style>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".review-content-wrapper").forEach(wrapper => {
@@ -561,7 +457,7 @@ function toggleContent(el) {
 		                	<c:if test="${empty orders_list}"> 
 		                		<div class="col-12 text-center py-5"> 
 		                			<p class="text-muted" style="font-size:16px;">
-		                				<strong>📭 판매자가 거래내역이 없습니다.</strong>
+		                				<strong>📭 판매자의 거래내역이 없습니다.</strong>
 		                			</p> 
 		                		</div> 
 		                	</c:if>

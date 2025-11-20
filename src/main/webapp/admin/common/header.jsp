@@ -4,8 +4,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>이음 관리자</title>
+  
 <style type="text/css">
 
 .btn-lavender {

@@ -22,10 +22,11 @@ public class BoardVO {
 	private String b_id,b_filter,b_title,b_content,b_thumbnail,b_prod_on_off,b_status,b_type;
 	private Date b_createdat,b_updatedat;
 	
-	// 동현 11월 16일 임시로 병합하면서 만든 리뷰 개수, 좋아요 개수, 상세 이미지 리스트 
+	// 관리자
 	private int r_count, l_count;
 	private List<Board_ImageVO> bbivo;
-	
+	private Double b_review_score;
+
 	private Board_OptionVO bovo=new Board_OptionVO();
 	private Users_SellerVO usvo=new Users_SellerVO();
 	private ReviewVO rvo=new ReviewVO();
