@@ -1,4 +1,4 @@
-		<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 		<!-- notification  -->
         <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
@@ -73,4 +73,4 @@
 
 <script src="../js/main.js"></script>
 </body>
-</html>
+

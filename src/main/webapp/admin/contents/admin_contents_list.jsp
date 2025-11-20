@@ -3,6 +3,33 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
+.pagination .page-link {
+    color: #A67CFF;
+}
+.pagination .page-link:hover {
+    color: #fff;
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+}
+.pagination .page-item.active .page-link {
+    background-color: #A67CFF;
+    border-color: #A67CFF;
+    color: #fff;
+}
+
+body:not(.dark-mode) .text-normal {
+    color: var(--body-color) !important;
+}
+
+
+body.dark-mode .text-normal {
+    color: var(--body-color) !important;
+}
+
+a {
+    color: var(--body-color) !important;
+}
+
 .avatar-md {
   width: 50px;
   height: 50px;
@@ -180,10 +207,10 @@ input:not(:placeholder-shown) ~ .reset {
                           <tr>
                             <th></th>
                             <th></th>
-                            <th><strong>셀러 KEY</strong></th>
+                            <th><strong>NO</strong></th>
                             <th><strong>카테고리</strong></th>
                             <th><strong>셀러 이름</strong></th>
-                            <th class="w-25"><strong>title</strong></th>
+                            <th class="w-29"><strong>title</strong></th>
                             <th><strong>가입일</strong></th>
                             <th><strong></strong></th>
                             <th></th>
@@ -217,7 +244,7 @@ input:not(:placeholder-shown) ~ .reset {
                             <td>
                               <p class="mb-0 text-normal"><a href="../admin/admin_contents_detail.eum?b_id=${contents_list.b_id }" class="text-normal">${contents_list.usvo.u_s_com }</a></p>
                             </td>
-                            <td class="w-25"><small class="text-normal">${contents_list.b_title }</small></td>
+                            <td class="w-29"><small class="text-normal">${contents_list.b_title }</small></td>
                             <td class="text-normal">
 							  <fmt:formatDate value="${contents_list.b_createdat}" pattern="yyyy-MM-dd" />
 							</td>

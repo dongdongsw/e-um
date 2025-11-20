@@ -3,143 +3,8 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet" href="css/admin-users-detail.css">
 
-<style>
-
-
-#home .container-fluid {
-    max-height: 1000px;  
-  }
-
-
-#home .card {
-  	min-height: 230px;
-    height: auto;     
-    
-  }
-
-#home .card-body {
-    overflow: hidden;
-  }
-  
-.review-content-wrapper {
-  max-height: 120px;             
-  overflow: hidden;
-  position: relative;
-  transition: max-height 0.4s ease;
-}
-
-.review-content-wrapper.expanded {
-  max-height: 1000px;          
-  overflow: visible;
-}
-
-.review-content {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;       
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.review-content.expanded {
-  -webkit-line-clamp: unset;
-}
-
-.review-images {
-  display: none;
-  margin-top: 10px;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-.review-images img {
-  width: 80px;
-  height: 80px;
-  border-radius: 6px;
-  object-fit: cover;
-  border: 1px solid #eee;
-}
-
-.review-content-wrapper.expanded .review-images {
-  display: flex;
-}
-
-.more-toggle {
-  color: #007bff;
-  font-size: 13px;
-  cursor: pointer;
-  display: inline-block;
-  margin-top: 5px;
-}
-
-.more-toggle:hover {
-  text-decoration: underline;
-}
-.status-field {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* 왼쪽 정렬 유지 */
-}
-
-.status-label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 2px 14px;   /* 👈 세로만 줄이고 가로는 넉넉하게 */
-    line-height: 1.1;    /* 👈 세로 높이 줄이는 핵심 */
-    font-size: 13px;
-    font-weight: 600;
-
-    border-radius: 8px;
-    user-select: none;
-    cursor: default;
-}
-
-.status-warning {
-    background-color: #ffd77a;
-    color: #6d4a00;
-}
-
-.status-active {
-    background-color: #cfe6ff;
-    color: #0d47a1;
-}
-
-.status-inactive {
-    background-color: #ffc9c9;
-    color: #b30000;
-}
-
-.status-unknown {
-    background-color: #e0e0e0;
-    color: #4f4f4f;
-}
-td a{
-	text-decoration: none;
-	color:black;
-}
-
-.avatar {
-    display: inline-block;
-    overflow: hidden;
-    border-radius: 50%;
-}
-.avatar-xl {
-    width: 120px;
-    height: 120px;
-}
-.avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
-
-</style>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".review-content-wrapper").forEach(wrapper => {
@@ -606,7 +471,7 @@ function toggleContent(el) {
                         	<c:if test="${empty orders_list}"> 
 			                		<div class="col-12 text-center py-5"> 
 			                			<p class="text-muted" style="font-size:16px;">
-			                				<strong>📭 판매자가 거래내역이 없습니다.</strong>
+			                				<strong>📭 사용자의 거래내역이 없습니다.</strong>
 			                			</p> 
 			                		</div> 
 			                	</c:if>

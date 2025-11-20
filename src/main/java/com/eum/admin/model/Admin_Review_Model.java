@@ -54,7 +54,7 @@ public class Admin_Review_Model {
 			review_list = Admin_ReviewDAO.reviewSearchListData(map);
 			totalpage = Admin_ReviewDAO.reviewSearchTotalData(keyword);
 		}
-		System.out.println(review_list);
+		
 		final int BLOCK = 10;
 		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
 		int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;

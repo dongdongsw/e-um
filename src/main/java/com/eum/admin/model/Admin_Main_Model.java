@@ -17,6 +17,8 @@ public class Admin_Main_Model {
 	@RequestMapping("admin/admin_main.eum")
 	public String admin_main(HttpServletRequest request, HttpServletResponse response) {
 		
+		
+		
 		int userTotal = Admin_MainDAO.userTotalCount();
 		int sellerTotal = Admin_MainDAO.sellerTotalCount();
 		int contentsTotal = Admin_MainDAO.contentsTotalCount();
@@ -31,6 +33,8 @@ public class Admin_Main_Model {
 		int refundCompleteTotal = Admin_MainDAO.refundCompleteTotalCount();
 		List<Map<String,Object>> usersGraph = Admin_MainDAO.usersGraphMonth();
 		Map<String, Object> categoryCount = Admin_MainDAO.categoryTotalCount();
+		
+		
 		
 		request.setAttribute("userTotal", userTotal);
 		request.setAttribute("sellerTotal", sellerTotal);

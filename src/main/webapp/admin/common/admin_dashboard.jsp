@@ -144,7 +144,15 @@
 					                <p class="small text-muted mb-0">This Week</p>
 					                <div class="d-flex align-items-center text-success small">
 					                    <span class="fe fe-arrow-up fe-12 mr-1"></span>
-					                    <span>${sellerGrowth }% Last week</span>
+					                    <span>
+					                    <c:if test="${sellerGrowth ==null}">
+					                    	0
+					                    </c:if>
+					                    <c:if test="${sellerGrowth !=null}">
+					                    	${sellerGrowth }
+					                    </c:if>
+					                    % Last week</span>
+					                    
 					                </div>
 					            </div>
 					
@@ -377,41 +385,32 @@
           </div>
         </div>
       
-        
-        <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/moment.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/simplebar.min.js"></script>
-    <script src='js/daterangepicker.js'></script>
-    <script src='js/jquery.stickOnScroll.js'></script>
-    <script src="js/tinycolor-min.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/d3.min.js"></script>
-    <script src="js/topojson.min.js"></script>
-    <script src="js/datamaps.all.min.js"></script>
-    <script src="js/datamaps-zoomto.js"></script>
-    <script src="js/datamaps.custom.js"></script>
-    <script src="js/Chart.min.js"></script>
-    <script>
-      /* defind global options */
-      Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
-      Chart.defaults.global.defaultFontColor = colors.mutedColor;
-    </script>
-    <script src="js/gauge.min.js"></script>
-    <script src="js/jquery.sparkline.min.js"></script>
-    <script src="js/apexcharts.min.js"></script>
-    <script src="js/apexcharts.custom.js"></script>
-    <script src='js/jquery.mask.min.js'></script>
-    <script src='js/select2.min.js'></script>
-    <script src='js/jquery.steps.min.js'></script>
-    <script src='js/jquery.validate.min.js'></script>
-    <script src='js/jquery.timepicker.js'></script>
-    <script src='js/dropzone.min.js'></script>
-    <script src='js/uppy.min.js'></script>
-    <script src='js/quill.min.js'></script>
-    
-    
+ <!-- 필수 공통 JS -->
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/simplebar.min.js"></script>
+
+<!-- 대시보드에서 실제 사용하는 플러그인만 유지 -->
+<script src="js/daterangepicker.js"></script>
+<script src="js/config.js"></script>
+
+<!-- 차트 라이브러리 -->
+<script src="js/Chart.min.js"></script>
+<script>
+  // Chart.js 기본 옵션
+  Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
+  Chart.defaults.global.defaultFontColor = colors.mutedColor;
+</script>
+
+<script src="js/apexcharts.min.js"></script>
+<script src="js/apexcharts.custom.js"></script>
+
+<!-- ===============================
+     아래부터는 네가 사용 중인 직접 작성된 차트 스크립트
+     =============================== -->
+
 <script>
 	var labels = [];
 	var data = [];
@@ -444,8 +443,9 @@
         data: lineChartData,
         options: ChartOptions
     });
-    
- 	// 카테고리 그래프
+</script>
+
+<script>
     var categoryCountData = {
         BUSINESS: <c:out value="${categoryCount.BUSINESS}" default="0"/>,
         LIFE_STYLE: <c:out value="${categoryCount.LIFE_STYLE}" default="0"/>,
@@ -460,7 +460,7 @@
         categoryCountData.HOBBY_DEV + 
         categoryCountData.EXERCISE + 
         categoryCountData.ETC;
- 
+
     var categoryChartOptions = {
         series: [
             (categoryCountData.BUSINESS / totalCount)* 100,
@@ -474,68 +474,41 @@
             height: 200,
             type: "radialBar"
         },
-        
         labels: ["비즈니스", "생활라이프", "취미/자기개발", "운동건강", "기타"],
     };
 
     var categoryChartElement = document.querySelector("#categoryChart");
     if (categoryChartElement) {
-        var finalCategoryChart = new ApexCharts(categoryChartElement, categoryChartOptions);
-        finalCategoryChart.render();
+        new ApexCharts(categoryChartElement, categoryChartOptions).render();
     }
-    
-    
-    var refundNew = ${refundNew};
-    var refundTotal = ${refundTotal};
+</script>
 
-    var percent = 0;
-    if (refundTotal > 0) {
-        percent = (refundNew / refundTotal) * 100;
-    }
+<script>
+var refundNew = ${refundNew};
+var refundReceiveTotal = ${refundReceiveTotal};
+var refundTotal = ${refundTotal};
 
-	/* 환불 완료 처리 */
-var refundNew = ${refundNew};             // 신규 환불 (미처리)
-var refundReceiveTotal = ${refundReceiveTotal}; // 환불 접수 (미처리)
-var refundTotal = ${refundTotal};         // 총 환불 수
-
-// ★ 처리 완료 건수 계산
+// 처리 완료 개수
 var completed = refundTotal - (refundNew + refundReceiveTotal);
 if (completed < 0) completed = 0;
 
-// ★ 비율 계산
-var percent = 0;
-if (refundTotal > 0) {
-    percent = (completed / refundTotal) * 100;
-}
+// 비율
+var percent = refundTotal > 0 ? (completed / refundTotal) * 100 : 0;
 
-// ★ 다크모드 대응
-var isDarkMode = document.body.classList.contains("dark-mode");
-var textColor = isDarkMode ? "#fff" : "#333";
-
-// ★ 차트 설정
 var radialbarWidgetOptions = {
     series: [percent],
-    chart: {
-        height: 120,
-        type: "radialBar"
-    },
+    chart: { height: 120, type: "radialBar" },
     plotOptions: {
         radialBar: {
-            hollow: {
-                size: "70%",
-                margin: 0
-            },
+            hollow: { size: "70%" },
             dataLabels: {
                 name: { show: false },
                 value: {
-                    formatter: function() {
-                        return completed; // ★ 처리 완료 개수
-                    },
-                    fontSize: "1.53125rem",
+                    formatter: () => completed,
+                    fontSize: "1.5rem",
                     fontWeight: 700,
                     show: true,
-                    color: textColor,
-                    offsetY: 8
+                    color: "#333",
                 }
             }
         }
@@ -543,32 +516,16 @@ var radialbarWidgetOptions = {
     fill: {
         type: "gradient",
         gradient: {
-            shade: "light",
-            type: "diagonal2",
-            shadeIntensity: 0.2,
             gradientFromColors: ["#BB86FC"],
             gradientToColors: ["#6200EE"],
-            opacityFrom: 1,
-            opacityTo: 1,
             stops: [20, 100]
         }
     },
-    stroke: {
-        lineCap: "round"
-    }
+    stroke: { lineCap: "round" }
 };
 
-var radialbarWidget1 = document.querySelector("#radialbarWidget1");
-
-if (radialbarWidget1) {
-    new ApexCharts(radialbarWidget1, radialbarWidgetOptions).render();
+var radialEl = document.querySelector("#radialbarWidget1");
+if (radialEl) {
+    new ApexCharts(radialEl, radialbarWidgetOptions).render();
 }
-
-
-
-
-
 </script>
-
-    
-   
