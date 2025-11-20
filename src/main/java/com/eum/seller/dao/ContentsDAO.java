@@ -48,6 +48,7 @@ public class ContentsDAO {
 	static {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
+	private static final String NS = "com.eum.seller.mapper.contents-mapper.";
 	
 	// 컨텐츠 작성
 	public static String contentsInsert(BoardVO bvo, List<Board_ImageVO> imgList, List<Board_OptionVO> opList) {
@@ -172,11 +173,11 @@ public class ContentsDAO {
 		try {
 			SqlSession session=ssf.openSession();
 			
-			session.delete("reviewImageDel",b_id);
-			session.delete("reviewDel",b_id);
-			session.delete("priceOpDel",b_id);
-			session.delete("detailImgDel",b_id);
-			session.delete("boardDel",b_id);
+			session.delete(NS+"reviewImageDel",b_id);
+			session.delete(NS+"reviewDel",b_id);
+			session.delete(NS+"priceOpDel",b_id);
+			session.delete(NS+"detailImgDel",b_id);
+			session.delete(NS+"boardDel",b_id);
 			
 			session.commit();
 			session.close();
