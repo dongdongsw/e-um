@@ -610,6 +610,35 @@ public class ContentDAO {
 			   }
 			   return list;
 		   }
+		    // 리스트
+		    public static List<BoardVO> contentList(Map map) {
+		        List<BoardVO> list = null;
+		        SqlSession session = null;
+		        try {
+		            session = ssf.openSession();
+		            list = session.selectList("contentList", map);
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        } finally {
+		            if (session != null) session.close();
+		        }
+		        return list;
+		    }
+
+		    // 총페이지
+		    public static int contentTotalPage(Map map) {
+		        int total = 0;
+		        SqlSession session = null;
+		        try {
+		            session = ssf.openSession();
+		            total = session.selectOne("contentTotalPage", map);
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        } finally {
+		            if (session != null) session.close();
+		        }
+		        return total;
+		    }
 }
 	   
 	

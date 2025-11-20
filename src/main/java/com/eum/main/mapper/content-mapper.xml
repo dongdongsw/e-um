@@ -24,34 +24,84 @@
 	<result property="uvo.u_profileimg_url" column="u_profileImg_url"/>
   </resultMap>
   
-  <!-- 리스트 -->
-  <select id="talentListData" resultMap="boardMap" parameterType="hashmap">
-	SELECT * FROM ( SELECT ROWNUM AS num, A.*
-	FROM ( SELECT 
-		   board.b_id AS b_id,
-		   b_title,
-		   b_thumbnail AS b_thumbnail,
-		   ROUND(AVG(b_review_score),1) AS b_review_score,
-		   COUNT(DISTINCT b_review_id) AS review_count,
-		   MIN(b_op_price) AS b_op_price,
-		   u_s_com,
-		   b_type
-		   FROM board,board_option,users_seller,review
-		   WHERE board.b_id = board_option.b_id
-		   AND board.u_s_id = users_seller.u_s_id
-		   AND board.b_id = review.b_id
-		   GROUP BY board.b_id,b_title,b_thumbnail,u_s_com,b_type
-		   ORDER BY b_id DESC
-	   ) A
-	)
-	WHERE num BETWEEN #{start} AND #{end}
-  </select>
-  <!-- 총페이지 -->
-  <select id="talentTotalPage" resultType="int">
-    SELECT CEIL(COUNT(*)/12.0) 
-    FROM board
-    WHERE b_type='생활라이프'
-  </select>
+<!-- 리스트(정렬, 페이징, 키워드, 검색) -->
+<select id="contentList" parameterType="hashmap" resultMap="boardMap">
+  SELECT *
+  FROM (
+      SELECT a.*, ROWNUM AS num
+      FROM (
+          SELECT 
+              b.b_id,
+              b.b_title,
+              b.b_type,
+              b.b_thumbnail,
+              b.b_view_count,
+              r.b_review_score,
+              r.review_count,
+              o.b_op_price,
+              u.u_s_com
+          FROM board b
+          LEFT JOIN (
+              SELECT b_id,
+                     ROUND(AVG(b_review_score),1) AS b_review_score,
+                     COUNT(*) AS review_count
+              FROM review
+              WHERE depth = 1
+              GROUP BY b_id
+          ) r ON b.b_id = r.b_id
+          LEFT JOIN (
+              SELECT b_id,
+                     MIN(b_op_price) AS b_op_price
+              FROM board_option
+              GROUP BY b_id
+          ) o ON b.b_id = o.b_id
+          LEFT JOIN users_seller u ON b.u_s_id = u.u_s_id
+          
+               WHERE 1=1
+              <if test="b_type != null and b_type != ''">
+                AND b.b_type = #{b_type}
+              </if>
+              <if test="keyword != null and keyword != ''">
+            	AND b.b_title LIKE '%' || #{keyword} || '%'
+        	</if>
+          <choose>
+            <when test="sort == 'view'">
+              ORDER BY b.b_view_count DESC
+            </when>
+            <when test="sort == 'review_score'">
+              ORDER BY NVL(r.b_review_score, 0) DESC
+            </when>
+            <when test="sort == 'price_asc'">
+              ORDER BY NVL(o.b_op_price, 999999999) ASC
+            </when>
+            <when test="sort == 'price_desc'">
+              ORDER BY NVL(o.b_op_price, 0) DESC
+            </when>
+            <when test="sort == 'review'">
+              ORDER BY NVL(r.review_count, 0) DESC
+            </when>
+            <otherwise>
+              ORDER BY b.b_id DESC
+            </otherwise>
+          </choose>
+      ) a
+  )
+  WHERE num BETWEEN #{start} AND #{end}
+</select>
+
+<!-- 통합 총페이지 -->
+<select id="contentTotalPage" parameterType="hashmap" resultType="int">
+  SELECT CEIL(COUNT(*) / 12.0)
+  FROM board b
+      WHERE 1=1
+      <if test="b_type != null and b_type != ''">
+        AND b.b_type = #{b_type}
+      </if>
+      <if test="keyword != null and keyword != ''">
+            AND b.b_title LIKE '%' || #{keyword} || '%'
+        </if>
+</select>
+
   
   <!-- 게시판 -->
   <select id="talentDetailData" resultType="BoardVO" parameterType="string">

@@ -776,5 +776,60 @@ public class ContentModel {
         request.setAttribute("main_jsp", "../content/exercise_filter_list.jsp");
         return "../main/main.jsp";
     }
+   	
+   	@RequestMapping("talent/list.eum")
+   	public String content_list(HttpServletRequest request, HttpServletResponse response) {
+
+   	    // 대분류 카테고리 (null 이면 전체)
+   	    String b_type = request.getParameter("b_type");
+   	    String keyword = request.getParameter("keyword");
+   	    // 정렬 기준 (view, review_score, price_asc, price_desc, review)
+   	    String sort = request.getParameter("sort");
+   	    if (sort == null || sort.equals("")) {
+   	    	sort = "view";   // 기본 정렬: 조회수
+   	    }
+
+   	    // 페이지 번호
+   	    String page = request.getParameter("page");
+   	    int curpage = (page == null || page.equals("")) ? 1 : Integer.parseInt(page);
+
+   	    int rowSize = 12;
+   	    int start = (curpage - 1) * rowSize + 1;
+   	    int end   = curpage * rowSize;
+
+   	    // ▶ 리스트용 파라미터
+   	    Map<String, Object> listMap = new HashMap<>();
+   	    listMap.put("start", start);
+   	    listMap.put("end", end);
+   	    listMap.put("b_type", b_type);  // null 이면 전체
+   	    listMap.put("sort", sort);          // 정렬 기준
+   	    listMap.put("keyword", keyword);
+
+   	    List<BoardVO> list = ContentDAO.contentList(listMap);
+
+   	    Map<String, Object> pageMap = new HashMap<>();
+   	    pageMap.put("b_type", b_type);  // 카테고리별 페이지 계산
+
+   	    int totalpage = ContentDAO.contentTotalPage(listMap);
+
+   	    final int BLOCK = 10;
+   	    int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
+   	    int endPage   = ((curpage - 1) / BLOCK * BLOCK) + BLOCK;
+   	    if (endPage > totalpage) endPage = totalpage;
+
+   	    request.setAttribute("list", list);
+   	    request.setAttribute("curpage", curpage);
+   	    request.setAttribute("totalpage", totalpage);
+   	    request.setAttribute("startPage", startPage);
+   	    request.setAttribute("endPage", endPage);
+
+   	    request.setAttribute("b_type", b_type);
+   	    request.setAttribute("sort", sort);
+   	    request.setAttribute("keyword", keyword);
+
+   	    // 공통 JSP
+   	    request.setAttribute("main_jsp", "../talent/list.jsp");
+   	    return "../main/main.jsp";
+   	}
 }
 
