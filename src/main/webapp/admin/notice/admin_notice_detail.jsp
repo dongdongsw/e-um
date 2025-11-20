@@ -13,52 +13,7 @@
   <link rel="stylesheet" href="../css/daterangepicker.css">
   <link rel="stylesheet" href="../css/app-light.css" id="lightTheme">
   <link rel="stylesheet" href="../css/app-dark.css" id="darkTheme" disabled>
-<style>
-    input[type="search"]:focus::placeholder {
-      color: transparent;
-      transition: color 0.2s ease;
-    }
-    .notice-content {
-      min-height: 400px;
-      padding: 30px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: #333;
-    }
-    .notice-title {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      line-height: 1.5;
-      margin-bottom: 0.5rem;
-      padding-right: 10px;
-      letter-spacing: -0.5px;
-    }
-    .notice-header {
-      padding: 2rem 1.5rem;
-      background: #ffffff;
-      border-bottom: 3px solid #4e73df;
-    }
-    .title-label {
-      display: inline-block;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #4e73df;
-      background: #e8eeff;
-      padding: 0.25rem 0.75rem;
-      border-radius: 4px;
-      margin-bottom: 0.75rem;
-      letter-spacing: 0.5px;
-    }
-    .date-info {
-      text-align: right;
-      padding: 1rem 0;
-      color: #6c757d;
-      font-size: 0.9rem;
-    }
-</style>
+  <link rel="stylesheet" href="../admin/notice/admin_notice.css">
 </head>
 <body class="light">
   <main role="main" class="main-content">
@@ -81,22 +36,6 @@
 				<i class="fe fe-calendar fe-14 mr-1"></i>
 				 <fmt:formatDate value="${vo.n_createdAt}" pattern="yyyy-MM-dd" />
 			  </div>
-              <!-- 첨부파일 (선택사항) -->
-              <div class="mt-4 pt-3 border-top">
-                <h6 class="mb-3">첨부파일</h6>
-                <ul class="list-unstyled">
-                  <li class="mb-2">
-                    <i class="fe fe-file-text fe-16 mr-2"></i>
-                    <a href="#" class="text-primary">공지사항_첨부파일.pdf</a>
-                    <small class="text-muted ml-2">(1.2MB)</small>
-                  </li>
-                  <li class="mb-2">
-                    <i class="fe fe-image fe-16 mr-2"></i>
-                    <a href="#" class="text-primary">이미지.jpg</a>
-                    <small class="text-muted ml-2">(856KB)</small>
-                  </li>
-                </ul>
-              </div>
             </div>
             <!-- 하단 버튼 -->
             <div class="card-footer">
@@ -113,29 +52,6 @@
                   </button>
                 </div>
               </div>
-            </div>
-          </div>
-          <!-- 이전글/다음글 -->
-          <div class="card shadow">
-            <div class="card-body p-0">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center" style="cursor:pointer;" onclick="location.href='../notice/detail.eum?id=2'">
-                  <div>
-                    <i class="fe fe-chevron-up fe-16 mr-2 text-muted"></i>
-                    <span class="text-muted">이전글</span>
-                    <span class="ml-3">이전 공지사항 제목</span>
-                  </div>
-                  <small class="text-muted">2025-11-10</small>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center" style="cursor:pointer;" onclick="location.href='../notice/detail.eum?id=4'">
-                  <div>
-                    <i class="fe fe-chevron-down fe-16 mr-2 text-muted"></i>
-                    <span class="text-muted">다음글</span>
-                    <span class="ml-3">다음 공지사항 제목</span>
-                  </div>
-                  <small class="text-muted">2025-11-12</small>
-                </li>
-              </ul>
             </div>
           </div>
         </div>

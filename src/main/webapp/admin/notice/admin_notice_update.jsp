@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../css/daterangepicker.css">
   <link rel="stylesheet" href="../css/app-light.css" id="lightTheme">
   <link rel="stylesheet" href="../css/app-dark.css" id="darkTheme" disabled>
+  <link rel="stylesheet" href="admin_notice.css">
 <style>
   .notice-content {
       min-height: 400px;

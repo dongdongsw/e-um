@@ -11,33 +11,7 @@
   <link rel="stylesheet" href="../css/daterangepicker.css">
   <link rel="stylesheet" href="../css/app-light.css" id="lightTheme">
   <link rel="stylesheet" href="../css/app-dark.css" id="darkTheme" disabled>
-<style>
-    input[type="text"], textarea, input[type="file"] {
-      width: 100%;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 10px 12px;
-      font-size: 15px;
-      font-family: 'Noto Sans KR', sans-serif;
-    }
-    textarea {
-      min-height: 400px;
-      resize: vertical;
-    }
-    .btn-wrap {
-      text-align: right;
-      margin-top: 25px;
-    }
-    .btn {
-      border-radius: 8px;
-      padding: 8px 18px;
-    }
-    .btn-cancel {
-      background-color: #f0f0f0;
-      color: #333;
-      margin-right: 10px;
-    }
-</style>
+  <link rel="stylesheet" href="../admin/notice/admin_notice.css">
 </head>
 <body class="light">
   <main role="main" class="main-content">
