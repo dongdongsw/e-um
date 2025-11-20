@@ -84,7 +84,7 @@ $(function(){
               </div>
               <section class="category-section">
 				  <div class="category-container">
-				  <a href="../talent/list.eum?b_type=운동/건강">
+				  <a href="../talent/list.eum?b_type=운동건강">
 				    <button class="brutalist-button button-1">
 				      <img src="../images/운동11.gif" alt="디자인" class="category-icon">
 				      <span>운동/건강</span>
@@ -102,7 +102,7 @@ $(function(){
 				      <span>취미/자기개발</span>
 				    </button>
 				    </a>
-				   <a href="../talent/list.eum?b_type=생활/라이프">
+				   <a href="../talent/list.eum?b_type=생활라이프">
 				    <button class="brutalist-button button-1">
 				      <img src="../images/생활.gif" alt="AI/테크" class="category-icon">
 				      <span>생활/라이프</span>
