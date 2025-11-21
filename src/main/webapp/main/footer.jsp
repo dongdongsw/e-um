@@ -191,7 +191,6 @@ body {
   font-size: 12px;
 }
 
-/* 반응형 - 작은 화면 */
 @media screen and (max-width: 768px) {
   .footer {
     padding: 20px;
@@ -202,7 +201,6 @@ body {
   }
 }
 
-/* 반응형 - 중간 화면 이상 */
 @media screen and (min-width: 40.375em) {
   .footer__nav > * {
     flex: 1;
@@ -225,7 +223,6 @@ body {
   }
 }
 
-/* 더 큰 화면 */
 @media screen and (min-width: 1025px) {
   .footer {
     padding: 30px 50px 20px 50px;
@@ -251,19 +248,19 @@ body {
       <h2 class="nav__title">카테고리별</h2>
       <ul class="nav__ul">
         <li>
-          <a href="../talent/b_type_list.eum?b_type=생활라이프">생활/라이프</a>
+          <a href="../talent/list.eum?b_type=생활라이프">생활/라이프</a>
         </li>
         <li>
-          <a href="./talent/b_type_list.eum?b_type=운동건강">운동/건강</a>
+          <a href="../talent/list.eum?b_type=운동건강">운동/건강</a>
         </li>
         <li>
-          <a href="../talent/b_type_list.eum?b_type=취미/자기개발">취미/자기개발</a>
+          <a href="../talent/list.eum?b_type=취미/자기개발">취미/자기개발</a>
         </li>
         <li>
-          <a href="../talent/b_type_list.eum?b_type=비즈니스">비즈니스</a>
+          <a href="../talent/list.eum?b_type=비즈니스">비즈니스</a>
         </li>
         <li>
-          <a href="../talent/b_type_list.eum?b_type=기타">기타</a>
+          <a href="../talent/list.eum?b_type=기타">기타</a>
         </li>
       </ul>
     </li>

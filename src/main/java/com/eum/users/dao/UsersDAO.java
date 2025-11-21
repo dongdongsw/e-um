@@ -110,7 +110,6 @@ public class UsersDAO {
 						vo.setSid(sid);
 						System.out.println(sid);
 					}
-						
 				} else {
 					vo.setMsg("NOPWD");
 				}

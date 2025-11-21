@@ -7,14 +7,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-/* 
----------------------------------------------
-Header Style
---------------------------------------------- 
-*/
 body {
  background-color: #f7f7f7;
 }
+
 .background-header {
   background-color: #fff !important;
   height: 70px!important;
@@ -135,7 +131,6 @@ body {
   padding-right: 15px;
 }
 
-/* 프로필 드롭다운 스타일 */
 .profile-dropdown {
   position: relative;
 }
@@ -225,7 +220,6 @@ body {
   padding: 0;
 }
 
-/* 프로필 드롭다운은 active 효과 제외 */
 .header-area .main-nav .nav li.profile-dropdown:hover .profile-trigger {
   background-color: rgba(116, 83, 252, 0.1);
 }
@@ -501,7 +495,6 @@ body {
     height: 0px;
   }
   
-  /* 모바일 프로필 드롭다운 */
   .profile-dropdown {
     width: 100%;
   }
@@ -545,12 +538,12 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    text-decoration: none; /* a 밑줄 제거 */
+    text-decoration: none;
 }
 
 .logo-image {
-    margin-right: 10px; /* 이미지와 텍스트 간 간격 */
-    pointer-events: none; /* object 태그의 클릭 이벤트를 부모로 전달 */
+    margin-right: 10px;
+    pointer-events: none;
 }
 
 .logo-text h1,

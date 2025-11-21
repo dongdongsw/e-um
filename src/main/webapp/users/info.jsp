@@ -5,7 +5,10 @@
 <meta charset="UTF-8">
 <title>회원 정보</title>
 <style>
-body {background-color: #fff !important;}
+body {
+	background-color: #fff !important;
+}
+
 .user-container {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -14,7 +17,6 @@ body {background-color: #fff !important;}
   gap: 40px;
 }
 
-/* ===== 좌측 메뉴 ===== */
 .sidebar {
   border-right: 1px solid #e5e7eb;
   padding-right: 24px;
@@ -50,7 +52,6 @@ body {background-color: #fff !important;}
   background: #f9fafb;
 }
 
-/* ===== 오른쪽 본문 ===== */
 .content {
   background: #fff;
 }
@@ -61,7 +62,6 @@ body {background-color: #fff !important;}
   margin-bottom: 50px;
 }
 
-/* 프로필 카드 */
 .profile-card {
   display: flex;
   gap: 50px;
@@ -102,13 +102,13 @@ body {background-color: #fff !important;}
 .info-title {
   font-size: 14px;
   color: #6b7280;
-  flex: 0 0 180px; /* 제목 영역 고정 폭 */
+  flex: 0 0 180px;
 }
 
 .info-value {
   font-size: 15px;
   color: #111;
-  flex: 1; /* 오른쪽 값은 자동 확장 */
+  flex: 1;
   text-align: left;
 }
 
@@ -117,6 +117,7 @@ body {background-color: #fff !important;}
   color: #9ca3af;
   margin-top: 4px;
 }
+
 h2 {
 	margin-bottom: 100px;
 }
@@ -126,9 +127,11 @@ h2 {
     flex-direction: column;
     align-items: center;
 }
+
 .upload-btn {
     margin-top: 10px;
 }
+
 .ulBtn {
 	background-color: transparent; 
     border: 1px solid #8e4dff;
@@ -141,6 +144,7 @@ h2 {
     transition: background-color 0.2s, color 0.2s;
     line-height: 1.5;
 }
+
 .ulBtn:hover {
     background-color: #f1e9ff;
     color: #8e4dff;

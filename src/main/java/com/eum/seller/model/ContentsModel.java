@@ -59,7 +59,6 @@ import jakarta.servlet.http.Part;
 			
 			HttpSession session=request.getSession();
 			int sid=(int)session.getAttribute("sid");
-			System.out.println("sid 세션 값: " + session.getAttribute("sid"));
 			String type=request.getParameter("category");
 			String title=request.getParameter("title");
 			String content=request.getParameter("description");

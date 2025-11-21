@@ -64,7 +64,6 @@ public class UsersModel {
 	// 회원가입
 	@RequestMapping("users/join_ok.eum")
 	public String users_join_ok(HttpServletRequest request, HttpServletResponse response) {
-		
 		String id=request.getParameter("id");
 		String pwd=request.getParameter("pwd");
 		String nickname=request.getParameter("nickname");
@@ -149,7 +148,6 @@ public class UsersModel {
 			session.setAttribute("push_noti", vo.getU_push_noti());
 			session.setAttribute("email_noti", vo.getU_email_noti());
 			session.setAttribute("sms_noti", vo.getU_sms_noti());
-			System.out.println(vo.getU_role());
 		}
 		try {
 			response.setContentType("text/plain;charset=UTF-8");

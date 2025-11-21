@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.users.mapper.favorite-mapper">
+  <!-- 즐겨찾기 여부 -->
   <select id="favoriteCheckCount" resultType="int" parameterType="FavoriteVO">
     SELECT COUNT(*)
     FROM favorite
     WHERE u_id=#{u_id} AND b_id=#{b_id}
   </select>
   
+  <!-- 즐겨찾기 추가 -->
   <insert id="favoriteInsert" parameterType="FavoriteVO">
     INSERT INTO favorite
     VALUES(fv_id_seq.nextval, #{u_id}, #{b_id}, SYSDATE)
@@ -15,14 +17,13 @@
   <resultMap type="FavoriteVO" id="favoriteMap">
     <result property="bvo.b_type" column="b_type"/>
     <result property="bvo.b_title" column="b_title"/>
-    <result property="bvo.b_thumbnail" column="b_thumbnail"/>
-    
+    <result property="bvo.b_thumbnail" column="b_thumbnail"/>    
     <result property="usvo.u_s_com" column="u_s_com"/>
-    
     <result property="rvo.b_review_avg" column="b_review_avg"/>
     <result property="rvo.review_count" column="review_count"/>
   </resultMap>
   
+  <!-- 즐겨찾기 리스트 -->
   <select id="favoriteListData" resultMap="favoriteMap" parameterType="string">
     SELECT f.fv_id, f.u_id, f.b_id, TO_CHAR(f.fv_pushat, 'YYYY-MM-DD') AS dbday,
     		b.b_type, b.b_title, b.b_thumbnail, us.u_s_com,
@@ -41,6 +42,7 @@
     ORDER BY f.fv_pushat DESC
   </select>
   
+  <!-- 즐겨찾기 삭제 -->
   <delete id="favoriteDelete" parameterType="int">
     DELETE FROM favorite
     WHERE fv_id=#{fv_id}

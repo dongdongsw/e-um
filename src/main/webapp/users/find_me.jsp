@@ -70,7 +70,6 @@ body {
   margin: 0 0 1.5rem 0 !important;
 }
 
-/* 탭 버튼 */
 .tab-buttons {
   display: flex !important;
   gap: 8px !important;
@@ -105,7 +104,6 @@ body {
   background: #7453fc !important;
 }
 
-/* 탭 컨텐츠 */
 .tab-content {
   display: none !important;
 }
@@ -114,7 +112,6 @@ body {
   display: block !important;
 }
 
-/* 폼 스타일 */
 .form {
   display: flex !important;
   flex-direction: column !important;
@@ -166,7 +163,6 @@ body {
   color: #999 !important;
 }
 
-/* 버튼 */
 .submit {
   width: 100% !important;
   padding: 14px 16px !important;
@@ -194,7 +190,6 @@ body {
   background: #999 !important;
 }
 
-/* 결과 메시지 */
 .result-box {
   margin-top: 20px !important;
   padding: 16px !important;
@@ -230,7 +225,6 @@ body {
   font-weight: 700 !important;
 }
 
-/* 로그인 링크 */
 .back-to-login {
   text-align: center !important;
   margin-top: 20px !important;
@@ -252,7 +246,6 @@ body {
 	margin-bottom: 22px !important;
 }
 
-/* 반응형 */
 @media (max-width: 768px) {
   .form-container {
     width: 95% !important;
@@ -391,7 +384,7 @@ function switchTab(tab) {
     if(tab==='pw') clearPwInputs();
 }
 
-// 아이디 찾기 입력폼 초기화 함수
+// 아이디 찾기 입력폼 초기화
 function clearIdInputs() {
     $('#input-id-phone').val('');
     $('#input-id-email').val('');
@@ -497,7 +490,6 @@ $(function() {
     				$pwBox.removeClass('error').addClass('success')[0].style.setProperty('display','block','important');
     				$pwText.html("계정이 확인되었습니다.<br>우측에서 새 비밀번호를 입력해주세요.");
     				
-    				// 우측 폼 표시
     				$('#reset-form-container').addClass('show').data('uid', uid);
     				
     				setTimeout(function() {

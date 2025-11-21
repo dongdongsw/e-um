@@ -6,7 +6,11 @@
 <meta charset="UTF-8">
 <title>작성한 리뷰</title>
 <style>
-body {background-color: #fff !important; margin: 0; padding: 0;}
+body {
+	background-color: #fff !important;
+	margin: 0;
+	padding: 0;
+}
 
 .review-container {
   display: grid;
@@ -16,7 +20,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   gap: 40px;
 }
 
-/* ===== 좌측 메뉴 ===== (유지) */
 .sidebar {
   border-right: 1px solid #e5e7eb;
   padding-right: 24px;
@@ -53,7 +56,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   background: #f9fafb;
 }
 
-/* ===== 오른쪽 본문 ===== (유지) */
 .content {
   background: #fff;
 }
@@ -65,7 +67,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   color: black;
 }
 
-/* 리뷰 리스트 (유지) */
 .review-list {
   display: flex;
   flex-direction: column;
@@ -77,7 +78,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   border-radius: 12px;
   padding: 24px;
   background: #fff;
-  /* 💡 추가: 내부 요소를 세로로 배치합니다. */
   display: flex;
   flex-direction: column; 
 }
@@ -88,8 +88,7 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid #f3f4f6;
-  /* 💡 review-header 내부 요소들을 가로로 배치 (썸네일, 정보, 버튼) */
-  align-items: flex-start; /* 상단 정렬 */
+  align-items: flex-start;
 }
 
 .product-thumbnail {
@@ -134,7 +133,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   display: flex;
   gap: 8px;
   align-items: flex-start;
-  /* 💡 버튼이 썸네일/정보와 같은 줄에 유지되도록 */
   flex-shrink: 0;
 }
 
@@ -188,7 +186,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   gap: 16px;
 }
 
-/* 빈 상태 (유지) */
 .empty-state {
   text-align: center;
   padding: 100px 20px;

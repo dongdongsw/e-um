@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ReviewModel {
+	// 리뷰 리스트
 	@RequestMapping("users/review_list.eum")
 	public String review_list(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();

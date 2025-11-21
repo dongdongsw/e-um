@@ -13,6 +13,7 @@ import java.util.*;
 
 @Controller
 public class FavoriteModel {
+	// 즐겨찾기 추가
 	@RequestMapping("users/favorite_insert.eum")
 	public String favorite_insert(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
@@ -33,6 +34,7 @@ public class FavoriteModel {
 		return "redirect:../talent/detail.eum?b_id="+b_id;
 	}
 	
+	// 즐겨찾기 리스트
 	@RequestMapping("users/favorite_list.eum")
 	public String favorite_list(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
@@ -46,6 +48,7 @@ public class FavoriteModel {
 		return "../main/main.jsp";
 	}
 	
+	// 즐겨찾기 삭제
 	@RequestMapping("users/favorite_delete.eum")
 	public String favorite_delete(HttpServletRequest request, HttpServletResponse response) {
 		String fv_id_str = request.getParameter("fv_id");

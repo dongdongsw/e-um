@@ -7,7 +7,10 @@
 <title>정보 수정</title>
 <link rel="stylesheet" href="../css/join.css">
 <style type="text/css">
-body {background-color: #fff !important;}
+body {
+	background-color: #fff !important;
+}
+
 .update-container {
     display: flex;
     width: 1180px;
@@ -16,6 +19,7 @@ body {background-color: #fff !important;}
     background-color: #fff;
     min-height: 800px;
 }
+
 .update-container {
 	max-width:1170px;
 	margin:0 auto;
@@ -25,7 +29,6 @@ body {background-color: #fff !important;}
 	font-weight: bold;
 }
 
-/* ===== 좌측 메뉴 ===== */
 .sidebar {
   border-right: 1px solid #e5e7eb;
   padding-right: 24px;
@@ -61,7 +64,6 @@ body {background-color: #fff !important;}
   background: #f9fafb;
 }
 
-/* ===== 오른쪽 본문 ===== */
 .content {
   background: #fff;
 }
@@ -72,7 +74,6 @@ body {background-color: #fff !important;}
   margin-bottom: 50px;
 }
 
-/* 프로필 카드 */
 .profile-card {
   display: flex;
   gap: 50px;
@@ -113,13 +114,13 @@ body {background-color: #fff !important;}
 .info-title {
   font-size: 14px;
   color: #6b7280;
-  flex: 0 0 180px; /* 제목 영역 고정 폭 */
+  flex: 0 0 180px;
 }
 
 .info-value {
   font-size: 15px;
   color: #111;
-  flex: 1; /* 오른쪽 값은 자동 확장 */
+  flex: 1;
   text-align: left;
 }
 

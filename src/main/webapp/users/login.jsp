@@ -69,6 +69,7 @@ $(function() {
     overflow: hidden;
     position: relative;
 }
+
 .slider-container {
     width: 100%;
     overflow: hidden;

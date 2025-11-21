@@ -2,177 +2,180 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.users.mapper.users-mapper">
 
-	<!-- id 중복 체크 -->
-	<select id="usersIdCheck" resultType="int" parameterType="string">
-	  SELECT COUNT(*)
-	  FROM users
-	  WHERE u_loginid=#{u_loginid}
-	</select>
+  <!-- id 중복 체크 -->
+  <select id="usersIdCheck" resultType="int" parameterType="string">
+	SELECT COUNT(*)
+	FROM users
+	WHERE u_loginid=#{u_loginid}
+  </select>
 	
-	<!-- nickname 중복 체크 -->
-	<select id="usersNickCheck" resultType="int" parameterType="string">
-	  SELECT COUNT(*)
-	  FROM users
-	  WHERE u_nickname=#{u_nickname}
-	</select>
+  <!-- nickname 중복 체크 -->
+  <select id="usersNickCheck" resultType="int" parameterType="string">
+	SELECT COUNT(*)
+	FROM users
+	WHERE u_nickname=#{u_nickname}
+  </select>
 	
-	<!-- 이메일 존재로 회원 여부 판단 -->
-	<select id="usersEmailCheck" resultType="int" parameterType="string">
-	  SELECT COUNT(*)
-	  FROM users
-	  WHERE u_email=#{u_email}
-	</select>
+  <!-- 이메일 존재로 회원 여부 판단 -->
+  <select id="usersEmailCheck" resultType="int" parameterType="string">
+	SELECT COUNT(*)
+	FROM users
+	WHERE u_email=#{u_email}
+  </select>
 	
-	<!-- 전화번호 존재로 회원 여부 판단 -->
-	<select id="usersPhoneCheck" resultType="int" parameterType="string">
-	  SELECT COUNT(*)
-	  FROM users
-	  WHERE u_phone=#{u_phone}
-	</select>
+  <!-- 전화번호 존재로 회원 여부 판단 -->
+  <select id="usersPhoneCheck" resultType="int" parameterType="string">
+	SELECT COUNT(*)
+	FROM users
+	WHERE u_phone=#{u_phone}
+  </select>
 	
-	<!-- 회원가입 -->
-	<insert id="usersInsert" parameterType="UsersVO">
-	  INSERT INTO users 
-	  (u_id, u_loginid, u_pwd, u_nickname, u_email, u_phone, u_gender, u_loc,
+  <!-- 회원가입 -->
+  <insert id="usersInsert" parameterType="UsersVO">
+	INSERT INTO users(u_id, u_loginid, u_pwd, u_nickname, u_email, u_phone, u_gender, u_loc,
 	  u_birth, u_push_noti, u_email_noti, u_sms_noti, u_status, u_role, u_createat)
-	  VALUES 
-	  (TO_CHAR(u_id_seq.NEXTVAL), #{u_loginid}, #{u_pwd}, #{u_nickname}, 
+	VALUES(TO_CHAR(u_id_seq.NEXTVAL), #{u_loginid}, #{u_pwd}, #{u_nickname}, 
 	  #{u_email}, #{u_phone}, #{u_gender}, #{u_loc}, TO_DATE(#{birth}, 'YYYY-MM-DD'),
 	   #{u_push_noti}, #{u_email_noti}, #{u_sms_noti}, 'active', 'ROLE_USER', SYSDATE)
-	</insert>
+  </insert>
 	
-	<!-- 로그인 -->
-	<select id="usersInfoData" resultType="UsersVO" parameterType="string">
-      SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, u_status, u_push_noti, u_email_noti, u_sms_noti,
-      			u_role, u_email, TO_CHAR(u_createat, 'YYYY-MM-DD') AS createat, u_profileimg_url
-      FROM users
-      WHERE u_loginid=#{u_loginid}
-    </select>
+  <!-- 로그인 -->
+  <select id="usersInfoData" resultType="UsersVO" parameterType="string">
+	SELECT u_id, u_loginid, u_pwd, u_nickname, u_phone, u_gender, u_loc, 
+			u_status, u_push_noti, u_email_noti, u_sms_noti, u_role, u_email,
+			TO_CHAR(u_createat, 'YYYY-MM-DD') AS createat, u_profileimg_url
+    FROM users
+    WHERE u_loginid=#{u_loginid}
+  </select>
     
-    <select id="usersGetSellerId" resultType="int" parameterType="string">
-      SELECT u_s_id 
-      FROM users_seller
-      WHERE u_id=#{u_id}
-    </select>
+  <!-- 셀러아이디 가져오기 -->
+  <select id="usersGetSellerId" resultType="int" parameterType="string">
+	SELECT u_s_id 
+	FROM users_seller
+	WHERE u_id=#{u_id}
+  </select>
     
-    <!-- 정보 수정 -->
-    <update id="usersInfoUpdate_ok" parameterType="UsersVO">
-      UPDATE users SET
-      u_nickname=#{u_nickname}, u_pwd=#{u_pwd}, u_phone=#{u_phone}, u_loc=#{u_loc},
-      u_push_noti=#{u_push_noti}, u_email_noti=#{u_email_noti}, u_sms_noti=#{u_sms_noti}
-      WHERE u_loginid=#{u_loginid}
-    </update>
+  <!-- 정보 수정 -->
+  <update id="usersInfoUpdate_ok" parameterType="UsersVO">
+	UPDATE users SET
+		u_nickname=#{u_nickname}, u_pwd=#{u_pwd}, u_phone=#{u_phone}, u_loc=#{u_loc},
+		u_push_noti=#{u_push_noti}, u_email_noti=#{u_email_noti}, u_sms_noti=#{u_sms_noti}
+	WHERE u_loginid=#{u_loginid}
+  </update>
     
-    <!-- 프로필 이미지 업로드 -->
-    <update id="profileImgUpload" parameterType="UsersVO">
-      UPDATE users SET
-      u_profileimg_url=#{u_profileimg_url}
-      WHERE u_loginid=#{u_loginid}
-    </update>
+  <!-- 프로필 이미지 업로드 -->
+  <update id="profileImgUpload" parameterType="UsersVO">
+	UPDATE users SET
+		u_profileimg_url=#{u_profileimg_url}
+	WHERE u_loginid=#{u_loginid}
+  </update>
     
-    <!-- 아이디 찾기 -->
-    <select id="findMyId" resultType="string" parameterType="UsersVO">
-      SELECT u_loginid
-      FROM users
-      WHERE u_email=#{u_email} AND u_phone=#{u_phone}
-    </select>
+  <!-- 아이디 찾기 -->
+  <select id="findMyId" resultType="string" parameterType="UsersVO">
+	SELECT u_loginid
+	FROM users
+	WHERE u_email=#{u_email} AND u_phone=#{u_phone}
+  </select>
     
-    <!-- 비밀번호 찾기 -->
-    <select id="findMyPwd" resultType="string" parameterType="UsersVO">
-      SELECT u_id
-      FROM users
-      WHERE u_loginid=#{u_loginid} AND u_email=#{u_email}
-    </select>
-    <update id="pwdChange" parameterType="UsersVO">
-      UPDATE users SET
-      u_pwd=#{u_pwd}
-      WHERE u_id=#{u_id}
-    </update>
+  <!-- 비밀번호 찾기 -->
+  <select id="findMyPwd" resultType="string" parameterType="UsersVO">
+	SELECT u_id
+	FROM users
+	WHERE u_loginid=#{u_loginid} AND u_email=#{u_email}
+  </select>
+  
+  <!-- 비밀번호 재설정 -->
+  <update id="pwdChange" parameterType="UsersVO">
+	UPDATE users SET
+		u_pwd=#{u_pwd}
+	WHERE u_id=#{u_id}
+  </update>
     
-        <!-- 회원 탈퇴 -->
-    <delete id="deleteChatMessage" parameterType="String">
-      DELETE FROM chat_message 
-      WHERE msg_sender_u_id=#{u_id} 
-      OR msg_sender_a_id=#{u_id} 
-      OR msg_sender_s_id IN(SELECT u_s_id
-      						FROM users_seller
-      						WHERE u_id=#{u_id})
-    </delete>
+  <!-- 회원 탈퇴 -->
+  <delete id="deleteChatMessage" parameterType="String">
+	DELETE FROM chat_message 
+	WHERE msg_sender_u_id=#{u_id} 
+	OR msg_sender_a_id=#{u_id} 
+	OR msg_sender_s_id IN(SELECT u_s_id
+						  FROM users_seller
+						  WHERE u_id=#{u_id})
+  </delete>
 
-    <delete id="deleteChat" parameterType="String">
+  <delete id="deleteChat" parameterType="String">
       DELETE FROM chat 
       WHERE u_id=#{u_id} 
       OR u_s_id IN(SELECT u_s_id
         		   FROM users_seller
 				   WHERE u_id=#{u_id})
-    </delete>
+  </delete>
 
-    <delete id="deleteBoardLike" parameterType="String">
-      DELETE FROM board_like
-      WHERE u_id=#{u_id}
-    </delete>
+  <delete id="deleteBoardLike" parameterType="String">
+	DELETE FROM board_like
+    WHERE u_id=#{u_id}
+  </delete>
 
-    <delete id="deleteFavorite" parameterType="String">
-      DELETE FROM favorite
-      WHERE u_id=#{u_id}
-    </delete>
+  <delete id="deleteFavorite" parameterType="String">
+	DELETE FROM favorite
+	WHERE u_id=#{u_id}
+  </delete>
 
-	<delete id="deleteReviewImage" parameterType="string">
-	  DELETE FROM review_image
-	  WHERE b_review_id IN(SELECT b_review_id
-	    				   FROM review
-	    				   WHERE u_id=#{u_id}
-	    				   OR u_s_id IN(SELECT u_s_id
-	    				   				FROM users_seller
-	    				   				WHERE u_id=#{u_id}))
-  	</delete>
+  <delete id="deleteReviewImage" parameterType="string">
+	DELETE FROM review_image
+	WHERE b_review_id IN(SELECT b_review_id
+	    				 FROM review
+	    				 WHERE u_id=#{u_id}
+	    				 OR u_s_id IN(SELECT u_s_id
+	    				   			  FROM users_seller
+	    				   			  WHERE u_id=#{u_id}))
+  </delete>
 
-    <delete id="deleteReview" parameterType="String">
-      DELETE FROM review 
-      WHERE u_id=#{u_id} 
-      OR u_s_id IN(SELECT u_s_id
-       			   FROM users_seller
-        		   WHERE u_id=#{u_id})
-    </delete>
+  <delete id="deleteReview" parameterType="String">
+	DELETE FROM review 
+	WHERE u_id=#{u_id} 
+	OR u_s_id IN(SELECT u_s_id
+       			 FROM users_seller
+        		 WHERE u_id=#{u_id})
+  </delete>
 
-	<delete id="deleteBoardOption" parameterType="string">
-	  DELETE FROM board_option
-	  WHERE b_id IN(SELECT b_id
-	  				FROM board
-	  				WHERE u_s_id IN(SELECT u_s_id
-	  								FROM users_seller
-	  								WHERE u_id=#{u_id}))
-	</delete>
+  <delete id="deleteBoardOption" parameterType="string">
+	DELETE FROM board_option
+	WHERE b_id IN(SELECT b_id
+	  			  FROM board
+	  			  WHERE u_s_id IN(SELECT u_s_id
+	  							  FROM users_seller
+	  							  WHERE u_id=#{u_id}))
+  </delete>
 
-    <delete id="deleteBoardImage" parameterType="string">
-      DELETE FROM board_image
-  	  WHERE b_id IN(SELECT b_id FROM board
-  	  				WHERE u_s_id IN(SELECT u_s_id
-  	  				 				FROM users_seller
-  	  				 				WHERE u_id=#{u_id}))
-    </delete>
+  <delete id="deleteBoardImage" parameterType="string">
+	DELETE FROM board_image
+	WHERE b_id IN(SELECT b_id
+				  FROM board
+  	  			  WHERE u_s_id IN(SELECT u_s_id
+  	  				 			  FROM users_seller
+  	  				 			  WHERE u_id=#{u_id}))
+  </delete>
 
-    <delete id="deleteBoard" parameterType="String">
-      DELETE FROM board 
-      WHERE u_s_id IN(SELECT u_s_id
-        			  FROM users_seller
-        			  WHERE u_id=#{u_id})
-    </delete>
+  <delete id="deleteBoard" parameterType="String">
+	DELETE FROM board 
+	WHERE u_s_id IN(SELECT u_s_id
+					FROM users_seller
+					WHERE u_id=#{u_id})
+  </delete>
 
-    <delete id="deleteUsersSeller" parameterType="String">
-      DELETE FROM users_seller
-      WHERE u_id=#{u_id}
-    </delete>
+  <delete id="deleteUsersSeller" parameterType="String">
+	DELETE FROM users_seller
+	WHERE u_id=#{u_id}
+  </delete>
 
-    <delete id="deleteUsers" parameterType="String">
-      DELETE FROM users
-      WHERE u_id=#{u_id}
-    </delete>
+  <delete id="deleteUsers" parameterType="String">
+	DELETE FROM users
+	WHERE u_id=#{u_id}
+  </delete>
     
-    <!-- 셀러 여부 확인 -->
-    <select id="usersSellerCheck" resultType="int" parameterType="string">
-      SELECT COUNT(*) 
-      FROM users_seller
-      WHERE u_id=#{u_id}
-    </select>
+  <!-- 셀러 여부 확인 -->
+  <select id="usersSellerCheck" resultType="int" parameterType="string">
+	SELECT COUNT(*) 
+	FROM users_seller
+	WHERE u_id=#{u_id}
+  </select>
 </mapper>

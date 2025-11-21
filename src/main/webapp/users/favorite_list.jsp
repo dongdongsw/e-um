@@ -16,7 +16,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   gap: 40px;
 }
 
-/* ===== 좌측 메뉴 ===== */
 .sidebar {
   border-right: 1px solid #e5e7eb;
   padding-right: 24px;
@@ -53,7 +52,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   background: #f9fafb;
 }
 
-/* ===== 오른쪽 본문 ===== */
 .content {
   background: #fff;
 }
@@ -65,7 +63,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   color: black;
 }
 
-/* 즐겨찾기 리스트 */
 .favorites-list {
   display: flex;
   flex-direction: column;
@@ -158,7 +155,6 @@ body {background-color: #fff !important; margin: 0; padding: 0;}
   border-color: #d1d5db;
 }
 
-/* 빈 상태 */
 .empty-state {
   text-align: center;
   padding: 100px 20px;
