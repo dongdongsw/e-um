@@ -549,24 +549,31 @@ function toggleContent(el) {
 			                </tbody>
 			              </table>
 			              <nav aria-label="Table Paging" class="my-3">
-				                <ul class="pagination justify-content-end mb-0">
-				                   <c:if test="${OstartPage > 1 }">
-				                     <li class="page-item">
-				                     	<a class="page-link" href="../admin/admin_seller_detail.eum?Opage=${OstartPage-1 }&u_s_id=${seller_vo.u_s_id}#contact">&lt;</a>
-				                     </li>
-				                   </c:if>
-				                   <c:forEach var="i" begin="${OstartPage }" end="${OendPage }">
-				                     <li class="page-item ${i==Ocurpage?'active':'' }" >
-				                     	<a class="page-link" href="../admin/admin_seller_detail.eum?Opage=${i }&u_s_id=${seller_vo.u_s_id}#contact">${i }</a>
-				                     </li>
-				                   </c:forEach>  
-				                   <c:if test="${OendPage < Ototalpage }">
-				                     <li class="page-item">
-				                     <a class="page-link" href="../admin/admin_seller_detail.eum?Opage=${OendPage+1 }&u_s_id=${seller_vo.u_s_id}#contact">&gt;</a>
-				                     </li>
-				                   </c:if>
-				                   </ul>
-				              </nav>
+    <ul class="pagination justify-content-end mb-0">
+
+        <c:if test="${OstartPage > 1 }">
+            <li class="page-item">
+                <a class="page-link"
+                   href="../admin/admin_seller_detail.eum?Opage=${OstartPage-1}&page_r=${curpage_r}&u_s_id=${seller_vo.u_s_id}#contact">&lt;</a>
+            </li>
+        </c:if>
+
+        <c:forEach var="i" begin="${OstartPage}" end="${OendPage}">
+            <li class="page-item ${i==Ocurpage?'active':''}">
+                <a class="page-link"
+                   href="../admin/admin_seller_detail.eum?Opage=${i}&page_r=${curpage_r}&u_s_id=${seller_vo.u_s_id}#contact">${i}</a>
+            </li>
+        </c:forEach>
+
+        <c:if test="${OendPage < Ototalpage}">
+            <li class="page-item">
+                <a class="page-link"
+                   href="../admin/admin_seller_detail.eum?Opage=${OendPage+1}&page_r=${curpage_r}&u_s_id=${seller_vo.u_s_id}#contact">&gt;</a>
+            </li>
+        </c:if>
+
+    </ul>
+</nav>
               			</div>
                       </div>
                     </div>

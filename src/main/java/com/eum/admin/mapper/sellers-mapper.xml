@@ -172,9 +172,13 @@
 			p.pay_id, p.pay_method, p.status, p.merchant_uid, u.u_nickname, u.u_id,
 			r.rf_id, r.rf_amount, r.rf_reason, r.rf_status, r.rf_requestedat, r.rf_completedat
 		FROM orders o
-		LEFT JOIN payment p ON o.o_id = p.o_id
+		LEFT JOIN payment p 
+		    ON p.o_id = o.o_id
+		   AND p.pay_id = (SELECT MAX(pay_id) FROM payment WHERE o_id = o.o_id)
 		LEFT JOIN users u ON u.u_id = o.o_u_id
-		LEFT JOIN refund r ON r.pay_id = p.pay_id
+		LEFT JOIN refund r 
+		    ON r.pay_id = p.pay_id
+		    AND r.rf_id = (SELECT MAX(rf_id) FROM refund WHERE pay_id = p.pay_id)
 		LEFT JOIN board_option bo ON o.b_op_id = bo.b_op_id
     	LEFT JOIN board b ON b.b_id = bo.b_id
     	LEFT JOIN users_seller us ON us.u_s_id = b.u_s_id

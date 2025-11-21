@@ -120,7 +120,7 @@ public class Admin_Seller_Model {
 		int curpage_r = Integer.parseInt(page_r);
 		int Ocurpage = Integer.parseInt(Opage);
 		int start_r = (rowSize_r*curpage_r)-(rowSize_r-1);
-		int Ostart = (OrowSize*Ocurpage)-(OrowSize-1);
+		int Ostart = (Ocurpage-1)*OrowSize;
 		int end_r = rowSize_r*curpage_r;
 		
 		Map map_r = new HashMap();
