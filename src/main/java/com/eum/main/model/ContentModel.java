@@ -10,7 +10,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.eum.main.vo.*;
-import com.eum.pay.dao.LikeDAO;
 import com.eum.users.dao.FavoriteDAO;
 import com.eum.main.dao.ContentDAO;
 import com.sist.controller.Controller;
