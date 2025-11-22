@@ -20,6 +20,5 @@
 
 </style>
 </head>
-<body>
 
 <jsp:include page="slidebar.jsp" />

@@ -28,7 +28,7 @@ public class Admin_Orders_Model {
 		
 		Map map = new HashMap();
 		
-		int rowSize=11;
+		int rowSize=12;
 		int curpage = Integer.parseInt(page);
 		int start = (rowSize*curpage)-(rowSize-1);
 		int end = rowSize*curpage;

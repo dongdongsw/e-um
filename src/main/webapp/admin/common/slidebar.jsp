@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
+<style>  
+
+ body.collapsed #leftSidebar .navbar-brand {
+    visibility: hidden;
+}
+</style>
+
+
 <body class="vertical light">
     <div class="wrapper">
 
@@ -29,9 +38,11 @@
 
       <!-- 왼쪽 슬라이드바 -->
       <aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
-        <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3">
-          <i class="fe fe-x"></i>
-        </a>
+        <a href="#" 
+   class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" 
+   id="sidebarCloseBtn">
+  <i class="fe fe-x"></i>
+</a>
 
         <nav class="vertnav navbar navbar-light">
 
@@ -100,13 +111,6 @@
               </a>
             </li>
 
-            <li class="nav-item w-100">
-              <a class="nav-link" href="../admin/admin_chat.eum">
-                <i class="fe fe-message-square fe-16"></i>
-                <span class="ml-3 item-text">채팅</span>
-              </a>
-            </li>
-
           </ul>
 
         </nav>
@@ -114,8 +118,8 @@
 
     </div> <!-- wrapper 끝 -->
 
-    <!-- 필수 스크립트만 유지 -->
-     <script src="js/jquery.min.js"></script>
+
+	<script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -149,11 +153,24 @@
     <script src='js/quill.min.js'></script>
     
     
-    
 <script>
   $("#modeSwitcher").on("click", function (e) {
     e.preventDefault();
     modeSwitch();
+  });
+  
+  function toggleSidebar() {
+    $("body").toggleClass("collapsed");
+  }
+
+  $(".collapseSidebar").on("click", function (e) {
+    e.preventDefault();
+    toggleSidebar();
+  });
+
+  $("#sidebarCloseBtn").on("click", function (e) {
+    e.preventDefault();
+    toggleSidebar();
   });
 </script>
 </body>

@@ -4,6 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<link rel="icon" href="../images/icon_logo.png"/>
+<link rel="apple-touch-icon" href="../images/icon_logo.png"/>
 <title>이음 관리자</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,6 +22,8 @@
 
 <!-- Select2 (몇몇 페이지에서 사용) -->
 <link rel="stylesheet" href="css/select2.css">
+<!-- Simple bar CSS -->
+<link rel="stylesheet" href="css/simplebar.css">
 
 <!-- Date Range Picker -->
 <link rel="stylesheet" href="css/daterangepicker.css">
