@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.admin.mapper.admin-mapper">
-	<select id="adminUsersListData">
-	
-	</select>
-	
-	<select id="adminSellerListData">
-	
-	</select>
-	
-	<select id="adminContentsListData">
-	
-	</select>
-	
-	<select id="adminOredersListData">
-	
-	</select>
 	
 	<select id="adminnoticeListData" resultType="NoticeVO" parameterType="map">
 	  SELECT n_id, n_title, n_createdAt, n_updatedAt

@@ -622,7 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <!-- ***** Menu Start ***** -->
 
                     <ul class="nav">
-                        <c:if test="${sessionScope.role == ROLE_ADMIN && sessionScope.id!=null }">
+                        <c:if test="${sessionScope.role == 'ROLE_ADMIN' && sessionScope.id!=null }">
                     		<li><a href="../admin/admin_main.eum">관리자</a></li>
                     	</c:if>
                         <c:if test="${sessionScope.sid==0 && sessionScope.id!=null}">

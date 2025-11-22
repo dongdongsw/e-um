@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eum.admin.mapper.contents-mapper">
+
 	<resultMap id="BoardWithSellerMap" type="BoardVO">
-		<!-- contentVO기본 컬럼 -->
 		<id property="b_id" column="b_id"/>
 		<result property="u_s_id" column="b_u_s_id"/>
 		<result property="b_filter" column="b_filter"/>
@@ -19,7 +19,6 @@
 		<association property="usvo" javaType="Users_SellerVO">
 			<id property="u_s_id" column="us_u_s_id"/>
 			<result property="u_s_com" column="u_s_com" />
-		
 		</association>
 	</resultMap>
 
@@ -157,6 +156,4 @@
 				OR us.u_s_com LIKE '%'||#{keyword}||'%'
 			)
 	</select>
-	
-	
 </mapper>

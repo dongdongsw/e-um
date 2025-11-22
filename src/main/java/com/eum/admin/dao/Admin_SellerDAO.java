@@ -11,8 +11,6 @@ import com.eum.commons.CreateSqlSessionFactory;
 import com.eum.main.vo.BoardVO;
 import com.eum.main.vo.OrdersVO;
 import com.eum.main.vo.ReviewVO;
-import com.eum.main.vo.Review_ImageVO;
-import com.eum.main.vo.UsersVO;
 import com.eum.main.vo.Users_SellerVO;
 
 public class Admin_SellerDAO {

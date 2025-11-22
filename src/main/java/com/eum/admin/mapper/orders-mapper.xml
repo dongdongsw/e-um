@@ -31,8 +31,6 @@
 		</association>
   </resultMap>
   
-  
-  
 	<!-- <주문> 리스트  -->
 	<select id="ordersListData" resultMap="ordersMap" parameterType="hashmap">
 		SELECT o.o_id, o.o_total_price, o.o_status, o.o_createdat,

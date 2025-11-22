@@ -50,8 +50,4 @@ public class Admin_Main_Model {
 		request.setAttribute("admin_main_jsp", "admin_dashboard.jsp");
 		return "../admin/common/admin_main.jsp";
 	}
-	
-
-	
-	
 }
