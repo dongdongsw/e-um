@@ -1,4 +1,3 @@
-![증명사진](https://github.com/user-attachments/assets/eb3fda93-d543-4b50-ba45-1569fc54f9b3)
 
 <a href="https://club-project-one.vercel.app/" target="_blank">
 <img src="https://github.com/user-attachments/assets/004bb563-09e0-4f39-a887-bd6b4fb64e60" alt="배너" width="100%"/>
@@ -115,6 +114,7 @@
 <br/>
 <br/>
 
+
 # 5. Project Structure (프로젝트 구조)
 ```plaintext
 project/
@@ -149,8 +149,6 @@ project/
 ```
 
 <br/>
-<br/>
-
 
 # 6. Development Workflow (개발 워크플로우)
 ## 브랜치 전략 (Branch Strategy)
@@ -168,6 +166,31 @@ project/
   - default_(name) Branch 에서 최종 검증이 완료되면 default 브랜치로 병합됩니다.
   - 모든 배포는 이 브랜치에서 이루어집니다.
     
+### 브랜치 운영 방식
+ 1. test Branch 생성
+      - 프로젝트 주요 기능을 개발하기 위한 최초 기능 브랜치 생성
+      
+ 2. test_(기능별) Branch 분리
+      - test Branch를 기준으로 기능별로 세분화된 test_(기능별) Branch를 생성하여 병렬 개발 진행
+      - 예 : test_notice, test_user 등
+
+ 3. default Branch 생성 및 중간 통합
+      - test_(기능별) 단계에서 개발된 기능을 통합하기 위해 default 브랜치 생성
+      - 기능별 브랜치에서 구현한 내용을 default 브랜치에 병합하여 중간 점검 및 검증 수행
+      - 중간 통합 이후 역할별 최종 마무리 및 안정화를 위해 팀원별로 default_(name) 브랜치로 분리
+      - 예 : default_kim, default_esu 등
+      - 최종 개선 작업 완료 후 default_(name) 브랜치를 다시 default 브랜치에 병합
+      
+ 4. 최종 병합
+      - 모든 기능 및 안정화 작업이 완료되면 default 브랜치를 최종 통합 버전으로 확정하고 완성본을 구성
+
+ #### 이와같은 브랜치 전략을 적용한 이유는 다음과 같습니다.
+  1. 기능별 개발을 병렬로 진행하여 프로젝트의 전체 개발 속도 향상을 위해
+  2. 기초 개발 -> 기능 개발 -> 중간 통합 -> 안정화의 단계를 명확하게 나누어 병합 충돌을 최소화 하기 위해
+  3. 브랜치가 역할별로 명확히 구분되어있어 롤백이 쉽고 이슈 추적이 용이하기 때문에
+  4. 최종적으로 default 브랜치를 통해 항상 배포가 가능한 상태를 유지하기 위해
+<br/>
+
 ### 브랜치 운영 방식
  1. test Branch 생성
       - 프로젝트 주요 기능을 개발하기 위한 최초 기능 브랜치 생성
