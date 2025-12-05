@@ -25,7 +25,7 @@
 # 2. Team Members (팀 소개 및 담당)
 | 서동현 | 김민석 | 이철우 | 이수현 | 지은표 |
 |:------:|:------:|:------:|:------:|:------:|
-| <img src="https://github.com/user-attachments/assets/607b87ba-70a9-4ef8-bc4f-18ea589e8605" alt="서동현" width="150"> | <img src="https://github.com/user-attachments/assets/12fede68-9bb5-4f1f-ba93-d80099762940" alt="김민석" width="150"> | <img src="https://github.com/user-attachments/assets/12fede68-9bb5-4f1f-ba93-d80099762940" alt="이철우" width="150"> | <img src="https://github.com/user-attachments/assets/12fede68-9bb5-4f1f-ba93-d80099762940" alt="이수현" width="150"> | <img src="https://github.com/user-attachments/assets/80048128-750d-44e0-983f-281788cb6b27" alt="지은표" width="150"> |
+| <img src="https://github.com/user-attachments/assets/607b87ba-70a9-4ef8-bc4f-18ea589e8605" alt="서동현" width="150"> | <img src="https://github.com/user-attachments/assets/12fede68-9bb5-4f1f-ba93-d80099762940" alt="김민석" width="150"> | <img src="https://github.com/user-attachments/assets/34869d78-b082-483e-83b3-59fc7fd7cbe4" alt="이철우" width="150"> | <img src="https://github.com/user-attachments/assets/12fede68-9bb5-4f1f-ba93-d80099762940" alt="이수현" width="150"> | <img src="https://github.com/user-attachments/assets/80048128-750d-44e0-983f-281788cb6b27" alt="지은표" width="150"> |
 | 팀장 | 부팀장 | 팀원 | 팀원 | 팀원 |
 | [GitHub](https://github.com/dongdongsw) | [GitHub](https://github.com/mind0ry) | [GitHub](https://github.com/tkman904) | [GitHub](https://github.com/1eesuhyun) | [GitHub](https://github.com/jieunpyo) |
 | 팀리딩, 커뮤니케이션<br>관리자 페이지 | 회원가입<br>셀러가입<br>리뷰<br>셀러 페이지 | 로그인<br>아이디 / 비밀번호 찾기<br>즐겨찾기<br>마이 페이지 | 메인 페이지<br>공지사항 게시판<br>검색 | 결제<br>환불<br>좋아요 |
@@ -71,75 +71,45 @@
 <br/>
 
 # 4. Technology Stack (기술 스택)
-## 4.1 Frontend
-|  |  |
-|-----------------|-----------------|
-| HTML5 | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6935wo8bLZh5FeafJEffqWKDOpNpx6UE5bg&s" alt="HTML5" width="100"> |
-| CSS3 | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiGKmvBNCCpYZYD4n7fPqNOupRhsaBfT3sk4CFMFtseTMmWGQ2jTdpn-lO7uGisRo0IJE&usqp=CAU" alt="CSS3" width="100"> |
-| jQuery | <img src="https://w7.pngwing.com/pngs/265/442/png-transparent-jquery-ui-javascript-web-browser-pasargad-text-trademark-logo-thumbnail.png" alt="jQuery" width="100"> |
-| AJAX | <img src="https://velog.velcdn.com/images/hyo123/post/30050740-ee34-4653-9748-99cbd1429697/image.png" alt="AJAX" width="100"> |
-| JSP | <img src="https://images.velog.io/images/xnfxnf97/post/013b398c-e456-434f-bac7-3a5b17d8e5b6/jsp-logo.png" alt="JSP" width="100"> |
-| JSTL | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJUnUcYWtNr4-0Bj_3RVvunsSc9kpfHEDeEQ&s" alt="JSTL" width="100"> | 
+## 4.1 Back-end
+<div>
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1629972500/noticon/htwpjnfc0hlr1teypbjo.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1659254245/noticon/rj5wzu8zlbf1ddo2u8hq.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1629971717/noticon/ekgsz2bxwksz9xrgwgvx.png" width="80">
+</div>
 
-<br/>
-
-## 4.2 Backend
-|  |  |
-|-----------------|-----------------|
-| Java | <img src="https://i.namu.wiki/i/MuCO_ocla-FyadGnRZytkRLggQOcqxv_hXNjN7aYXDOPivIChJNdiRXp6vwSXbM6GcUL3pVTL-5U5TKQ0f1YhA.svg" alt="Java" width="100"> |
-| Servlets | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9OI-0QJUt_hBcsC701BVY6Umb2miTXP_xXQ&s" alt="Servlets" width="100"> |
-| Apache Tomcat | <img src="https://i.namu.wiki/i/6lrptzn9lwE8XXBNfgAR0ge5K71B1QMn3juHAZZ76kIbfraItWquGenA5wajk-pdnRakY955iUSe7q1zOeHlAA.webp" alt="Apache Tomcat" width="100"> |
-
-<br/>
+## 4.2 Front-end
+<div>
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566995514/noticon/jufppyr8htislboas4ve.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566912109/noticon/puksfce6wca36hes1vom.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1567128552/noticon/mksvojnxnqtvdwrhttce.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1623252802/noticon/dwhdor3qcwlynwmnqsxy.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1592435019/noticon/z0s5osjhwlxpeo6pxslv.png" width="80">
+<img src="https://github.com/user-attachments/assets/22cd04fb-a77e-49a4-824a-f8ff1bd15b5d" width="80">
+</div>
 
 ## 4.3 Database
-|  |  |
-|-----------------|-----------------|
-| Oracle | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVer_wMBRrUuTJfkLE_pq1nZRrlaHrWVkNUA&s" alt="Oracle" width="100"> |
-| MyBatis | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStllEWfdSxfCltz3NBRzVIMcnN8IAGvTmxOg&s" alt="MyBatis" width="100"> |
-
-<br/>
-
-## 4.4 Cooperation
-|  |  |
-|-----------------|-----------------|
-| GitHub | <img src="https://logos-world.net/wp-content/uploads/2020/11/GitHub-Logo.png" alt="GitHub" width="100"> |
-| Notion | <img src="https://designcompass.org/wp-content/uploads/2025/01/logo-notion.png" alt="Notion" width="100"> |
-| Discord | <img src="https://1000logos.net/wp-content/uploads/2021/06/Discord-logo.png" alt="Discord" width="100"> |
-| ERDCloud | <img src="https://cdn-1.webcatalog.io/catalog/erdcloud/erdcloud-icon-filled-256.png?v=1714774277338" alt="ERDCloud" width="100"> |
-| Draw.io | <img src="https://logowik.com/content/uploads/images/drawio7441.logowik.com.webp" alt="Draw.io" width="100"> |
-| Eclipse | <img src="https://e7.pngegg.com/pngimages/95/978/png-clipart-eclipse-foundation-scalable-graphics-jetty-eclipse-purple-blue.png" alt="Eclipse" width="100"> |
-
-
-<br/>
-<br/>
-
-## ⚙ 기술 스택
-> skills 폴더에 있는 아이콘을 이용할 수 있습니다.
-### Back-end
 <div>
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Java.png?raw=true" width="80">
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/SpringBoot.png?raw=true" width="80">
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/SpringSecurity.png?raw=true" width="80">
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/SpringDataJPA.png?raw=true" width="80">
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Mysql.png?raw=true" width="80">
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Ajax.png?raw=true" width="80">
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Thymeleaf.png?raw=true" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1571879098/noticon/n94bmga5jrpl8kscivbj.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1592435324/noticon/judba41udt3wtirdj4ek.png" width="80">
 </div>
 
-### Infra
+## 4.4 Tools
 <div>
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/AWSEC2.png?raw=true" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1687026651/noticon/wsqz7rbeefmdsptsvkfw.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1681787748/noticon/gnmvks5kewb4rorwqj3k.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1592435210/noticon/fxihf9erzlrlinozxn9i.png" width="80">
 </div>
 
-### Tools
+## 4.5 Communication
 <div>
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Github.png?raw=true" width="80">
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Notion.png?raw=true" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566899596/noticon/slhw4nu8hybreryigopq.png" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" width="80">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1640152045/noticon/albswwsjaaxvxbyhmwig.png" width="80">
 </div>
 
-<br />
-
+<br/>
+<br/>
 
 # 5. Project Structure (프로젝트 구조)
 ```plaintext
