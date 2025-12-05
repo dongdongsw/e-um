@@ -30,9 +30,15 @@
 | [GitHub](https://github.com/dongdongsw) | [GitHub](https://github.com/mind0ry) | [GitHub](https://github.com/tkman904) | [GitHub](https://github.com/1eesuhyun) | [GitHub](https://github.com/jieunpyo) |
 | 팀리딩, 커뮤니케이션<br>관리자 대시보드<br>(통계,회원,컨텐츠,<br>셀러,리뷰,주문)| 회원가입<br>셀러가입<br>리뷰<br>셀러 페이지 | 로그인<br>아이디 / 비밀번호 찾기<br>즐겨찾기<br>마이 페이지 | 메인 페이지<br>공지사항 게시판<br>검색 | 결제<br>환불<br>좋아요 |
 <br/>
+
 <br/>
 
-# 3. Key Features (주요 기능)
+# 3. 프로젝트 기간
+
+<img width="1124" height="589" alt="image" src="https://github.com/user-attachments/assets/b76c0ad1-56b1-4c19-be48-9aa4fc3bea39" />
+
+
+# 4. Key Features (주요 기능)
 ## 🏠 메인 페이지
 - 주요 컨텐츠 카드 뉴스 제공(인기 · 추천 · 신규 셀러)
 - 카테고리별 탐색 기능
@@ -70,15 +76,15 @@
 <br/>
 <br/>
 
-# 4. Technology Stack (기술 스택)
-## 4.1 Back-end
+# 5. Technology Stack (기술 스택)
+## 5.1 Back-end
 <div>
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1629972500/noticon/htwpjnfc0hlr1teypbjo.png" width="60">
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1659254245/noticon/rj5wzu8zlbf1ddo2u8hq.png" width="60">
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1629971717/noticon/ekgsz2bxwksz9xrgwgvx.png" width="60">
 </div>
 
-## 4.2 Front-end
+## 5.2 Front-end
 <div>
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566995514/noticon/jufppyr8htislboas4ve.png" width="60">
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566912109/noticon/puksfce6wca36hes1vom.png" width="60">
@@ -88,20 +94,20 @@
 <img src="https://github.com/user-attachments/assets/22cd04fb-a77e-49a4-824a-f8ff1bd15b5d" width="60">
 </div>
 
-## 4.3 Database
+## 5.3 Database
 <div>
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1571879098/noticon/n94bmga5jrpl8kscivbj.png" width="60">
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1592435324/noticon/judba41udt3wtirdj4ek.png" width="60">
 </div>
 
-## 4.4 Tools
+## 5.4 Tools
 <div>
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1687026651/noticon/wsqz7rbeefmdsptsvkfw.png" width="60">
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1681787748/noticon/gnmvks5kewb4rorwqj3k.png" width="50">
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1592435210/noticon/fxihf9erzlrlinozxn9i.png" width="50">
 </div>
 
-## 4.5 Communication
+## 5.5 Communication
 <div>
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566899596/noticon/slhw4nu8hybreryigopq.png" width="50">
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" width="50">
@@ -111,13 +117,13 @@
 <br/>
 <br/>
 
-# 4. Technology Stack (기술 스택)
+# 5. Technology Stack (기술 스택)
 <img width="983" height="440" alt="image-Photoroom (7)" src="https://github.com/user-attachments/assets/569fcd88-61b1-47f1-947c-93915413266c" />
 
 <br/>
 <br/>
 
-# 5. Project Structure (프로젝트 구조)
+# 6. Project Structure (프로젝트 구조)
 ```plaintext
 project/
 ├── eum/
@@ -152,7 +158,7 @@ project/
 
 <br/>
 
-# 6. Development Workflow (개발 워크플로우)
+# 7. Development Workflow (개발 워크플로우)
 ## 브랜치 전략 (Branch Strategy)
 이음 프로젝트의 브랜치 전략은 Feature branch를 기반으로 브랜치를 운영하였습니다.
 
@@ -193,7 +199,7 @@ project/
   4. 최종적으로 default 브랜치를 통해 항상 배포가 가능한 상태를 유지하기 위해
 <br/>
 
-# 7. 화면 구성
+# 8. 화면 구성
 
 | 메인 페이지 | 리스트 페이지(검색, 정렬) | 리뷰 |  
 |:------:|:------:|:------:|
