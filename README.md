@@ -1,7 +1,25 @@
+<p align="right">
+  <a href="https://github.com/user-attachments/files/23964269/-.pdf">
+    <img src="https://img.shields.io/badge/PPT%20바로보기-E7693E?style=for-the-badge&logo=&logoColor=white" alt="PPT 바로보기">
+  </a>
+</p>
 
+<p align="right">
+  <a href="https://verdant-iridium-22e.notion.site/27a54b06a5258008af15ec41470813a2">
+    <img src="https://img.shields.io/badge/노션%20페이지%20바로가기-F0E9FF?style=for-the-badge&logo=&logoColor=white" alt="노션 페이지 바로가기">
+  </a>
+</p>
+
+
+
+
+<h1 align="center">E-UM<br><strong>사람과 사람 사이를 잇다</strong></h1>
+<br/>
 <a href="https://club-project-one.vercel.app/" target="_blank">
 <img src="https://github.com/user-attachments/assets/004bb563-09e0-4f39-a887-bd6b4fb64e60" alt="배너" width="100%"/>
 </a>
+
+
 
 <br/>
 <br/>
@@ -18,9 +36,6 @@
 4. 누구나 가지고 있는 사소한 재능도 가치가 되는 곳
 
 <br/>
-<br/>
-
-
 
 # 2. Team Members (팀 소개 및 담당)
 | 서동현 | 김민석 | 이철우 | 이수현 | 지은표 |
@@ -29,6 +44,8 @@
 | 팀장 | 부팀장 | 팀원 | 팀원 | 팀원 |
 | [GitHub](https://github.com/dongdongsw) | [GitHub](https://github.com/mind0ry) | [GitHub](https://github.com/tkman904) | [GitHub](https://github.com/1eesuhyun) | [GitHub](https://github.com/jieunpyo) |
 | 팀리딩, 커뮤니케이션<br>관리자 대시보드<br>(통계,회원,컨텐츠,<br>셀러,리뷰,주문)| 회원가입<br>셀러가입<br>리뷰<br>셀러 페이지 | 로그인<br>아이디 / 비밀번호 찾기<br>즐겨찾기<br>마이 페이지 | 메인 페이지<br>공지사항 게시판<br>검색 | 결제<br>환불<br>좋아요 |
+
+
 <br/>
 
 <br/>
