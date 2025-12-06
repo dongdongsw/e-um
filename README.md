@@ -40,7 +40,7 @@
 # 2. Team Members (팀 소개 및 담당)
 | 서동현 | 김민석 | 이철우 | 이수현 | 지은표 |
 |:------:|:------:|:------:|:------:|:------:|
-| <img src="https://github.com/user-attachments/assets/607b87ba-70a9-4ef8-bc4f-18ea589e8605" alt="서동현" width="200"> | <img src="https://github.com/user-attachments/assets/12fede68-9bb5-4f1f-ba93-d80099762940" alt="김민석" width="200"> | <img src="https://github.com/user-attachments/assets/34869d78-b082-483e-83b3-59fc7fd7cbe4" alt="이철우" width="200"> | ![지은표_사진](https://github.com/user-attachments/assets/ab9f3c42-b6ea-4306-b0a3-2f0b14cd0762) |
+| <img src="https://github.com/user-attachments/assets/607b87ba-70a9-4ef8-bc4f-18ea589e8605" alt="서동현" width="200"> | <img src="https://github.com/user-attachments/assets/12fede68-9bb5-4f1f-ba93-d80099762940" alt="김민석" width="200"> | <img src="https://github.com/user-attachments/assets/34869d78-b082-483e-83b3-59fc7fd7cbe4" alt="이철우" width="200"> | <img src="https://github.com/user-attachments/assets/12fede68-9bb5-4f1f-ba93-d80099762940" alt="지은표" width="200"> |
 | 팀장 | 부팀장 | 팀원 | 팀원 | 팀원 |
 | [GitHub](https://github.com/dongdongsw) | [GitHub](https://github.com/mind0ry) | [GitHub](https://github.com/tkman904) | [GitHub](https://github.com/1eesuhyun) | [GitHub](https://github.com/jieunpyo) |
 | 팀리딩, 커뮤니케이션<br>관리자 대시보드<br>(통계,회원,컨텐츠,<br>셀러,리뷰,주문)| 회원가입<br>셀러가입<br>리뷰<br>셀러 페이지 | 로그인<br>아이디 / 비밀번호 찾기<br>즐겨찾기<br>마이 페이지 | 메인 페이지<br>공지사항 게시판<br>검색 | 결제<br>환불<br>좋아요 |
