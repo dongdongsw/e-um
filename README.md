@@ -203,7 +203,7 @@ project/
  3. default Branch 생성 및 중간 통합
       - test_(기능별) 단계에서 개발된 기능을 통합하기 위해 default 브랜치 생성
       - 기능별 브랜치에서 구현한 내용을 default 브랜치에 병합하여 중간 점검 및 검증 수행
-      - 중간 통합 이후 역할별 최종 마무리 및 안정화를 위해 팀원별로 default_(name) 브랜치로 분리
+      - 중간 통합 이후 역할별 최종 마무리 및 안정화를 위해 기능별로 default_(name) 브랜치로 분리
       - 예 : default_kim, default_esu 등
       - 최종 개선 작업 완료 후 default_(name) 브랜치를 다시 default 브랜치에 병합
       
