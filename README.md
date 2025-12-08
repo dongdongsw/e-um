@@ -135,12 +135,6 @@
 <br/>
 <br/>
 
-# 5. Technology Stack (기술 스택)
-<img width="983" height="440" alt="image-Photoroom (7)" src="https://github.com/user-attachments/assets/569fcd88-61b1-47f1-947c-93915413266c" />
-
-<br/>
-<br/>
-
 # 6. Project Structure (프로젝트 구조)
 ```plaintext
 project/
