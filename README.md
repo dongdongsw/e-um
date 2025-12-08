@@ -277,17 +277,17 @@ project/
 |:------:|:------:|:------:|
 | <img width="1919" height="1032" alt="셀러 리스트" src="https://github.com/user-attachments/assets/568f98a1-35bb-4f0e-a555-c9906a8d511f" /> | <img width="1919" height="1032" alt="셀러 리뷰 더보기" src="https://github.com/user-attachments/assets/181ffec2-4473-42fe-a923-66f115c1cd85" /> | <img width="1919" height="1033" alt="셀러 디테일 더보기" src="https://github.com/user-attachments/assets/441fa337-ec4e-41dc-be11-ad1176523686" /> |
 
-| 관리자(유저 리스트 더보기) | 관리자(유저 프로필 더보기) | 관리자(유저 리뷰 더보기) |
-|:------:|:------:|:------:|
-| <img width="1919" height="1033" alt="유저 리스트 더보기" src="https://github.com/user-attachments/assets/92064352-ed14-4f08-8c44-3dd614a6dc72" /> | <img width="1918" height="1032" alt="유저 프로필 더보기" src="https://github.com/user-attachments/assets/f7fbdaeb-b784-4f43-adf9-73c713ed882b" /> | <img width="1918" height="1032" alt="유저 리뷰 더보기" src="https://github.com/user-attachments/assets/d13b8d31-e0d4-4266-a166-f7892c6e0be8" /> |
+| 관리자(유저 리스트 더보기) | 관리자(유저 프로필 더보기) | 
+|:------:|:------:|
+| <img width="1919" height="1033" alt="유저 리스트 더보기" src="https://github.com/user-attachments/assets/92064352-ed14-4f08-8c44-3dd614a6dc72" /> | <img width="1918" height="1032" alt="유저 프로필 더보기" src="https://github.com/user-attachments/assets/f7fbdaeb-b784-4f43-adf9-73c713ed882b" /> |
 
-| 관리자(유저 주문 환불 모달) | 관리자(주문 리스트 더보기) | 관리자(주문 리스트 환불 모달 상태 변경) |
-|:------:|:------:|:------:|
-| <img width="1919" height="1032" alt="유저 주문 환불 모달" src="https://github.com/user-attachments/assets/60226993-f7cd-4edc-ac39-f79b9359f587" /> | <img width="1919" height="1033" alt="주문 리스트 더보기" src="https://github.com/user-attachments/assets/62656fe9-89ea-4ab5-b012-a664e748a905" /> | <img width="1919" height="1033" alt="주문 리스트 환불 모달 상태 변경" src="https://github.com/user-attachments/assets/cc335346-26ed-4e17-b72c-4db26f6c9432" /> |
+| 관리자(주문 리스트 더보기) | 관리자(주문 리스트 환불 모달 상태 변경) |
+|:------:|:------:|
+| <img width="1919" height="1033" alt="주문 리스트 더보기" src="https://github.com/user-attachments/assets/62656fe9-89ea-4ab5-b012-a664e748a905" /> | <img width="1919" height="1033" alt="주문 리스트 환불 모달 상태 변경" src="https://github.com/user-attachments/assets/cc335346-26ed-4e17-b72c-4db26f6c9432" /> |
 
-| 관리자(컨텐츠 리스트 더보기) | 관리자(컨텐츠 디테일 판매중) | 관리자(컨텐츠 디테일 판매중지) |
-|:------:|:------:|:------:|
-| <img width="1919" height="1033" alt="컨텐츠 리스트 더보기" src="https://github.com/user-attachments/assets/09cb3ab0-abd0-4457-81ad-6f30f040f5fd" /> | <img width="1919" height="1033" alt="컨텐츠 디테일 판매중" src="https://github.com/user-attachments/assets/67cf0156-a88e-4828-a582-5c26915614f0" /> | <img width="1919" height="1032" alt="컨텐츠 디테일 판매중지" src="https://github.com/user-attachments/assets/e161eeaf-08cb-4b81-adb2-3ac6f239a902" /> |
+| 관리자(컨텐츠 리스트 더보기) | 관리자(컨텐츠 디테일 판매중) | 
+|:------:|:------:|
+| <img width="1919" height="1033" alt="컨텐츠 리스트 더보기" src="https://github.com/user-attachments/assets/09cb3ab0-abd0-4457-81ad-6f30f040f5fd" /> | <img width="1919" height="1033" alt="컨텐츠 디테일 판매중" src="https://github.com/user-attachments/assets/67cf0156-a88e-4828-a582-5c26915614f0" /> 
 
 
 <br/>
