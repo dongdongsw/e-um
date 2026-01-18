@@ -40,7 +40,7 @@
 # 2. Team Members (팀 소개 및 담당)
 | 서동현 | 김민석 | 이철우 | 이수현 | 지은표 |
 |:------:|:------:|:------:|:------:|:------:|
-| <img src="https://github.com/user-attachments/assets/607b87ba-70a9-4ef8-bc4f-18ea589e8605" alt="서동현" width="200"> | <img src="https://github.com/user-attachments/assets/d1d8517e-1202-4e0a-bbd9-ee9ff6c35fb5" alt="김민석" width="200"> | <img src="https://github.com/user-attachments/assets/5209af98-f300-4347-8f48-6f8bf30f2508"> | <img src="https://github.com/user-attachments/assets/38590d0a-c6fd-480b-bd1b-2bc2d4c044f1" alt="이수현" width="200"> | <img src="https://github.com/user-attachments/assets/56948f13-8e0a-4846-98c1-7f6be56843b4" alt="지은표_사진" width="200"> |
+| <img src="https://github.com/user-attachments/assets/607b87ba-70a9-4ef8-bc4f-18ea589e8605" alt="서동현" width="200"> | <img src="https://github.com/user-attachments/assets/d1d8517e-1202-4e0a-bbd9-ee9ff6c35fb5" alt="김민석" width="200"> | <img src="https://github.com/user-attachments/assets/5209af98-f300-4347-8f48-6f8bf30f2508" alt="이철우" width="200"> | <img src="https://github.com/user-attachments/assets/38590d0a-c6fd-480b-bd1b-2bc2d4c044f1" alt="이수현" width="200"> | <img src="https://github.com/user-attachments/assets/56948f13-8e0a-4846-98c1-7f6be56843b4" alt="지은표_사진" width="200"> |
 | 팀장 | 부팀장 | 팀원 | 팀원 | 팀원 |
 | [GitHub](https://github.com/dongdongsw) | [GitHub](https://github.com/mind0ry) | [GitHub](https://github.com/tkman904) | [GitHub](https://github.com/1eesuhyun) | [GitHub](https://github.com/jieunpyo) |
 | 팀 리딩<br>커뮤니케이션<br>관리자 대시보드<br>(통계,회원,컨텐츠,<br>셀러,리뷰,주문)| 회원가입<br>셀러가입<br>리뷰<br>셀러 페이지 | 로그인<br>아이디 / 비밀번호 찾기<br>즐겨찾기<br>마이 페이지 | 메인 페이지<br>공지사항 게시판<br>검색 | 결제<br>환불<br>좋아요 |
